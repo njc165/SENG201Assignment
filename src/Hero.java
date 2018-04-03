@@ -77,7 +77,15 @@ public class Hero {
 //	 */
 //	private HealingItem appliedHealingItem;
 	
-	
+	/**
+	 * Constructor called from the constructors of each Hero subclass.
+	 * Initialises the instance variables of the hero to the values defined in that subclass.
+	 * @param name	The name of the player assigned to the hero.
+	 * @param type	The type of the Hero subclass.
+	 * @param specialAbility	The special ability of the Hero subclass.
+	 * @param description	The String description of the Hero subclass.
+	 * @param maxHealth	The maximum health of the Hero subclass.
+	 */
 	public Hero(String name, String type, String specialAbility, String description, double maxHealth) {
 		this.name = name;
 		this.type = type;
