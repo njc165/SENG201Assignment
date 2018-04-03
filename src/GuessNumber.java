@@ -103,7 +103,7 @@ public class GuessNumber {
 	 * @return	The random number.
 	 */
 	private int getNumberToGuess() {
-		System.out.println(String.format("%s has chosen a number between 1 and %s.",
+		System.out.println(String.format("%s has chosen a number between 1 and %s.\n",
 				villain.getName(), MAX_NUMBER_TO_BE_GUESSED));
 		Random generator = new Random();
 		return generator.nextInt(MAX_NUMBER_TO_BE_GUESSED) + 1;

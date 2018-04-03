@@ -6,10 +6,10 @@ public class PaperScissorsRock {
 	/**
 	 * The possible choices in a game of PaperScissorsRock.
 	 */
-	private static final String[] choices = {"Paper", "Scissors", "Rock"};
+	private static final String[] CHOICES = {"Paper", "Scissors", "Rock"};
 	
 	/**
-	 * An ArrayList of power-ups which are relevant to Paper Scissors Rock.
+	 * An array of power-ups which are relevant to Paper Scissors Rock.
 	 */
 	//private static final PowerUp[] relevantPowerUps = {tiebreaker, mindreader}
 
@@ -58,33 +58,23 @@ public class PaperScissorsRock {
 		boolean gameConcluded = false;
 		
 		while (!gameConcluded) {
-			int randNum = rand.nextInt(choices.length);
-			String villainChoice = choices[randNum];
-			//missing functionality: hero power-ups.
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Select a number to play paper, scissors, or rock:\n\n1: Paper\n2: Scissors\n3: Rock\n");
+			int randNum = rand.nextInt(CHOICES.length);
+			String villainChoice = "Paper";
+//			String villainChoice = CHOICES[randNum];
+			//missing functionality: hero power-ups.			
 			
-			boolean validInput = false;
 			String heroChoice = null;
+			int input = Util.getIntFromUser(3, "Select a number to play paper, scissors, or rock:\n1: Paper\n2: Scissors\n3: Rock");
 			
-			while (!validInput) {
-				int input = sc.nextInt();
-				switch (input) {
-					case 1: heroChoice = "Paper";
-							validInput = true;
-							break;
-					case 2: heroChoice = "Scissors";
-							validInput = true;
-							break;
-					case 3: heroChoice = "Rock";
-							validInput = true;
-							break;
-					default:System.out.println("Invalid input. Enter 1 for paper, 2 for scissors, or 3 for rock.");
-				}
+			switch (input) {
+				case 1: heroChoice = "Paper";
+						break;
+				case 2: heroChoice = "Scissors";
+						break;
+				case 3: heroChoice = "Rock";
+						break;
 			}
-			
-			sc.close();
-			
+						
 			System.out.println("You played " + heroChoice + ". " + villain.getName() + " played " + villainChoice + ".");
 			
 			String gameOutcome = computeOutcome(heroChoice, villainChoice);
@@ -99,8 +89,7 @@ public class PaperScissorsRock {
 				System.out.println("You lost!");
 				gameConcluded = true;
 			} else {
-				System.out.println("Unexpected game outcome. Error in PaperScissorsRock.java");
-				throw new RuntimeException();
+				throw new RuntimeException("Unexpected game outcome");
 			}
 		}
 		
