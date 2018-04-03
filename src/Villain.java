@@ -53,6 +53,14 @@ public class Villain {
 	}	
 	
 	/**
+	 * Getter method for name.
+	 * @return The value of name.
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
 	 * Get a random game from the list of games the villain can play.
 	 * @return	A game of the enum type MiniGame.
 	 */
