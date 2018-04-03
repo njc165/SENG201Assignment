@@ -31,11 +31,11 @@ class VillainTest {
 	@Test
 	void testGetGame() {
 		// If villain only plays one game, test that getGame() returns this game.
-		Villain villain1 = new Villain("", "", 0, new MiniGame[]{MiniGame.PAPER_SCISSORS_ROCK});
-		assertEquals(MiniGame.PAPER_SCISSORS_ROCK, villain1.getGame());
+		Villain villain1 = new Villain("", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
+		assertEquals(MiniGames.PAPER_SCISSORS_ROCK, villain1.getGame());
 		
 		// If villain plays several games, test that getGame() returns one of these games.
-		MiniGame[] games = new MiniGame[]{MiniGame.PAPER_SCISSORS_ROCK, MiniGame.GUESS_NUMBER, MiniGame.DICE_ROLL};
+		MiniGames[] games = new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK, MiniGames.GUESS_NUMBER, MiniGames.DICE_ROLLS};
 		Villain villain2 = new Villain("", "", 0, games);
 		assertTrue(Arrays.asList(games).contains(villain2.getGame()));
 		

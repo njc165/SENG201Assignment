@@ -1,0 +1,3 @@
+public enum MiniGames {
+	PAPER_SCISSORS_ROCK, DICE_ROLLS, GUESS_NUMBER
+}
