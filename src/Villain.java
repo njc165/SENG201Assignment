@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Villain {
 	
 	/**
@@ -43,7 +45,21 @@ public class Villain {
 		this.name = name;
 		this.taunt = taunt;
 		this.damageDealt = damageDealt;
-		this.gamesPlayed = gamesPlayed;
+		
+		if (gamesPlayed.length > 0)
+			this.gamesPlayed = gamesPlayed;
+		else
+			throw new IllegalArgumentException("gamesPlayed array cannot be empty");
+	}	
+	
+	/**
+	 * Get a random game from the list of games the villain can play.
+	 * @return	A game of the enum type MiniGame.
+	 */
+	public MiniGame getGame() {
+		Random generator = new Random();
+		int randomIndex = generator.nextInt(gamesPlayed.length);
+		return gamesPlayed[randomIndex];
 	}
 	
 }
