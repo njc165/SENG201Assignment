@@ -77,6 +77,15 @@ public class Hero {
 //	 */
 //	private HealingItem appliedHealingItem;
 	
+	
+	/**
+	 * A constructor for the Hero class.
+	 * @param name The name of the hero, chosen by the player.
+	 * @param type The type of hero.
+	 * @param specialAbility The hero's special ability.
+	 * @param description A description of the hero's background and abilities.
+	 * @param maxHealth The maximum health the hero can have.
+	 */
 	public Hero(String name, String type, String specialAbility, String description, double maxHealth) {
 		this.name = name;
 		this.type = type;
