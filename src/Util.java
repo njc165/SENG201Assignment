@@ -33,7 +33,7 @@ public class Util {
 	}
 	
 	public static void main(String[] args) {
-		
+		Util.getIntFromUser(5, "Enter number");
 	}
 	
 }

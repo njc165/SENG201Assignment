@@ -69,15 +69,5 @@ public class Villain {
 		int randomIndex = generator.nextInt(gamesPlayed.length);
 		return gamesPlayed[randomIndex];
 	}
-
-	/**
-	 * Getter method for name.
-	 * @return The value of name.
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	
 	
 }
