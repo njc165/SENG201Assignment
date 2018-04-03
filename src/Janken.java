@@ -18,7 +18,7 @@ public class Janken extends Villain {
 	/**
 	 * Array of games the villain could choose to play.
 	 */
-	private static final MiniGame[] GAMES_PLAYED = {MiniGame.PAPER_SCISSORS_ROCK};
+	private static final MiniGames[] GAMES_PLAYED = {MiniGames.PAPER_SCISSORS_ROCK};
 	
 	/**
 	 * A constructor for Janken.

@@ -18,7 +18,7 @@ public class Invictus extends Villain {
 	/**
 	 * Array of games the villain could choose to play.
 	 */
-	private static final MiniGame[] GAMES_PLAYED = {MiniGame.PAPER_SCISSORS_ROCK, MiniGame.GUESS_NUMBER, MiniGame.DICE_ROLL};
+	private static final MiniGames[] GAMES_PLAYED = {MiniGames.PAPER_SCISSORS_ROCK, MiniGames.GUESS_NUMBER, MiniGames.DICE_ROLLS};
 	
 	/**
 	 * A constructor for Invictus.

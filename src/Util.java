@@ -10,25 +10,30 @@ public class Util {
 	 * @return			The valid integer entered by the user.
 	 */
 	public static int getIntFromUser(int maxValue, String prompt) {
+		String invalidInputMessage = String.format("Please enter a number between 1 and %s.", maxValue);
+		if (maxValue == 1)
+			invalidInputMessage = "Please enter 1.";
+				
 		Scanner sc = new Scanner(System.in);
 		int number = -1;
 		boolean isValidInput = false;
-
+		
 		while (!isValidInput) {
 			System.out.println(prompt);
 			
-			if (sc.hasNextInt()) {
-				number = sc.nextInt();
+			String input = sc.nextLine();
+			try {
+				number = Integer.parseInt(input);
+			} catch (NumberFormatException e) {
+			} finally {
 				if (number >= 1 && number <= maxValue) {
 					isValidInput = true;
+				} else {
+					System.out.println(invalidInputMessage);
 				}
-			} else {
-				sc.next();
 			}
-			if (!isValidInput)
-				System.out.println(String.format("Please enter a number between 1 and %s.",
-						maxValue));
 		}
+
 		return number;
 	}
 	

@@ -1,7 +1,6 @@
 import java.util.Random;
-import java.util.Scanner;
 
-public class PaperScissorsRock {
+public class PaperScissorsRock extends MiniGame {
 
 	/**
 	 * The possible choices in a game of PaperScissorsRock.
@@ -12,22 +11,6 @@ public class PaperScissorsRock {
 	 * An array of power-ups which are relevant to Paper Scissors Rock.
 	 */
 	//private static final PowerUp[] relevantPowerUps = {tiebreaker, mindreader}
-
-	/**
-	 * The hero playing Paper Scissors Rock.
-	 */
-	private Hero hero;
-	
-	/**
-	 * The villain playing Paper Scissors Rock.
-	 */
-	private Villain villain;
-	
-	/**
-	 * The result of the game. False for defeat, true for victory.
-	 * Defaults to false.
-	 */
-	private boolean hasWon;
 		
 	/**
 	 * A constructor for PaperScissorsRock.
@@ -35,17 +18,7 @@ public class PaperScissorsRock {
 	 * @param villain The villain playing Paper Scissors Rock.
 	 */
 	public PaperScissorsRock(Hero hero, Villain villain) {
-		this.hero = hero;
-		this.villain = villain;
-		this.hasWon = false;
-	}
-	
-	/**
-	 * Getter method for hasWon.
-	 * @return The value of hasWon.
-	 */
-	public boolean getHasWon() {
-		return hasWon;
+		super(hero, villain);
 	}
 
 	/**
@@ -74,13 +47,13 @@ public class PaperScissorsRock {
 						break;
 			}
 						
-			System.out.println("You played " + heroChoice + ". " + villain.getName() + " played " + villainChoice + ".");
+			System.out.println("You played " + heroChoice + ". " + getVillain().getName() + " played " + villainChoice + ".");
 			
 			String gameOutcome = computeOutcome(heroChoice, villainChoice);
 			
 			if (gameOutcome == "Win") {
 				System.out.println("You won!");
-				this.hasWon = true;
+				setHasWon(true);
 				gameConcluded = true;
 			} else if (gameOutcome == "Draw") {
 				handleDraw();
@@ -169,7 +142,7 @@ public class PaperScissorsRock {
 		}*/
 		
 		//remove the following when PowerUps are implemented.
-		System.out.println("It was a draw! Play again!");
+		System.out.println("It was a draw! Play again!\n");
 		
 	}
 	
