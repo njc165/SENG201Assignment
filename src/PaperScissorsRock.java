@@ -59,8 +59,7 @@ public class PaperScissorsRock {
 		
 		while (!gameConcluded) {
 			int randNum = rand.nextInt(CHOICES.length);
-			String villainChoice = "Paper";
-//			String villainChoice = CHOICES[randNum];
+			String villainChoice = CHOICES[randNum];
 			//missing functionality: hero power-ups.			
 			
 			String heroChoice = null;
