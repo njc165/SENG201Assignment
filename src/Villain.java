@@ -45,5 +45,15 @@ public class Villain {
 		this.damageDealt = damageDealt;
 		this.gamesPlayed = gamesPlayed;
 	}
+
+	/**
+	 * Getter method for name.
+	 * @return The value of name.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	
 	
 }
