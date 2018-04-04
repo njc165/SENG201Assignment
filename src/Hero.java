@@ -155,6 +155,14 @@ public class Hero {
 		}
 		return count;
 	}
+	
+	/**
+	 * Adds the given power-up to the hero's list of active power-ups
+	 * @param powerUp	The power-up to be added.
+	 */
+	public void addPowerUp(PowerUp powerUp) {
+		activePowerUps.add(powerUp);
+	}
 
 	/**
 	 * Getter method for hasStoreDiscount.
@@ -258,14 +266,6 @@ public class Hero {
 	 */
 	public String getName() {
 		return name;
-	}
-	
-	/**
-	 * Setter method for name.
-	 * @param name The new value of name to set.
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	/**
