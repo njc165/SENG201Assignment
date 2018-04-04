@@ -10,6 +10,9 @@ public class Util {
 	 * @return			The valid integer entered by the user.
 	 */
 	public static int getIntFromUser(int maxValue, String prompt) {
+		if (maxValue < 1)
+			throw new IllegalArgumentException("maxValue must be atleast 1");
+		
 		String invalidInputMessage = String.format("Please enter a number between 1 and %s.", maxValue);
 		if (maxValue == 1)
 			invalidInputMessage = "Please enter 1.";

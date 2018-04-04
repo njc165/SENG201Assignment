@@ -19,7 +19,7 @@ public class Merchant extends Hero {
 	/**
 	 * The maximum health the hero can have.
 	 */
-	private static final double MAX_HEALTH = 100;
+	private static final int MAX_HEALTH = 100;
 	
 	/**
 	 * A constructor for the Merchant class.

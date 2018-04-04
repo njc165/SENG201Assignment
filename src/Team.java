@@ -165,7 +165,7 @@ public class Team {
 	 * @param hero 		The hero to take damage.
 	 * @param amount 	The amount of damage to be taken.
 	 */
-	public void takeDamage(Hero hero, double amount) {
+	public void takeDamage(Hero hero, int amount) {
 		if (hero.getHasReducedDamage()) {
 			amount *= Hero.DAMAGE_REDUCTION_MULTIPLIER;
 		}
@@ -173,6 +173,14 @@ public class Team {
 		if (hero.getCurrentHealth() <= 0) {
 			heroes.remove(hero);
 		}
+	}
+	
+	/**
+	 * Getter method for the current number of heroes on the team.
+	 * @return	The number of heroes currently on the team.
+	 */
+	public int getNumHeroes() {
+		return heroes.size();
 	}
 	
 	/**

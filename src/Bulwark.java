@@ -19,7 +19,7 @@ public class Bulwark extends Hero {
 	/**
 	 * The maximum health the hero can have.
 	 */
-	private static final double MAX_HEALTH = 120;
+	private static final int MAX_HEALTH = 120;
 	
 	/**
 	 * A constructor for the Bulwark class.

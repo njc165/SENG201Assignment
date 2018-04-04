@@ -47,14 +47,14 @@ public class Hero {
 	 * The maximum health the hero can have.
 	 * Each subclass of Hero has a different maximum health, between 50 and 120.
 	 */
-	private double maxHealth;
+	private int maxHealth;
 	
 	/**
 	 * The current health of the hero. Initialised to maxHealth when the hero is constructed.
 	 * The value can range from 0 to maxHealth.
 	 * If currentHealth reaches 0, the hero is dead and cannot recover.
 	 */
-	private double currentHealth;
+	private int currentHealth;
 	
 	/**
 	 * Set to true if hero has the special ability "20% store discount".
@@ -107,7 +107,7 @@ public class Hero {
 	 * @param description	The String description of the Hero subclass.
 	 * @param maxHealth	The maximum health of the Hero subclass.
 	 */
-	public Hero(String name, String type, String specialAbility, String description, double maxHealth) {
+	public Hero(String name, String type, String specialAbility, String description, int maxHealth) {
 		this.name = name;
 		this.type = type;
 		this.specialAbility = specialAbility;
@@ -131,7 +131,7 @@ public class Hero {
 			Hero hero = ALL_HEROES[i];
 			int heroNumber = i + 1;
 			
-			returnString += String.format("\n%d: %s\nMax Health: %.0f\nSpecial Ability: %s\n%s",
+			returnString += String.format("\n%d: %s\nMax Health: %s\nSpecial Ability: %s\n%s",
 					heroNumber,
 					hero.getType(),
 					hero.getMaxHealth(),
@@ -288,7 +288,7 @@ public class Hero {
 	 * Getter method for currentHealth.
 	 * @return The value of currentHealth.
 	 */
-	public double getCurrentHealth() {
+	public int getCurrentHealth() {
 		return currentHealth;
 	}
 	
@@ -296,7 +296,7 @@ public class Hero {
 	 * Setter method for currentHealth.
 	 * @param newHealth The new value of currentHealth to set.
 	 */
-	public void setCurrentHealth(double newHealth) {
+	public void setCurrentHealth(int newHealth) {
 		currentHealth = newHealth;
 	}
 	
@@ -304,7 +304,7 @@ public class Hero {
 	 * Getter method for maxHealth.
 	 * @return The value of maxHealth.
 	 */
-	public double getMaxHealth() {
+	public int getMaxHealth() {
 		return maxHealth;
 	}
 	
