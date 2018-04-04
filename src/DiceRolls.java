@@ -124,12 +124,12 @@ public class DiceRolls extends MiniGame{
 		return increase;
 	}
 
-	public static void main(String[] args) {
-//		Merchant hero = new Merchant("");
-		Gambler hero = new Gambler("");
-		Invictus villain = new Invictus();
-		DiceRolls game = new DiceRolls(hero, villain);
-		game.play();
-	}
+//	public static void main(String[] args) {
+////		Merchant hero = new Merchant("");
+//		Gambler hero = new Gambler("");
+//		Invictus villain = new Invictus();
+//		DiceRolls game = new DiceRolls(hero, villain);
+//		game.play();
+//	}
 	
 }
