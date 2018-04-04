@@ -25,9 +25,22 @@ class VillainTest {
 	void tearDown() throws Exception {
 	}
 
-	/**
-	 * Test method for {@link Villain#getGame()}.
-	 */
+	@Test
+	void testVillain() {
+		// Create new villain, check that name is set correctly
+		Villain villain1 = new Villain("Name", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
+		assertEquals("Name", villain1.getName());
+		
+		// An exception is thrown if the constructor is given an empty gamesPlayed array
+		boolean exceptionThrown = false;
+		try {
+			Villain villain2 = new Villain("Name", "", 0, new MiniGames[0]);
+		} catch (IllegalArgumentException iae) {
+			exceptionThrown = true;
+		}
+		assertTrue(exceptionThrown);
+	}
+	
 	@Test
 	void testGetGame() {
 		// If villain only plays one game, test that getGame() returns this game.
