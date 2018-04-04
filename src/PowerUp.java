@@ -39,4 +39,17 @@ public class PowerUp {
 		return type;
 	}
 	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		if (!(other instanceof PowerUp)) {
+			return false;
+		} else {
+			PowerUp powerUp = (PowerUp) other;
+			return this.getType() == powerUp.getType();
+		}
+	}
+	
 }

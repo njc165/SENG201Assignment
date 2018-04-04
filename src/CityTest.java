@@ -39,16 +39,30 @@ class CityTest {
 
 	@Test
 	final void testCity() {
-		// Test that a new City can be created without any errors
+		// A new City can be created without any errors
 		City city = new City();
+		
+		// Two consecutively created cities have different sector locations
+		// Will fail occasionally when the two cities are created identical by chance
+		City city1 = new City();
+		city1.setAllDiscovered();
+		City city2 = new City();
+		city2.setAllDiscovered();
+		assertFalse(city1.toString().equals(city2.toString()));
 	}
 
 	@Test
 	final void testToString() {
-		// Test that a newly created city returns the correct String
+		// A newly created city returns the correct String
 		City city = new City();
 		assertEquals("North: ?\nEast: ?\nSouth: ?\nWest: ?\n", city.toString());
 		
+		// When all sectors are discovered, the string contains the name of each sector
+		city.setAllDiscovered();
+		String string = city.toString();
+		for (SectorType sectorType: SectorType.values()) {
+			assertTrue(string.contains(sectorType.toString()));
+		}
 	}
 
 }
