@@ -14,7 +14,7 @@ public class Gambler extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = "You don't have to look very far to find a gambler these days, but true experts are few and far between. These players use more than luck to tip the odds in their favour.\n\nWhile fighting villains, Gamblers gain the following advantages:\n\nPaper Scissors Rock:\nReveal one option that the villain will not play.\n\nGuess the Number:\nGet an extra guess.\n\nDice Roll:\nIncrease your roll by one.";
+	private static final String DESCRIPTION = "You don't have to look very far to find a gambler these days, but true experts are few and far between. These players use more than luck to tip the odds in their favour.\nWhile fighting villains, Gamblers gain the following advantages:\nPaper Scissors Rock:\nReveal one option that the villain will not play.\nGuess the Number:\nGet an extra guess.\nDice Roll:\nIncrease your roll by one.\n";
 	
 	/**
 	 * The maximum health the hero can have.

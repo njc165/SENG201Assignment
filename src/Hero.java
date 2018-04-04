@@ -1,6 +1,22 @@
 public class Hero {
 	
 	/**
+	 * An array of all subtypes of Hero.
+	 */
+	public static final Hero[] ALL_HEROES = {new Apprentice(""),
+			  								 new Bulwark(""),
+			  								 new Explorer(""),
+			  								 new Gambler(""),
+			  								 new Mercenary(""),
+			  								 new Merchant("")};
+	
+	/**
+	 * The damage reduction multiplier applied when a
+	 * hero with the damage reduction ability takes damage.
+	 */
+	public static final double DAMAGE_REDUCTION_MULTIPLIER = 0.75;
+	
+	/**
 	 * The name of the player assigned to this hero.
 	 */
 	private String name;
@@ -93,6 +109,14 @@ public class Hero {
 		this.description = description;
 		this.maxHealth = maxHealth;
 		this.currentHealth = maxHealth;
+	}
+	
+	public static String allHeroes() {
+		String returnString = "";
+		for (int i = 1; i <= ALL_HEROES.length; i++) {
+			returnString = returnString + String.format("\n%d: %s:\nMax Health: %.0f\nSpecial Ability: %s\n%s", i, ALL_HEROES[i-1].getType(), ALL_HEROES[i-1].getMaxHealth(), ALL_HEROES[i-1].getSpecialAbility(), ALL_HEROES[i-1].getDescription());
+		}
+		return returnString;
 	}
 
 	/**
@@ -191,4 +215,67 @@ public class Hero {
 		this.hasFasterHealing = hasFasterHealing;
 	}
 	
+	/**
+	 * Getter method for name.
+	 * @return The value of name.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Setter method for name.
+	 * @param name The new value of name to set.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * Getter method for type.
+	 * @return The value of type.
+	 */
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * Getter method for description.
+	 * @return The value of description.
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	/**
+	 * Getter method for currentHealth.
+	 * @return The value of currentHealth.
+	 */
+	public double getCurrentHealth() {
+		return currentHealth;
+	}
+	
+	/**
+	 * Setter method for currentHealth.
+	 * @param newHealth The new value of currentHealth to set.
+	 */
+	public void setCurrentHealth(double newHealth) {
+		currentHealth = newHealth;
+	}
+	
+	/**
+	 * Getter method for maxHealth.
+	 * @return The value of maxHealth.
+	 */
+	public double getMaxHealth() {
+		return maxHealth;
+	}
+	
+	/**
+	 * Getter method for specialAbility.
+	 * @return The value of specialAbility.
+	 */
+	public String getSpecialAbility() {
+		return specialAbility;
+	}
 }

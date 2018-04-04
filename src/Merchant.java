@@ -14,7 +14,7 @@ public class Merchant extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = "The silver-tongued merchant is experienced in the art of economics, able to secure deals no ordinary tradesman could pull off.\n\nFor each Merchant on your team, receive a 20% discount at the store.";
+	private static final String DESCRIPTION = "The silver-tongued merchant is experienced in the art of economics, able to secure deals no ordinary tradesman could pull off.\nFor each Merchant on your team, receive a 20% discount at the store.\n";
 	
 	/**
 	 * The maximum health the hero can have.

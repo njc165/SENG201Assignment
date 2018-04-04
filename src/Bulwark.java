@@ -14,7 +14,7 @@ public class Bulwark extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = "Bulwarks are infamous masochists. It's really quite concerning. However, they provide useful protection against the wrath of evil villains.\n\nWhen a Bulwark loses a game, they take 25% less damage.";
+	private static final String DESCRIPTION = "Bulwarks are infamous masochists. It's really quite concerning. However, they provide useful protection against the wrath of evil villains.\nWhen a Bulwark loses a game, they take 25% less damage.\n";
 	
 	/**
 	 * The maximum health the hero can have.
