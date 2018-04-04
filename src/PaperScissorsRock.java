@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class PaperScissorsRock extends MiniGame {
@@ -35,7 +33,10 @@ public class PaperScissorsRock extends MiniGame {
 		while (!gameConcluded) {
 			int randNum = rand.nextInt(CHOICES.length);
 			String villainChoice = CHOICES[randNum];
-			//missing functionality: hero power-ups.			
+						
+			if (hasMindReader()) {
+				revealNot(villainChoice);
+			}
 			
 			String heroChoice = null;
 			int input = Util.getIntFromUser(3, "Select a number to play paper, scissors, or rock:\n1: Paper\n2: Scissors\n3: Rock");
@@ -53,12 +54,15 @@ public class PaperScissorsRock extends MiniGame {
 			
 			String gameOutcome = computeOutcome(heroChoice, villainChoice);
 			
+			
+			// this can be refactored to have computeOutcome return a bool,
+			// true for win and false for draw or loss.
 			if (gameOutcome == "Win") {
 				System.out.println("You won!");
 				setHasWon(true);
 				gameConcluded = true;
 			} else if (gameOutcome == "Draw") {
-				handleDraw();
+				gameConcluded = handleDraw();
 			} else if (gameOutcome == "Loss") {
 				System.out.println("You lost!");
 				gameConcluded = true;
@@ -118,32 +122,54 @@ public class PaperScissorsRock extends MiniGame {
 	 * When a game is drawn, checks if hero has a Tiebreaker power-up
 	 * and responds appropriately.
 	 */
-	private void handleDraw() {
+	private boolean handleDraw() {
 		
-		/*boolean hasTiebreaker = false;
-		
-		for (PowerUp pu : hero.activePowerUps) {
-			if (pu.type == "Tiebreaker") { // this may change once PowerUp is implemented
-				hasTiebreaker = true;
-			}
-		}
+		boolean hasTiebreaker = getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0;
 		
 		if (hasTiebreaker) {
 			System.out.println("It was a draw, but your Tiebreaker power-up gives you the win!");
-			this.hasWon = true;
+			this.setHasWon(true);
+			return true;
 		}
 		else {
 			System.out.println("It was a draw! Play again!");
-			play();
-		}*/
-		
-		//remove the following when PowerUps are implemented.
-		System.out.println("It was a draw! Play again!\n");
-		
+			return false;
+		}
+				
+	}
+	
+	/**
+	 * Checks if the current hero has a Mindreader power-up.
+	 * @return true if the hero has a Mindreader power-up, false otherwise.
+	 */
+	private boolean hasMindReader() {
+		Hero hero = getHero();
+		if (hero.getType() == "Gambler") {
+			return true;
+		}
+		if (hero.numPowerUps(PowerUpType.MINDREADER) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Prints to output one choice that the villain did not make.
+	 * @param villainChoice
+	 */
+	private void revealNot(String villainChoice) {
+		for (String choice : CHOICES) {		
+			if (!(choice == villainChoice)) {
+				String str = String.format("The villain did not play %s.", choice);
+				System.out.println(str);
+				break;
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
 		Merchant good = new Merchant("James");
+		good.getActivePowerUps().add(new TieBreaker());
 		Invictus evil = new Invictus();
 		PaperScissorsRock psr = new PaperScissorsRock(good, evil);
 		psr.play();
