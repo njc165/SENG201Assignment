@@ -16,6 +16,11 @@ public abstract class MiniGame {
 	private boolean hasWon = false;
 	
 	/**
+	 * A list of the PowerUp subclasses which 
+	 */
+	private Class<?>[] relevantPowerUps;
+	
+	/**
 	 * Constructor sets the hero and villain attributes.
 	 * @param hero		The hero playing the game.
 	 * @param villain	The villain playing the game.

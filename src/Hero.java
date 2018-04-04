@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Hero {
 	
 	/**
@@ -22,13 +24,14 @@ public class Hero {
 	private String name;
 	
 	/**
-	 * A String description of the hero's type.
+	 * A String representation of the hero's type, e.g. "Gambler".
 	 * Each subclass of Hero has a different type.
 	 */
 	private String type;
 	
 	/**
-	 * A String description of the hero's special ability.
+	 * A String description of the hero's special ability,
+	 * e.g. "Advantages in villain battles".
 	 * Each subclass of Hero has a different special ability.
 	 */
 	private String specialAbility;
@@ -81,11 +84,11 @@ public class Hero {
 	 */
 	private boolean hasFasterHealing;
 	
-//	/**
-//	 * A list of the power-ups which are currently applied to the hero.
-//	 * Each hero can have an unlimited number of power-ups of each type at any time.
-//	 */
-//	private ArrayList<PowerUp> activePowerUps = new ArrayList<PowerUp>;
+	/**
+	 * A list of the power-ups which are currently applied to the hero, initialised empty.
+	 * Each hero can have an unlimited number of power-ups of each type at any time.
+	 */
+	private ArrayList<PowerUp> activePowerUps = new ArrayList<PowerUp>();
 	
 //	/**
 //	 * The healing item currently applied to the hero. Set to null if there is no healing item applied.

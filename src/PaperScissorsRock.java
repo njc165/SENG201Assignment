@@ -1,16 +1,18 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class PaperScissorsRock extends MiniGame {
 
 	/**
-	 * The possible choices in a game of PaperScissorsRock.
-	 */
-	private static final String[] CHOICES = {"Paper", "Scissors", "Rock"};
-	
-	/**
 	 * An array of power-ups which are relevant to Paper Scissors Rock.
 	 */
-	//private static final PowerUp[] relevantPowerUps = {tiebreaker, mindreader}
+	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.MINDREADER, PowerUpType.TIEBREAKER};
+	
+	/**
+	 * The possible choices in a game of PaperScissorsRock.
+	 */
+	private final String[] CHOICES = {"Paper", "Scissors", "Rock"};
 		
 	/**
 	 * A constructor for PaperScissorsRock.
