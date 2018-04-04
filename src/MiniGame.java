@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public abstract class MiniGame {
 	
 	/**
@@ -16,18 +19,20 @@ public abstract class MiniGame {
 	private boolean hasWon = false;
 	
 	/**
-	 * A list of the PowerUp subclasses which 
+	 * A list of the PowerUpTypes which are relevant to the particular game.
+	 * Each Subclass of MiniGame has a different list of relevant power-ups.
 	 */
-	private Class<?>[] relevantPowerUps;
+	private PowerUpType[] relevantPowerUps;
 	
 	/**
 	 * Constructor sets the hero and villain attributes.
 	 * @param hero		The hero playing the game.
 	 * @param villain	The villain playing the game.
 	 */
-	public MiniGame(Hero hero, Villain villain) {
+	public MiniGame(Hero hero, Villain villain, PowerUpType[] relevantPowerUps) {
 		this.hero = hero;
 		this.villain = villain;
+		this.relevantPowerUps = relevantPowerUps;
 	}
 	
 	/**
@@ -35,6 +40,23 @@ public abstract class MiniGame {
 	 * All the power-ups relevant to the particular game have been removed from the hero, whether or not they were required.
 	 */
 	public abstract void play();
+	
+	/**
+	 * Removes all the power-ups relevant to the particular game from the
+	 * hero's list of applied power-ups.
+	 * Called at the end of the play() method in each MiniGame subclass.
+	 */
+	public void removeRelevantPowerUps() {
+		ArrayList<PowerUp> newActivePowerUps = new ArrayList<PowerUp>();
+		ArrayList<PowerUpType> relevantPowerUpTypes = new ArrayList<PowerUpType>(Arrays.asList(relevantPowerUps));
+		
+		for (PowerUp powerUp: hero.getActivePowerUps()) {
+			if (!(relevantPowerUpTypes.contains(powerUp.getType()))) {
+				newActivePowerUps.add(powerUp);
+			}
+		}
+		hero.setActivePowerUps(newActivePowerUps);
+	}
 
 	/**
 	 * Getter method for hero.

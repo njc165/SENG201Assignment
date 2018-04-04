@@ -108,9 +108,9 @@ public class Team {
 			}
 		}
 		
-		System.out.println(String.format("\nPress a number to select a type for %s:",
+		System.out.println(String.format("\nEnter a number to select a type for %s:",
 				heroName));
-		System.out.println(Hero.allHeroes());
+		System.out.println(Hero.allHeroesDescription());
 		
 		int choice = Util.getIntFromUser(Hero.ALL_HEROES.length, "Enter a choice: ");
 		

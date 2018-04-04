@@ -2,6 +2,14 @@ import java.util.Random;
 
 public class DiceRolls extends MiniGame{
 	
+	/**
+	 * An array of the power-up types which are relevant to Paper Scissors Rock.
+	 */
+	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.INCREASE_ROLL, PowerUpType.TIEBREAKER};
+
+	/**
+	 * The number of sides on the dice being used in the game.
+	 */
 	private final int NUM_DICE_SIDES = 6;
 	
 	/**
@@ -20,7 +28,7 @@ public class DiceRolls extends MiniGame{
 	 * @param villain	The villain playing the game.
 	 */
 	public DiceRolls(Hero hero, Villain villain) {
-		super(hero, villain);
+		super(hero, villain, RELEVANT_POWER_UPS);
 		rollIncrease = calculateRollIncrease();
 	}
 	
@@ -53,7 +61,7 @@ public class DiceRolls extends MiniGame{
 			System.out.println(String.format("%s has defeated you!", getVillain().getName()));
 		}
 		
-		// remove all TieBreaker and IncreaseRoll power-ups from hero
+		removeRelevantPowerUps();
 	}
 	
 	/**
@@ -98,8 +106,7 @@ public class DiceRolls extends MiniGame{
 	 * @return	Returns true if the hero has at least one TieBreaker power-up applied, other false.
 	 */
 	private boolean heroHasTieBreaker() {
-		// Check if hero has TieBreaker power-ups
-		return false;
+		return getHero().numPowerUps(PowerUpType.TIEBREAKER) >= 0;
 	}
 	
 	/**
@@ -113,7 +120,7 @@ public class DiceRolls extends MiniGame{
 		int increase = 0;
 		if (getHero().getHasBattleAdvantage())
 			increase++;
-		// add 1 for each IncreaseRoll power-up
+		increase += getHero().numPowerUps(PowerUpType.INCREASE_ROLL);
 		return increase;
 	}
 
