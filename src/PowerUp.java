@@ -30,5 +30,13 @@ public class PowerUp {
 		this.cost = cost;
 		this.description = description;
 	}
+
+	/**
+	 * Getter method for type.
+	 * @return The value of type.
+	 */
+	public PowerUpType getType() {
+		return type;
+	}
 	
 }

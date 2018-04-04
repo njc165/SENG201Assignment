@@ -37,8 +37,9 @@ public class Hero {
 	private String specialAbility;
 	
 	/**
-	 * A detailed String description of the hero's special ability and backstory, formatted so that it
-	 * can be printed directly. Each subclass of Hero has a different description.
+	 * A detailed String description of the hero's special ability and backstory,
+	 * formatted so that it can be printed directly.
+	 * Each subclass of Hero has a different description.
 	 */
 	private String description;
 	
@@ -50,7 +51,8 @@ public class Hero {
 	
 	/**
 	 * The current health of the hero. Initialised to maxHealth when the hero is constructed.
-	 * The value can range from 0 to maxHealth. If currentHealth reaches 0, the hero is dead and cannot recover.
+	 * The value can range from 0 to maxHealth.
+	 * If currentHealth reaches 0, the hero is dead and cannot recover.
 	 */
 	private double currentHealth;
 	
@@ -114,12 +116,44 @@ public class Hero {
 		this.currentHealth = maxHealth;
 	}
 	
-	public static String allHeroes() {
+	/**
+	 * Returns a string description of all the hero subclasses.
+	 * Used to give the user information when asking them to choose their hero type,
+	 * and includes a number before each hero to allow the user to enter their choice.
+	 * Formatted with newline characters to allow it to be printed directly.
+	 * Each hero's description includes their type, special ability, maximum health and description.
+	 * @return	A description of all the hero subclasses.
+	 */
+	public static String allHeroesDescription() {
 		String returnString = "";
-		for (int i = 1; i <= ALL_HEROES.length; i++) {
-			returnString = returnString + String.format("\n%d: %s:\nMax Health: %.0f\nSpecial Ability: %s\n%s", i, ALL_HEROES[i-1].getType(), ALL_HEROES[i-1].getMaxHealth(), ALL_HEROES[i-1].getSpecialAbility(), ALL_HEROES[i-1].getDescription());
+		for (int i = 0; i < ALL_HEROES.length; i++) {
+			
+			Hero hero = ALL_HEROES[i];
+			int heroNumber = i + 1;
+			
+			returnString += String.format("\n%d: %s\nMax Health: %.0f\nSpecial Ability: %s\n%s",
+					heroNumber,
+					hero.getType(),
+					hero.getMaxHealth(),
+					hero.getSpecialAbility(),
+					hero.getDescription());
 		}
 		return returnString;
+	}
+	
+	/**
+	 * Counts how many power-ups of the given type the hero currently has
+	 * in its list of active power-ups.
+	 * @param powerUpType	The PowerUpType of interest.
+	 * @return		The number of power-ups of the given type posessed by the hero.
+	 */
+	public int numPowerUps(PowerUpType powerUpType) {
+		int count = 0;
+		for (PowerUp powerUp: activePowerUps) {
+			if (powerUp.getType() == powerUpType)
+				count++;
+		}
+		return count;
 	}
 
 	/**
@@ -280,5 +314,21 @@ public class Hero {
 	 */
 	public String getSpecialAbility() {
 		return specialAbility;
+	}
+
+	/**
+	 * Getter method for activePowerUps.
+	 * @return The value of activePowerUps.
+	 */
+	public ArrayList<PowerUp> getActivePowerUps() {
+		return activePowerUps;
+	}
+
+	/**
+	 * Setter method for activePowerUps.
+	 * @param activePowerUps The new value of activePowerUps to set.
+	 */
+	public void setActivePowerUps(ArrayList<PowerUp> activePowerUps) {
+		this.activePowerUps = activePowerUps;
 	}
 }

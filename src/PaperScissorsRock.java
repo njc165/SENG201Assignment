@@ -5,7 +5,7 @@ import java.util.Random;
 public class PaperScissorsRock extends MiniGame {
 
 	/**
-	 * An array of power-ups which are relevant to Paper Scissors Rock.
+	 * An array of the power-up types which are relevant to Paper Scissors Rock.
 	 */
 	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.MINDREADER, PowerUpType.TIEBREAKER};
 	
@@ -20,7 +20,7 @@ public class PaperScissorsRock extends MiniGame {
 	 * @param villain The villain playing Paper Scissors Rock.
 	 */
 	public PaperScissorsRock(Hero hero, Villain villain) {
-		super(hero, villain);
+		super(hero, villain, RELEVANT_POWER_UPS);
 	}
 
 	/**
@@ -66,7 +66,8 @@ public class PaperScissorsRock extends MiniGame {
 				throw new RuntimeException("Unexpected game outcome");
 			}
 		}
-		
+	
+	removeRelevantPowerUps();
 	}
 	
 	/**
@@ -110,13 +111,6 @@ public class PaperScissorsRock extends MiniGame {
 				return "Draw";
 			}
 		}
-		
-		/*for (int i = 0; i <= relevantPowerUps.size(); i++) {
-			if (relevantPowerUps.contains(hero.getActivePowerUps()[i])) {
-				ArrayList<PowerUp> newActivePowerUps = hero.getActivePowerUps.remove(i);
-				hero.setActivePowerUps(newActivePowerUps0);
-			}
-		}*/
 		
 	}
 	

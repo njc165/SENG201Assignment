@@ -3,7 +3,7 @@ public class TieBreaker extends PowerUp {
 	/**
 	 * The type of the power-up as an object of the PowerUpType enum.
 	 */
-	private final static PowerUpType TYPE = PowerUpType.MINDREADER;
+	private final static PowerUpType TYPE = PowerUpType.TIEBREAKER;
 	
 	/**
 	 * The String representation of the type of the power-up.
