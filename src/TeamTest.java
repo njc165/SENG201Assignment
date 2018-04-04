@@ -25,15 +25,7 @@ class TeamTest {
 	}
 
 	@Test
-	final void testTeam() {
-	}
-
-	@Test
-	final void testAddHero() {
-	}
-
-	@Test
-	final void testAddHeroFromInput() {
+	final void testAddHeroFromInput() {		
 	}
 
 	@Test
@@ -80,6 +72,45 @@ class TeamTest {
 
 	@Test
 	final void testTakeDamage() {
+		// A hero's health is reduced by the right amount
+		Apprentice apprentice = new Apprentice("Name");
+		int startHealth = apprentice.getCurrentHealth();
+		
+		Team team = new Team("Team name");
+		team.addHero(apprentice);
+		
+		team.takeDamage(apprentice, 10);
+		int finalHealth = apprentice.getCurrentHealth();
+		
+		assertEquals(10, startHealth - finalHealth);
+		
+		// If a hero's health drops to 0, the hero is removed from the team
+		apprentice.setCurrentHealth(10);
+		team.takeDamage(apprentice, 10);
+		assertEquals(0, team.getNumHeroes());
+		
+		// If a hero's health drops below 0, the hero is removed from the team
+		team.addHero(apprentice);
+		apprentice.setCurrentHealth(10);
+		team.takeDamage(apprentice, 20);
+		assertEquals(0, team.getNumHeroes());
+		
+		// A hero with the reduced damage ability takes the right amount of damage
+		Bulwark bulwark = new Bulwark("Name");
+		startHealth = bulwark.getCurrentHealth();
+		team.addHero(bulwark);
+		
+		team.takeDamage(bulwark, 20);
+		finalHealth = bulwark.getCurrentHealth();
+		assertEquals(20 * Hero.DAMAGE_REDUCTION_MULTIPLIER, startHealth - finalHealth);
+		
+		// A hero with the reduced damage ability is removed from the team if their
+		// health drops below zero
+		team.addHero(apprentice);
+		bulwark.setCurrentHealth(10);
+		team.takeDamage(bulwark, 20);
+		assertEquals(1, team.getNumHeroes());
+		
 	}
 
 }

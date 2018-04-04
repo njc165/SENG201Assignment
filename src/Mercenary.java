@@ -19,7 +19,7 @@ public class Mercenary extends Hero {
 	/**
 	 * The maximum health the hero can have.
 	 */
-	private static final double MAX_HEALTH = 50;
+	private static final int MAX_HEALTH = 50;
 	
 	/**
 	 * A constructor for the Mercenary class.

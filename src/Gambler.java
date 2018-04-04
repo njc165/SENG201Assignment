@@ -19,7 +19,7 @@ public class Gambler extends Hero {
 	/**
 	 * The maximum health the hero can have.
 	 */
-	private static final double MAX_HEALTH = 80;
+	private static final int MAX_HEALTH = 80;
 	
 	/**
 	 * A constructor for the Gambler class.
