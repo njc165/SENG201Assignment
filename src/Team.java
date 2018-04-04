@@ -9,9 +9,10 @@ public class Team {
 	private final int STARTING_MONEY = 50;
 	
 	/**
-	 * An ArrayList of power-ups currently owned and not applied.
+	 * An ArrayList of power-ups currently owned and not applied,
+	 * initialised to empty.
 	 */
-	//private ArrayList<PowerUp> powerUpsOwned = new ArrayList<PowerUp>();
+	private ArrayList<PowerUp> powerUpsOwned = new ArrayList<PowerUp>();
 	
 	/**
 	 * An ArrayList of healing items currently owned and not applied.
@@ -32,7 +33,7 @@ public class Team {
 		
 	/**
 	 * An integer representing the number of maps the team owns.
-	 * Could be any non-negative integer.
+	 * Can be any non-negative integer.
 	 * Having an Explorer on the team does not affect this value.
 	 */
 	private int numMaps;
@@ -44,55 +45,29 @@ public class Team {
 	private int currentMoney;
 	
 	/**
-	 * A constructor for Team.
-	 * @param name The team's name.
-	 * @param numHeroes The number of heroes to be added to the team.
+	 * A constructor for Team, called before the game starts.
+	 * Creates an empty team, to which heroes can be added.
+	 * @param name 		The team's name.
 	 */
-	public Team(String name, int numHeroes) {
+	public Team(String name) {
 		this.name = name;
 		this.currentMoney = STARTING_MONEY;
-		for (int i = 0; i < numHeroes; i++) {
-			addHero();
-		}
 	}
 	
 	/**
-	 * Getter method for numMaps.
-	 * @return The value of numMaps.
+	 * Adds the given Hero object to the teams list of heroes.
+	 * @param hero		The hero to be added.
 	 */
-	public int getNumMaps() {
-		return numMaps;
+	public void addHero(Hero hero) {
+		heroes.add(hero);
 	}
 
 	/**
-	 * Setter method for numMaps.
-	 * @param numMaps The new value of numMaps to set.
+	 * Add heroes to the team after the team is constructed.
+	 * Asks the user for a hero name and type, disallows names
+	 * that have already been taken.
 	 */
-	public void setNumMaps(int numMaps) {
-		this.numMaps = numMaps;
-	}
-
-	/**
-	 * Getter method for currentMoney.
-	 * @return The value of currentMoney.
-	 */
-	public int getCurrentMoney() {
-		return currentMoney;
-	}
-
-	/**
-	 * Setter method for currentMoney.
-	 * @param currentMoney The new value of currentMoney to set.
-	 */
-	public void setCurrentMoney(int currentMoney) {
-		this.currentMoney = currentMoney;
-	}
-
-	/**
-	 * Add heroes to the team when the team is constructed.
-	 * Asks for hero name and type, disallows names that have already been taken.
-	 */
-	private void addHero() {
+	public void addHeroFromInput() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a name for your Hero:");
 		
@@ -108,11 +83,12 @@ public class Team {
 			}
 		}
 		
-		System.out.println(String.format("\nEnter a number to select a type for %s:",
+		System.out.println(String.format("\nEnter a number to select a hero type for %s:",
 				heroName));
 		System.out.println(Hero.allHeroesDescription());
 		
-		int choice = Util.getIntFromUser(Hero.ALL_HEROES.length, "Enter a choice: ");
+		int choice = Util.getIntFromUser(Hero.ALL_HEROES.length, "Enter your choice:");
+		int heroIndex = choice - 1;
 		
 		// Class<? extends Hero> type = ALL_HEROES[choice].getClass();
 		// heroes.add(new type(heroName))
@@ -121,7 +97,7 @@ public class Team {
 		// If we can figure out how to use it, it will be fewer lines of code than
 		// the switch statement and will not break if we add more hero types.
 		
-		String type = Hero.ALL_HEROES[choice].getType();
+		String type = Hero.ALL_HEROES[heroIndex].getType();
 		
 		switch (type) {
 			case "Apprentice": heroes.add(new Apprentice(heroName));
@@ -158,18 +134,6 @@ public class Team {
 	}
 	
 	/**
-	 * Remove a (dead) hero from the team.
-	 * If the team is now empty, end the game (defeated).
-	 * @param hero The hero to be removed from the team.
-	 */
-	private void removeHero(Hero hero) {
-		heroes.remove(hero);
-		if (heroes.size() == 0) {
-			// game lost
-		}
-	}
-	
-	/**
 	 * Checks if the team has an Explorer.
 	 * @return true if the team has an Explorer, false otherwise.
 	 */
@@ -198,8 +162,8 @@ public class Team {
 	/**
 	 * Reduces a given hero's current health by a given amount.
 	 * If health falls below 0, remove the hero from the team.
-	 * @param hero The hero to take damage.
-	 * @param amount The amount of damage to be taken.
+	 * @param hero 		The hero to take damage.
+	 * @param amount 	The amount of damage to be taken.
 	 */
 	public void takeDamage(Hero hero, double amount) {
 		if (hero.getHasReducedDamage()) {
@@ -207,12 +171,44 @@ public class Team {
 		}
 		hero.setCurrentHealth(hero.getCurrentHealth() - amount);
 		if (hero.getCurrentHealth() <= 0) {
-			removeHero(hero);
+			heroes.remove(hero);
 		}
 	}
 	
+	/**
+	 * Getter method for numMaps.
+	 * @return The value of numMaps.
+	 */
+	public int getNumMaps() {
+		return numMaps;
+	}
+
+	/**
+	 * Setter method for numMaps.
+	 * @param numMaps The new value of numMaps to set.
+	 */
+	public void setNumMaps(int numMaps) {
+		this.numMaps = numMaps;
+	}
+
+	/**
+	 * Getter method for currentMoney.
+	 * @return The value of currentMoney.
+	 */
+	public int getCurrentMoney() {
+		return currentMoney;
+	}
+
+	/**
+	 * Setter method for currentMoney.
+	 * @param currentMoney The new value of currentMoney to set.
+	 */
+	public void setCurrentMoney(int currentMoney) {
+		this.currentMoney = currentMoney;
+	}
+	
 	public static void main(String[] args) {
-		Team team = new Team("TEAM", 2);
+		Team team = new Team("TEAM");
 	}
 	
 }
