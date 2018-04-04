@@ -1,0 +1,3 @@
+public enum PowerUpType {
+	MINDREADER, EXTRA_GUESS, INCREASE_ROLL, TIEBREAKER
+}
