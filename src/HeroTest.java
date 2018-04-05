@@ -91,6 +91,56 @@ class HeroTest {
 		assertTrue(description.contains(new Merchant("").getSpecialAbility()));
 	}
 	
+	@Test
+	final void testHeal() {
+		// Hero without heals faster ability is healed correctly
+		Merchant hero = new Merchant("Name"); // Merchant maxHealth is 100
+		hero.setCurrentHealth(60);
+		
+		int numIncrements = 2;
+		int timePerIncrement = 0;
+		HealingItem healingItem = new HealingItem("Name", "Description",
+											numIncrements, timePerIncrement, 100);
+		hero.setAppliedHealingItem(healingItem);
+		
+		hero.heal();
+		
+		// Healing item's number of increments remaining has decreased by one
+		assertEquals(1, hero.getAppliedHealingItem().getIncrementsRemaining());
+		
+		// Hero's health has increased by the correct amount
+		assertEquals(85, hero.getCurrentHealth());
+		
+		// Healing the hero again doesn't increase their health beyond maxHealth
+		assertTrue(hero.getAppliedHealingItem().readyToIncrement());
+		hero.heal();
+		assertEquals(100, hero.getCurrentHealth());
+		
+		// After being incremented numIncrements times, appliedHealingItem has been
+		// set to null
+		assertNull(hero.getAppliedHealingItem());
+		
+		// Check that heal a hero with no applied healing item has no effect
+		int initialHealth = hero.getCurrentHealth();
+		hero.heal();
+		assertEquals(initialHealth, hero.getCurrentHealth());
+		assertNull(hero.getAppliedHealingItem());
+		
+		// If the healing item is not ready to increment, there is no change
+		numIncrements = 2;
+		timePerIncrement = 100;
+		healingItem = new HealingItem("Name", "Description",
+											numIncrements, timePerIncrement, 100);
+		hero.setAppliedHealingItem(healingItem);
+		hero.setCurrentHealth(50);
+		hero.heal();
+		assertEquals(50, hero.getCurrentHealth());
+		assertEquals(2, hero.getAppliedHealingItem().getIncrementsRemaining());
+	}
 	
 	
+	
+	
+	
+
 }

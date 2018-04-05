@@ -10,7 +10,7 @@ class HealingItemTest {
 		HealingItem item = new HealingItem("potion", "a potion", 2, 3, 20);
 		assertEquals("potion", item.getName());
 		assertEquals("a potion", item.getDescription());
-		assertEquals(20, item.getPrice());
+		assertEquals(20, item.getCost());
 		assertEquals(2, item.getIncrementsRemaining());
 	}
 
@@ -24,7 +24,7 @@ class HealingItemTest {
 	}
 	
 	@Test
-	final void testApply() {
+	final void testApplyIncrement() {
 		// Create a new HealingItem
 		HealingItem item = new SuspiciousTonic();
 		
@@ -32,7 +32,7 @@ class HealingItemTest {
 		assertEquals(1, item.getIncrementsRemaining());
 		
 		// Apply the item
-		item.apply(false);
+		item.applyIncrement();
 		
 		// Check that incrementsRemaining is now 0
 		assertEquals(0, item.getIncrementsRemaining());
@@ -40,7 +40,7 @@ class HealingItemTest {
 		// Try to apply the item again. Check that a RuntimeException is thrown.
 		boolean gotException = false;
 		try {
-			item.apply(false);
+			item.applyIncrement();
 		}
 		catch (RuntimeException e) {
 			gotException = true;
@@ -60,7 +60,7 @@ class HealingItemTest {
 		assertTrue(item.readyToIncrement());
 		
 		// Apply the item, resetting nextApplicationTime
-		item.apply(true);
+		item.applyIncrement();
 		
 		// Wait 1 second, an amount less than the time per increment
 		Thread.sleep(1000);
