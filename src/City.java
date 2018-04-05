@@ -13,6 +13,15 @@ public class City {
 	private final Location HOME_BASE_LOCATION = Location.CENTRE;
 	
 	/**
+	 * An array containing all the locations in the city except the HOME_BASE_LOCATION,
+	 * in the order in which they should be displayed to the user.
+	 */
+	private final Location[] ORDERED_LOCATIONS = {Location.NORTH,
+												  Location.EAST,
+												  Location.SOUTH,
+												  Location.WEST};
+
+	/**
 	 * The current location of the team as a value of the enum Location.
 	 */
 	private Location currentLocation;
@@ -22,6 +31,12 @@ public class City {
 	 * Randomised when the city is created.
 	 */
 	private HashMap<Location, Sector> sectorLocations;
+	
+	/**
+	 * The villain to be fought in the city.
+	 * Initialised to null, can be set using the setter method after a city is created.
+	 */
+	private Villain villain;
 	
 	/**
 	 * Creates a new city with currentLocation set to CENTRE and the
@@ -36,10 +51,22 @@ public class City {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
+		return stringWithNumbers(false);
+	}
+	
+	/**
+	 * Returns a String representation of the city, with the option to number the
+	 * locations from 1.
+	 * Used when asking the user to select their destination by entering a number.
+	 * @param withNumbers	true if the locations should be numbered, false otherwise.
+	 * @return	A String representation of the city with the locations numbered.
+	 */
+	public String stringWithNumbers(boolean withNumbers) {
 		String returnString = "";
-		Location[] locations = {Location.NORTH, Location.EAST, Location.SOUTH, Location.WEST};
 		
-		for (Location location: locations) {
+		Location location = null;
+		for (int i = 0; i < ORDERED_LOCATIONS.length; i++) {
+			location = ORDERED_LOCATIONS[i];
 			Sector sector = sectorLocations.get(location);
 			
 			String sectorString = "?";
@@ -47,7 +74,11 @@ public class City {
 				sectorString = sector.getType().toString();
 			}
 			
-			returnString += String.format("%s: %s\n",
+			String template = "%s: %s\n";
+			if (withNumbers)
+				template = (i + 1) + ". %s: %s\n";
+			
+			returnString += String.format(template,
 					location.toString(), sectorString);
 		}
 		return returnString;
@@ -84,10 +115,67 @@ public class City {
 			sector.setDiscovered(true);
 		}
 	}
+
+	/**
+	 * Getter method for villain.
+	 * @return The value of villain.
+	 */
+	public Villain getVillain() {
+		return villain;
+	}
+
+	/**
+	 * Setter method for villain.
+	 * @param villain The new value of villain to set.
+	 */
+	public void setVillain(Villain villain) {
+		this.villain = villain;
+	}
 	
-//	public static void main(String[] args) {
-//		City c = new City();
-//		System.out.println(c);
-//	}
+	/**
+	 * Getter method for currentLocation.
+	 * @return The value of currentLocation.
+	 */
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
+
+	/**
+	 * Setter method for currentLocation.
+	 * @param currentLocation The new value of currentLocation to set.
+	 */
+	public void setCurrentLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+	
+	/**
+	 * Sets currentLocation to the location which will be numbered with the given
+	 * number in the stringWithNumbers representation of the city.
+	 */
+	public void setCurrentLocationByNumber(int locationNumber) {
+		setCurrentLocation(ORDERED_LOCATIONS[locationNumber - 1]);
+	}
+
+	/** Gets the current sector of the city as a value of SectorType.
+	 * @return	The current sector.
+	 */
+	public SectorType getCurrentSectorType() {
+		Sector currentSector = sectorLocations.get(currentLocation);
+		return currentSector.getType();
+	}
+	
+	/**
+	 * Returns the number of locations in the city, not including the central location.
+	 * @return	The number of locations in the city.
+	 */
+	public int numLocations() {
+		return sectorLocations.size();
+	}
+	
+	public static void main(String[] args) {
+		City c = new City();
+		System.out.println(c);
+		System.out.println(c.stringWithNumbers(true));
+	}
 	
 }
