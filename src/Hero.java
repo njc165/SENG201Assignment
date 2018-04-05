@@ -365,6 +365,7 @@ public class Hero {
 	
 	public String toString() {
 		return String.format("%s the %s", name, type);
+	}
 
 	/**
 	 * Getter method for appliedHealingItem.
