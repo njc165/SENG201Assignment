@@ -1,4 +1,5 @@
 public enum SectorType {
+	HOME_BASE("Home Base"),
 	SHOP("Shop"),
 	POWER_UP_DEN("Power-up Den"),
 	HOSPITAL("Hospital"),

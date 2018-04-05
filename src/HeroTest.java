@@ -93,7 +93,7 @@ class HeroTest {
 	
 	@Test
 	final void testHeal() {
-		// Hero without heals faster ability is healed correctly
+		// Hero without healsFaster ability is healed correctly
 		Merchant hero = new Merchant("Name"); // Merchant maxHealth is 100
 		hero.setCurrentHealth(60);
 		

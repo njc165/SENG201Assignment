@@ -7,10 +7,15 @@ public class City {
 	
 	/**
 	 * One of the values of the Location enum, in which the home base is located by default.
-	 * This is the default starting location when a new city is created, and is not
-	 * included in the sectorLocations HashMap, since it always contains the home base.
+	 * This is the default starting location when a new city is created, and is 
+	 * always mapped to the home base in the sectorLocations HashMap.
 	 */
 	private final Location HOME_BASE_LOCATION = Location.CENTRE;
+	
+	/**
+	 * A SectorType object representing the home base sector type.
+	 */
+	private final SectorType HOME_BASE_SECTOR_TYPE = SectorType.HOME_BASE;
 	
 	/**
 	 * An array containing all the locations in the city except the HOME_BASE_LOCATION,
@@ -22,13 +27,14 @@ public class City {
 												  Location.WEST};
 
 	/**
-	 * The current location of the team as a value of the enum Location.
+	 * The current location of the team as a Location object.
 	 */
 	private Location currentLocation;
 	
 	/**
-	 * A HashMap mapping each of the four locations (except HOME_BASE_LOCATION) to the sector in that location.
-	 * Randomised when the city is created.
+	 * A HashMap mapping each of the locations to the sector in that location.
+	 * The HOME_BASE_LOCATION is always mapped to the home base, and the other
+	 * locations are randomised when the city is created.
 	 */
 	private HashMap<Location, Sector> sectorLocations;
 	
@@ -39,11 +45,12 @@ public class City {
 	private Villain villain;
 	
 	/**
-	 * Creates a new city with currentLocation set to CENTRE and the
-	 * sectorLocations HashMap randomised.
+	 * Creates a new city with the given villain, the currentLocation set to CENTRE
+	 * and the other locations in the sectorLocations HashMap randomised.
 	 */
-	public City() {
+	public City(Villain villain) {
 		currentLocation = HOME_BASE_LOCATION;
+		this.villain = villain;
 		randomiseSectorLocations();
 	}
 	
@@ -69,40 +76,44 @@ public class City {
 			location = ORDERED_LOCATIONS[i];
 			Sector sector = sectorLocations.get(location);
 			
-			String sectorString = "?";
-			if (sector.getDiscovered()) {
-				sectorString = sector.getType().toString();
-			}
-			
 			String template = "%s: %s\n";
 			if (withNumbers)
 				template = (i + 1) + ". %s: %s\n";
 			
 			returnString += String.format(template,
-					location.toString(), sectorString);
+										  location.toString(),
+										  sector.toString());
 		}
 		return returnString;
 	}
 	
 	/**
-	 * Initialises the sectorLocations HashMap with a random mapping between each of the four locations
-	 * and the four sector types.
+	 * Initialises the sectorLocations HashMap with the home base location
+	 * mapped to the home base sector, and a random mapping between the other
+	 * four locations and sector types.
+	 * Sets the home base sector to discovered.
 	 */
 	private void randomiseSectorLocations() {
-		ArrayList<SectorType> sectorTypes = new ArrayList<SectorType>(Arrays.asList(SectorType.values()));
+		ArrayList<SectorType> sectorTypes = new ArrayList<SectorType>(
+												Arrays.asList(SectorType.values()));
+		sectorTypes.remove(HOME_BASE_SECTOR_TYPE);
 		Collections.shuffle(sectorTypes);
 		
-		ArrayList<Location> locations = new ArrayList<Location>(Arrays.asList(Location.values()));
-		locations.remove(HOME_BASE_LOCATION);
+		Location[] locations = ORDERED_LOCATIONS;
 		
-		if (sectorTypes.size() != locations.size())
-			throw new RuntimeException("Number of sectors doesn't match number of locations");
+		if (sectorTypes.size() != locations.length)
+			throw new RuntimeException(
+					"Number of sectors doesn't match number of locations");
 		
 		sectorLocations = new HashMap<Location, Sector>();
 		
+		Sector homeBaseSector  = new Sector(HOME_BASE_SECTOR_TYPE);
+		homeBaseSector.setDiscovered(true);
+		sectorLocations.put(HOME_BASE_LOCATION, homeBaseSector);
+		
 		for (int i = 0; i < sectorTypes.size(); i++) {
 			Sector sector = new Sector(sectorTypes.get(i));
-			Location location = locations.get(i);
+			Location location = locations[i];
 			sectorLocations.put(location, sector);
 		}
 	}
@@ -122,14 +133,6 @@ public class City {
 	 */
 	public Villain getVillain() {
 		return villain;
-	}
-
-	/**
-	 * Setter method for villain.
-	 * @param villain The new value of villain to set.
-	 */
-	public void setVillain(Villain villain) {
-		this.villain = villain;
 	}
 	
 	/**
@@ -151,6 +154,7 @@ public class City {
 	/**
 	 * Sets currentLocation to the location which will be numbered with the given
 	 * number in the stringWithNumbers representation of the city.
+	 * (Numbering starts from one).
 	 */
 	public void setCurrentLocationByNumber(int locationNumber) {
 		setCurrentLocation(ORDERED_LOCATIONS[locationNumber - 1]);
@@ -169,13 +173,14 @@ public class City {
 	 * @return	The number of locations in the city.
 	 */
 	public int numLocations() {
-		return sectorLocations.size();
+		return ORDERED_LOCATIONS.length;
 	}
 	
 	public static void main(String[] args) {
-		City c = new City();
-		System.out.println(c);
-		System.out.println(c.stringWithNumbers(true));
+		Invictus villain = new Invictus();
+//		City c = new City(villain);
+//		System.out.println(c);
+//		System.out.println(c.stringWithNumbers(true));
 	}
 	
 }

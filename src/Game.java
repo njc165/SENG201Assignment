@@ -74,20 +74,18 @@ public class Game {
 	 * the super villain.
 	 */
 	private void initialiseCities() {
-		ArrayList<Villain> regularVillains = new ArrayList<Villain>(
-				Arrays.asList(Villain.REGULAR_VILLAINS));
-		Collections.shuffle(regularVillains);
-
-		ArrayList<Villain> villains = new ArrayList<Villain>(
-				regularVillains.subList(0, numberOfCities - 1));
-		villains.add(Villain.SUPER_VILLAIN);
-		
-		City city = null;
-		for (Villain villain: villains) {
-			city = new City();
-			city.setVillain(villain);
-			cities.add(city);
-		}
+//		ArrayList<Villain> regularVillains = new ArrayList<Villain>(
+//				Arrays.asList(Villain.REGULAR_VILLAINS));
+//		Collections.shuffle(regularVillains);
+//
+//		ArrayList<Villain> villains = new ArrayList<Villain>(
+//				regularVillains.subList(0, numberOfCities - 1));
+//		villains.add(Villain.SUPER_VILLAIN);
+//		
+//		for (Villain villain: villains) {
+//			City city = new City(villain);
+//			cities.add(city);
+//		}
 	}
 
 	
@@ -161,15 +159,12 @@ public class Game {
 	 * Carries out the appropriate actions depending on the current sector.
 	 */
 	private void playCurrentSector() {
-		if (currentCity.getCurrentLocation() == Location.CENTRE) {
-			homeBase();
-		} else {
-			switch (currentCity.getCurrentSectorType()) {
-				case SHOP: shop(); break;
-				case POWER_UP_DEN: powerUpDen(); break;
-				case HOSPITAL: hospital(); break;
-				case VILLAINS_LAIR: villainsLair(); break;
-			}
+		switch (currentCity.getCurrentSectorType()) {
+			case HOME_BASE: homeBase(); break;
+			case SHOP: shop(); break;
+			case POWER_UP_DEN: powerUpDen(); break;
+			case HOSPITAL: hospital(); break;
+			case VILLAINS_LAIR: villainsLair(); break;
 		}
 	}
 	

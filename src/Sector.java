@@ -16,6 +16,17 @@ public class Sector {
 	public Sector(SectorType type) {
 		this.type = type;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		if (discovered) {
+			return type.toString();
+		} else {
+			return "?";
+		}
+	}
 
 	/**
 	 * Getter method for discovered.
