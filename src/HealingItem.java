@@ -144,7 +144,10 @@ public class HealingItem {
 		return incrementsRemaining;
 	}
 	
-	/**
+	public String toString() {
+		return name;
+
+    /**
 	 * Getter method for timePerIncrement.
 	 * Used only in testing.
 	 * @return The value of timePerIncrement.

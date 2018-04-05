@@ -161,12 +161,15 @@ public class Game {
 	 * Carries out the appropriate actions depending on the current sector.
 	 */
 	private void playCurrentSector() {
-		switch (currentCity.getCurrentSectorType()) {
-			case SHOP: shop(); break;
-			case POWER_UP_DEN: powerUpDen(); break;
-			case HOSPITAL: hospital(); break;
-			case VILLAINS_LAIR: villainsLair(); break;
-			default: homeBase(); break;
+		if (currentCity.getCurrentLocation() == Location.CENTRE) {
+			homeBase();
+		} else {
+			switch (currentCity.getCurrentSectorType()) {
+				case SHOP: shop(); break;
+				case POWER_UP_DEN: powerUpDen(); break;
+				case HOSPITAL: hospital(); break;
+				case VILLAINS_LAIR: villainsLair(); break;
+			}
 		}
 	}
 	
@@ -293,7 +296,7 @@ public class Game {
 	 * - if the team owns at least one map, gives them the option to use it.
 	 */
 	private void homeBase() {
-		System.out.println("You are now in the home base\n");
+		System.out.println("You are now in the home base.\n");
 		randomEvent();
 		healHeroes();
 		displayTeamStatus();
@@ -324,7 +327,10 @@ public class Game {
 	 * Displays the current status of each hero in the team.
 	 */
 	private void displayTeamStatus() {
-		
+		System.out.println("The status of each hero on the team is:\n");
+		for (Hero hero: team.getHeroes()) {
+			System.out.println(hero.status());
+		}
 	}
 	
 	/**
@@ -334,7 +340,8 @@ public class Game {
 	 * are set to discovered, and the city is displayed.
 	 */
 	private void checkUseMap() {
-		
+		if (team.getNumMaps() > 0) {
+		}
 	}
 	
 	
@@ -344,7 +351,11 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Team team = new Team("Team name");
+		for (int i = 0; i < 3; i++) {
+			team.addHeroFromInput();
+		}
 		Game game = new Game(team, 3);
+		game.play();
 		
 	}
 }

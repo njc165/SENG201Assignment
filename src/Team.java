@@ -230,13 +230,5 @@ public class Team {
 	public void setCurrentMoney(int currentMoney) {
 		this.currentMoney = currentMoney;
 	}
-	
-	/**
-	 * Getter method for heroes.
-	 * @return The value of heroes.
-	 */
-	public ArrayList<Hero> getHeroes() {
-		return heroes;
-	}
 		
 }

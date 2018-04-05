@@ -149,6 +149,52 @@ public class Hero {
 		return returnString;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return String.format("%s the %s", name, type);
+	}
+	
+	/**
+	 * Returns a string with the hero's current status, including:
+	 * - name and type
+	 * - special ability
+	 * - current health
+	 * - max health
+	 * - applied healing item
+	 * - active power ups
+	 * @return		A String representation of the hero's status, formatted with newline
+	 * characters so that it can be printed.
+	 */
+	public String status() {
+		String healingItemString = "None";
+		if (appliedHealingItem != null)
+			healingItemString = appliedHealingItem.toString();
+		
+		String returnString = toString() + "\n";
+		returnString += String.format("Special ability: %s\n", specialAbility);
+		returnString += String.format("Current health: %s\n", currentHealth);
+		returnString += String.format("Max health: %s\n", maxHealth);
+		returnString += String.format("Applied healing item: %s\n", healingItemString);
+		
+		returnString += "Applied power ups:\n";
+		
+		if (activePowerUps.size() == 0) {
+			returnString += "None\n";
+		} else {
+			for (PowerUpType powerUpType: PowerUpType.values()) {
+				int count = numPowerUps(powerUpType);
+				if (count > 0)
+					returnString += String.format("%s (%s)\n",
+												  powerUpType.toString(),
+												  count);
+			}
+		}
+		
+		return returnString;
+	}
+	
 	/**
 	 * If the hero has a currently applied healing item, updates the healing item,
 	 * increasing the hero's current health if necessary.
@@ -362,10 +408,6 @@ public class Hero {
 	public void setActivePowerUps(ArrayList<PowerUp> activePowerUps) {
 		this.activePowerUps = activePowerUps;
 	}
-	
-	public String toString() {
-		return String.format("%s the %s", name, type);
-	}
 
 	/**
 	 * Getter method for appliedHealingItem.
@@ -384,4 +426,19 @@ public class Hero {
 		this.appliedHealingItem = appliedHealingItem;
 		appliedHealingItem.applyToHero(hasFasterHealing);
 	}
+	
+//	public static void main(String[] args) {
+//		Apprentice a = new Apprentice("John");
+//		a.setAppliedHealingItem(new AlicornDust());
+//		a.addPowerUp(new ExtraGuess());
+//		a.addPowerUp(new ExtraGuess());
+//		a.addPowerUp(new TieBreaker());
+//		System.out.println(a.status());
+//		
+//	}
+
+
+
+
+
 }

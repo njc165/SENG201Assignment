@@ -138,6 +138,28 @@ class HeroTest {
 		assertEquals(2, hero.getAppliedHealingItem().getIncrementsRemaining());
 	}
 	
+	@Test
+	final void testStatus() {
+		// Status contains name and type, 
+		Apprentice hero = new Apprentice("John");
+		assertTrue(hero.status().contains("John the Apprentice"));
+		
+		// Healing item and power ups are none
+		assertTrue(hero.status().contains("Applied healing item: None"));
+		assertTrue(hero.status().contains("Applied power ups:\nNone"));
+
+		// Status contains added healing items and power ups
+		hero.setAppliedHealingItem(new AlicornDust());
+		assertTrue(hero.status().contains("Applied healing item: Alicorn Dust"));
+
+		hero.addPowerUp(new ExtraGuess());
+		hero.addPowerUp(new ExtraGuess());
+		hero.addPowerUp(new TieBreaker());
+		assertTrue(hero.status().contains("Extra Guess (2)"));
+		assertTrue(hero.status().contains("Tiebreaker (1)"));
+
+
+	}
 	
 	
 	
