@@ -55,6 +55,14 @@ public class Team {
 	}
 	
 	/**
+	 * Getter method for powerUpsOwned.
+	 * @return The value of powerUpsOwned.
+	 */
+	public ArrayList<PowerUp> getPowerUpsOwned() {
+		return powerUpsOwned;
+	}
+		
+	/**
 	 * Adds the given Hero object to the teams list of heroes.
 	 * @param hero		The hero to be added.
 	 */
@@ -223,8 +231,12 @@ public class Team {
 		this.currentMoney = currentMoney;
 	}
 	
-	public static void main(String[] args) {
-		Team team = new Team("TEAM");
+	/**
+	 * Getter method for heroes.
+	 * @return The value of heroes.
+	 */
+	public ArrayList<Hero> getHeroes() {
+		return heroes;
 	}
-	
+		
 }

@@ -189,9 +189,67 @@ public class Game {
  */
 	
 	private void powerUpDen() {
-		
+		final int NUM_CHOICES = 2;
+		final int NUM_POWER_UPS = PowerUpType.values().length;
+		System.out.println("You entered the Power-up Den.");
+		boolean finished = false;
+		while (!finished) {
+			System.out.println("What would you like to do?");
+			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:");
+			System.out.println("1: Apply a power-up\n2:Go home");
+			switch (userChoice) {
+				case 1: selectPowerUp(NUM_POWER_UPS); break;
+				case 2: finished = true; break;
+				default: throw new RuntimeException("Choice does not exist.");
+			}			
+		}
+		homeBase();
 	}
 	
+	private void selectPowerUp(int numPowerUps) {
+		System.out.println("Choose a power-up to apply:");
+		PowerUpType[] allPowerUps = PowerUpType.values();
+		for (int i = 0; i < numPowerUps; i++) {
+			int optionNum = i + 1;
+			System.out.println(String.format("%d: (Owned: %d)%s", optionNum, count(team.getPowerUpsOwned(), allPowerUps[i]), allPowerUps[i].toString()));
+		}
+		int userChoice = Util.getIntFromUser(numPowerUps, "Choose an option:");
+		if (count(team.getPowerUpsOwned(), allPowerUps[userChoice-1]) == 0) {
+			System.out.println("You don't have any of those. You can buy some from the Shop.");
+		}
+		else {
+			for (PowerUp powerUp : team.getPowerUpsOwned()) {
+				if (powerUp.getType() == allPowerUps[userChoice-1]) {
+					selectHero(powerUp);
+					team.getPowerUpsOwned().remove(powerUp);
+					break;
+				}
+			}
+		}
+	}
+	
+	private void selectHero(PowerUp powerUp) {
+		System.out.println("Choose a hero to power up:");
+		ArrayList<Hero> heroes = team.getHeroes();
+		
+		for (int i = 0; i < heroes.size(); i++) {
+			System.out.printf("%d: %s", i+1, heroes.get(i).toString());
+		}
+		
+		int userChoice = Util.getIntFromUser(heroes.size(), "Choose an option:");
+		
+		heroes.get(userChoice-1).addPowerUp(powerUp);
+	}
+	
+	private int count(ArrayList<PowerUp> list, PowerUpType type) {
+		int counter = 0;
+		for (PowerUp pu : list) {
+			if (pu.getType().equals(type)) {
+				counter++;
+			}
+		}
+		return counter;
+	}
 	
 	
 	
@@ -285,16 +343,8 @@ public class Game {
 	
 	
 	public static void main(String[] args) {
-		Game game = new Game(new Team("Team name"), 3);
-//		for (City city: game.cities) {
-//			System.out.println(city);
-//			System.out.println("Villain: " + city.getVillain());
-//		}
+		Team team = new Team("Team name");
+		Game game = new Game(team, 3);
 		
-		game.currentCity = game.cities.get(0); 
-		game.move();
-		game.move();
-		game.move();
 	}
-	
 }

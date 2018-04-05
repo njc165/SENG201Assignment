@@ -362,6 +362,9 @@ public class Hero {
 	public void setActivePowerUps(ArrayList<PowerUp> activePowerUps) {
 		this.activePowerUps = activePowerUps;
 	}
+	
+	public String toString() {
+		return String.format("%s the %s", name, type);
 
 	/**
 	 * Getter method for appliedHealingItem.
