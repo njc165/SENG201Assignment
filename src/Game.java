@@ -282,9 +282,61 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 	
+	/**
+	 * Called whenever the team enters the home base sector.
+	 * Implements the following actions:
+	 * - possibility of a random event occurring (team loses or gains a random object in
+	 * 	 their inventory.
+	 * - any healing items currently applied to heroes are updated, increasing the hero's
+	 * 	 health if needed.
+	 * - displays information about the status of each hero on the team.
+	 * - if the team owns at least one map, gives them the option to use it.
+	 */
 	private void homeBase() {
+		System.out.println("You are now in the home base\n");
+		randomEvent();
+		healHeroes();
+		displayTeamStatus();
+		checkUseMap();
+	}
+	
+	/**
+	 * Implements the possibility of a random event occurring to the team.
+	 * A random event can be:
+	 * - the team loses a random item from their inventory (team gets robbed).
+	 * - the team is gifted a random item to their inventory.
+	 */
+	private void randomEvent() {
 		
 	}
+	
+	/**
+	 * Any healing items currently applied to heroes on the team are updated,
+	 * increasing the hero's health if needed.
+	 */
+	private void healHeroes() {
+		for (Hero hero: team.getHeroes()) {
+			hero.heal();
+		}
+	}
+	
+	/**
+	 * Displays the current status of each hero in the team.
+	 */
+	private void displayTeamStatus() {
+		
+	}
+	
+	/**
+	 * If the team currently owns at least one map, asks the team if they want to
+	 * use a map.
+	 * When a map is used, it is removed from the inventory, all sectors of the city
+	 * are set to discovered, and the city is displayed.
+	 */
+	private void checkUseMap() {
+		
+	}
+	
 	
 	
 	

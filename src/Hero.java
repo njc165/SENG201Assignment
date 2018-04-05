@@ -19,6 +19,12 @@ public class Hero {
 	public static final double DAMAGE_REDUCTION_MULTIPLIER = 0.75;
 	
 	/**
+	 * The multiplier applied to the application time of a healing item
+	 * when it is applied to a hero with the faster healing special ability.
+	 */
+	public static final double FASTER_HEALING_MULTIPLIER = 0.5;
+	
+	/**
 	 * The name of the player assigned to this hero.
 	 */
 	private String name;
@@ -92,15 +98,17 @@ public class Hero {
 	 */
 	private ArrayList<PowerUp> activePowerUps = new ArrayList<PowerUp>();
 	
-//	/**
-//	 * The healing item currently applied to the hero. Set to null if there is no healing item applied.
-//	 * Each hero can up to one healing item applied at any time.
-//	 */
-//	private HealingItem appliedHealingItem;
+	/**
+	 * The healing item currently applied to the hero. Set to null if there is no
+	healing item applied.
+	 * Each hero can have at most one healing item applied at any time.
+	 */
+	private HealingItem appliedHealingItem;
 	
 	/**
 	 * Constructor called from the constructors of each Hero subclass.
-	 * Initialises the instance variables of the hero to the values defined in that subclass.
+	 * Initialises the instance variables of the hero to the values defined in that
+	 * subclass.
 	 * @param name	The name of the player assigned to the hero.
 	 * @param type	The type of the Hero subclass.
 	 * @param specialAbility	The special ability of the Hero subclass.
@@ -139,6 +147,28 @@ public class Hero {
 					hero.getDescription());
 		}
 		return returnString;
+	}
+	
+	/**
+	 * If the hero has a currently applied healing item, updates the healing item,
+	 * increasing the hero's current health if necessary.
+	 * If the healing item has no increments left, the hero's applied healing item is
+	 * set to null.
+	 */
+	public void heal() {
+		if (appliedHealingItem != null) {
+			
+			if (appliedHealingItem.readyToIncrement()) {
+				int newHealth = (int) (currentHealth +
+										maxHealth * HealingItem.INCREMENT_SIZE);
+				currentHealth = Integer.min(maxHealth, newHealth);
+				
+				appliedHealingItem.applyIncrement();
+				
+				if (appliedHealingItem.getIncrementsRemaining() <= 0)
+					appliedHealingItem = null;
+			}
+		}
 	}
 	
 	/**
@@ -294,10 +324,11 @@ public class Hero {
 	
 	/**
 	 * Setter method for currentHealth.
+	 * Ensures that the new currentHealth is not greater than maxHealth.
 	 * @param newHealth The new value of currentHealth to set.
 	 */
 	public void setCurrentHealth(int newHealth) {
-		currentHealth = newHealth;
+		currentHealth = Integer.min(newHealth, maxHealth);
 	}
 	
 	/**
@@ -334,5 +365,22 @@ public class Hero {
 	
 	public String toString() {
 		return String.format("%s the %s", name, type);
+
+	/**
+	 * Getter method for appliedHealingItem.
+	 * @return The value of appliedHealingItem.
+	 */
+	public HealingItem getAppliedHealingItem() {
+		return appliedHealingItem;
+	}
+
+	/**
+	 * Setter method for appliedHealingItem.
+	 * Calls healingItem.applyToHero() on the given healing item.
+	 * @param appliedHealingItem The new value of appliedHealingItem to set.
+	 */
+	public void setAppliedHealingItem(HealingItem appliedHealingItem) {
+		this.appliedHealingItem = appliedHealingItem;
+		appliedHealingItem.applyToHero(hasFasterHealing);
 	}
 }
