@@ -146,6 +146,7 @@ public class HealingItem {
 	
 	public String toString() {
 		return name;
+	}
 
     /**
 	 * Getter method for timePerIncrement.
