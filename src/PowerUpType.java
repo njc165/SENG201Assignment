@@ -1,9 +1,10 @@
 public enum PowerUpType {
-	MINDREADER("Mindreader"),
+	
 	EXTRA_GUESS("Extra Guess"),
 	INCREASE_ROLL("Increase Roll"),
+	MINDREADER("Mindreader"),
 	TIEBREAKER("Tiebreaker");
-	
+		
 	String string;
 	
 	private PowerUpType(String string) {

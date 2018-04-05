@@ -193,11 +193,13 @@ public class Game {
 		boolean finished = false;
 		while (!finished) {
 			System.out.println("What would you like to do?");
+			System.out.println("1: Apply a power-up\n2: Go home");
 			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:");
-			System.out.println("1: Apply a power-up\n2:Go home");
 			switch (userChoice) {
-				case 1: selectPowerUp(NUM_POWER_UPS); break;
-				case 2: finished = true; break;
+				case 1: selectPowerUp(NUM_POWER_UPS);
+						break;
+				case 2: finished = true;
+						break;
 				default: throw new RuntimeException("Choice does not exist.");
 			}			
 		}
@@ -209,7 +211,7 @@ public class Game {
 		PowerUpType[] allPowerUps = PowerUpType.values();
 		for (int i = 0; i < numPowerUps; i++) {
 			int optionNum = i + 1;
-			System.out.println(String.format("%d: (Owned: %d)%s", optionNum, count(team.getPowerUpsOwned(), allPowerUps[i]), allPowerUps[i].toString()));
+			System.out.println(String.format("%d: (Owned: %d) %s", optionNum, count(team.getPowerUpsOwned(), allPowerUps[i]), allPowerUps[i].toString()));
 		}
 		int userChoice = Util.getIntFromUser(numPowerUps, "Choose an option:");
 		if (count(team.getPowerUpsOwned(), allPowerUps[userChoice-1]) == 0) {
@@ -231,12 +233,14 @@ public class Game {
 		ArrayList<Hero> heroes = team.getHeroes();
 		
 		for (int i = 0; i < heroes.size(); i++) {
-			System.out.printf("%d: %s", i+1, heroes.get(i).toString());
+			System.out.printf("%d: %s\n", i+1, heroes.get(i).toString());
 		}
 		
 		int userChoice = Util.getIntFromUser(heroes.size(), "Choose an option:");
+		Hero hero = heroes.get(userChoice-1);
 		
-		heroes.get(userChoice-1).addPowerUp(powerUp);
+		System.out.println(String.format("You powered up %s with %s", hero.getName(), powerUp.getType()));
+		hero.addPowerUp(powerUp);
 	}
 	
 	private int count(ArrayList<PowerUp> list, PowerUpType type) {
@@ -346,10 +350,11 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Team team = new Team("Team name");
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 1; i++) {
 			team.addHeroFromInput();
 		}
-		Game game = new Game(team, 3);
+		Game game = new Game(team, 1);
+		team.getPowerUpsOwned().add(new MindReader());
 		game.play();
 		
 	}
