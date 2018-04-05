@@ -71,7 +71,7 @@ public class HealingItem {
 	 * Called when a hero's applied healing item is set to this healing item.
 	 * Initialises lastApplicationTime to the current system time.
 	 * If the hero it is applied to has the faster healing special ability,
-	 * reduces the time per increment of the healing item by Hero.FASTER_HEALING_MULTIPLIER
+	 * multiplies the time per increment of the healing item by Hero.FASTER_HEALING_MULTIPLIER
 	 * @param hasFasterHealing	true if the hero it is applied to has the faster healing
 	 * 							special ability.
 	 */
@@ -146,5 +146,13 @@ public class HealingItem {
 	
 	public String toString() {
 		return name;
+
+    /**
+	 * Getter method for timePerIncrement.
+	 * Used only in testing.
+	 * @return The value of timePerIncrement.
+	 */
+	public long getTimePerIncrement() {
+		return timePerIncrement;
 	}
 }
