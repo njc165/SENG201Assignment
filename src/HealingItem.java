@@ -143,4 +143,8 @@ public class HealingItem {
 	public int getIncrementsRemaining() {
 		return incrementsRemaining;
 	}
+	
+	public String toString() {
+		return name;
+	}
 }
