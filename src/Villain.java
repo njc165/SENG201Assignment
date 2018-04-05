@@ -7,17 +7,17 @@ public class Villain {
 	 * An instance of the super villain, to be used when initialising the list of
 	 * villains in a new game.
 	 */
-	public static final Villain SUPER_VILLAIN = new Invictus();
+//	public static final Villain SUPER_VILLAIN = new Invictus();
 	
 	/**
 	 * An array of instances of all the villain subclasses except the super villain,
 	 * to be used when initialising the list of villains in a new game.
 	 */
-	public static final Villain[] REGULAR_VILLAINS = {new Bucephalus(),
-													  new Evan(),
-													  new Janken(),
-													  new John(),
-													  new Maverick()};
+//	public static final Villain[] REGULAR_VILLAINS = {new Bucephalus(),
+//													  new Evan(),
+//													  new Janken(),
+//													  new John(),
+//													  new Maverick()};
 	
 	/**
 	 * The name of the villain. Each subclass of Villain has a different name.
