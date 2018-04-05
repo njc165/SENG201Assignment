@@ -176,6 +176,14 @@ public class Team {
 	}
 	
 	/**
+	 * Getter method for heroes.
+	 * @return The value of heroes.
+	 */
+	public ArrayList<Hero> getHeroes() {
+		return heroes;
+	}
+
+	/**
 	 * Getter method for the current number of heroes on the team.
 	 * @return	The number of heroes currently on the team.
 	 */

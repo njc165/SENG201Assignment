@@ -4,6 +4,12 @@ import java.time.temporal.ChronoUnit;
 public class HealingItem {
 	
 	/**
+	 * The percentage of a hero's health which is restored by each increment of a
+	 * healing item, expressed as a decimal.
+	 */
+	public static final double INCREMENT_SIZE = 0.25;
+	
+	/**
 	 * The healing item's name.
 	 */
 	private String name;
@@ -14,9 +20,9 @@ public class HealingItem {
 	private String description;
 	
 	/**
-	 * The price of the healing item.
+	 * The cost of the healing item.
 	 */
-	private int price;
+	private int cost;
 	
 	/**
 	 * The time in seconds per increment of the healing item.
@@ -34,28 +40,75 @@ public class HealingItem {
 	private LocalTime lastApplicationTime;
 	
 	/**
-	 * A LocalTime representing the next time an increment should be applied.
-	 */
-	private LocalTime nextApplicationTime;
-	
-	/**
 	 * A constructor for HealingItem.
 	 * @param name The name of the healing item.
 	 * @param description A description of what the healing item does.
 	 * @param numIncrements An integer giving the number of increments the healing item has.
 	 * @param timePerIncrement A long representing the time (in seconds) taken to apply one increment.
-	 * @param price An integer representing the price of the healing item.
+	 * @param cost An integer representing the cost of the healing item.
 	 */
-	public HealingItem(String name, String description, int numIncrements, long timePerIncrement, int price) {
+	public HealingItem(String name, String description, int numIncrements, long timePerIncrement, int cost) {
 		this.name = name;
 		this.description = description;
 		this.timePerIncrement = timePerIncrement;
-		this.price = price;
+		this.cost = cost;
 		this.incrementsRemaining = numIncrements;
-		this.lastApplicationTime = LocalTime.now();
-		this.nextApplicationTime = this.lastApplicationTime.plus(this.timePerIncrement, ChronoUnit.SECONDS);
+	}
+
+	/**
+	 * Gives the number of increments remaining and the time until the next
+	 * increment is applied.
+	 * @return A string representing the number of increments remaining and the
+	 * time until the next increment is applied.
+	 */
+	public String getStatus() {
+		return String.format("Increments remaining: %d\nTime to next increment: %d seconds.",
+							 incrementsRemaining,
+							 LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
 	}
 	
+	/**
+	 * Called when a hero's applied healing item is set to this healing item.
+	 * Initialises lastApplicationTime to the current system time.
+	 * If the hero it is applied to has the faster healing special ability,
+	 * reduces the time per increment of the healing item by Hero.FASTER_HEALING_MULTIPLIER
+	 * @param hasFasterHealing	true if the hero it is applied to has the faster healing
+	 * 							special ability.
+	 */
+	public void applyToHero(boolean hasFasterHealing) {
+		lastApplicationTime = LocalTime.now();
+		if (hasFasterHealing) {
+			timePerIncrement *= Hero.FASTER_HEALING_MULTIPLIER;
+		}
+	}
+	
+	/**
+	 * Applies an increment of the healing item.
+	 */
+	public void applyIncrement() {
+		if (incrementsRemaining <= 0) {
+			throw new RuntimeException("Tried to apply a healing item with no remaining increments");
+		}
+		incrementsRemaining--;
+		lastApplicationTime = LocalTime.now();
+	}
+	
+	/**
+	 * Checks if the healing item should be incremented.
+	 * @return true if the item is ready to increment, false otherwise.
+	 */
+	public boolean readyToIncrement() {	
+		return (LocalTime.now().isAfter(nextApplicationTime()));
+	}
+	
+	/**
+	 * Calculates the LocalTime when the next application should occur.
+	 * @return	The next application time.
+	 */
+	public LocalTime nextApplicationTime() {
+		return lastApplicationTime.plus(timePerIncrement, ChronoUnit.SECONDS);
+	}
+		
 	
 	/**
 	 * Getter method for name.
@@ -79,8 +132,8 @@ public class HealingItem {
 	 * Getter method for price.
 	 * @return The value of price.
 	 */
-	public int getPrice() {
-		return price;
+	public int getCost() {
+		return cost;
 	}
 	
 	/**
@@ -90,38 +143,4 @@ public class HealingItem {
 	public int getIncrementsRemaining() {
 		return incrementsRemaining;
 	}
-
-	/**
-	 * Gives the number of increments remaining and the time until the next increment is applied.
-	 * @return A string representing the number of increments remaining and the time until the next increment is applied.
-	 */
-	public String getStatus() {
-		return String.format("Increments remaining: %d\nTime to next increment: %d seconds.", incrementsRemaining, LocalTime.now().until(nextApplicationTime, ChronoUnit.SECONDS));
-	}
-	
-	/**
-	 * Applies an increment of the healing item.
-	 * If healsFaster, halves the time until the next application.
-	 * @param healsFaster A boolean reflecting hero.hasFasterHealing.
-	 */
-	public void apply(boolean healsFaster) {
-		if (incrementsRemaining <= 0) {
-			throw new RuntimeException("Tried to apply a healing item with no remaining increments");
-		}
-		incrementsRemaining--;
-		lastApplicationTime = LocalTime.now();
-		nextApplicationTime = lastApplicationTime.plus(timePerIncrement, ChronoUnit.SECONDS);
-		if (healsFaster) {
-			nextApplicationTime = nextApplicationTime.minus(lastApplicationTime.until(nextApplicationTime, ChronoUnit.SECONDS)/2, ChronoUnit.SECONDS);
-		}
-	}
-	
-	/**
-	 * Checks if the healing item should be incremented.
-	 * @return true if the item is ready to increment, false otherwise.
-	 */
-	public boolean readyToIncrement() {	
-		return (LocalTime.now().isAfter(nextApplicationTime));
-	}
-		
 }
