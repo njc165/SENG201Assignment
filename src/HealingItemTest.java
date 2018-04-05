@@ -18,55 +18,79 @@ class HealingItemTest {
 	final void testGetStatus() {
 		// Create a new HealingItem
 		HealingItem item = new HeartyMeal();
+		item.applyToHero(false);
 		
-		// Check that getStatus returns the expected string.
+		// Check that getStatus returns the expected string
 		assertEquals(item.getStatus(), "Increments remaining: 2\nTime to next increment: 40 seconds.");
+		
+		// Create a new HealingItem, this time halving the time per increment
+		HealingItem item2 = new HeartyMeal();
+		item2.applyToHero(true);
+		
+		// Check that getStatus returns the expected string
+		assertEquals(item2.getStatus(), "Increments remaining: 2\nTime to next increment: 20 seconds.");
+	}
+	
+	@Test
+	final void testApplyToHero() {
+		// Create a new HealingItem and set its last application time to now
+		HealingItem item = new SuspiciousTonic();
+		item.applyToHero(false);
+		
+		// Check that, when called with false, the time per increment is unchanged
+		assertEquals(item.getTimePerIncrement(), 60);
+		
+		// Check that, when called with true, the time per increment is multiplied
+		// by the correct amount
+		item.applyToHero(true);
+		assertEquals(item.getTimePerIncrement(), 30);
 	}
 	
 	@Test
 	final void testApplyIncrement() {
 		// Create a new HealingItem
-		HealingItem item = new SuspiciousTonic();
+		HealingItem item = new AlicornDust();
 		
-		// Check that incrementsRemaining is 1
-		assertEquals(1, item.getIncrementsRemaining());
+		// Check that incrementsRemaining is initialised correctly
+		assertEquals(item.getIncrementsRemaining(), 3);
 		
-		// Apply the item
+		// Check that applying the item properly decrements incrementsRemaining
 		item.applyIncrement();
-		
-		// Check that incrementsRemaining is now 0
-		assertEquals(0, item.getIncrementsRemaining());
-		
-		// Try to apply the item again. Check that a RuntimeException is thrown.
-		boolean gotException = false;
-		try {
-			item.applyIncrement();
-		}
-		catch (RuntimeException e) {
-			gotException = true;
-		}
-		assertTrue(gotException);
+		assertEquals(item.getIncrementsRemaining(), 2);
 	}
 	
 	@Test
 	final void testReadyToIncrement() throws InterruptedException {
 		// Create a new HealingItem
 		HealingItem item = new AlicornDust();
+		item.applyToHero(false);
 		
-		// Wait 20 seconds, the time per increment for AlicornDust
+		// Wait 20 seconds and check that the item is ready to increment
 		Thread.sleep(20000);
-		
-		// Check that the HealingItem is ready to be applied
 		assertTrue(item.readyToIncrement());
 		
-		// Apply the item, resetting nextApplicationTime
+		// Apply the increment, resetting the timer
 		item.applyIncrement();
 		
-		// Wait 1 second, an amount less than the time per increment
+		//Wait 1 second and check that the item is not ready to increment
 		Thread.sleep(1000);
-		
-		// Check that the HealingItem is not ready to be applied
 		assertFalse(item.readyToIncrement());
+		
+		// Create a new HealingItem, this time with the fasterHealing ability
+		HealingItem item2 = new AlicornDust();
+		item2.applyToHero(true);
+		
+		// Wait 10 seconds and check that the item is ready to increment
+		// i.e. that the fasterHealing ability is correctly applied
+		Thread.sleep(10000);
+		assertTrue(item2.readyToIncrement());
+		
+		// Apply the increment, resetting the timer
+		item2.applyIncrement();
+		
+		// Wait 1 second and check that the item is not ready to increment
+		Thread.sleep(1000);
+		assertFalse(item2.readyToIncrement());
 	}
-	
+		
 }
