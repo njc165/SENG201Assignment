@@ -166,6 +166,7 @@ public class Game {
 			case POWER_UP_DEN: powerUpDen(); break;
 			case HOSPITAL: hospital(); break;
 			case VILLAINS_LAIR: villainsLair(); break;
+			default: homeBase(); break;
 		}
 	}
 	
@@ -175,7 +176,9 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 
-	
+	private void shop() {
+		
+	}
 	
 	
 	
@@ -185,7 +188,9 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 	
-	
+	private void powerUpDen() {
+		
+	}
 	
 	
 	
@@ -196,7 +201,9 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 
-	
+	private void hospital() {
+		
+	}
 	
 	
 	
@@ -206,6 +213,20 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */	
 	
+	private void villainsLair() {
+		
+	}
+	
+	
+/*
+ * -----------------------------------------------------------------------------------
+ * homeBase() and helper methods
+ * -----------------------------------------------------------------------------------
+ */
+	
+	private void homeBase() {
+		
+	}
 	
 	
 	
