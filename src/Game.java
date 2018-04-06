@@ -289,6 +289,49 @@ public class Game {
 
 	private void hospital() {
 		
+		System.out.println("You entered the Hospital");
+		System.out.println("What would you like to do?");
+		System.out.println("1. Apply a healing item\n2: Go home");
+		
+		boolean finished = false;
+		
+		while (!finished) {
+			
+			int userChoice = Util.getIntFromUser(2, "Enter a choice:");
+			
+			switch (userChoice) {
+				case 1: apply();
+						break;
+				case 2: finished = true;
+						break;
+			}
+			
+		}
+		
+		homeBase();
+		
+	}
+	
+	private void apply() {
+		
+		if (team.getHealingItemsOwned().size() == 0) {
+			System.out.println("You don't have any healing items.");
+			System.out.println("You can buy some at the Shop.");
+			return;
+		}
+		
+		Hero hero = team.selectHero();
+		
+		if (hero.getAppliedHealingItem() != null) {
+			System.out.printf("%s already has an active healing item.\n", hero.getName());
+			System.out.println("Each hero may have only one active healing item at a time.");
+			return;
+		}
+		
+		HealingItem item = team.selectHealingItem();
+		hero.setAppliedHealingItem(item);
+		team.getHealingItemsOwned().remove(item);
+		
 	}
 	
 	
@@ -445,6 +488,8 @@ public class Game {
 		}
 		Game game = new Game(team, 1);
 		team.getPowerUpsOwned().add(new MindReader());
+		team.getHealingItemsOwned().add(new AlicornDust());
+		team.getHealingItemsOwned().add(new SuspiciousTonic());
 		game.play();
 		
 	}
