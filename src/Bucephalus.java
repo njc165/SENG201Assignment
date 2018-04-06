@@ -13,7 +13,7 @@ public class Bucephalus extends Villain {
 	/**
 	 * Damage dealt by a villain to a hero's health when it wins the game.
 	 */
-	private static final double DAMAGE_DEALT = 30;
+	private static final int DAMAGE_DEALT = 30;
 	
 	/**
 	 * Array of games the villain could choose to play.
