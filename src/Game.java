@@ -1,7 +1,5 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class Game {
 	
@@ -74,23 +72,15 @@ public class Game {
 	 * the super villain.
 	 */
 	private void initialiseCities() {
-//		ArrayList<Villain> regularVillains = new ArrayList<Villain>(
-//				Arrays.asList(Villain.REGULAR_VILLAINS));
-//		Collections.shuffle(regularVillains);
-//
-//		ArrayList<Villain> villains = new ArrayList<Villain>(
-//				regularVillains.subList(0, numberOfCities - 1));
-//		villains.add(Villain.SUPER_VILLAIN);
-//		
-//		for (Villain villain: villains) {
-//			City city = new City(villain);
-//			cities.add(city);
-//		}
+		ArrayList<Villain> villains = Villain.randomisedVillains(numberOfCities);
+		
+		for (Villain villain: villains) {
+			City city = new City(villain);
+			cities.add(city);
+		}
 	}
 
-	
-	
-	
+
 /*
  * -----------------------------------------------------------------------------------
  * Methods related to overall game play
@@ -159,6 +149,7 @@ public class Game {
 	 * Carries out the appropriate actions depending on the current sector.
 	 */
 	private void playCurrentSector() {
+		currentCity.setCurrentSectorDiscovered();
 		switch (currentCity.getCurrentSectorType()) {
 			case HOME_BASE: homeBase(); break;
 			case SHOP: shop(); break;

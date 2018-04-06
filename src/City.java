@@ -168,6 +168,11 @@ public class City {
 		return currentSector.getType();
 	}
 	
+	public void setCurrentSectorDiscovered() {
+		Sector currentSector = sectorLocations.get(currentLocation);
+		currentSector.setDiscovered(true);
+	}
+	
 	/**
 	 * Returns the number of locations in the city, not including the central location.
 	 * @return	The number of locations in the city.
