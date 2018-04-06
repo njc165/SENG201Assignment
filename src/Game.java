@@ -1,7 +1,15 @@
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Game {
+	
+	/**
+	 * True if the super villain has been defeated,
+	 * false otherwise. Used to determine when the 
+	 * game is over.
+	 */
+	private boolean superVillainDefeated;
 	
 	/**
 	 * The team of heroes playing the game.
@@ -20,7 +28,7 @@ public class Game {
 	private LocalTime startTime;
 	
 	/**
-	 * If gameOver is still true once all the cities have been completed, the game
+	 * If gameOver is still false once all the cities have been completed, the game
 	 * is won, and a victory message is displayed.
 	 * If all heroes die (the team is empty), gameOver is set to true,
 	 * causing the game to end and a game over message to be displayed.
@@ -61,6 +69,7 @@ public class Game {
 	public Game(Team team, int numberOfCities) {
 		this.team = team;
 		this.numberOfCities = numberOfCities;
+		this.superVillainDefeated = false;
 		startTime = LocalTime.now();
 		initialiseCities();
 	}
@@ -106,6 +115,13 @@ public class Game {
 			
 			if (gameOver)
 				break;
+		}
+		
+		if (!gameOver) {
+			// win
+		}
+		else {
+			// lose
 		}
 	}
 	
@@ -310,27 +326,28 @@ public class Game {
 	 */
 	private void battle() {
 		
-		Villain badGuy = currentCity.getVillain();
+		Villain villain = currentCity.getVillain();
 		
-		System.out.printf("I am %s!\n", badGuy.getName());
-		System.out.println(badGuy.getTaunt());
+		System.out.printf("I am %s!\n", villain.getName());
+		System.out.println(villain.getTaunt());
 		
-		boolean villainDefeated = false;
-		
-		while (!villainDefeated) {
-			
-			Hero goodGuy = team.selectHero();
-			MiniGames minigameType = badGuy.getGame();
-			MiniGame minigame = MiniGame.createGame(minigameType, goodGuy, badGuy);
+		while (!villain.isDefeated() && !gameOver) {
+						
+			Hero hero = team.selectHero();
+			MiniGames minigameType = villain.getGame();
+			MiniGame minigame = MiniGame.createGame(minigameType, hero, villain);
 			
 			minigame.play();
 			
 			if (minigame.getHasWon()) {
-				badGuy.setTimesDefeated(badGuy.getTimesDefeated() + 1);
-				villainDefeated = badGuy.isDefeated();				
+				villain.setTimesDefeated(villain.getTimesDefeated() + 1);			
 			}
 			else {
-				team.takeDamage(goodGuy, badGuy.getDamageDealt());
+				team.takeDamage(hero, villain.getDamageDealt());
+			}
+			
+			if (team.getHeroes().size() <= 0) {
+				gameOver = true;
 			}
 			
 		}
@@ -419,11 +436,6 @@ public class Game {
 			}
 		}
 	}
-	
-	
-	
-	
-	
 	
 	public static void main(String[] args) {
 		Team team = new Team("Team name");

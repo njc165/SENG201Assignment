@@ -161,14 +161,6 @@ public class Villain {
 	public boolean isDefeated() {
 		return isDefeated;
 	}
-
-	/**
-	 * Setter method for isDefeated.
-	 * @param isDefeated The new value of isDefeated to set.
-	 */
-	public void setDefeated(boolean isDefeated) {
-		this.isDefeated = isDefeated;
-	}
 	
 	/**
 	 * Getter method for timesDefeated.
