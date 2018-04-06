@@ -1,6 +1,15 @@
 public class PowerUp {
 	
 	/**
+	 * A list of all the PowerUp subclasses as class objects.
+	 * New PowerUp instances should be created from this list using Util.instantiate().
+	 */
+	private Class<?>[] ALL_POWER_UPS = {ExtraGuess.class,
+										IncreaseRoll.class,
+										MindReader.class,
+										TieBreaker.class};
+	
+	/**
 	 * The type of the power-up as an object of the PowerUpType enum.
 	 */
 	private PowerUpType type;

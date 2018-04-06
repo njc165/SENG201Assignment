@@ -126,6 +126,20 @@ public class City {
 			sector.setDiscovered(true);
 		}
 	}
+	
+	/**
+	 * Returns true if all the sectors in the city have been set to discovered,
+	 * false otherwise.
+	 * @return	true if all sectors are discovered, false otherwise.
+	 */
+	public boolean getAllDiscovered() {
+		boolean allDiscovered = true;
+		for (Sector sector: sectorLocations.values()) {
+			if (!sector.getDiscovered())
+				allDiscovered = false;
+		}
+		return allDiscovered;
+	}
 
 	/**
 	 * Getter method for villain.

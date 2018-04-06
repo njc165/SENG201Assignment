@@ -317,20 +317,38 @@ public class Game {
 	 * Displays the current status of each hero in the team.
 	 */
 	private void displayTeamStatus() {
-		System.out.println("The status of each hero on the team is:\n");
-		for (Hero hero: team.getHeroes()) {
-			System.out.println(hero.status());
+		boolean answersYes = Util.getYesNo("Would you like to view the team's current status?");
+
+		if (answersYes) {
+			System.out.println("The status of each hero on the team is:\n");
+			for (Hero hero: team.getHeroes()) {
+				System.out.println(hero.status());
+			}
 		}
 	}
 	
 	/**
-	 * If the team currently owns at least one map, asks the team if they want to
-	 * use a map.
+	 * If the team currently owns at least one map and the sectors in the city
+	 * are not all already discovered, asks the team if they want to use a map.
 	 * When a map is used, it is removed from the inventory, all sectors of the city
 	 * are set to discovered, and the city is displayed.
 	 */
 	private void checkUseMap() {
-		if (team.getNumMaps() > 0) {
+		if (team.getNumMaps() > 0 && !(currentCity.getAllDiscovered())) {
+			
+			System.out.println(String.format("You currently own %s map(s).\n",
+												team.getNumMaps()));
+			
+			boolean answersYes = Util.getYesNo("Would you like to use a map?");
+			
+			if (answersYes) {
+				currentCity.setAllDiscovered();
+				team.setNumMaps(team.getNumMaps() - 1);
+				System.out.println("The map has revealed the location of each sector.\n");
+				
+			} else {
+				System.out.println("The location of each sector remains a mystery.\n");
+			}
 		}
 	}
 	
@@ -341,6 +359,7 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Team team = new Team("Team name");
+		team.setNumMaps(3);
 		for (int i = 0; i < 1; i++) {
 			team.addHeroFromInput();
 		}

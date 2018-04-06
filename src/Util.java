@@ -43,6 +43,19 @@ public class Util {
 	
 	
 	/**
+	 * Asks the user the given question and gives them the option to choose yes
+	 * or no.
+	 * @param question	The yes or no question to ask the user.
+	 * @return	true if the user answers Yes, false if the user answers No.
+	 */
+	public static boolean getYesNo(String question) {
+		System.out.println(question);
+		System.out.println("1. Yes\n2. No\n");
+		int choice = Util.getIntFromUser(2, "Enter your choice:");
+		return choice == 1;
+	}
+	
+	/**
 	 * Takes a given class as a class object and returns a new instance of that
 	 * class.
 	 * Only works for classes with no argument constructors.
