@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class Game {
 	
 	/**
-	 * True if the super villain has been defeated,
-	 * false otherwise. Used to determine when the 
-	 * game is over.
+	 * An array of instances of all the PowerUp subclasses
 	 */
-	private boolean superVillainDefeated;
+	private final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
+			  								 new IncreaseRoll(),
+			  								 new MindReader(),
+			  								 new TieBreaker()};
 	
 	/**
 	 * The team of heroes playing the game.
@@ -181,7 +182,85 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 
+	/**
+	 * Allows the user to purchase power ups, healing items and maps.
+	 */
 	private void shop() {
+		System.out.println("You have entered the shop.\n");
+		System.out.println(String.format("Your team currently has %s coins.\n",
+											team.getCurrentMoney()));
+		
+		boolean finishedShopping = false;
+		
+		while (!finishedShopping) {
+			System.out.println("What would you like to do?\n"
+				+ "1. View power ups\n2. View healing items\n3. View maps\n4. Leave shop\n");
+			int choice = Util.getIntFromUser(4, "Enter you choice:");
+			
+			switch (choice) {
+				case 1: buyPowerUps(); break;
+				case 2: buyHealingItems(); break;
+				case 3: buyMaps(); break;
+				case 4: finishedShopping = true;
+			}
+		}
+	}
+	
+	/**
+	 * Allows the user to buy as many power ups as they would like.
+	 * Gives them an option to return to the main shop area.
+	 */
+	private void buyPowerUps() {
+		System.out.println("Here are the power ups for sale:\n");
+		
+		for (int i = 0; i < ALL_POWER_UPS.length; i++) {
+			PowerUp powerUp = ALL_POWER_UPS[i];
+			System.out.println(String.format("%s. %s", i+1, powerUp.shopDescription(team)));
+		}
+	
+		boolean finished = false;
+		
+		boolean answeredYes = Util.getYesNo("Would you like to buy a power up?");
+		
+		while (!finished) {
+			
+			if (answeredYes) {
+				System.out.println("Which power would you like to buy?");
+				int choice = Util.getIntFromUser(ALL_POWER_UPS.length,
+									"Enter a number to select you power up:");
+				PowerUp powerUpToBuy = ALL_POWER_UPS[choice - 1];
+				PowerUp newPowerUp = (PowerUp) Util.instantiate(powerUpToBuy.getClass());
+				
+				try {
+					team.buyPowerUp(newPowerUp);
+					System.out.println(String.format("One %s has been added to you inventory\n",
+														newPowerUp.getType().toString()));
+				} catch (IllegalArgumentException iae) {
+					System.out.println("Your team doesn't have enough coins to buy that power up.\n");
+				}
+				
+				answeredYes = Util.getYesNo("Would you like to buy another power up?");
+
+				
+			} else {
+				finished = true;
+			}
+		}
+	}
+	
+	/**
+	 * Allows the user to buy as many healing items as they would like.
+	 * Gives them an option to return to the main shop area.
+	 */
+	private void buyHealingItems() {
+		
+	}
+	
+	/**
+	 * Allows the user to buy as many maps as they would like.
+	 * Gives them an option to return to the main shop area.
+	 */
+	private void buyMaps() {
 		
 	}
 	
@@ -199,12 +278,12 @@ public class Game {
 	private void powerUpDen() {
 		final int NUM_CHOICES = 2;
 		final int NUM_POWER_UPS = PowerUpType.values().length;
-		System.out.println("You entered the Power-up Den.");
+		System.out.println("\nYou entered the Power-up Den.\n");
 		boolean finished = false;
 		while (!finished) {
-			System.out.println("What would you like to do?");
-			System.out.println("1: Apply a power-up\n2: Go home");
-			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:");
+			System.out.println("What would you like to do?\n");
+			System.out.println("1: Apply a power-up\n2: Go home\n");
+			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:\n");
 			switch (userChoice) {
 				case 1: selectPowerUp(NUM_POWER_UPS);
 						break;
@@ -222,15 +301,15 @@ public class Game {
 	 * @param numPowerUps The number of power-up types in the game
 	 */
 	private void selectPowerUp(int numPowerUps) {
-		System.out.println("Choose a power-up to apply:");
+		System.out.println("Choose a power-up to apply:\n");
 		PowerUpType[] allPowerUps = PowerUpType.values();
 		for (int i = 0; i < numPowerUps; i++) {
 			int optionNum = i + 1;
 			System.out.println(String.format("%d: (Owned: %d) %s", optionNum, count(team.getPowerUpsOwned(), allPowerUps[i]), allPowerUps[i].toString()));
 		}
-		int userChoice = Util.getIntFromUser(numPowerUps, "Choose an option:");
+		int userChoice = Util.getIntFromUser(numPowerUps, "\nChoose an option:");
 		if (count(team.getPowerUpsOwned(), allPowerUps[userChoice-1]) == 0) {
-			System.out.println("You don't have any of those. You can buy some from the Shop.");
+			System.out.println("\nYou don't have any of those. You can buy some from the Shop.");
 		}
 		else {
 			for (PowerUp powerUp : team.getPowerUpsOwned()) {
@@ -249,17 +328,17 @@ public class Game {
 	 * @param powerUp THe power-up to be applied to a chosen hero
 	 */
 	private void selectHero(PowerUp powerUp) {
-		System.out.println("Choose a hero to power up:");
+		System.out.println("\nChoose a hero to power up:\n");
 		ArrayList<Hero> heroes = team.getHeroes();
 		
 		for (int i = 0; i < heroes.size(); i++) {
 			System.out.printf("%d: %s\n", i+1, heroes.get(i).toString());
 		}
 		
-		int userChoice = Util.getIntFromUser(heroes.size(), "Choose an option:");
+		int userChoice = Util.getIntFromUser(heroes.size(), "\nChoose an option:");
 		Hero hero = heroes.get(userChoice-1);
 		
-		System.out.println(String.format("You powered up %s with %s", hero.getName(), powerUp.getType()));
+		System.out.printf("\nYou powered up %s with %s\n", hero.getName(), powerUp.getType());
 		hero.addPowerUp(powerUp);
 	}
 	
@@ -373,13 +452,14 @@ public class Game {
 		
 		System.out.printf("I am %s!\n", villain.getName());
 		System.out.println(villain.getTaunt());
-		
+
 		while (!villain.isDefeated() && !gameOver) {
 						
 			Hero hero = team.selectHero();
 			MiniGames minigameType = villain.getGame();
 			MiniGame minigame = MiniGame.createGame(minigameType, hero, villain);
 			
+			System.out.printf("%s demands that you play %s!", villain.getName(), minigameType.toString());
 			minigame.play();
 			
 			if (minigame.getHasWon()) {

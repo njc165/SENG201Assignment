@@ -1,15 +1,6 @@
 public class PowerUp {
 	
 	/**
-	 * A list of all the PowerUp subclasses as class objects.
-	 * New PowerUp instances should be created from this list using Util.instantiate().
-	 */
-	private Class<?>[] ALL_POWER_UPS = {ExtraGuess.class,
-										IncreaseRoll.class,
-										MindReader.class,
-										TieBreaker.class};
-	
-	/**
 	 * The type of the power-up as an object of the PowerUpType enum.
 	 */
 	private PowerUpType type;
@@ -39,6 +30,28 @@ public class PowerUp {
 		this.cost = cost;
 		this.description = description;
 	}
+	
+	/**
+	 * Returns a description of the item as a formatted String to be displayed
+	 * to the user in the shop.
+	 * Includes:
+	 * - name of item
+	 * - description of item's use
+	 * - price of item
+	 * - number currently owned by the team
+	 * @return	A description of a purchasable item to be displayed in the shop.
+	 */
+	public String shopDescription(Team team) {
+		int numOwned = team.numPowerUpsOwned(type);
+		
+		String returnString = typeString + "\n";
+		returnString += String.format("Number currently owned: %s\n", numOwned);
+		returnString += String.format("Price: %s coins\n", cost);
+		returnString += description + "\n";
+		
+		return returnString;
+		
+	}
 
 	/**
 	 * Getter method for type.
@@ -48,6 +61,14 @@ public class PowerUp {
 		return type;
 	}
 	
+
+	/**
+	 * Getter method for cost.
+	 * @return The value of cost.
+	 */
+	public int getCost() {
+		return cost;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
