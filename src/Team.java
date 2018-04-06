@@ -212,6 +212,9 @@ public class Team {
 	 * @param numMaps The new value of numMaps to set.
 	 */
 	public void setNumMaps(int numMaps) {
+		if (numMaps < 0) {
+			throw new IllegalArgumentException("The number of maps can't be negative.");
+		}
 		this.numMaps = numMaps;
 	}
 

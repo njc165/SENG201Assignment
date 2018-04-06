@@ -105,6 +105,17 @@ class CityTest {
 		city.setCurrentSectorDiscovered();
 		assertTrue(city.toString().contains(sectorType.toString()));
 	}
+	
+	@Test
+	final void testGetAllDiscovered() {
+		// A new city doesn't have all sectors discovered
+		City city = new City(new Bucephalus());
+		assertFalse(city.getAllDiscovered());
+		
+		// Returns true once all sectors are discovered
+		city.setAllDiscovered();
+		assertTrue(city.getAllDiscovered());
+	}
 }
 
 

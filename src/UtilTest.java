@@ -101,6 +101,24 @@ class UtilTest {
 	}
 	
 	@Test
+	final void testGetYesNo() {
+		// Entering 1 returns true
+		ByteArrayInputStream in = new ByteArrayInputStream("1\n".getBytes());
+		System.setIn(in);
+		assertTrue(Util.getYesNo("Question"));
+		
+		// Entering 2 returns false
+		in = new ByteArrayInputStream("2\n".getBytes());
+		System.setIn(in);
+		assertFalse(Util.getYesNo("Question"));
+		
+		// Repeatedly asks for input until the input is valid
+		in = new ByteArrayInputStream("23\nstring\n0\n1.2\n1\n".getBytes());
+		System.setIn(in);
+		assertTrue(Util.getYesNo("Question"));
+	}
+	
+	@Test
 	final void testInstantiate() {
 		// Create a new villain
 		Class<?> villainClass = Invictus.class;
