@@ -4,6 +4,14 @@ import java.util.ArrayList;
 public class Game {
 	
 	/**
+	 * An array of instances of all the PowerUp subclasses
+	 */
+	private final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
+			  								 new IncreaseRoll(),
+			  								 new MindReader(),
+			  								 new TieBreaker()};
+	
+	/**
 	 * The team of heroes playing the game.
 	 */
 	private Team team;
@@ -165,7 +173,85 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 
+	/**
+	 * Allows the user to purchase power ups, healing items and maps.
+	 */
 	private void shop() {
+		System.out.println("You have entered the shop.\n");
+		System.out.println(String.format("Your team currently has %s coins.\n",
+											team.getCurrentMoney()));
+		
+		boolean finishedShopping = false;
+		
+		while (!finishedShopping) {
+			System.out.println("What would you like to do?\n"
+				+ "1. View power ups\n2. View healing items\n3. View maps\n4. Leave shop\n");
+			int choice = Util.getIntFromUser(4, "Enter you choice:");
+			
+			switch (choice) {
+				case 1: buyPowerUps(); break;
+				case 2: buyHealingItems(); break;
+				case 3: buyMaps(); break;
+				case 4: finishedShopping = true;
+			}
+		}
+	}
+	
+	/**
+	 * Allows the user to buy as many power ups as they would like.
+	 * Gives them an option to return to the main shop area.
+	 */
+	private void buyPowerUps() {
+		System.out.println("Here are the power ups for sale:\n");
+		
+		for (int i = 0; i < ALL_POWER_UPS.length; i++) {
+			PowerUp powerUp = ALL_POWER_UPS[i];
+			System.out.println(String.format("%s. %s", i+1, powerUp.shopDescription(team)));
+		}
+	
+		boolean finished = false;
+		
+		boolean answeredYes = Util.getYesNo("Would you like to buy a power up?");
+		
+		while (!finished) {
+			
+			if (answeredYes) {
+				System.out.println("Which power would you like to buy?");
+				int choice = Util.getIntFromUser(ALL_POWER_UPS.length,
+									"Enter a number to select you power up:");
+				PowerUp powerUpToBuy = ALL_POWER_UPS[choice - 1];
+				PowerUp newPowerUp = (PowerUp) Util.instantiate(powerUpToBuy.getClass());
+				
+				try {
+					team.buyPowerUp(newPowerUp);
+					System.out.println(String.format("One %s has been added to you inventory\n",
+														newPowerUp.getType().toString()));
+				} catch (IllegalArgumentException iae) {
+					System.out.println("Your team doesn't have enough coins to buy that power up.\n");
+				}
+				
+				answeredYes = Util.getYesNo("Would you like to buy another power up?");
+
+				
+			} else {
+				finished = true;
+			}
+		}
+	}
+	
+	/**
+	 * Allows the user to buy as many healing items as they would like.
+	 * Gives them an option to return to the main shop area.
+	 */
+	private void buyHealingItems() {
+		
+	}
+	
+	/**
+	 * Allows the user to buy as many maps as they would like.
+	 * Gives them an option to return to the main shop area.
+	 */
+	private void buyMaps() {
 		
 	}
 	
@@ -310,27 +396,27 @@ public class Game {
 	 */
 	private void battle() {
 		
-		Villain badGuy = currentCity.getVillain();
+		Villain villain = currentCity.getVillain();
 		
-		System.out.printf("I am %s!\n", badGuy.getName());
-		System.out.println(badGuy.getTaunt());
+		System.out.printf("I am %s!\n", villain.getName());
+		System.out.println(villain.getTaunt());
 		
 		boolean villainDefeated = false;
 		
 		while (!villainDefeated) {
 			
-			Hero goodGuy = team.selectHero();
-			MiniGames minigameType = badGuy.getGame();
-			MiniGame minigame = MiniGame.createGame(minigameType, goodGuy, badGuy);
+			Hero hero = team.selectHero();
+			MiniGames minigameType = villain.getGame();
+			MiniGame minigame = MiniGame.createGame(minigameType, hero, villain);
 			
 			minigame.play();
 			
 			if (minigame.getHasWon()) {
-				badGuy.setTimesDefeated(badGuy.getTimesDefeated() + 1);
-				villainDefeated = badGuy.isDefeated();				
+				villain.setTimesDefeated(villain.getTimesDefeated() + 1);
+				villainDefeated = villain.isDefeated();				
 			}
 			else {
-				team.takeDamage(goodGuy, badGuy.getDamageDealt());
+				team.takeDamage(hero, villain.getDamageDealt());
 			}
 			
 		}

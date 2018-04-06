@@ -53,14 +53,6 @@ public class Team {
 		this.name = name;
 		this.currentMoney = STARTING_MONEY;
 	}
-	
-	/**
-	 * Getter method for powerUpsOwned.
-	 * @return The value of powerUpsOwned.
-	 */
-	public ArrayList<PowerUp> getPowerUpsOwned() {
-		return powerUpsOwned;
-	}
 		
 	/**
 	 * Adds the given Hero object to the teams list of heroes.
@@ -97,13 +89,6 @@ public class Team {
 		
 		int choice = Util.getIntFromUser(Hero.ALL_HEROES.length, "Enter your choice:");
 		int heroIndex = choice - 1;
-		
-		// Class<? extends Hero> type = ALL_HEROES[choice].getClass();
-		// heroes.add(new type(heroName))
-		
-		// Something like this can be done with 'reflection', whatever that is.
-		// If we can figure out how to use it, it will be fewer lines of code than
-		// the switch statement and will not break if we add more hero types.
 		
 		String type = Hero.ALL_HEROES[heroIndex].getType();
 		
@@ -184,6 +169,23 @@ public class Team {
 	}
 	
 	/**
+	 * Takes a new powerUp object and buys it if the team has enough money.
+	 * If the team has enough money, the power up is added to the team's list of
+	 * owned power ups, and the team's current money is decreased by the appropriate
+	 * amount.
+	 * If the team doesn't have enough money, 
+	 * @param powerUp
+	 */
+	public void buyPowerUp(PowerUp powerUp) {
+		if (powerUp.getCost() > currentMoney) {
+			throw new IllegalArgumentException("Not enough money to buy that power up");
+		} else {
+			currentMoney -= powerUp.getCost();
+			powerUpsOwned.add(powerUp);
+		}
+	}
+	
+	/**
 	 * Getter method for heroes.
 	 * @return The value of heroes.
 	 */
@@ -232,6 +234,28 @@ public class Team {
 	 */
 	public void setCurrentMoney(int currentMoney) {
 		this.currentMoney = currentMoney;
+	}
+	
+	/**
+	 * Getter method for powerUpsOwned.
+	 * @return The value of powerUpsOwned.
+	 */
+	public ArrayList<PowerUp> getPowerUpsOwned() {
+		return powerUpsOwned;
+	}
+	
+	/**
+	 * Counts how many power-ups of the given type the team currently owns.
+	 * @param powerUpType	The PowerUpType of interest.
+	 * @return		The number of power-ups of the given type owned by the team.
+	 */
+	public int numPowerUpsOwned(PowerUpType powerUpType) {
+		int count = 0;
+		for (PowerUp powerUp: powerUpsOwned) {
+			if (powerUp.getType() == powerUpType)
+				count++;
+		}
+		return count;
 	}
 	
 	/**
