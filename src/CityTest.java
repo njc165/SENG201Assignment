@@ -91,6 +91,20 @@ class CityTest {
 		city.setCurrentLocationByNumber(4);
 		assertEquals(Location.WEST, city.getCurrentLocation());
 	}
+	
+	@Test
+	final void testSetCurrentSectorDiscovered() {
+		City city = new City(new Invictus());
+		city.setCurrentLocation(Location.NORTH);
+		SectorType sectorType = city.getCurrentSectorType();
+		
+		// Initially the current sector is not discovered
+		assertFalse(city.toString().contains(sectorType.toString()));
+		
+		// Current sector is set to discovered
+		city.setCurrentSectorDiscovered();
+		assertTrue(city.toString().contains(sectorType.toString()));
+	}
 }
 
 

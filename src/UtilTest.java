@@ -99,5 +99,26 @@ class UtilTest {
 		// Restore System.in
 		System.setIn(System.in);
 	}
+	
+	@Test
+	final void testInstantiate() {
+		// Create a new villain
+		Class<?> villainClass = Invictus.class;
+		Villain villain = (Villain) Util.instantiate(villainClass);
+		assertTrue(villain instanceof Invictus);
+		assertTrue(villain instanceof Villain);
+		assertEquals("Invictus the Unconquered", villain.getName());
+		
+		// Create a new power up
+		Class<?> powerUpClass = TieBreaker.class;
+		PowerUp powerUp = (PowerUp) Util.instantiate(powerUpClass);
+		assertTrue(powerUp instanceof TieBreaker);
+		assertTrue(powerUp instanceof PowerUp);
+		assertEquals(PowerUpType.TIEBREAKER, powerUp.getType());
+	}
 
+	
+	
+	
+	
 }

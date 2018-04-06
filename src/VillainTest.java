@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class VillainTest {
@@ -28,13 +30,13 @@ class VillainTest {
 	@Test
 	void testVillain() {
 		// Create new villain, check that name is set correctly
-		Villain villain1 = new Villain("Name", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
-		assertEquals("Name", villain1.getName());
+		Villain villain = new Villain("Name", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
+		assertEquals("Name", villain.getName());
 		
 		// An exception is thrown if the constructor is given an empty gamesPlayed array
 		boolean exceptionThrown = false;
 		try {
-			Villain villain2 = new Villain("Name", "", 0, new MiniGames[0]);
+			villain = new Villain("Name", "", 0, new MiniGames[0]);
 		} catch (IllegalArgumentException iae) {
 			exceptionThrown = true;
 		}
@@ -42,17 +44,57 @@ class VillainTest {
 	}
 	
 	@Test
-	void testGetGame() {
+	final void testGetGame() {
 		// If villain only plays one game, test that getGame() returns this game.
-		Villain villain1 = new Villain("", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
+		MiniGames[] games = new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK};
+		Villain villain1 = new Villain("", "", 0, games);
 		assertEquals(MiniGames.PAPER_SCISSORS_ROCK, villain1.getGame());
 		
 		// If villain plays several games, test that getGame() returns one of these games.
-		MiniGames[] games = new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK, MiniGames.GUESS_NUMBER, MiniGames.DICE_ROLLS};
+		games = new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK, MiniGames.GUESS_NUMBER, MiniGames.DICE_ROLLS};
 		Villain villain2 = new Villain("", "", 0, games);
 		assertTrue(Arrays.asList(games).contains(villain2.getGame()));
 		
-		// gamesPlayed can't be empty, as this throws an exception in the Villain constructor.
+		// gamesPlayed can't be empty, as this throws an exception in the
+		// Villain constructor.
+	}
+	
+	@Test
+	final void testRandomisedVillains() {
+		int numVillains = 3;
+		ArrayList<Villain> villains = Villain.randomisedVillains(numVillains);
+		
+		// List is the right length
+		assertEquals(3, villains.size());
+		
+		// Last villain is the super villain
+		assertTrue(villains.get(2) instanceof Invictus);
+		
+		// Other villains aren't supper villains
+		assertFalse(villains.get(0) instanceof Invictus);
+		assertFalse(villains.get(1) instanceof Invictus);
+		
+		// No repetitions on list
+		assertFalse(villains.get(0).getClass() == villains.get(1).getClass());
+		
+		// numVillains = 0 throws an IllegalArgumentException
+		numVillains = 0;
+		boolean exceptionThrown = false;
+		try {
+			villains = Villain.randomisedVillains(numVillains);
+		} catch (IllegalArgumentException iae){
+			exceptionThrown = true;
+		}
+		
+		assertTrue(exceptionThrown);
+		
+		// numVillains = 1 returns a list containing only the super villain
+		numVillains = 1;
+		villains = Villain.randomisedVillains(numVillains);
+		assertEquals(1, villains.size());
+		assertTrue(villains.get(0) instanceof Invictus);
 	}
 
+	
+	
 }

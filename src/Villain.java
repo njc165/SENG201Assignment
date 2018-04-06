@@ -1,23 +1,25 @@
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class Villain {
 	
 	/**
-	 * An instance of the super villain, to be used when initialising the list of
+	 * The class object of the super villain, to be used when initialising the list of
 	 * villains in a new game.
 	 */
-//	public static final Villain SUPER_VILLAIN = new Invictus();
+	private static final Class<?> SUPER_VILLAIN = Invictus.class;
 	
 	/**
-	 * An array of instances of all the villain subclasses except the super villain,
+	 * An array of class objects of all the villain subclasses except the super villain,
 	 * to be used when initialising the list of villains in a new game.
 	 */
-//	public static final Villain[] REGULAR_VILLAINS = {new Bucephalus(),
-//													  new Evan(),
-//													  new Janken(),
-//													  new John(),
-//													  new Maverick()};
+	private static final Class<?>[] REGULAR_VILLAINS = {Bucephalus.class,
+													  Evan.class,
+													  Janken.class,
+													  John.class,
+													  Maverick.class};
 	
 	/**
 	 * The name of the villain. Each subclass of Villain has a different name.
@@ -68,6 +70,38 @@ public class Villain {
 		else
 			throw new IllegalArgumentException("gamesPlayed array cannot be empty");
 	}	
+	
+	/**
+	 * Creates an ArrayList of instances of Villain subclasses of the given length.
+	 * Called when creating a new game to initialise the villain in each city.
+	 * The last villain in list is the super villain, and the other villains
+	 * are randomised from the list of regular villains.
+	 * There are no repeated villains.
+	 * @param numVillains	The length of the returned list of villains.
+	 * 						Must be at least one (always includes the super villain).
+	 * @return	The randomised list of villains, with the super villain last.
+	 */
+	public static ArrayList<Villain> randomisedVillains(int numVillains) {
+		if (numVillains < 1) {
+			throw new IllegalArgumentException("numVillains must be at least 1.");
+		}
+		
+		ArrayList<Class<?>> regularVillainClasses = new ArrayList<Class<?>>(
+									Arrays.asList(Villain.REGULAR_VILLAINS));
+		Collections.shuffle(regularVillainClasses);
+
+		ArrayList<Class<?>> villainClasses = new ArrayList<Class<?>>(
+				regularVillainClasses.subList(0, numVillains - 1));
+		villainClasses.add(Villain.SUPER_VILLAIN);
+		
+		ArrayList<Villain> villains = new ArrayList<Villain>();
+		for (Class<?> villainClass: villainClasses) {
+			Villain villain = (Villain) Util.instantiate(villainClass);
+			villains.add(villain);
+		}
+
+		return villains;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

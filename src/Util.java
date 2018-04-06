@@ -1,3 +1,4 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class Util {
@@ -39,6 +40,27 @@ public class Util {
 
 		return number;
 	}
+	
+	
+	/**
+	 * Takes a given class as a class object and returns a new instance of that
+	 * class.
+	 * Only works for classes with no argument constructors.
+	 * @param className		The class to be instantiated as a class object.
+	 * @return				A new instance of the given class.
+	 * 						Returned Object needs to be cast to the appropriate type.
+	 */
+	public static Object instantiate(Class<?> className) {
+		Object newInstance = null;
+		try {
+			newInstance = className.getConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+		return newInstance;
+	}
+	
 	
 	public static void main(String[] args) {
 		Util.getIntFromUser(5, "Enter number");
