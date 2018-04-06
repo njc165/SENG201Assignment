@@ -199,12 +199,12 @@ public class Game {
 	private void powerUpDen() {
 		final int NUM_CHOICES = 2;
 		final int NUM_POWER_UPS = PowerUpType.values().length;
-		System.out.println("You entered the Power-up Den.");
+		System.out.println("\nYou entered the Power-up Den.\n");
 		boolean finished = false;
 		while (!finished) {
-			System.out.println("What would you like to do?");
-			System.out.println("1: Apply a power-up\n2: Go home");
-			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:");
+			System.out.println("What would you like to do?\n");
+			System.out.println("1: Apply a power-up\n2: Go home\n");
+			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:\n");
 			switch (userChoice) {
 				case 1: selectPowerUp(NUM_POWER_UPS);
 						break;
@@ -222,15 +222,15 @@ public class Game {
 	 * @param numPowerUps The number of power-up types in the game
 	 */
 	private void selectPowerUp(int numPowerUps) {
-		System.out.println("Choose a power-up to apply:");
+		System.out.println("Choose a power-up to apply:\n");
 		PowerUpType[] allPowerUps = PowerUpType.values();
 		for (int i = 0; i < numPowerUps; i++) {
 			int optionNum = i + 1;
 			System.out.println(String.format("%d: (Owned: %d) %s", optionNum, count(team.getPowerUpsOwned(), allPowerUps[i]), allPowerUps[i].toString()));
 		}
-		int userChoice = Util.getIntFromUser(numPowerUps, "Choose an option:");
+		int userChoice = Util.getIntFromUser(numPowerUps, "\nChoose an option:");
 		if (count(team.getPowerUpsOwned(), allPowerUps[userChoice-1]) == 0) {
-			System.out.println("You don't have any of those. You can buy some from the Shop.");
+			System.out.println("\nYou don't have any of those. You can buy some from the Shop.");
 		}
 		else {
 			for (PowerUp powerUp : team.getPowerUpsOwned()) {
@@ -249,17 +249,17 @@ public class Game {
 	 * @param powerUp THe power-up to be applied to a chosen hero
 	 */
 	private void selectHero(PowerUp powerUp) {
-		System.out.println("Choose a hero to power up:");
+		System.out.println("\nChoose a hero to power up:\n");
 		ArrayList<Hero> heroes = team.getHeroes();
 		
 		for (int i = 0; i < heroes.size(); i++) {
 			System.out.printf("%d: %s\n", i+1, heroes.get(i).toString());
 		}
 		
-		int userChoice = Util.getIntFromUser(heroes.size(), "Choose an option:");
+		int userChoice = Util.getIntFromUser(heroes.size(), "\nChoose an option:");
 		Hero hero = heroes.get(userChoice-1);
 		
-		System.out.println(String.format("You powered up %s with %s", hero.getName(), powerUp.getType()));
+		System.out.printf("\nYou powered up %s with %s\n", hero.getName(), powerUp.getType());
 		hero.addPowerUp(powerUp);
 	}
 	
@@ -337,6 +337,7 @@ public class Game {
 			MiniGames minigameType = villain.getGame();
 			MiniGame minigame = MiniGame.createGame(minigameType, hero, villain);
 			
+			System.out.printf("%s demands that you play %s!", villain.getName(), minigameType.toString());
 			minigame.play();
 			
 			if (minigame.getHasWon()) {
