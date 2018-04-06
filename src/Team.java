@@ -17,7 +17,7 @@ public class Team {
 	/**
 	 * An ArrayList of healing items currently owned and not applied.
 	 */
-	//private ArrayList<HealingItem> healingItemsOwned = new ArrayList<HealingItem>();
+	private ArrayList<HealingItem> healingItemsOwned = new ArrayList<HealingItem>();
 	
 	/**
 	 * All heroes currently on the team.
@@ -237,7 +237,15 @@ public class Team {
 	}
 	
 	/**
-	 * Getter method for powerUpsOwned.
+	 * Getter method for healingItemsOwned.
+	 * @return The value of healingItemsOwned.
+	 */
+	public ArrayList<HealingItem> getHealingItemsOwned() {
+		return healingItemsOwned;
+  }
+    
+	/** 
+   * Getter method for powerUpsOwned.
 	 * @return The value of powerUpsOwned.
 	 */
 	public ArrayList<PowerUp> getPowerUpsOwned() {
@@ -274,6 +282,39 @@ public class Team {
 		int userChoice = Util.getIntFromUser(heroes.size(), "Enter a choice:");
 		
 		return heroes.get(userChoice-1);
+		
+	}
+	
+	/**
+	 * Asks the user to select a healing item from the list of owned healing items.
+	 * @return The selected HealingItem
+	 */
+	public HealingItem selectHealingItem() {
+		
+		System.out.println("Select a healing item to apply to the hero:");
+		
+		ArrayList<HealingItem> uniqueHealingItems = new ArrayList<HealingItem>();
+		for (HealingItem item : healingItemsOwned) {
+			boolean inUnique = false;
+			for (HealingItem uniqueItem : uniqueHealingItems) {
+				if (item.getName() == uniqueItem.getName()) {
+					inUnique = true;
+					break;
+				}
+			}
+			if (!inUnique) {
+				uniqueHealingItems.add(item);
+			}
+		}
+		
+		for (int i = 0; i < uniqueHealingItems.size(); i++) {
+			int optionNum = i + 1;
+			System.out.printf("%d: %s\n", optionNum, uniqueHealingItems.get(i));
+		}
+		
+		int userChoice = Util.getIntFromUser(uniqueHealingItems.size(), "Enter a choice:");
+		
+		return uniqueHealingItems.get(userChoice-1);
 		
 	}
 		
