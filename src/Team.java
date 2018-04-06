@@ -230,5 +230,24 @@ public class Team {
 	public void setCurrentMoney(int currentMoney) {
 		this.currentMoney = currentMoney;
 	}
+	
+	/**
+	 * Asks the user to select a hero from the team
+	 * @return The selected Hero
+	 */
+	public Hero selectHero() {
+		
+		System.out.println("Choose a hero:");
+		
+		for (int i = 0; i < heroes.size(); i++) {
+			int optionNum = i + 1;
+			System.out.printf("%d: %s\n", optionNum, heroes.get(i));
+		}
+		
+		int userChoice = Util.getIntFromUser(heroes.size(), "Enter a choice:");
+		
+		return heroes.get(userChoice-1);
+		
+	}
 		
 }

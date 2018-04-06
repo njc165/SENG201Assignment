@@ -98,7 +98,7 @@ public class Game {
  */	
 	
 	/**
-	 * Controls all the game play of the game.
+	 * Controls all the gameplay of the game.
 	 * Should be called once a new game has been created.
 	 * When play() finishes, gameOver will be set to true if the team lost,
 	 * and false if the team won.
@@ -185,7 +185,10 @@ public class Game {
  * powerUpDen() and helper methods
  * -----------------------------------------------------------------------------------
  */
-	
+	/**
+	 * Takes the team to the Power-up Den.
+	 * Allows team to choose next action.
+	 */
 	private void powerUpDen() {
 		final int NUM_CHOICES = 2;
 		final int NUM_POWER_UPS = PowerUpType.values().length;
@@ -206,6 +209,11 @@ public class Game {
 		homeBase();
 	}
 	
+	/**
+	 * A sub-method for powerUpDen().
+	 * Allows team to choose a power-up to apply.
+	 * @param numPowerUps The number of power-up types in the game
+	 */
 	private void selectPowerUp(int numPowerUps) {
 		System.out.println("Choose a power-up to apply:");
 		PowerUpType[] allPowerUps = PowerUpType.values();
@@ -228,6 +236,11 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * A sub-method for selectPowerUp().
+	 * Applies the given power-up to a chosen hero.
+	 * @param powerUp THe power-up to be applied to a chosen hero
+	 */
 	private void selectHero(PowerUp powerUp) {
 		System.out.println("Choose a hero to power up:");
 		ArrayList<Hero> heroes = team.getHeroes();
@@ -243,6 +256,12 @@ public class Game {
 		hero.addPowerUp(powerUp);
 	}
 	
+	/**
+	 * A helper method for selectPowerUp().
+	 * @param list An ArrayList of PowerUps
+	 * @param type A specific PowerUpType
+	 * @return The number of occurences of <b>type</b> in <b>list</b>
+	 */
 	private int count(ArrayList<PowerUp> list, PowerUpType type) {
 		int counter = 0;
 		for (PowerUp pu : list) {
@@ -273,11 +292,60 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */	
 	
+	/**
+	 * Takes the team to the villain's lair.
+	 * Gives the option to battle the villain.
+	 */
 	private void villainsLair() {
+		
+		System.out.printf("You found the lair of %s.\n", currentCity.getVillain().getName());
+		System.out.println("Would you like to enter?");
+		System.out.println("1: Yeah!\n2: Nah!");
+		
+		int userChoice = Util.getIntFromUser(2, "Enter a choice:");
+		
+		switch (userChoice) {
+			case 1: battle();
+					break;
+			case 2: homeBase();
+					break;
+			default: throw new RuntimeException("An invalid choice was accepted");
+		}
 		
 	}
 	
-	
+	/**
+	 * Starts a battle with the villain.
+	 */
+	private void battle() {
+		
+		Villain badGuy = currentCity.getVillain();
+		
+		System.out.printf("I am %s!\n", badGuy.getName());
+		System.out.println(badGuy.getTaunt());
+		
+		boolean villainDefeated = false;
+		
+		while (!villainDefeated) {
+			
+			Hero goodGuy = team.selectHero();
+			MiniGames minigameType = badGuy.getGame();
+			MiniGame minigame = MiniGame.createGame(minigameType, goodGuy, badGuy);
+			
+			minigame.play();
+			
+			if (minigame.getHasWon()) {
+				badGuy.setTimesDefeated(badGuy.getTimesDefeated() + 1);
+				villainDefeated = badGuy.isDefeated();				
+			}
+			else {
+				team.takeDamage(goodGuy, badGuy.getDamageDealt());
+			}
+			
+		}
+		
+	}
+		
 /*
  * -----------------------------------------------------------------------------------
  * homeBase() and helper methods

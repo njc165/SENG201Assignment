@@ -54,9 +54,6 @@ public class PaperScissorsRock extends MiniGame {
 			
 			String gameOutcome = computeOutcome(heroChoice, villainChoice);
 			
-			
-			// this can be refactored to have computeOutcome return a bool,
-			// true for win and false for draw or loss.
 			if (gameOutcome == "Win") {
 				System.out.println("You won!");
 				setHasWon(true);

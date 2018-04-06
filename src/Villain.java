@@ -20,6 +20,11 @@ public class Villain {
 //													  new Maverick()};
 	
 	/**
+	 * The number of times a villain can lose MiniGames before it is killed.
+	 */
+	public static final int MAX_TIMES_DEFEATED = 3;
+	
+	/**
 	 * The name of the villain. Each subclass of Villain has a different name.
 	 */
 	private String name;
@@ -34,7 +39,12 @@ public class Villain {
 	 * The damage to a hero's health when it loses a battle to this villain.
 	 * Each subclass of Villain has a different damage dealt.
 	 */
-	private double damageDealt;
+	private int damageDealt;
+	
+	/**
+	 * The number of times this villain has been defeated in a MiniGame.
+	 */
+	private int timesDefeated;
 	
 	/**
 	 * An array of the games a villain may choose to play, represented as values of the
@@ -58,7 +68,7 @@ public class Villain {
 	 * @param damageDealt	The damage dealt by the Villain subclass.
 	 * @param gamesPlayed	The list of games which are played by the villain subclass.
 	 */
-	public Villain(String name, String taunt, double damageDealt, MiniGames[] gamesPlayed) {
+	public Villain(String name, String taunt, int damageDealt, MiniGames[] gamesPlayed) {
 		this.name = name;
 		this.taunt = taunt;
 		this.damageDealt = damageDealt;
@@ -67,7 +77,23 @@ public class Villain {
 			this.gamesPlayed = gamesPlayed;
 		else
 			throw new IllegalArgumentException("gamesPlayed array cannot be empty");
-	}	
+	}
+	
+	/**
+	 * Getter method for taunt.
+	 * @return The value of taunt.
+	 */
+	public String getTaunt() {
+		return taunt;
+	}
+	
+	/**
+	 * Getter method for damageDealt.
+	 * @return The value of damageDealt.
+	 */
+	public int getDamageDealt() {
+		return damageDealt;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -108,6 +134,29 @@ public class Villain {
 	 */
 	public void setDefeated(boolean isDefeated) {
 		this.isDefeated = isDefeated;
+	}
+	
+	/**
+	 * Getter method for timesDefeated.
+	 * @return The value of timesDefeated.
+	 */
+	public int getTimesDefeated() {
+		return timesDefeated;
+	}
+	
+	/**
+	 * Setter method for timesDefeated.
+	 * Also marks villain as defeated if newTime exceeds MAX_TIMES_DEFEATED.
+	 * @param newTimes The new value of timesDefeated to set.
+	 */
+	public void setTimesDefeated(int newTimes) {
+		timesDefeated = newTimes;
+		if (timesDefeated >= MAX_TIMES_DEFEATED) {
+			this.isDefeated = true;
+		}
+		else {
+			this.isDefeated = false;
+		}
 	}
 
 	public static void main(String[] args) {
