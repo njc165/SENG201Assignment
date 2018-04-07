@@ -1,28 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PowerUpTest {
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 
 	@Test
 	final void testEqualsObject() {
@@ -37,6 +16,40 @@ class PowerUpTest {
 		
 		// A power-up is not equal to an object of a different type
 		assertFalse(tieBreaker1.equals(new String()));
+	}
+	
+	@Test
+	final void testPowerUp() {
+		// Create a new PowerUp item
+		PowerUp pu = new PowerUp(PowerUpType.TIEBREAKER, 100, "description");
+		
+		// Check that the constructor correctly initialises values.
+		assertEquals(pu.getType(), PowerUpType.TIEBREAKER);
+		assertEquals(pu.getCost(), 100);
+
+	}
+	
+	@Test
+	final void testShopDecription() {
+		// Create new team and powerUp
+		Team team = new Team("TeamName");
+		PowerUp pu = new PowerUp(PowerUpType.MINDREADER, 20, "d");
+		
+		// Create a shop description of the power up item
+		String returnedString = pu.shopDescription(team);
+		
+		// Check that the returned string has the expected value
+		assertEquals("Mindreader\nNumber currently owned: 0\nPrice: 20 coins\nd\n", returnedString);
+		
+	}
+	
+	@Test
+	final void testToString() {
+		// Create a new powerUp
+		PowerUp pu = new ExtraGuess();
+		
+		// Check that toString() returns the expected value
+		assertEquals("Extra Guess", pu.toString());
 	}
 
 }

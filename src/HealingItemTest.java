@@ -92,5 +92,32 @@ class HealingItemTest {
 		Thread.sleep(1000);
 		assertFalse(item2.readyToIncrement());
 	}
+	
+	@Test
+	final void testShopDescription() {
+		// Create a new team and healing item
+		Team team = new Team("TeamName");
+		HealingItem item = new HealingItem("name", "description", 3, 20, 100);
+		
+		// Create a shop description string
+		String returnedString = item.shopDescription(team);
+		
+		// Check that the returned string is as expected
+		assertEquals("name\nNumber currently owned: 0\nPrice: 100 coins\ndescription\nTotal health restored: 75% of the hero's max health in 25.0% increments.\nTime taken to apply each increment: 20 seconds.\n", returnedString);
+	}
+	
+	@Test
+	final void testToString() {
+		// Create new healing items
+		HealingItem item1 = new AlicornDust();
+		HealingItem item2 = new SuspiciousTonic();
+		HealingItem item3 = new HeartyMeal();
+		
+		// Check that toString() returns the expected value for each healing item
+		assertEquals("Alicorn Dust", item1.toString());
+		assertEquals("Suspicious Tonic", item2.toString());
+		assertEquals("Hearty Meal", item3.toString());
+		
+	}
 		
 }

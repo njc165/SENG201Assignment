@@ -4,15 +4,6 @@ import java.time.temporal.ChronoUnit;
 public class HealingItem {
 	
 	/**
-	 * A list of all the HealingItem subclasses as class objects.
-	 * New HealingItem instances should be created from this list
-	 * using Util.instantiate().
-	 */
-	private Class<?>[] ALL_HEALING_ITEMS = {AlicornDust.class,
-											HeartyMeal.class,
-											SuspiciousTonic.class};
-	
-	/**
 	 * The percentage of a hero's health which is restored by each increment of a
 	 * healing item, expressed as a decimal.
 	 */
