@@ -48,6 +48,8 @@ public class GuessNumber extends MiniGame {
 	 * All power-ups relevant to Guess the Number will have been removed from the hero, whether or not they were used.
 	 */
 	public void play() {
+		System.out.println(String.format("%s has chosen a number between 1 and %s.\n",
+				getVillain().getName(), MAX_NUMBER_TO_BE_GUESSED));
 		while ((guessesLeft > 0) && (!getHasWon())) {
 			System.out.println(String.format("You have %s chance(s) left to guess the number.", guessesLeft));
 			int guess = getGuessFromPlayer();
@@ -92,8 +94,6 @@ public class GuessNumber extends MiniGame {
 	 * @return	The random number.
 	 */
 	private int getNumberToGuess() {
-		System.out.println(String.format("%s has chosen a number between 1 and %s.\n",
-				getVillain().getName(), MAX_NUMBER_TO_BE_GUESSED));
 		Random generator = new Random();
 		return generator.nextInt(MAX_NUMBER_TO_BE_GUESSED) + 1;
 	}

@@ -173,15 +173,46 @@ public class Team {
 	 * If the team has enough money, the power up is added to the team's list of
 	 * owned power ups, and the team's current money is decreased by the appropriate
 	 * amount.
-	 * If the team doesn't have enough money, 
-	 * @param powerUp
+	 * If the team doesn't have enough money, an NotEnoughMoneyException is thrown.
+	 * @param powerUp The new PowerUp instance to be bought.
 	 */
 	public void buyPowerUp(PowerUp powerUp) {
 		if (powerUp.getCost() > currentMoney) {
-			throw new IllegalArgumentException("Not enough money to buy that power up");
+			throw new NotEnoughMoneyException("Not enough money to buy that power up");
 		} else {
 			currentMoney -= powerUp.getCost();
 			powerUpsOwned.add(powerUp);
+		}
+	}
+	
+	/**
+	 * Takes a new healingItem object and buys it if the team has enough money.
+	 * If the team has enough money, the healing item is added to the team's list of
+	 * owned healing item, and the team's current money is decreased by the appropriate
+	 * amount.
+	 * If the team doesn't have enough money, an NotEnoughMoneyException is thrown.
+	 * @param healingItem The new HealingItem instance to be bought.
+	 */
+	public void buyHealingItem(HealingItem healingItem) {
+		if (healingItem.getCost() > currentMoney) {
+			throw new NotEnoughMoneyException("Not enough money to buy that healing item");
+		} else {
+			currentMoney -= healingItem.getCost();
+			healingItemsOwned.add(healingItem);
+		}
+	}
+	
+	/**
+	 * If the team has enough money to buy a map, increments the number of maps owned,
+	 * and decreases the team's current money by the appropriate amount.
+	 * If the team doesn't have enough money, a NotEnoughMoneyException is thrown.
+	 */
+	public void buyMap() {
+		if (Map.getCost() > currentMoney) {
+			throw new NotEnoughMoneyException("Not enough money to buy a map");
+		} else {
+			currentMoney -= Map.getCost();
+			numMaps++;
 		}
 	}
 	
@@ -253,6 +284,30 @@ public class Team {
 	}
 	
 	/**
+	 * Takes a PowerUpType, and returns a PowerUp object of that type from the team's
+	 * list of owned powerUps, removing it from the list.
+	 * If the team doesn't own any power ups of that type, throws a RuntimeException.
+	 * @param powerUpType	The type of the power up to be removed from the list.
+	 */
+	public PowerUp popPowerUpFromList(PowerUpType powerUpType) {
+		boolean found = false;
+		PowerUp powerUpToReturn = null;
+		
+		for (PowerUp powerUp : powerUpsOwned) {
+			if (powerUp.getType() == powerUpType) {
+				powerUpToReturn = powerUp;
+				found = true;
+			}
+		}
+		if (found) {
+			powerUpsOwned.remove(powerUpToReturn);
+			return powerUpToReturn;
+		} else {
+			throw new RuntimeException("The team doesn't own any power ups of that type");
+		}
+	}
+	
+	/**
 	 * Counts how many power-ups of the given type the team currently owns.
 	 * @param powerUpType	The PowerUpType of interest.
 	 * @return		The number of power-ups of the given type owned by the team.
@@ -267,31 +322,46 @@ public class Team {
 	}
 	
 	/**
-	 * Asks the user to select a hero from the team
-	 * @return The selected Hero
+	 * Counts how many healing items with the given name the team currently owns.
+	 * @param name	The name of the healing item of interest.
+	 * @return		The number of healing items with the given name owned by the team.
+	 */
+	public int numHealingItemsOwned(String name) {
+		int count = 0;
+		for (HealingItem healingItem: healingItemsOwned) {
+			if (healingItem.getName().equals(name))
+				count++;
+		}
+		return count;
+	}
+	
+	/**
+	 * Asks the user to select a hero from the team.
+	 * @return The selected Hero.
 	 */
 	public Hero selectHero() {
 		
-		System.out.println("Choose a hero:");
+		System.out.println("Choose a hero:\n");
 		
 		for (int i = 0; i < heroes.size(); i++) {
 			int optionNum = i + 1;
-			System.out.printf("%d: %s\n", optionNum, heroes.get(i));
+			System.out.println(String.format("%d: %s", optionNum, heroes.get(i)));
 		}
+		System.out.println();
 		
-		int userChoice = Util.getIntFromUser(heroes.size(), "Enter a choice:");
+		int userChoice = Util.getIntFromUser(heroes.size(), "Enter your choice:");
 		
-		return heroes.get(userChoice-1);
+		return heroes.get(userChoice - 1);
 		
 	}
 	
 	/**
 	 * Asks the user to select a healing item from the list of owned healing items.
-	 * @return The selected HealingItem
+	 * @return The selected HealingItem.
 	 */
 	public HealingItem selectHealingItem() {
 		
-		System.out.println("Select a healing item to apply to the hero:");
+		System.out.println("Select a healing item to apply to the hero:\n");
 		
 		ArrayList<HealingItem> uniqueHealingItems = new ArrayList<HealingItem>();
 		for (HealingItem item : healingItemsOwned) {
@@ -311,11 +381,11 @@ public class Team {
 			int optionNum = i + 1;
 			System.out.printf("%d: %s\n", optionNum, uniqueHealingItems.get(i));
 		}
+		System.out.println();		
 		
-		int userChoice = Util.getIntFromUser(uniqueHealingItems.size(), "Enter a choice:");
+		int userChoice = Util.getIntFromUser(uniqueHealingItems.size(), "Enter your choice:");
 		
 		return uniqueHealingItems.get(userChoice-1);
 		
 	}
-		
 }

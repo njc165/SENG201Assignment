@@ -56,7 +56,6 @@ public abstract class MiniGame {
 		return game;
 		
 	}
-
 	
 	/**
 	 * Carries out the gameplay of the mini game. Once completed, hasWon is set to true if the hero won and false otherwise.

@@ -39,6 +39,11 @@ public class HealingItem {
 	private long timePerIncrement;
 	
 	/**
+	 * The total number of increments restored by the healing item.
+	 */
+	private int numIncrements;
+	
+	/**
 	 * The number of increments remaining on this healing item.
 	 */
 	private int incrementsRemaining;
@@ -61,9 +66,45 @@ public class HealingItem {
 		this.description = description;
 		this.timePerIncrement = timePerIncrement;
 		this.cost = cost;
+		this.numIncrements = numIncrements;
 		this.incrementsRemaining = numIncrements;
 	}
 
+	/**
+	 * Returns a description of the item as a formatted String to be displayed
+	 * to the user in the shop.
+	 * Includes:
+	 * - name of item
+	 * - description of item's use
+	 * - price of item
+	 * - number currently owned by the team
+	 * @param team The team currently playing the game.
+	 * @return	A description of a purchasable item to be displayed in the shop.
+	 */
+	public String shopDescription(Team team) {
+		int numOwned = team.numHealingItemsOwned(name);
+		
+		String returnString = name + "\n";
+		returnString += String.format("Number currently owned: %s\n", numOwned);
+		returnString += String.format("Price: %s coins\n", cost);
+		returnString += description + "\n";
+		returnString += String.format("Total health restored: %s%% of the hero's max health in %s%% increments.\n",
+										percentageHealthRestored(),
+										INCREMENT_SIZE * 100);
+		returnString += String.format("Time taken to apply each increment: %s seconds.\n",
+										timePerIncrement);
+		return returnString;
+	}
+	
+	/**
+	 * Calculate the total percentage of a hero's max health which will be restored
+	 * by the healing item.
+	 * @return	The total percentage of health restored by the healing item.
+	 */
+	private int percentageHealthRestored() {
+		return (int) INCREMENT_SIZE * numIncrements * 100;
+	}
+	
 	/**
 	 * Gives the number of increments remaining and the time until the next
 	 * increment is applied.
@@ -116,8 +157,7 @@ public class HealingItem {
 	 */
 	public LocalTime nextApplicationTime() {
 		return lastApplicationTime.plus(timePerIncrement, ChronoUnit.SECONDS);
-	}
-		
+	}		
 	
 	/**
 	 * Getter method for name.
@@ -153,6 +193,9 @@ public class HealingItem {
 		return incrementsRemaining;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return name;
 	}
