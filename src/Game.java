@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 	
 	/**
-	 * An array of instances of all the PowerUp subclasses
+	 * An array of instances of all the PowerUp subclasses.
 	 */
 	private final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
 			  								 new IncreaseRoll(),
@@ -13,12 +13,22 @@ public class Game {
 			  								 new TieBreaker()};
 	
 	/**
+	 * An array of instances of all the HealingItem subclasses.
+	 */
+	private final  HealingItem[] ALL_HEALING_ITEMS = {new AlicornDust(),
+													  new HeartyMeal(),
+													  new SuspiciousTonic()};
+	
+	/**
 	 * The team of heroes playing the game.
 	 */
 	private Team team;
 	
 	/**
-	 * The number of cities the team need to play through in order to win the game.
+	 * The number of cities the team need to play through in order to complete
+	 * the game.
+	 * User is asked to choose the number of cities before the game is created.
+	 * Can be between 3 and 6.
 	 */
 	private int numberOfCities;
 	
@@ -37,10 +47,10 @@ public class Game {
 	private boolean gameOver = false;
 	
 	/**
-	 * An list of the cities to be played through in the game.
-	 * The length of the list should be equal to the number of cities.
-	 * The villain in each city should be randomised, and the last city should
-	 * contain the super villian.
+	 * An list of the cities to be played in the game.
+	 * The length of the list should be equal to numberOfCities.
+	 * The villain in each city is randomised, and the last city contains
+	 * the super villain.
 	 */
 	private ArrayList<City> cities = new ArrayList<City>();
 	
@@ -48,8 +58,6 @@ public class Game {
 	 * The city currently being played by the team.
 	 */
 	private City currentCity;
-	
-
 	
 	
 /*
@@ -61,24 +69,24 @@ public class Game {
 	/**
 	 * Creates a new game with the given team of heroes and the given number
 	 * of cities.
-	 * The number of cities should be in the accepted range.
+	 * The number of cities is assumed to be in the accepted range.
 	 * The team should already have the correct number of heroes added to it,
 	 * and have a valid team name within the accepted length.
 	 * @param team				The team of heroes playing the game.
-	 * @param numberOfCities	The number of cities the team needs to play through to win.
+	 * @param numberOfCities	The number of cities the team needs to play
+	 * 							through to complete the game.
 	 */
 	public Game(Team team, int numberOfCities) {
 		this.team = team;
 		this.numberOfCities = numberOfCities;
-		this.superVillainDefeated = false;
 		startTime = LocalTime.now();
 		initialiseCities();
 	}
 
 	/**
 	 * Initialises the list of cities to be played through in the game.
-	 * The length of the list is equal to the number of cities.
-	 * The villain in each city should be randomised, with the last city containing
+	 * The length of the list is equal to numberOfCities.
+	 * The villain in each city is randomised, with the last city containing
 	 * the super villain.
 	 */
 	private void initialiseCities() {
@@ -147,6 +155,7 @@ public class Game {
 	 * asked to input the sector to which they want to move.
 	 */
 	private void move() {
+		
 		if (currentCity.getCurrentLocation() != Location.CENTRE) {
 			
 			System.out.println("You have returned to the home base.\n");
@@ -194,7 +203,10 @@ public class Game {
 		
 		while (!finishedShopping) {
 			System.out.println("What would you like to do?\n"
-				+ "1. View power ups\n2. View healing items\n3. View maps\n4. Leave shop\n");
+								+ "1. View power ups\n"
+								+ "2. View healing items\n"
+								+ "3. View maps\n"
+								+ "4. Leave the shop\n");
 			int choice = Util.getIntFromUser(4, "Enter you choice:");
 			
 			switch (choice) {
@@ -215,7 +227,9 @@ public class Game {
 		
 		for (int i = 0; i < ALL_POWER_UPS.length; i++) {
 			PowerUp powerUp = ALL_POWER_UPS[i];
-			System.out.println(String.format("%s. %s", i+1, powerUp.shopDescription(team)));
+			System.out.println(String.format("%s. %s",
+											  i+1,
+											  powerUp.shopDescription(team)));
 		}
 	
 		boolean finished = false;
@@ -225,23 +239,25 @@ public class Game {
 		while (!finished) {
 			
 			if (answeredYes) {
-				System.out.println("Which power would you like to buy?");
+				System.out.println("Which power up would you like to buy?\n");
 				int choice = Util.getIntFromUser(ALL_POWER_UPS.length,
-									"Enter a number to select you power up:");
+									"Enter a number to select your power up:");
 				PowerUp powerUpToBuy = ALL_POWER_UPS[choice - 1];
 				PowerUp newPowerUp = (PowerUp) Util.instantiate(powerUpToBuy.getClass());
 				
 				try {
 					team.buyPowerUp(newPowerUp);
-					System.out.println(String.format("One %s has been added to you inventory\n",
+					System.out.println(String.format("One %s has been added to you inventory.\n",
 														newPowerUp.getType().toString()));
-				} catch (IllegalArgumentException iae) {
+					System.out.println(String.format("Your team now has %s coins remaining.\n",
+														team.getCurrentMoney()));
+					
+				} catch (NotEnoughMoneyException e) {
 					System.out.println("Your team doesn't have enough coins to buy that power up.\n");
 				}
 				
 				answeredYes = Util.getYesNo("Would you like to buy another power up?");
 
-				
 			} else {
 				finished = true;
 			}
@@ -253,7 +269,46 @@ public class Game {
 	 * Gives them an option to return to the main shop area.
 	 */
 	private void buyHealingItems() {
+		System.out.println("Here are the healing items for sale:\n");
 		
+		for (int i = 0; i < ALL_HEALING_ITEMS.length; i++) {
+			HealingItem healingItem = ALL_HEALING_ITEMS[i];
+			System.out.println(String.format("%s. %s",
+											  i+1,
+											  healingItem.shopDescription(team)));
+		}
+	
+		boolean finished = false;
+		
+		boolean answeredYes = Util.getYesNo("Would you like to buy a healing item?");
+		
+		while (!finished) {
+			
+			if (answeredYes) {
+				System.out.println("Which healing item would you like to buy?\n");
+				int choice = Util.getIntFromUser(ALL_HEALING_ITEMS.length,
+									"Enter a number to select your healing item:");
+				HealingItem itemToBuy = ALL_HEALING_ITEMS[choice - 1];
+				HealingItem newHealingItem = (HealingItem) 
+												Util.instantiate(itemToBuy.getClass());
+				
+				try {
+					team.buyHealingItem(newHealingItem);
+					System.out.println(String.format("One %s has been added to you inventory.\n",
+														newHealingItem.getName()));
+					System.out.println(String.format("Your team now has %s coins remaining.\n",
+														team.getCurrentMoney()));
+					
+				} catch (NotEnoughMoneyException e) {
+					System.out.println("Your team doesn't have enough coins to buy that healing item.\n");
+				}
+				
+				answeredYes = Util.getYesNo("Would you like to buy another healing item?");
+
+			} else {
+				finished = true;
+			}
+		}
 	}
 	
 	/**
@@ -261,7 +316,33 @@ public class Game {
 	 * Gives them an option to return to the main shop area.
 	 */
 	private void buyMaps() {
+		System.out.println(Map.shopDescription(team));
 		
+		boolean finished = false;
+		
+		boolean answersYes = Util.getYesNo("Would you like to buy a map?");
+		
+		while(!finished) {
+			
+			if (answersYes) {
+				try {
+					team.buyMap();
+					System.out.println(String.format("You now own %s map(s).\n",
+														team.getNumMaps()));
+					System.out.println(String.format("Your team now has %s coins remaining.\n",
+							team.getCurrentMoney()));
+					
+					answersYes = Util.getYesNo("Would you like to buy another a map?");
+					
+				} catch (NotEnoughMoneyException e) {
+					System.out.println("You do not have enough money to buy a map.\n");
+					finished = true;
+				}
+				
+			} else {
+				finished = true;
+			}
+		}
 	}
 	
 	
@@ -272,90 +353,82 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 	/**
-	 * Takes the team to the Power-up Den.
-	 * Allows team to choose next action.
+	 * Called when the team has entered the Power up Den.
+	 * Allows the user to apply power ups to heroes on the team.
 	 */
 	private void powerUpDen() {
-		final int NUM_CHOICES = 2;
-		final int NUM_POWER_UPS = PowerUpType.values().length;
-		System.out.println("\nYou entered the Power-up Den.\n");
+		
+		System.out.println("You have entered the Power-up Den.\n");
+		
 		boolean finished = false;
+		boolean answeredYes = Util.getYesNo("Would you like to apply a power up?");
+		
 		while (!finished) {
-			System.out.println("What would you like to do?\n");
-			System.out.println("1: Apply a power-up\n2: Go home\n");
-			int userChoice = Util.getIntFromUser(NUM_CHOICES, "Choose an option:\n");
-			switch (userChoice) {
-				case 1: selectPowerUp(NUM_POWER_UPS);
-						break;
-				case 2: finished = true;
-						break;
-				default: throw new RuntimeException("Choice does not exist.");
+			
+			if (answeredYes) {
+				applyPowerUp();
+				answeredYes = Util.getYesNo("Would you like to apply another power up?");
+				
+			} else {
+				finished = true;
 			}			
 		}
-		homeBase();
+	}
+	
+	
+	/**
+	 * Asks the user to select a power up and a hero to apply it to.
+	 * Applies the power up to the hero.
+	 */
+	private void applyPowerUp() {
+		
+		try {
+			PowerUp powerUp = selectPowerUp();
+			
+			System.out.println(String.format("Which hero would you like to apply the %s to?",
+												powerUp));								
+			Hero hero = team.selectHero();
+			hero.addPowerUp(powerUp);
+			System.out.println(String.format("%s has been powered up with one %s.\n",
+												hero,
+												powerUp));
+			
+		} catch (NoneOwnedException e) {
+			System.out.println("You don't have any of those.\n"
+								+ "You can buy some from the Shop.\n");
+		}
 	}
 	
 	/**
-	 * A sub-method for powerUpDen().
-	 * Allows team to choose a power-up to apply.
-	 * @param numPowerUps The number of power-up types in the game
+	 * Asks the user to select the power up they would like to apply.
+	 * Returns a PowerUp object of that type from the team's list of owned power ups,
+	 * removing the power up from the list.
+	 * If no power ups of that type are owned, throws a NoneOwnedException.
 	 */
-	private void selectPowerUp(int numPowerUps) {
-		System.out.println("Choose a power-up to apply:\n");
-		PowerUpType[] allPowerUps = PowerUpType.values();
-		for (int i = 0; i < numPowerUps; i++) {
+	private PowerUp selectPowerUp() {
+		System.out.println("Choose a power up to apply:\n");
+		
+		PowerUpType[] allPowerUpTypes = PowerUpType.values();
+		
+		for (int i = 0; i < allPowerUpTypes.length; i++) {
+			PowerUpType powerUpType = allPowerUpTypes[i];
+			
 			int optionNum = i + 1;
-			System.out.println(String.format("%d: (Owned: %d) %s", optionNum, count(team.getPowerUpsOwned(), allPowerUps[i]), allPowerUps[i].toString()));
+			System.out.println(String.format("%d: %s (%d currently owned)",
+												optionNum,
+												powerUpType.toString(),
+												team.numPowerUpsOwned(powerUpType)));
 		}
-		int userChoice = Util.getIntFromUser(numPowerUps, "\nChoose an option:");
-		if (count(team.getPowerUpsOwned(), allPowerUps[userChoice-1]) == 0) {
-			System.out.println("\nYou don't have any of those. You can buy some from the Shop.");
-		}
-		else {
-			for (PowerUp powerUp : team.getPowerUpsOwned()) {
-				if (powerUp.getType() == allPowerUps[userChoice-1]) {
-					selectHero(powerUp);
-					team.getPowerUpsOwned().remove(powerUp);
-					break;
-				}
-			}
-		}
-	}
-	
-	/**
-	 * A sub-method for selectPowerUp().
-	 * Applies the given power-up to a chosen hero.
-	 * @param powerUp THe power-up to be applied to a chosen hero
-	 */
-	private void selectHero(PowerUp powerUp) {
-		System.out.println("\nChoose a hero to power up:\n");
-		ArrayList<Hero> heroes = team.getHeroes();
+		System.out.println();
 		
-		for (int i = 0; i < heroes.size(); i++) {
-			System.out.printf("%d: %s\n", i+1, heroes.get(i).toString());
-		}
+		int userChoice = Util.getIntFromUser(allPowerUpTypes.length, "Enter your choice:");
+		PowerUpType powerUpType = allPowerUpTypes[userChoice - 1];
 		
-		int userChoice = Util.getIntFromUser(heroes.size(), "\nChoose an option:");
-		Hero hero = heroes.get(userChoice-1);
-		
-		System.out.printf("\nYou powered up %s with %s\n", hero.getName(), powerUp.getType());
-		hero.addPowerUp(powerUp);
-	}
-	
-	/**
-	 * A helper method for selectPowerUp().
-	 * @param list An ArrayList of PowerUps
-	 * @param type A specific PowerUpType
-	 * @return The number of occurences of <b>type</b> in <b>list</b>
-	 */
-	private int count(ArrayList<PowerUp> list, PowerUpType type) {
-		int counter = 0;
-		for (PowerUp pu : list) {
-			if (pu.getType().equals(type)) {
-				counter++;
-			}
+		try {
+			return team.popPowerUpFromList(powerUpType);
+		} catch (RuntimeException e) {
+			throw new NoneOwnedException("No power ups of that type owned.");
 		}
-		return counter;
 	}
 	
 	
@@ -366,53 +439,70 @@ public class Game {
  * -----------------------------------------------------------------------------------
  */
 
+	/**
+	 * Called when the team enters the hospital.
+	 * Gives the user the option to view the statuses of their currently applied 
+	 * healing items.
+	 * Allows the user to apply any healing items they own to their heroes.
+	 */
 	private void hospital() {
 		
-		System.out.println("You entered the Hospital");
-		System.out.println("What would you like to do?");
-		System.out.println("1. Apply a healing item\n2: Go home");
+		System.out.println("You have entered the Hospital.\n");
 		
+		boolean displayStatuses = Util.getYesNo("Would you like to see the statuses of your currently applied healing items?");
+		if (displayStatuses)
+			displayStatuses();
+		
+		boolean answeredYes = Util.getYesNo("Would you like to apply a healing item?");
 		boolean finished = false;
 		
 		while (!finished) {
 			
-			int userChoice = Util.getIntFromUser(2, "Enter a choice:");
-			
-			switch (userChoice) {
-				case 1: apply();
-						break;
-				case 2: finished = true;
-						break;
+			if (answeredYes) {
+				applyHealingItem();
+				answeredYes = Util.getYesNo("Would you like to apply another healing item?");
+				
+			} else {
+				finished = true;
 			}
-			
-		}
-		
-		homeBase();
+		}		
+	}
+	
+	/**
+	 * Displays the current status of the applied healing item of each hero on the team.
+	 */
+	private void displayStatuses() {
 		
 	}
 	
-	private void apply() {
+	/**
+	 * Asks the user to select a healing item to apply and a hero to apply it to.
+	 */
+	private void applyHealingItem() {
 		
 		if (team.getHealingItemsOwned().size() == 0) {
 			System.out.println("You don't have any healing items.");
-			System.out.println("You can buy some at the Shop.");
-			return;
+			System.out.println("You can buy some from the Shop.\n");
+			
+		} else {
+			
+			System.out.println("Which hero would you like to apply a healing item to?\n");
+			Hero hero = team.selectHero();
+		
+			if (hero.getAppliedHealingItem() == null) {
+				HealingItem healingItem = team.selectHealingItem();
+				team.getHealingItemsOwned().remove(healingItem);
+				hero.setAppliedHealingItem(healingItem);
+				System.out.println(String.format("One %s has been applied to %s",
+													healingItem,
+													hero));
+			} else {
+				System.out.println(String.format("%s already has an active healing item.",
+													hero));
+				System.out.println("Each hero may have only one healing item applied at a time.\n");
+			}
 		}
-		
-		Hero hero = team.selectHero();
-		
-		if (hero.getAppliedHealingItem() != null) {
-			System.out.printf("%s already has an active healing item.\n", hero.getName());
-			System.out.println("Each hero may have only one active healing item at a time.");
-			return;
-		}
-		
-		HealingItem item = team.selectHealingItem();
-		hero.setAppliedHealingItem(item);
-		team.getHealingItemsOwned().remove(item);
-		
 	}
-	
 	
 	
 /*
@@ -422,51 +512,78 @@ public class Game {
  */	
 	
 	/**
-	 * Takes the team to the villain's lair.
-	 * Gives the option to battle the villain.
+	 * Called when the team enters the Villain's Lair.
+	 * Gives the team the option to battle the villain, and carries out the
+	 * battle game play.
 	 */
 	private void villainsLair() {
 		
-		System.out.printf("You found the lair of %s.\n", currentCity.getVillain().getName());
-		System.out.println("Would you like to enter?");
-		System.out.println("1: Yeah!\n2: Nah!");
+		System.out.println(String.format("You have found the lair of %s.\n",
+										  currentCity.getVillain()));
 		
-		int userChoice = Util.getIntFromUser(2, "Enter a choice:");
+		boolean answeredYes = Util.getYesNo("Would you like to enter?");
 		
-		switch (userChoice) {
-			case 1: battle();
-					break;
-			case 2: homeBase();
-					break;
-			default: throw new RuntimeException("An invalid choice was accepted");
+		if (answeredYes) {
+			battle();
+		} else {
+			System.out.println(String.format("%s will be waiting for you.\n",
+								currentCity.getVillain()));
 		}
 		
 	}
 	
 	/**
-	 * Starts a battle with the villain.
+	 * Carries out the battle game play.
+	 * Once finished, either the villain has been defeated, or all the heroes on the
+	 * team have died and gameOver has been set to true.
 	 */
 	private void battle() {
 		
 		Villain villain = currentCity.getVillain();
 		
-		System.out.printf("I am %s!\n", villain.getName());
-		System.out.println(villain.getTaunt());
+		System.out.println(String.format("I am %s!", villain));
+		System.out.println(villain.getTaunt() + "\n");
 
+		System.out.println("The first round of the battle has started!\n");
+		
 		while (!villain.isDefeated() && !gameOver) {
 						
+			System.out.println("Which hero will battle the villain?\n");
 			Hero hero = team.selectHero();
-			MiniGames minigameType = villain.getGame();
-			MiniGame minigame = MiniGame.createGame(minigameType, hero, villain);
 			
-			System.out.printf("%s demands that you play %s!", villain.getName(), minigameType.toString());
-			minigame.play();
+			MiniGames miniGameType = villain.getGame();
+			MiniGame miniGame = MiniGame.createGame(miniGameType, hero, villain);
 			
-			if (minigame.getHasWon()) {
-				villain.setTimesDefeated(villain.getTimesDefeated() + 1);			
+			System.out.println(String.format("%s demands that you play %s!\n",
+												villain, miniGameType));
+			miniGame.play();
+			
+			if (miniGame.getHasWon()) {
+				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
+				System.out.println(String.format("Congratulations on defeating %s.",
+													villain));
+				System.out.println(String.format("You need to win %s more round(s) to win the battle.\n",
+										villain.remainingTimesToDefeat()));
+				System.out.println("The next round of the battle has started!\n");
 			}
 			else {
-				team.takeDamage(hero, villain.getDamageDealt());
+				int damage = villain.getDamageDealt();
+				team.takeDamage(hero, damage);
+				
+				System.out.println(String.format("%s has dealt %s %s damage!",
+													villain,
+													hero,
+													damage));
+				if (team.getHeroes().contains(hero)) {
+					System.out.println(String.format("%s now has %s health remaining.\n",
+														hero, hero.getCurrentHealth()));
+				} else {
+					System.out.println(String.format("%s has fallen in battle!\n",
+														hero));
+					System.out.println(String.format("Your team has %s hero(es) remaining.\n",
+														team.getHeroes().size()));
+				}
+				
 			}
 			
 			if (team.getHeroes().size() <= 0) {
@@ -562,14 +679,15 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Team team = new Team("Team name");
-		team.setNumMaps(3);
-		for (int i = 0; i < 1; i++) {
+		int numHeroes = 1;
+//		team.setNumMaps(3);
+		for (int i = 0; i < numHeroes; i++) {
 			team.addHeroFromInput();
 		}
 		Game game = new Game(team, 1);
-		team.getPowerUpsOwned().add(new MindReader());
-		team.getHealingItemsOwned().add(new AlicornDust());
-		team.getHealingItemsOwned().add(new SuspiciousTonic());
+//		team.getPowerUpsOwned().add(new MindReader());
+//		team.getHealingItemsOwned().add(new AlicornDust());
+//		team.getHealingItemsOwned().add(new SuspiciousTonic());
 		game.play();
 		
 	}

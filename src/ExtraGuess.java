@@ -6,11 +6,6 @@ public class ExtraGuess extends PowerUp {
 	private final static PowerUpType TYPE = PowerUpType.EXTRA_GUESS;
 	
 	/**
-	 * The String representation of the type of the power-up.
-	 */
-	private final static String TYPE_STRING = "Extra Guess";
-	
-	/**
 	 * The cost of the power-up
 	 */
 	private final static int COST = 20;
@@ -21,7 +16,7 @@ public class ExtraGuess extends PowerUp {
 	private final static String DESCRIPTION = "When applied to a hero, gain the following benefits:\nGuess the Number:\nGet an extra guess.\nApplying multiple extra guess power-ups to a single hero is allowed. All extra guess power-ups will be consumed at the end of Guess the Number, even if they were not used.";
 	
 	public ExtraGuess() {
-		super(TYPE, TYPE_STRING, COST, DESCRIPTION);
+		super(TYPE, COST, DESCRIPTION);
 	}
 	
 }

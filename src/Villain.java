@@ -184,6 +184,14 @@ public class Villain {
 			this.isDefeated = false;
 		}
 	}
+	
+	/**
+	 * Returns the number of defeats remaining until the villain is killed.
+	 * @return		The remaining number of times the villian needs to be defeated.
+	 */
+	public int remainingTimesToDefeat() {
+		return MAX_TIMES_DEFEATED - timesDefeated;
+	}
 
 	public static void main(String[] args) {
 //		Villain superVillain = null;

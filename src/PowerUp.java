@@ -6,12 +6,6 @@ public class PowerUp {
 	private PowerUpType type;
 	
 	/**
-	 * The type of the power-up as a String.
-	 * Each subclass of PowerUp has a different type.
-	 */
-	private String typeString;
-	
-	/**
 	 * The cost of the power-up.
 	 * Each subclass of PowerUp has a different cost.
 	 */
@@ -24,11 +18,17 @@ public class PowerUp {
 	 */
 	private String description;
 	
-	public PowerUp(PowerUpType type, String typeString, int cost, String description) {
+	public PowerUp(PowerUpType type, int cost, String description) {
 		this.type = type;
-		this.typeString = typeString;
 		this.cost = cost;
 		this.description = description;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return type.toString();
 	}
 	
 	/**
@@ -39,12 +39,13 @@ public class PowerUp {
 	 * - description of item's use
 	 * - price of item
 	 * - number currently owned by the team
+	 * @param team The team currently playing the game.
 	 * @return	A description of a purchasable item to be displayed in the shop.
 	 */
 	public String shopDescription(Team team) {
 		int numOwned = team.numPowerUpsOwned(type);
 		
-		String returnString = typeString + "\n";
+		String returnString = type.toString() + "\n";
 		returnString += String.format("Number currently owned: %s\n", numOwned);
 		returnString += String.format("Price: %s coins\n", cost);
 		returnString += description + "\n";
