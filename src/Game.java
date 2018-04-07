@@ -20,6 +20,11 @@ public class Game {
 													  new SuspiciousTonic()};
 	
 	/**
+	 * The amount of money the team is given when they defeat a villain.
+	 */
+	private final int PRIZE_MONEY = 100;
+	
+	/**
 	 * The team of heroes playing the game.
 	 */
 	private Team team;
@@ -560,11 +565,19 @@ public class Game {
 			
 			if (miniGame.getHasWon()) {
 				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
-				System.out.println(String.format("Congratulations on defeating %s.",
+				System.out.println(String.format("Congratulations on defeating %s.\n",
 													villain));
-				System.out.println(String.format("You need to win %s more round(s) to win the battle.\n",
-										villain.remainingTimesToDefeat()));
-				System.out.println("The next round of the battle has started!\n");
+		
+				if (villain.isDefeated()) {
+					team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
+					System.out.println(String.format("Your team has been rewarded with %s coins.\n",
+														PRIZE_MONEY));					
+
+				} else {
+					System.out.println(String.format("You need to win %s more round(s) to win the battle.\n",
+							villain.remainingTimesToDefeat()));
+					System.out.println("The next round of the battle has started!\n");
+				}
 			}
 			else {
 				int damage = villain.getDamageDealt();
@@ -583,7 +596,6 @@ public class Game {
 					System.out.println(String.format("Your team has %s hero(es) remaining.\n",
 														team.getHeroes().size()));
 				}
-				
 			}
 			
 			if (team.getHeroes().size() <= 0) {
@@ -679,7 +691,7 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Team team = new Team("Team name");
-		int numHeroes = 1;
+		int numHeroes = 2;
 //		team.setNumMaps(3);
 		for (int i = 0; i < numHeroes; i++) {
 			team.addHeroFromInput();
