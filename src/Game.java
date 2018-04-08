@@ -654,7 +654,6 @@ public class Game {
 					System.out.println(String.format("Your team has been rewarded with %s coins.\n",
 														PRIZE_MONEY));
 				}
-			}
 			else {
 				int damage = villain.getDamageDealt();
 				team.takeDamage(hero, damage);
