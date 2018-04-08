@@ -31,7 +31,7 @@ class VillainTest {
 	void testVillain() {
 		// Create new villain, check that name is set correctly
 		Villain villain = new Villain("Name", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
-		assertEquals("Name", villain.getName());
+		assertEquals("Name", villain);
 		
 		// An exception is thrown if the constructor is given an empty gamesPlayed array
 		boolean exceptionThrown = false;

@@ -31,7 +31,7 @@ class GuessNumberTest {
 		
 		// Superclass getters and setters can be used
 		assertEquals("Apprentice", game.getHero().getType());
-		assertEquals("John the Lucky", game.getVillain().getName());
+		assertEquals("John the Lucky", game.getVillain().toString());
 		
 		// hasWon is initialised to false, and can be changed using setter
 		assertFalse(game.getHasWon());

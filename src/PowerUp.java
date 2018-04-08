@@ -31,6 +31,18 @@ public class PowerUp {
 		return type.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		if (!(other instanceof PowerUp)) {
+			return false;
+		} else {
+			PowerUp powerUp = (PowerUp) other;
+			return this.getType() == powerUp.getType();
+		}
+	}
+	
 	/**
 	 * Returns a description of the item as a formatted String to be displayed
 	 * to the user in the shop.
@@ -62,7 +74,6 @@ public class PowerUp {
 		return type;
 	}
 	
-
 	/**
 	 * Getter method for cost.
 	 * If hasDiscount is true, multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER.
@@ -75,18 +86,6 @@ public class PowerUp {
 			return (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
 		} else {
 			return cost;
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	public boolean equals(Object other) {
-		if (!(other instanceof PowerUp)) {
-			return false;
-		} else {
-			PowerUp powerUp = (PowerUp) other;
-			return this.getType() == powerUp.getType();
 		}
 	}
 	

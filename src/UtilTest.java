@@ -125,7 +125,7 @@ class UtilTest {
 		Villain villain = (Villain) Util.instantiate(villainClass);
 		assertTrue(villain instanceof Invictus);
 		assertTrue(villain instanceof Villain);
-		assertEquals("Invictus the Unconquered", villain.getName());
+		assertEquals("Invictus the Unconquered", villain.toString());
 		
 		// Create a new power up
 		Class<?> powerUpClass = TieBreaker.class;

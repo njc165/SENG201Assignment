@@ -1,7 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,7 +31,7 @@ class DiceRollsTest {
 		
 		// Superclass getters and setters can be used
 		assertEquals("Apprentice", game.getHero().getType());
-		assertEquals("John the Lucky", game.getVillain().getName());
+		assertEquals("John the Lucky", game.getVillain().toString());
 		
 		// hasWon is initialised to false, and can be changed using setter
 		assertFalse(game.getHasWon());

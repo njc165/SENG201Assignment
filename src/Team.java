@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Team {
-	
+		
 	/**
 	 * The amount of money a team starts with.
 	 */
@@ -53,14 +53,6 @@ public class Team {
 		this.name = name;
 		this.currentMoney = STARTING_MONEY;
 	}
-		
-	/**
-	 * Adds the given Hero object to the teams list of heroes.
-	 * @param hero		The hero to be added.
-	 */
-	public void addHero(Hero hero) {
-		heroes.add(hero);
-	}
 
 	/**
 	 * Add heroes to the team after the team is constructed.
@@ -83,7 +75,7 @@ public class Team {
 			}
 		}
 		
-		System.out.println(String.format("\nEnter a number to select a hero type for %s:",
+		System.out.println(String.format("Enter a number to select a hero type for %s:\n",
 				heroName));
 		System.out.println(Hero.allHeroesDescription());
 		
@@ -107,7 +99,6 @@ public class Team {
 							   break;
 		    default:           throw new RuntimeException("No such hero type");
 		}
-		
 	}
 	
 	/**
@@ -127,29 +118,23 @@ public class Team {
 	}
 	
 	/**
-	 * Checks if the team has an Explorer.
-	 * @return true if the team has an Explorer, false otherwise.
+	 * Asks the user to select a hero from the team.
+	 * @return The selected Hero.
 	 */
-	public boolean hasMapHero() {
-		for (Hero hero: heroes) {
-			if (hero.getHasMapAbility()) {
-				return true;
-			}
+	public Hero selectHero() {
+		
+		System.out.println("Choose a hero:\n");
+		
+		for (int i = 0; i < heroes.size(); i++) {
+			int optionNum = i + 1;
+			System.out.println(String.format("%d: %s", optionNum, heroes.get(i)));
 		}
-		return false;
-	}
-	
-	/**
-	 * Checks if the team has a Merchant.
-	 * @return true if the team has a Merchant, false otherwise.
-	 */
-	public boolean hasDiscountHero() {
-		for (Hero hero : heroes) {
-			if (hero.getHasStoreDiscount()) {
-				return true;
-			}
-		}
-		return false;
+		System.out.println();
+		
+		int userChoice = Util.getIntFromUser(heroes.size(), "Enter your choice:");
+		
+		return heroes.get(userChoice - 1);
+		
 	}
 	
 	/**
@@ -217,19 +202,115 @@ public class Team {
 	}
 	
 	/**
+	 * Takes a PowerUpType, and returns a PowerUp object of that type from the team's
+	 * list of owned powerUps, removing it from the list.
+	 * If the team doesn't own any power ups of that type, throws a RuntimeException.
+	 * @param powerUpType	The type of the power up to be removed from the list.
+	 */
+	public PowerUp popPowerUpFromList(PowerUpType powerUpType) {
+		boolean found = false;
+		PowerUp powerUpToReturn = null;
+		
+		for (PowerUp powerUp : powerUpsOwned) {
+			if (powerUp.getType() == powerUpType) {
+				powerUpToReturn = powerUp;
+				found = true;
+			}
+		}
+		if (found) {
+			powerUpsOwned.remove(powerUpToReturn);
+			return powerUpToReturn;
+		} else {
+			throw new RuntimeException("The team doesn't own any power ups of that type");
+		}
+	}
+
+	/**
+	 * Takes the name of a healing item, and returns a healing item of that type
+	 * from the team's list of owned healing items.
+	 * If the team doesn't own any healing items of that type, raises a RuntimeException.
+	 * @param name	The name of the healing item to be found
+	 * @return		A HealingItem object with the given name from the teams list of
+	 * 				owned healing items.
+	 */
+	public HealingItem healingItemOfGivenType(String name) {
+		boolean found = false;
+		HealingItem itemToReturn = null;
+		
+		for (HealingItem healingItem: healingItemsOwned) {
+			if (healingItem.getName() == name) {
+				found = true;
+				itemToReturn = healingItem;
+			}
+		}
+		
+		if (found) {
+			return itemToReturn;
+		} else {
+			throw new NoneOwnedException("No healing items with the given name owned.");
+		}
+	}
+	
+	/**
+	 * Counts how many power-ups of the given type the team currently owns.
+	 * @param powerUpType	The PowerUpType of interest.
+	 * @return		The number of power-ups of the given type owned by the team.
+	 */
+	public int numPowerUpsOwned(PowerUpType powerUpType) {
+		int count = 0;
+		for (PowerUp powerUp: powerUpsOwned) {
+			if (powerUp.getType() == powerUpType)
+				count++;
+		}
+		return count;
+	}
+	
+	/**
+	 * Counts how many healing items with the given name the team currently owns.
+	 * @param name	The name of the healing item of interest.
+	 * @return		The number of healing items with the given name owned by the team.
+	 */
+	public int numHealingItemsOwned(String name) {
+		int count = 0;
+		for (HealingItem healingItem: healingItemsOwned) {
+			if (healingItem.getName().equals(name))
+				count++;
+		}
+		return count;
+	}
+	
+	/**
+	 * Checks if the team has an Explorer.
+	 * @return true if the team has an Explorer, false otherwise.
+	 */
+	public boolean hasMapHero() {
+		for (Hero hero: heroes) {
+			if (hero.getHasMapAbility()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if the team has a Merchant.
+	 * @return true if the team has a Merchant, false otherwise.
+	 */
+	public boolean hasDiscountHero() {
+		for (Hero hero : heroes) {
+			if (hero.getHasStoreDiscount()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Getter method for heroes.
 	 * @return The value of heroes.
 	 */
 	public ArrayList<Hero> getHeroes() {
 		return heroes;
-	}
-
-	/**
-	 * Getter method for the current number of heroes on the team.
-	 * @return	The number of heroes currently on the team.
-	 */
-	public int getNumHeroes() {
-		return heroes.size();
 	}
 	
 	/**
@@ -282,137 +363,4 @@ public class Team {
 	public ArrayList<PowerUp> getPowerUpsOwned() {
 		return powerUpsOwned;
 	}
-	
-	/**
-	 * Takes a PowerUpType, and returns a PowerUp object of that type from the team's
-	 * list of owned powerUps, removing it from the list.
-	 * If the team doesn't own any power ups of that type, throws a RuntimeException.
-	 * @param powerUpType	The type of the power up to be removed from the list.
-	 */
-	public PowerUp popPowerUpFromList(PowerUpType powerUpType) {
-		boolean found = false;
-		PowerUp powerUpToReturn = null;
-		
-		for (PowerUp powerUp : powerUpsOwned) {
-			if (powerUp.getType() == powerUpType) {
-				powerUpToReturn = powerUp;
-				found = true;
-			}
-		}
-		if (found) {
-			powerUpsOwned.remove(powerUpToReturn);
-			return powerUpToReturn;
-		} else {
-			throw new RuntimeException("The team doesn't own any power ups of that type");
-		}
-	}
-	
-	/**
-	 * Counts how many power-ups of the given type the team currently owns.
-	 * @param powerUpType	The PowerUpType of interest.
-	 * @return		The number of power-ups of the given type owned by the team.
-	 */
-	public int numPowerUpsOwned(PowerUpType powerUpType) {
-		int count = 0;
-		for (PowerUp powerUp: powerUpsOwned) {
-			if (powerUp.getType() == powerUpType)
-				count++;
-		}
-		return count;
-	}
-	
-	/**
-	 * Counts how many healing items with the given name the team currently owns.
-	 * @param name	The name of the healing item of interest.
-	 * @return		The number of healing items with the given name owned by the team.
-	 */
-	public int numHealingItemsOwned(String name) {
-		int count = 0;
-		for (HealingItem healingItem: healingItemsOwned) {
-			if (healingItem.getName().equals(name))
-				count++;
-		}
-		return count;
-	}
-	
-	/**
-	 * Asks the user to select a hero from the team.
-	 * @return The selected Hero.
-	 */
-	public Hero selectHero() {
-		
-		System.out.println("Choose a hero:\n");
-		
-		for (int i = 0; i < heroes.size(); i++) {
-			int optionNum = i + 1;
-			System.out.println(String.format("%d: %s", optionNum, heroes.get(i)));
-		}
-		System.out.println();
-		
-		int userChoice = Util.getIntFromUser(heroes.size(), "Enter your choice:");
-		
-		return heroes.get(userChoice - 1);
-		
-	}
-	
-	/**
-	 * Asks the user to select a healing item from the list of owned healing items.
-	 * @return The selected HealingItem.
-	 */
-public HealingItem selectHealingItem() {
-		
-		System.out.println("Select a healing item to apply to the hero:\n");
-		
-		ArrayList<HealingItem> uniqueHealingItems = new ArrayList<HealingItem>();
-		for (HealingItem item : healingItemsOwned) {
-			boolean inUnique = false;
-			for (HealingItem uniqueItem : uniqueHealingItems) {
-				if (item.getName() == uniqueItem.getName()) {
-					inUnique = true;
-					break;
-				}
-			}
-			if (!inUnique) {
-				uniqueHealingItems.add(item);
-			}
-		}
-		
-		for (int i = 0; i < uniqueHealingItems.size(); i++) {
-			int optionNum = i + 1;
-			System.out.printf("%d: %s\n", optionNum, uniqueHealingItems.get(i));
-		}
-		System.out.println();		
-		
-		int userChoice = Util.getIntFromUser(uniqueHealingItems.size(), "Enter your choice:");
-		
-		return uniqueHealingItems.get(userChoice-1);
-		
-	}
-
-	/**
-	 * Takes the name of a healing item, and returns a healing item of that type
-	 * from the team's list of owned healing items.
-	 * If the team doesn't own any healing items of that type, raises a RuntimeException.
-	 * @param name	The name of the healing item to be found
-	 * @return		A HealingItem object with the given name from the teams list of
-	 * 				owned healing items.
-	 */
-	public HealingItem healingItemOfGivenType(String name) {
-		boolean found = false;
-		HealingItem itemToReturn = null;
-		
-		for (HealingItem healingItem: healingItemsOwned) {
-			if (healingItem.getName() == name) {
-				found = true;
-				itemToReturn = healingItem;
-			}
-		}
-		
-		if (found) {
-			return itemToReturn;
-		} else {
-			throw new NoneOwnedException("No healing items with the given name owned.");
-		}
-	}
-
 }

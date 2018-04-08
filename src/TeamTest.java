@@ -23,16 +23,16 @@ class TeamTest {
 		assertFalse(team.hasMapHero());
 		
 		// Team without Explorer doesn't have map hero
-		team.addHero(new Apprentice("Name"));
-		team.addHero(new Merchant("Name"));
+		team.getHeroes().add(new Apprentice("Name"));
+		team.getHeroes().add(new Merchant("Name"));
 		assertFalse(team.hasMapHero());
 		
 		// Team with Explorer does have map hero
-		team.addHero(new Explorer("Name"));
+		team.getHeroes().add(new Explorer("Name"));
 		assertTrue(team.hasMapHero());
 		
 		// Team with more than one Explorer does have map hero
-		team.addHero(new Explorer("Name"));
+		team.getHeroes().add(new Explorer("Name"));
 		assertTrue(team.hasMapHero());
 	}
 
@@ -44,16 +44,16 @@ class TeamTest {
 		assertFalse(team.hasDiscountHero());
 		
 		// Team without Merchant doesn't have discount hero
-		team.addHero(new Apprentice("Name"));
-		team.addHero(new Explorer("Name"));
+		team.getHeroes().add(new Apprentice("Name"));
+		team.getHeroes().add(new Explorer("Name"));
 		assertFalse(team.hasDiscountHero());
 		
 		// Team with Merchant does have discount hero
-		team.addHero(new Merchant("Name"));
+		team.getHeroes().add(new Merchant("Name"));
 		assertTrue(team.hasDiscountHero());
 		
 		// Team with more than one Merchant does have discount hero
-		team.addHero(new Merchant("Name"));
+		team.getHeroes().add(new Merchant("Name"));
 		assertTrue(team.hasDiscountHero());
 	}
 
@@ -64,7 +64,7 @@ class TeamTest {
 		int startHealth = apprentice.getCurrentHealth();
 		
 		Team team = new Team("Team name");
-		team.addHero(apprentice);
+		team.getHeroes().add(apprentice);
 		
 		team.takeDamage(apprentice, 10);
 		int finalHealth = apprentice.getCurrentHealth();
@@ -74,18 +74,18 @@ class TeamTest {
 		// If a hero's health drops to 0, the hero is removed from the team
 		apprentice.setCurrentHealth(10);
 		team.takeDamage(apprentice, 10);
-		assertEquals(0, team.getNumHeroes());
+		assertEquals(0, team.getHeroes().size());
 		
 		// If a hero's health drops below 0, the hero is removed from the team
-		team.addHero(apprentice);
+		team.getHeroes().add(apprentice);
 		apprentice.setCurrentHealth(10);
 		team.takeDamage(apprentice, 20);
-		assertEquals(0, team.getNumHeroes());
+		assertEquals(0, team.getHeroes().size());
 		
 		// A hero with the reduced damage ability takes the right amount of damage
 		Bulwark bulwark = new Bulwark("Name");
 		startHealth = bulwark.getCurrentHealth();
-		team.addHero(bulwark);
+		team.getHeroes().add(bulwark);
 		
 		team.takeDamage(bulwark, 20);
 		finalHealth = bulwark.getCurrentHealth();
@@ -93,10 +93,10 @@ class TeamTest {
 		
 		// A hero with the reduced damage ability is removed from the team if their
 		// health drops below zero
-		team.addHero(apprentice);
+		team.getHeroes().add(apprentice);
 		bulwark.setCurrentHealth(10);
 		team.takeDamage(bulwark, 20);
-		assertEquals(1, team.getNumHeroes());
+		assertEquals(1, team.getHeroes().size());
 		
 	}
 	
