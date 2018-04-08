@@ -19,7 +19,7 @@ public class AlicornDust extends HealingItem{
 	/**
 	 * The time in seconds per application of a AlicornDust item.
 	 */
-	private static final long TIME_PER_INCREMENT = 20;
+	private static final long TIME_PER_INCREMENT = 120;
 	
 	/**
 	 * The cost of a AlicornDust item, for the store.
