@@ -575,6 +575,10 @@ public class Game {
 				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
 				System.out.println(String.format("Congratulations on defeating %s.\n",
 													villain));
+				if (hero.getHasDoubleDamage()) {
+					System.out.println("As a Mercenary, %s's victory counts as two!");
+					villain.setTimesDefeated(villain.getTimesDefeated() + 1);
+				}
 		
 				if (villain.isDefeated()) {
 					team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
