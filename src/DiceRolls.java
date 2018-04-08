@@ -40,7 +40,7 @@ public class DiceRolls extends MiniGame{
 		
 		while (!gameFinished) {
 			int villainRoll = getRoll();
-			System.out.println(String.format("%s has rolled %s.\n", getVillain().getName(), villainRoll));
+			System.out.println(String.format("%s has rolled %s.\n", getVillain(), villainRoll));
 			
 			Util.getIntFromUser(1, "Enter 1 to roll the die");
 			int heroRoll = getRoll();
@@ -56,9 +56,9 @@ public class DiceRolls extends MiniGame{
 		}
 		
 		if (getHasWon()) {
-			System.out.println(String.format("You have defeated %s!\n", getVillain().getName()));
+			System.out.println(String.format("You have defeated %s!\n", getVillain()));
 		} else {
-			System.out.println(String.format("%s has defeated you!\n", getVillain().getName()));
+			System.out.println(String.format("%s has defeated you!\n", getVillain()));
 		}
 		
 		removeRelevantPowerUps();

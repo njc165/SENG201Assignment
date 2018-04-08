@@ -49,7 +49,7 @@ public class GuessNumber extends MiniGame {
 	 */
 	public void play() {
 		System.out.println(String.format("%s has chosen a number between 1 and %s.\n",
-				getVillain().getName(), MAX_NUMBER_TO_BE_GUESSED));
+				getVillain(), MAX_NUMBER_TO_BE_GUESSED));
 		while ((guessesLeft > 0) && (!getHasWon())) {
 			System.out.println(String.format("You have %s chance(s) left to guess the number.\n", guessesLeft));
 			int guess = getGuessFromPlayer();
@@ -64,13 +64,13 @@ public class GuessNumber extends MiniGame {
 		}
 		if (getHasWon()) {
 			System.out.println(String.format("You guessed correctly! You have defeated %s!\n",
-					getVillain().getName()));
+					getVillain()));
 		}
 		else {
 			System.out.println(String.format("The chosen number was %s.\n",
 												numberToGuess));
 			System.out.println(String.format("You have run out of guesses.\n%s has defeated you!\n",
-												getVillain().getName()));
+												getVillain()));
 		}
 		removeRelevantPowerUps();
 	}

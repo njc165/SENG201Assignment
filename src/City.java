@@ -140,29 +140,13 @@ public class City {
 		}
 		return allDiscovered;
 	}
-
-	/**
-	 * Getter method for villain.
-	 * @return The value of villain.
-	 */
-	public Villain getVillain() {
-		return villain;
-	}
 	
 	/**
-	 * Getter method for currentLocation.
-	 * @return The value of currentLocation.
+	 * Sets the current sector to discovered
 	 */
-	public Location getCurrentLocation() {
-		return currentLocation;
-	}
-
-	/**
-	 * Setter method for currentLocation.
-	 * @param currentLocation The new value of currentLocation to set.
-	 */
-	public void setCurrentLocation(Location currentLocation) {
-		this.currentLocation = currentLocation;
+	public void setCurrentSectorDiscovered() {
+		Sector currentSector = sectorLocations.get(currentLocation);
+		currentSector.setDiscovered(true);
 	}
 	
 	/**
@@ -182,11 +166,6 @@ public class City {
 		return currentSector.getType();
 	}
 	
-	public void setCurrentSectorDiscovered() {
-		Sector currentSector = sectorLocations.get(currentLocation);
-		currentSector.setDiscovered(true);
-	}
-	
 	/**
 	 * Returns the number of locations in the city, not including the central location.
 	 * @return	The number of locations in the city.
@@ -195,11 +174,28 @@ public class City {
 		return ORDERED_LOCATIONS.length;
 	}
 	
-	public static void main(String[] args) {
-		Invictus villain = new Invictus();
-//		City c = new City(villain);
-//		System.out.println(c);
-//		System.out.println(c.stringWithNumbers(true));
+	/**
+	 * Getter method for currentLocation.
+	 * @return The value of currentLocation.
+	 */
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
+	
+	/**
+	 * Setter method for currentLocation.
+	 * @param currentLocation The new value of currentLocation to set.
+	 */
+	public void setCurrentLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+	
+	/**
+	 * Getter method for villain.
+	 * @return The value of villain.
+	 */
+	public Villain getVillain() {
+		return villain;
 	}
 	
 }

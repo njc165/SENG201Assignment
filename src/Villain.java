@@ -44,17 +44,17 @@ public class Villain {
 	private int damageDealt;
 	
 	/**
-	 * The number of times this villain has been defeated in a MiniGame.
-	 */
-	private int timesDefeated;
-	
-	/**
 	 * An array of the games a villain may choose to play, represented as values of the
 	 * enum type MiniGame.
 	 * Each game on the list has an equal probability of being chosen.
 	 * Each subclass of Villain has a different list of games played.
 	 */
 	private MiniGames[] gamesPlayed;
+	
+	/**
+	 * The number of times this villain has been defeated in a MiniGame.
+	 */
+	private int timesDefeated;
 	
 	/**
 	 * Initialised to false when the villain is created, and set to false once the villain
@@ -79,22 +79,6 @@ public class Villain {
 			this.gamesPlayed = gamesPlayed;
 		else
 			throw new IllegalArgumentException("gamesPlayed array cannot be empty");
-	}
-	
-	/**
-	 * Getter method for taunt.
-	 * @return The value of taunt.
-	 */
-	public String getTaunt() {
-		return taunt;
-	}
-	
-	/**
-	 * Getter method for damageDealt.
-	 * @return The value of damageDealt.
-	 */
-	public int getDamageDealt() {
-		return damageDealt;
 	}
 	
 	/**
@@ -137,14 +121,6 @@ public class Villain {
 	}
 	
 	/**
-	 * Getter method for name.
-	 * @return The value of name.
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
 	 * Get a random game from the list of games the villain can play.
 	 * @return	A game of the enum type MiniGame.
 	 */
@@ -155,11 +131,27 @@ public class Villain {
 	}
 	
 	/**
-	 * Getter method for isDefeated.
-	 * @return The value of isDefeated.
+	 * Returns the number of defeats remaining until the villain is killed.
+	 * @return		The remaining number of times the villian needs to be defeated.
 	 */
-	public boolean isDefeated() {
-		return isDefeated;
+	public int remainingTimesToDefeat() {
+		return MAX_TIMES_DEFEATED - timesDefeated;
+	}
+	
+	/**
+	 * Getter method for taunt.
+	 * @return The value of taunt.
+	 */
+	public String getTaunt() {
+		return taunt;
+	}
+	
+	/**
+	 * Getter method for damageDealt.
+	 * @return The value of damageDealt.
+	 */
+	public int getDamageDealt() {
+		return damageDealt;
 	}
 	
 	/**
@@ -186,24 +178,11 @@ public class Villain {
 	}
 	
 	/**
-	 * Returns the number of defeats remaining until the villain is killed.
-	 * @return		The remaining number of times the villian needs to be defeated.
+	 * Getter method for isDefeated.
+	 * @return The value of isDefeated.
 	 */
-	public int remainingTimesToDefeat() {
-		return MAX_TIMES_DEFEATED - timesDefeated;
-	}
-
-	public static void main(String[] args) {
-//		Villain superVillain = null;
-//		try {
-//			superVillain = (Villain) Villain.SUPER_VILLAIN.getConstructor().newInstance();
-//		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-//				| NoSuchMethodException | SecurityException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		System.out.println(superVillain instanceof Invictus);
-		
+	public boolean isDefeated() {
+		return isDefeated;
 	}
 	
 }

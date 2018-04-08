@@ -60,7 +60,14 @@ public class HealingItem {
 		this.numIncrements = numIncrements;
 		this.incrementsRemaining = numIncrements;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return name;
+	}
+	
 	/**
 	 * Returns a description of the item as a formatted String to be displayed
 	 * to the user in the shop.
@@ -81,19 +88,10 @@ public class HealingItem {
 		returnString += description + "\n";
 		returnString += String.format("Total health restored: %s%% of the hero's max health in %s%% increments.\n",
 										percentageHealthRestored(),
-										INCREMENT_SIZE * 100);
+										(int) (INCREMENT_SIZE * 100));
 		returnString += String.format("Time taken to apply each increment: %s seconds.\n",
 										timePerIncrement);
 		return returnString;
-	}
-	
-	/**
-	 * Calculate the total percentage of a hero's max health which will be restored
-	 * by the healing item.
-	 * @return	The total percentage of health restored by the healing item.
-	 */
-	private int percentageHealthRestored() {
-		return (int) (INCREMENT_SIZE * numIncrements * 100);
 	}
 	
 	/**
@@ -113,6 +111,15 @@ public class HealingItem {
 							 percentageRemaining,
 							 timeUntilNextIncrement,
 							 incrementPercentage);
+	}
+	
+	/**
+	 * Calculate the total percentage of a hero's max health which will be restored
+	 * by the healing item.
+	 * @return	The total percentage of health restored by the healing item.
+	 */
+	private int percentageHealthRestored() {
+		return (int) (INCREMENT_SIZE * numIncrements * 100);
 	}
 	
 	/**
@@ -165,7 +172,6 @@ public class HealingItem {
 		return name;
 	}
 
-
 	/**
 	 * Getter method for description.
 	 * @return The value of description.
@@ -173,7 +179,6 @@ public class HealingItem {
 	public String getDescription() {
 		return description;
 	}
-
 
 	/**
 	 * Getter method for cost.
@@ -189,21 +194,6 @@ public class HealingItem {
 			return cost;
 		}	
 	}
-	
-	/**
-	 * Getter method for incrementsRemaining.
-	 * @return The value of incrementsRemaining.
-	 */
-	public int getIncrementsRemaining() {
-		return incrementsRemaining;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		return name;
-	}
 
     /**
 	 * Getter method for timePerIncrement.
@@ -212,5 +202,13 @@ public class HealingItem {
 	 */
 	public long getTimePerIncrement() {
 		return timePerIncrement;
+	}
+	
+	/**
+	 * Getter method for incrementsRemaining.
+	 * @return The value of incrementsRemaining.
+	 */
+	public int getIncrementsRemaining() {
+		return incrementsRemaining;
 	}
 }

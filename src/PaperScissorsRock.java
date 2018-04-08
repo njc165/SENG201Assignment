@@ -148,13 +148,8 @@ public class PaperScissorsRock extends MiniGame {
 	 */
 	private boolean hasMindReader() {
 		Hero hero = getHero();
-		if (hero.getType() == "Gambler") {
-			return true;
-		}
-		if (hero.numPowerUps(PowerUpType.MINDREADER) > 0) {
-			return true;
-		}
-		return false;
+		return (hero.getHasBattleAdvantage()
+				|| hero.numPowerUps(PowerUpType.MINDREADER) > 0);
 	}
 	
 	/**

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Hero {
 	
 	/**
-	 * An array of all subtypes of Hero.
+	 * An array of instances of each Hero subclass.
 	 */
 	public static final Hero[] ALL_HEROES = {new Apprentice(""),
 			  								 new Bulwark(""),
@@ -147,10 +147,10 @@ public class Hero {
 			
 			returnString += String.format("\n%d: %s\nMax Health: %s\nSpecial Ability: %s\n%s",
 					heroNumber,
-					hero.getType(),
-					hero.getMaxHealth(),
-					hero.getSpecialAbility(),
-					hero.getDescription());
+					hero.type,
+					hero.maxHealth,
+					hero.specialAbility,
+					hero.description);
 		}
 		return returnString;
 	}
@@ -197,7 +197,6 @@ public class Hero {
 												  count);
 			}
 		}
-		
 		return returnString;
 	}
 	

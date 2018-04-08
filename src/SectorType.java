@@ -3,7 +3,7 @@ public enum SectorType {
 	SHOP("Shop"),
 	POWER_UP_DEN("Power-up Den"),
 	HOSPITAL("Hospital"),
-	VILLAINS_LAIR("Villan's Lair");
+	VILLAINS_LAIR("Villain's Lair");
 	
 	/**
 	 * A string representation of the SectorType object.
