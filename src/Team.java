@@ -359,7 +359,7 @@ public class Team {
 	 * Asks the user to select a healing item from the list of owned healing items.
 	 * @return The selected HealingItem.
 	 */
-	public HealingItem selectHealingItem() {
+public HealingItem selectHealingItem() {
 		
 		System.out.println("Select a healing item to apply to the hero:\n");
 		
@@ -388,4 +388,5 @@ public class Team {
 		return uniqueHealingItems.get(userChoice-1);
 		
 	}
+
 }

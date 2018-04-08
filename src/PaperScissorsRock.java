@@ -164,12 +164,4 @@ public class PaperScissorsRock extends MiniGame {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Merchant good = new Merchant("James");
-		good.getActivePowerUps().add(new TieBreaker());
-		Invictus evil = new Invictus();
-		PaperScissorsRock psr = new PaperScissorsRock(good, evil);
-		psr.play();
-	}
-	
 }
