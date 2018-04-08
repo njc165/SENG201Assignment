@@ -100,12 +100,19 @@ public class HealingItem {
 	 * Gives the number of increments remaining and the time until the next
 	 * increment is applied.
 	 * @return A string representing the number of increments remaining and the
-	 * time until the next increment is applied.
+	 * 			time until the next increment is applied.
 	 */
 	public String getStatus() {
-		return String.format("Increments remaining: %d\nTime to next increment: %d seconds.",
-							 incrementsRemaining,
-							 LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
+		int incrementPercentage = (int) (INCREMENT_SIZE * 100);
+		int percentageRemaining = (int) (incrementsRemaining * INCREMENT_SIZE * 100);
+		long timeUntilNextIncrement = Long.max(0,
+						LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
+		
+		return String.format("%d%% of max health left to restore.\n"
+							  + "%d seconds until next %d%% increment in health.",
+							 percentageRemaining,
+							 timeUntilNextIncrement,
+							 incrementPercentage);
 	}
 	
 	/**
@@ -169,11 +176,18 @@ public class HealingItem {
 
 
 	/**
-	 * Getter method for price.
-	 * @return The value of price.
+	 * Getter method for cost.
+	 * If hasDiscount is true, multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER.
+	 * @param hasDiscount	true if the team has a hero with the store discount
+	 * 						special ability, false otherwise.
+	 * @return The value of cost.
 	 */
-	public int getCost() {
-		return cost;
+	public int getCost(boolean hasDiscount) {
+		if (hasDiscount) {
+			return (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
+		} else {
+			return cost;
+		}	
 	}
 	
 	/**

@@ -25,6 +25,12 @@ public class Hero {
 	public static final double FASTER_HEALING_MULTIPLIER = 0.5;
 	
 	/**
+	 * The multiplier to be applied to all items in the shop if the team has
+	 * a hero with the store discount special ability.
+	 */
+	public static final double STORE_DISCOUNT_MULTIPLIER = 0.8;
+	
+	/**
 	 * The name of the player assigned to this hero.
 	 */
 	private String name;
@@ -210,9 +216,10 @@ public class Hero {
 				currentHealth = Integer.min(maxHealth, newHealth);
 				
 				appliedHealingItem.applyIncrement();
-				
-				if (appliedHealingItem.getIncrementsRemaining() <= 0)
+								
+				if (appliedHealingItem.getIncrementsRemaining() <= 0) {
 					appliedHealingItem = null;
+				}
 			}
 		}
 	}

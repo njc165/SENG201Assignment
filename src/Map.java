@@ -32,10 +32,17 @@ public class Map {
 	
 	/**
 	 * Getter method for cost.
-	 * @return		Cost of a map.
+	 * If hasDiscount is true, multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER.
+	 * @param hasDiscount	true if the team has a hero with the store discount
+	 * 						special ability, false otherwise.
+	 * @return The value of cost.
 	 */
-	public static int getCost() {
-		return COST;
+	public static int getCost(boolean hasDiscount) {
+		if (hasDiscount) {
+			return (int) (COST * Hero.STORE_DISCOUNT_MULTIPLIER);
+		} else {
+			return COST;
+		}	
 	}
 	
 }

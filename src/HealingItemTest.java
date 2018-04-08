@@ -10,25 +10,32 @@ class HealingItemTest {
 		HealingItem item = new HealingItem("potion", "a potion", 2, 3, 20);
 		assertEquals("potion", item.getName());
 		assertEquals("a potion", item.getDescription());
-		assertEquals(20, item.getCost());
+		assertEquals(20, item.getCost(false));
 		assertEquals(2, item.getIncrementsRemaining());
 	}
 
 	@Test
 	final void testGetStatus() {
 		// Create a new HealingItem
-		HealingItem item = new HeartyMeal();
+		int numIncrements = 3;
+		int timePerIncrement = 5;
+		HealingItem item = new HealingItem("name", "description", numIncrements,
+											timePerIncrement, 100);
 		item.applyToHero(false);
 		
 		// Check that getStatus returns the expected string
-		assertEquals(item.getStatus(), "Increments remaining: 2\nTime to next increment: 40 seconds.");
+		assertEquals(item.getStatus(), "75% of max health left to restore.\n"
+										+ "5 seconds until next 25% increment in health.");
 		
-		// Create a new HealingItem, this time halving the time per increment
-		HealingItem item2 = new HeartyMeal();
-		item2.applyToHero(true);
+		// Check that time until next increment doesn't fall below 0
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		assertEquals(item.getStatus(), "75% of max health left to restore.\n"
+				+ "0 seconds until next 25% increment in health.");
 		
-		// Check that getStatus returns the expected string
-		assertEquals(item2.getStatus(), "Increments remaining: 2\nTime to next increment: 20 seconds.");
 	}
 	
 	@Test

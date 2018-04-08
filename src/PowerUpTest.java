@@ -25,7 +25,7 @@ class PowerUpTest {
 		
 		// Check that the constructor correctly initialises values.
 		assertEquals(pu.getType(), PowerUpType.TIEBREAKER);
-		assertEquals(pu.getCost(), 100);
+		assertEquals(pu.getCost(false), 100);
 
 	}
 	

@@ -40,15 +40,15 @@ public class DiceRolls extends MiniGame{
 		
 		while (!gameFinished) {
 			int villainRoll = getRoll();
-			System.out.println(String.format("%s has rolled %s.", getVillain().getName(), villainRoll));
+			System.out.println(String.format("%s has rolled %s.\n", getVillain().getName(), villainRoll));
 			
 			Util.getIntFromUser(1, "Enter 1 to roll the die");
 			int heroRoll = getRoll();
-			System.out.println(String.format("You have rolled %s.", heroRoll));
+			System.out.println(String.format("You have rolled %s.\n", heroRoll));
 			
 			if (rollIncrease > 0) {
 				heroRoll += rollIncrease;
-				System.out.println(String.format("Since you have a roll bonus of %s, your score is %s.",
+				System.out.println(String.format("Since you have a roll bonus of %s, your score is %s.\n",
 						rollIncrease, heroRoll));
 			}
 			
@@ -56,9 +56,9 @@ public class DiceRolls extends MiniGame{
 		}
 		
 		if (getHasWon()) {
-			System.out.println(String.format("You have defeated %s!", getVillain().getName()));
+			System.out.println(String.format("You have defeated %s!\n", getVillain().getName()));
 		} else {
-			System.out.println(String.format("%s has defeated you!", getVillain().getName()));
+			System.out.println(String.format("%s has defeated you!\n", getVillain().getName()));
 		}
 		
 		removeRelevantPowerUps();
@@ -80,7 +80,7 @@ public class DiceRolls extends MiniGame{
 		} else if (heroRoll == villainRoll) {
 			System.out.println("It is a draw.");
 			if (heroHasTieBreaker()) {
-				System.out.println("You use your Tie Breaker power-up to win the game.");
+				System.out.println("You use your Tie Breaker power-up to win the game.\n");
 				setHasWon(true);
 				gameFinished = true;
 			} else {
@@ -123,5 +123,5 @@ public class DiceRolls extends MiniGame{
 		increase += getHero().numPowerUps(PowerUpType.INCREASE_ROLL);
 		return increase;
 	}
-	
+		
 }

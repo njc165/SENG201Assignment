@@ -3,6 +3,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
 	
@@ -139,12 +140,7 @@ public class Game {
 				break;
 		}
 		
-		if (!gameOver) {
-			// win
-		}
-		else {
-			// lose
-		}
+		displayResult();
 	}
 	
 	/**
@@ -195,6 +191,23 @@ public class Game {
 			case POWER_UP_DEN: powerUpDen(); break;
 			case HOSPITAL: hospital(); break;
 			case VILLAINS_LAIR: villainsLair(); break;
+		}
+	}
+	
+	/**
+	 * If gameOver is true, tells the team they have lost.
+	 * If gameOver is false, tells the team that they have won, and the time it took
+	 * to complete the game.
+	 */
+	private void displayResult() {
+		if (gameOver) {
+			System.out.println("You have lost.");
+			
+		} else {
+			long timeTaken = startTime.until(LocalTime.now(), ChronoUnit.MINUTES);
+			System.out.println("Congratulations!\nYour team has cleared all the cities of their villains.");
+			System.out.println(String.format("You took %s minutes to complete the game.",
+					                           timeTaken));
 		}
 	}
 	
@@ -464,7 +477,7 @@ public class Game {
 		
 		boolean displayStatuses = Util.getYesNo("Would you like to see the statuses of your currently applied healing items?");
 		if (displayStatuses)
-			displayStatuses();
+			displayHealingItemStatuses();
 		
 		boolean answeredYes = Util.getYesNo("Would you like to apply a healing item?");
 		boolean finished = false;
@@ -482,10 +495,24 @@ public class Game {
 	}
 	
 	/**
-	 * Displays the current status of the applied healing item of each hero on the team.
+	 * Lists each hero in the team with the status of their applied healing item,
+	 * if they have one.
 	 */
-	private void displayStatuses() {
-		
+	public void displayHealingItemStatuses() {
+		for (Hero hero: team.getHeroes()) {
+			System.out.println(hero + ":");
+			HealingItem healingItem = hero.getAppliedHealingItem();
+			
+			if (healingItem == null) {
+				System.out.println("No currently applied healing item.");
+				
+			} else {
+				System.out.println(String.format("%s is currently applied.",
+													healingItem));
+				System.out.println(healingItem.getStatus());
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
@@ -503,10 +530,10 @@ public class Game {
 			Hero hero = team.selectHero();
 		
 			if (hero.getAppliedHealingItem() == null) {
-				HealingItem healingItem = team.selectHealingItem();
+				HealingItem healingItem = selectHealingItem();
 				team.getHealingItemsOwned().remove(healingItem);
 				hero.setAppliedHealingItem(healingItem);
-				System.out.println(String.format("One %s has been applied to %s",
+				System.out.println(String.format("One %s has been applied to %s.\n",
 													healingItem,
 													hero));
 			} else {
@@ -515,6 +542,39 @@ public class Game {
 				System.out.println("Each hero may have only one healing item applied at a time.\n");
 			}
 		}
+	}
+	
+	/**
+	 * Asks the user to select the healing item they would like to apply to the hero.
+	 * Displays all the healing items with the numbers currently owned by the team.
+	 * Assumes that the team owns at least one healing item.
+	 * @return		The selected HealingItem object from the team's list of currently
+	 * 				owned healing items.
+	 */
+	private HealingItem selectHealingItem() {
+		System.out.println("Which healing item would you like to apply to the hero?\n");
+		
+		ArrayList<HealingItem> ownedHealingItems  = new ArrayList<HealingItem>();
+		
+		for (HealingItem healingItem: ALL_HEALING_ITEMS) {
+			if (team.numHealingItemsOwned(healingItem.getName()) > 0) {
+				ownedHealingItems.add(healingItem);
+			}
+		}
+		
+		for (int i = 0; i < ownedHealingItems.size(); i++) {
+			HealingItem healingItem = ownedHealingItems.get(i);
+			System.out.println(String.format("%s. %s (%s owned)",
+												i+1,
+												healingItem,
+												team.numHealingItemsOwned(healingItem.getName())));
+		}
+		System.out.println();
+		
+		int choice = Util.getIntFromUser(ownedHealingItems.size(), "Enter your choice:");
+		HealingItem healingItem = ownedHealingItems.get(choice - 1);
+		
+		return team.healingItemOfGivenType(healingItem.getName());
 	}
 	
 	
@@ -571,27 +631,28 @@ public class Game {
 												villain, miniGameType));
 			miniGame.play();
 			
-			if (miniGame.getHasWon()) {
-				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
+			if (miniGame.getHasWon()) {				
 				System.out.println(String.format("Congratulations on defeating %s.\n",
 													villain));
+				
+				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
+				if (hero instanceof Mercenary) {
+					villain.setTimesDefeated(villain.getTimesDefeated() + 1);
+					System.out.println(String.format("%s has done %s double damage!\n",
+														hero, villain));
+				}
 		
 				if (villain.isDefeated()) {
 					team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
 					System.out.println(String.format("Your team has been rewarded with %s coins.\n",
-														PRIZE_MONEY));					
-
-				} else {
-					System.out.println(String.format("You need to win %s more round(s) to win the battle.\n",
-							villain.remainingTimesToDefeat()));
-					System.out.println("The next round of the battle has started!\n");
+														PRIZE_MONEY));
 				}
 			}
 			else {
 				int damage = villain.getDamageDealt();
 				team.takeDamage(hero, damage);
 				
-				System.out.println(String.format("%s has dealt %s %s damage!",
+				System.out.println(String.format("%s has dealt %s %s damage!\n",
 													villain,
 													hero,
 													damage));
@@ -599,7 +660,7 @@ public class Game {
 					System.out.println(String.format("%s now has %s health remaining.\n",
 														hero, hero.getCurrentHealth()));
 				} else {
-					System.out.println(String.format("%s has fallen in battle!\n",
+					System.out.println(String.format("%s has fallen in battle.\n",
 														hero));
 					System.out.println(String.format("Your team has %s hero(es) remaining.\n",
 														team.getHeroes().size()));
@@ -608,6 +669,12 @@ public class Game {
 			
 			if (team.getHeroes().size() <= 0) {
 				gameOver = true;
+			}
+			
+			if (!villain.isDefeated() && !gameOver) {
+				System.out.println(String.format("You need to win %s more round(s) to win the battle.\n",
+						villain.remainingTimesToDefeat()));
+				System.out.println("The next round of the battle has started!\n");
 			}
 			
 		}
@@ -709,7 +776,7 @@ public class Game {
 		
 		if (itemLost != null) {
 			System.out.println("You have been robbed!");
-			System.out.println(String.format("A sneaky bandit has run off with your %s.",
+			System.out.println(String.format("A sneaky bandit has run off with your %s.\n",
 											itemLost));
 		}
 	}
@@ -764,17 +831,35 @@ public class Game {
 	}
 	
 	public static void main(String[] args) {
-		Team team = new Team("Team name");
-		int numHeroes = 2;
-//		team.setNumMaps(3);
+		
+		boolean validName = false;
+		Scanner sc = new Scanner(System.in);
+		String teamName = null;
+		
+		while (!validName) {
+			System.out.println("Enter a name for you team of heroes:");
+			teamName = sc.next();
+			if (teamName.length() >= 2 && teamName.length() <= 10) {
+				validName = true;
+			} else {
+				System.out.println("The name must be between 2 and 10 characters long.\n");
+			}
+		}
+		
+		Team team = new Team(teamName);
+		
+		System.out.println("How many cities would you like to play? (3, 4, 5, or 6)\n");
+		int numCities = Util.getIntFromUser(3, 6, "Enter your choice:");
+		
+		System.out.println("How many heroes would you like on your team? (1, 2 or 3)\n");
+		int numHeroes = Util.getIntFromUser(3, "Enter your choice:");
+		
 		for (int i = 0; i < numHeroes; i++) {
 			team.addHeroFromInput();
 		}
-		Game game = new Game(team, 1);
-//		team.getPowerUpsOwned().add(new MindReader());
-//		team.getHealingItemsOwned().add(new AlicornDust());
-//		team.getHealingItemsOwned().add(new SuspiciousTonic());
-		game.play();
 		
+		Game game = new Game(team, numCities);
+
+		game.play();
 	}
 }
