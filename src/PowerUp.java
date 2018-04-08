@@ -47,7 +47,7 @@ public class PowerUp {
 		
 		String returnString = type.toString() + "\n";
 		returnString += String.format("Number currently owned: %s\n", numOwned);
-		returnString += String.format("Price: %s coins\n", cost);
+		returnString += String.format("Price: %s coins\n", getCost(team.hasDiscountHero()));
 		returnString += description + "\n";
 		
 		return returnString;
@@ -65,12 +65,19 @@ public class PowerUp {
 
 	/**
 	 * Getter method for cost.
-	 * @return The value of cost.
+	 * If hasDiscount is true, multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER.
+	 * @param hasDiscount	true if the team has a hero with the store discount
+	 * 						special ability, false otherwise.
+	 * @return The value of cost, with the discount applied if needed.
 	 */
-	public int getCost() {
-		return cost;
+	public int getCost(boolean hasDiscount) {
+		if (hasDiscount) {
+			return (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
+		} else {
+			return cost;
+		}
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */

@@ -8,13 +8,15 @@ public class Bulwark extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = "25% Damage reduction";
+	private static final String SPECIAL_ABILITY = String.format("Take %s%% less damage from villains",
+																(int) (100 - (Hero.DAMAGE_REDUCTION_MULTIPLIER * 100)));
 	
 	/**
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = "Bulwarks are infamous masochists. It's really quite concerning. However, they provide useful protection against the wrath of evil villains.\nWhen a Bulwark loses a game, they take 25% less damage.\n";
+	private static final String DESCRIPTION = String.format("Bulwarks are infamous masochists. It's really quite concerning.\nHowever, they provide useful protection against the wrath of evil villains.\nWhen a Bulwark loses a game, they take %s%% less damage.\n",
+														(int) (100 - (Hero.DAMAGE_REDUCTION_MULTIPLIER * 100)));
 	
 	/**
 	 * The maximum health the hero can have.

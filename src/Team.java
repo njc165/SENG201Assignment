@@ -69,7 +69,7 @@ public class Team {
 	 */
 	public void addHeroFromInput() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter a name for your Hero:");
+		System.out.println("Enter a name for a hero:");
 		
 		boolean validName = false;
 		String heroName = null;
@@ -177,10 +177,10 @@ public class Team {
 	 * @param powerUp The new PowerUp instance to be bought.
 	 */
 	public void buyPowerUp(PowerUp powerUp) {
-		if (powerUp.getCost() > currentMoney) {
+		if (powerUp.getCost(hasDiscountHero()) > currentMoney) {
 			throw new NotEnoughMoneyException("Not enough money to buy that power up");
 		} else {
-			currentMoney -= powerUp.getCost();
+			currentMoney -= powerUp.getCost(hasDiscountHero());
 			powerUpsOwned.add(powerUp);
 		}
 	}
@@ -194,10 +194,10 @@ public class Team {
 	 * @param healingItem The new HealingItem instance to be bought.
 	 */
 	public void buyHealingItem(HealingItem healingItem) {
-		if (healingItem.getCost() > currentMoney) {
+		if (healingItem.getCost(hasDiscountHero()) > currentMoney) {
 			throw new NotEnoughMoneyException("Not enough money to buy that healing item");
 		} else {
-			currentMoney -= healingItem.getCost();
+			currentMoney -= healingItem.getCost(hasDiscountHero());
 			healingItemsOwned.add(healingItem);
 		}
 	}
@@ -208,10 +208,10 @@ public class Team {
 	 * If the team doesn't have enough money, a NotEnoughMoneyException is thrown.
 	 */
 	public void buyMap() {
-		if (Map.getCost() > currentMoney) {
+		if (Map.getCost(hasDiscountHero()) > currentMoney) {
 			throw new NotEnoughMoneyException("Not enough money to buy a map");
 		} else {
-			currentMoney -= Map.getCost();
+			currentMoney -= Map.getCost(hasDiscountHero());
 			numMaps++;
 		}
 	}
@@ -387,6 +387,32 @@ public HealingItem selectHealingItem() {
 		
 		return uniqueHealingItems.get(userChoice-1);
 		
+	}
+
+	/**
+	 * Takes the name of a healing item, and returns a healing item of that type
+	 * from the team's list of owned healing items.
+	 * If the team doesn't own any healing items of that type, raises a RuntimeException.
+	 * @param name	The name of the healing item to be found
+	 * @return		A HealingItem object with the given name from the teams list of
+	 * 				owned healing items.
+	 */
+	public HealingItem healingItemOfGivenType(String name) {
+		boolean found = false;
+		HealingItem itemToReturn = null;
+		
+		for (HealingItem healingItem: healingItemsOwned) {
+			if (healingItem.getName() == name) {
+				found = true;
+				itemToReturn = healingItem;
+			}
+		}
+		
+		if (found) {
+			return itemToReturn;
+		} else {
+			throw new NoneOwnedException("No healing items with the given name owned.");
+		}
 	}
 
 }

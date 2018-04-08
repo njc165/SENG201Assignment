@@ -41,6 +41,48 @@ public class Util {
 		return number;
 	}
 	
+	/**
+	 * An overloaded version of getIntFromUser which allows a minValue to be
+	 * specified as well as a max value.
+	 * Repeatedly asks the user for input using the given prompt until a valid integer
+	 * between minValue and given maxValue inclusive is entered.
+	 * @param minValue  The lowest integer which should be accepted as valid input.
+	 * @param maxValue	The highest integer which should be accepted as valid input.
+	 * @param prompt	The prompt message which asks the user for input.
+	 * @return			The valid integer entered by the user.
+	 */
+	public static int getIntFromUser(int minValue, int maxValue, String prompt) {
+		if (maxValue < 1)
+			throw new IllegalArgumentException("maxValue must be atleast 1");
+		
+		String invalidInputMessage = String.format("Please enter a number between %s and %s.",
+														minValue, maxValue);
+		if (maxValue == minValue)
+			invalidInputMessage = String.format("Please enter %s.", minValue);
+				
+		Scanner sc = new Scanner(System.in);
+		int number = -1;
+		boolean isValidInput = false;
+		
+		while (!isValidInput) {
+			System.out.println(prompt);
+			
+			String input = sc.nextLine();
+			try {
+				number = Integer.parseInt(input);
+			} catch (NumberFormatException e) {
+			} finally {
+				if (number >= minValue && number <= maxValue) {
+					isValidInput = true;
+				} else {
+					System.out.println(invalidInputMessage);
+				}
+			}
+		}
+
+		return number;
+	}
+	
 	
 	/**
 	 * Asks the user the given question and gives them the option to choose yes

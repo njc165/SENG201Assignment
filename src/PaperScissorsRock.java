@@ -38,31 +38,38 @@ public class PaperScissorsRock extends MiniGame {
 				revealNot(villainChoice);
 			}
 			
-			String heroChoice = null;
-			int input = Util.getIntFromUser(3, "Select a number to play paper, scissors, or rock:\n1: Paper\n2: Scissors\n3: Rock");
+			System.out.println("What would you like to play?\n");
 			
-			switch (input) {
-				case 1: heroChoice = "Paper";
-						break;
-				case 2: heroChoice = "Scissors";
-						break;
-				case 3: heroChoice = "Rock";
-						break;
+			for (int i = 0; i < CHOICES.length; i++) {
+				System.out.println(String.format("%s. %s", i+1, CHOICES[i]));
 			}
+			
+			int input = Util.getIntFromUser(3, "Enter you choice:");
+			String heroChoice = CHOICES[input - 1];
 						
-			System.out.println("You played " + heroChoice + ". " + getVillain().getName() + " played " + villainChoice + ".");
+			System.out.println(String.format("You played %s. %s played %s.\n",
+												heroChoice,
+												getVillain(),
+												villainChoice));
 			
 			String gameOutcome = computeOutcome(heroChoice, villainChoice);
 			
 			if (gameOutcome == "Win") {
 				System.out.println("You won!");
+				System.out.println(String.format("You have defeated %s.\n",
+													getVillain()));
 				setHasWon(true);
 				gameConcluded = true;
+				
 			} else if (gameOutcome == "Draw") {
 				gameConcluded = handleDraw();
+				
 			} else if (gameOutcome == "Loss") {
 				System.out.println("You lost!");
+				System.out.println(String.format("%s has defeated you.\n",
+													getVillain()));
 				gameConcluded = true;
+				
 			} else {
 				throw new RuntimeException("Unexpected game outcome");
 			}
@@ -124,12 +131,12 @@ public class PaperScissorsRock extends MiniGame {
 		boolean hasTiebreaker = getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0;
 		
 		if (hasTiebreaker) {
-			System.out.println("It was a draw, but your Tiebreaker power-up gives you the win!");
+			System.out.println("It was a draw, but your Tiebreaker power-up gives you the win!\n");
 			this.setHasWon(true);
 			return true;
 		}
 		else {
-			System.out.println("It was a draw! Play again!");
+			System.out.println("It was a draw! Play again.\n");
 			return false;
 		}
 				
@@ -157,8 +164,17 @@ public class PaperScissorsRock extends MiniGame {
 	private void revealNot(String villainChoice) {
 		for (String choice : CHOICES) {		
 			if (!(choice == villainChoice)) {
-				String str = String.format("The villain did not play %s.", choice);
-				System.out.println(str);
+				if (getHero().getHasBattleAdvantage()) {
+					System.out.println(String.format("Your special ability lets you sense that "
+														+ "%s did not play %s.\n",
+															getVillain(),
+															choice));
+				} else {
+					System.out.println(String.format("Your Mindreader power up lets you sense that "
+													+ "%s did not play %s.\n",
+													getVillain(),
+													choice));
+				}
 				break;
 			}
 		}

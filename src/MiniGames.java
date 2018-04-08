@@ -1,7 +1,7 @@
 public enum MiniGames {
 	PAPER_SCISSORS_ROCK("Paper Scissors Rock"),
 	DICE_ROLLS("Dice Rolls"),
-	GUESS_NUMBER("Guess Number");
+	GUESS_NUMBER("Guess the Number");
 	
 	/**
 	 * A string representation of the given MiniGame

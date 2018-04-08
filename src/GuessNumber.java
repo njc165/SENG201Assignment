@@ -51,25 +51,26 @@ public class GuessNumber extends MiniGame {
 		System.out.println(String.format("%s has chosen a number between 1 and %s.\n",
 				getVillain().getName(), MAX_NUMBER_TO_BE_GUESSED));
 		while ((guessesLeft > 0) && (!getHasWon())) {
-			System.out.println(String.format("You have %s chance(s) left to guess the number.", guessesLeft));
+			System.out.println(String.format("You have %s chance(s) left to guess the number.\n", guessesLeft));
 			int guess = getGuessFromPlayer();
 			if (guess == numberToGuess) {
 				setHasWon(true);
 			} else if (guess > numberToGuess) {
-				System.out.println("Your guess was too high.");
+				System.out.println("Your guess was too high.\n");
 			} else {
-				System.out.println("Your guess was too low.");
+				System.out.println("Your guess was too low.\n");
 			}
 			guessesLeft--;
 		}
 		if (getHasWon()) {
-			System.out.println(String.format("You guessed correctly! You have defeated %s!",
+			System.out.println(String.format("You guessed correctly! You have defeated %s!\n",
 					getVillain().getName()));
 		}
 		else {
-			System.out.println(String.format("You have run out of guesses. %s has defeated you!\n"
-					+ "The chosen number was %s.",
-					getVillain().getName(), numberToGuess));
+			System.out.println(String.format("The chosen number was %s.\n",
+												numberToGuess));
+			System.out.println(String.format("You have run out of guesses.\n%s has defeated you!\n",
+												getVillain().getName()));
 		}
 		removeRelevantPowerUps();
 	}
