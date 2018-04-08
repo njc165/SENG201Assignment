@@ -62,11 +62,11 @@ class HealingItemTest {
 	@Test
 	final void testReadyToIncrement() throws InterruptedException {
 		// Create a new HealingItem
-		HealingItem item = new AlicornDust();
+		HealingItem item = new HealingItem("name", "desc", 3, 2, 100);
 		item.applyToHero(false);
 		
-		// Wait 20 seconds and check that the item is ready to increment
-		Thread.sleep(20000);
+		// Wait 2 seconds and check that the item is ready to increment
+		Thread.sleep(2000);
 		assertTrue(item.readyToIncrement());
 		
 		// Apply the increment, resetting the timer
@@ -77,19 +77,18 @@ class HealingItemTest {
 		assertFalse(item.readyToIncrement());
 		
 		// Create a new HealingItem, this time with the fasterHealing ability
-		HealingItem item2 = new AlicornDust();
+		HealingItem item2 = new HealingItem("name", "desc", 3, 2, 100);
 		item2.applyToHero(true);
 		
-		// Wait 10 seconds and check that the item is ready to increment
+		// Wait 1 second and check that the item is ready to increment
 		// i.e. that the fasterHealing ability is correctly applied
-		Thread.sleep(10000);
+		Thread.sleep(1100);
 		assertTrue(item2.readyToIncrement());
 		
 		// Apply the increment, resetting the timer
 		item2.applyIncrement();
 		
-		// Wait 1 second and check that the item is not ready to increment
-		Thread.sleep(1000);
+		// Check that the item is not ready to increment
 		assertFalse(item2.readyToIncrement());
 	}
 	

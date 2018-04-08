@@ -427,18 +427,4 @@ public class Hero {
 		appliedHealingItem.applyToHero(hasFasterHealing);
 	}
 	
-//	public static void main(String[] args) {
-//		Apprentice a = new Apprentice("John");
-//		a.setAppliedHealingItem(new AlicornDust());
-//		a.addPowerUp(new ExtraGuess());
-//		a.addPowerUp(new ExtraGuess());
-//		a.addPowerUp(new TieBreaker());
-//		System.out.println(a.status());
-//		
-//	}
-
-
-
-
-
 }

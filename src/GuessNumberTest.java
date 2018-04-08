@@ -36,7 +36,8 @@ class GuessNumberTest {
 		// hasWon is initialised to false, and can be changed using setter
 		assertFalse(game.getHasWon());
 		game.setHasWon(true);
-		assertTrue(game.getHasWon());
+		assertTrue(game.getHasWon());		
+		
 	}
 
 	@Test
@@ -57,5 +58,5 @@ class GuessNumberTest {
 		assertArrayEquals(new PowerUp[] {new IncreaseRoll(), new TieBreaker(), new MindReader()},
 				hero.getActivePowerUps().toArray());
 	}
-
+	
 }
