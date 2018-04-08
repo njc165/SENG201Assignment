@@ -636,11 +636,18 @@ public class Game {
 													villain));
 				
 				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
-				if (hero instanceof Mercenary) {
+				if (hero.getHasBattleAdvantage()) {
 					villain.setTimesDefeated(villain.getTimesDefeated() + 1);
 					System.out.println(String.format("%s has done %s double damage!\n",
 														hero, villain));
 				}
+		
+				if (villain.isDefeated()) {
+					team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
+					System.out.println(String.format("Your team has been rewarded with %s coins.\n",
+														PRIZE_MONEY));
+				}
+			}
 		
 				if (villain.isDefeated()) {
 					team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
