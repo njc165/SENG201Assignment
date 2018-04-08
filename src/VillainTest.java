@@ -94,6 +94,23 @@ class VillainTest {
 		assertEquals(1, villains.size());
 		assertTrue(villains.get(0) instanceof Invictus);
 	}
+	
+	@Test
+	final void testSetTimesDefeated() {
+		Bucephalus villain = new Bucephalus();
+		
+		// Setting timesDefeated to a number less than MAX_TIMES_DEFEATED
+		// doesn't change isDefeated
+		villain.setTimesDefeated(1);
+		assertEquals(1, villain.getTimesDefeated());
+		assertFalse(villain.isDefeated());
+		
+		// Setting timesDefeated to a number greater than MAX_TIMES_DEFATED
+		// sets isDefeated to true
+		villain.setTimesDefeated(10);
+		assertEquals(10, villain.getTimesDefeated());
+		assertTrue(villain.isDefeated());
+	}
 
 	
 	

@@ -19,6 +19,8 @@ class MiniGameTest {
 		assertTrue(game1 instanceof PaperScissorsRock);
 		assertTrue(game2 instanceof GuessNumber);
 		assertTrue(game3 instanceof DiceRolls);
+		
+		
 	}
 
 }

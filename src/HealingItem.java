@@ -93,7 +93,7 @@ public class HealingItem {
 	 * @return	The total percentage of health restored by the healing item.
 	 */
 	private int percentageHealthRestored() {
-		return (int) INCREMENT_SIZE * numIncrements * 100;
+		return (int) (INCREMENT_SIZE * numIncrements * 100);
 	}
 	
 	/**

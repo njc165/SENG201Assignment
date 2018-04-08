@@ -103,6 +103,12 @@ class HeroTest {
 											numIncrements, timePerIncrement, 100);
 		hero.setAppliedHealingItem(healingItem);
 		
+		// Wait 1s to make sure healing item is ready to apply
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		hero.heal();
 		
 		// Healing item's number of increments remaining has decreased by one
@@ -112,6 +118,11 @@ class HeroTest {
 		assertEquals(85, hero.getCurrentHealth());
 		
 		// Healing the hero again doesn't increase their health beyond maxHealth
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertTrue(hero.getAppliedHealingItem().readyToIncrement());
 		hero.heal();
 		assertEquals(100, hero.getCurrentHealth());
