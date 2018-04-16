@@ -105,7 +105,7 @@ public class GuessNumber extends MiniGame {
 	 * @return	The number entered by the user.
 	 */
 	private int getGuessFromPlayer() {
-		return Util.getIntFromUser(MAX_NUMBER_TO_BE_GUESSED, "Enter your next guess:");
+		return Util.getIntFromUser(MAX_NUMBER_TO_BE_GUESSED, "Enter your guess:");
 	}
 	
 	public static void main(String[] args) {
