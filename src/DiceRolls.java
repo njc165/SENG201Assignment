@@ -106,7 +106,7 @@ public class DiceRolls extends MiniGame{
 	 * @return	Returns true if the hero has at least one TieBreaker power-up applied, other false.
 	 */
 	private boolean heroHasTieBreaker() {
-		return getHero().numPowerUps(PowerUpType.TIEBREAKER) >= 0;
+		return getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0;
 	}
 	
 	/**

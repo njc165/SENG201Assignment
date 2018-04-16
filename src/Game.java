@@ -636,7 +636,7 @@ public class Game {
 													villain));
 				
 				villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
-				if (hero.getHasBattleAdvantage()) {
+				if (hero.getHasDoubleDamage()) {
 					villain.setTimesDefeated(villain.getTimesDefeated() + 1);
 					System.out.println(String.format("%s has done %s double damage!\n",
 														hero, villain));
@@ -843,7 +843,7 @@ public class Game {
 		String teamName = null;
 		
 		while (!validName) {
-			System.out.println("Enter a name for you team of heroes:");
+			System.out.println("Enter a name for your team of heroes:");
 			teamName = sc.next();
 			if (teamName.length() >= 2 && teamName.length() <= 10) {
 				validName = true;
