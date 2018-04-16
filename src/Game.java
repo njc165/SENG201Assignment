@@ -647,14 +647,7 @@ public class Game {
 					System.out.println(String.format("Your team has been rewarded with %s coins.\n",
 														PRIZE_MONEY));
 				}
-			}
-		
-				if (villain.isDefeated()) {
-					team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
-					System.out.println(String.format("Your team has been rewarded with %s coins.\n",
-														PRIZE_MONEY));
-				}
-			else {
+			} else {
 				int damage = villain.getDamageDealt();
 				team.takeDamage(hero, damage);
 				
