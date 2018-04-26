@@ -13,8 +13,15 @@ import java.awt.event.ActionEvent;
 
 public class HomeBasePanel extends JPanel {
 	
-	public static final String HOME_BASE_PANEL_STRING = "Other Panel";
+	/**
+	 * A string representation of this panel, used by the CardLayout in Game.
+	 */
+	public static final String HOME_BASE_PANEL_STRING = "Home Base Panel";
 	
+	/**
+	 * The main Game window that this panel is a part of. Used by event handlers
+	 * to change the panel shown in game.
+	 */
 	private Game game;
 	
 	public HomeBasePanel(Game game) {

@@ -17,8 +17,16 @@ import javax.swing.JTextField;
 
 public class ShopPanel extends JPanel {
 	
+	/**
+	 * A string representation of this panel, used by the CardLayout in Game.
+	 */
 	public static final String SHOP_PANEL_STRING = "Shop Panel";
 	
+	
+	/**
+	 * The main Game window that this panel is a part of. Used by event handlers
+	 * to change the panel shown in game.
+	 */
 	private Game game;
 	
 	public ShopPanel(Game game) {

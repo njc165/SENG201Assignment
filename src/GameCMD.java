@@ -841,7 +841,7 @@ public class GameCMD {
 		while (!validName) {
 			System.out.println("Enter a name for your team of heroes:");
 			teamName = sc.next();
-			if (teamName.length() >= 2 && teamName.length() <= 10) {
+			if (Team.isValidTeamName(teamName)) {
 				validName = true;
 			} else {
 				System.out.println("The name must be between 2 and 10 characters long.\n");
