@@ -27,6 +27,11 @@ public class Team {
 	private ArrayList<Hero> heroes = new ArrayList<Hero>();
 	
 	/**
+	 * The number of heroes to be added to the team initially.
+	 */
+	private int startNumHeroes;
+	
+	/**
 	 * A String representing the name of the team.
 	 */
 	private String name;
@@ -52,6 +57,28 @@ public class Team {
 	public Team(String name) {
 		this.name = name;
 		this.currentMoney = STARTING_MONEY;
+	}
+	
+	/**
+	 * A constructor for team, which sets the starting number of
+	 * heroes which need to be added to the team.
+	 * @param name				The team's name.
+	 * @param startNumHeroes	The starting number of heroes of the team.
+	 */
+	public Team(String name, int startNumHeroes) {
+		this.name = name;
+		this.startNumHeroes = startNumHeroes;
+		this.currentMoney = STARTING_MONEY;
+	}
+	
+	/**
+	 * Checks whether the given team name is valid. A name is valid
+	 * if it is between 2 and 10 characters long.
+	 * @param name		The team name to check.
+	 * @return			true if the name is valid, false otherwise.
+	 */
+	public static boolean isValidTeamName(String name) {
+		return name.length() >= 2 && name.length() <= 10;
 	}
 
 	/**
@@ -313,6 +340,10 @@ public class Team {
 		return heroes;
 	}
 	
+	public int getStartNumHeroes() {
+		return startNumHeroes;
+	}
+
 	/**
 	 * Getter method for numMaps.
 	 * @return The value of numMaps.

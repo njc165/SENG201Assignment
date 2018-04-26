@@ -9,14 +9,18 @@ import java.awt.BorderLayout;
 
 public class Game {
 	
+	/**
+	 * The GameEnvironment object for the current game.
+	 */
+	private GameEnvironment game;
+
 	private JFrame frame;
 	private JPanel mainPanel;
 	private CardLayout cardLayout;
 	
-	private StartScreenPanel startScreenPanel;
+	private SetUpPanel startScreenPanel;
 	private ShopPanel shopPanel;
 	private HomeBasePanel homeBasePanel;
-	private JPanel panel;
 	
 
 	/**
@@ -48,7 +52,7 @@ public class Game {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(200, 50, 880, 650);
+		frame.setBounds(200, 50, 900, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();
 		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -58,12 +62,12 @@ public class Game {
 		
 		addPanels();
 		
-		cardLayout.show(mainPanel, ShopPanel.SHOP_PANEL_STRING);
+		cardLayout.show(mainPanel, SetUpPanel.SET_UP_PANEL_STRING);
 	}
 	
 	public void addPanels() {
-		startScreenPanel = new StartScreenPanel(this);
-		mainPanel.add(startScreenPanel, StartScreenPanel.START_SCREEN_PANEL_STRING);
+		startScreenPanel = new SetUpPanel(this);
+		mainPanel.add(startScreenPanel, SetUpPanel.SET_UP_PANEL_STRING);
 		
 		shopPanel = new ShopPanel(this);
 		mainPanel.add(shopPanel, ShopPanel.SHOP_PANEL_STRING);
@@ -72,8 +76,28 @@ public class Game {
 		mainPanel.add(homeBasePanel, HomeBasePanel.HOME_BASE_PANEL_STRING);
 	}
 	
+	/**
+	 * @param panelString
+	 */
 	public void setPanel(String panelString) {
 		cardLayout.show(mainPanel, panelString);
 	}
+
+	/**
+	 * Getter method for game.
+	 * @return The value of game.
+	 */
+	public GameEnvironment getGame() {
+		return game;
+	}
+
+	/**
+	 * Setter method for game.
+	 * @param game The new value of game to set.
+	 */
+	public void setGame(GameEnvironment game) {
+		this.game = game;
+	}
+	
 
 }
