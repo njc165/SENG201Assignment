@@ -36,26 +36,6 @@ public class ShopPanel extends JPanel {
 		setPreferredSize(new Dimension(880, 610));
 		setLayout(null);
 		
-		addShopLabel();
-		addHomeBaseButton();
 	}
 	
-	private void addShopLabel() {
-		JLabel lblShop = new JLabel("SHOP");
-		lblShop.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblShop.setHorizontalAlignment(SwingConstants.CENTER);
-		lblShop.setBounds(10, 11, 430, 51);
-		add(lblShop);
-	}
-	
-	private void addHomeBaseButton() {
-		JButton btnGoToHome = new JButton("Go to Home Base");
-		btnGoToHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
-			}
-		});
-		btnGoToHome.setBounds(145, 119, 159, 51);
-		add(btnGoToHome);
-	}
 }
