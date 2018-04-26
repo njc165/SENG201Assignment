@@ -290,7 +290,7 @@ public class SetUpPanel extends JPanel {
 
 	/**
 	 * Called after each hero is added. Updates the add hero panel by
-	 * updating the hero number, emptyting the name text field, and
+	 * updating the hero number, emptying the name text field, and
 	 * resetting the selected hero type the the default.
 	 */
 	private void refreshAddHeroPanel() {
