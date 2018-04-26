@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
+import javax.swing.border.LineBorder;
+import javax.swing.JTextPane;
 
 public class SetUpPanel extends JPanel {
 	
@@ -254,7 +256,7 @@ public class SetUpPanel extends JPanel {
 		lblCreateHero = new JLabel("Create Hero");
 		lblCreateHero.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCreateHero.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblCreateHero.setBounds(10, 11, 268, 41);
+		lblCreateHero.setBounds(10, 11, 300, 41);
 		addHeroPanel.add(lblCreateHero);
 		
 		JLabel lblEnterAName = new JLabel("Enter a name:");
@@ -268,7 +270,8 @@ public class SetUpPanel extends JPanel {
 		addHeroPanel.add(lblSelectAHero);
 		
 		heroInfoPanel = new JPanel();
-		heroInfoPanel.setBounds(288, 11, 562, 405);
+		heroInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		heroInfoPanel.setBounds(320, 11, 530, 405);
 		addHeroPanel.add(heroInfoPanel);
 		
 		heroInfoPanelCardLayout = new CardLayout();
@@ -283,9 +286,51 @@ public class SetUpPanel extends JPanel {
 	 */
 	private void addHeroInfoPanels() {
 		for (Hero hero: Hero.ALL_HEROES) {
-			
+			heroInfoPanel.add(makeHeroInfoPanel(hero), hero.getType());
 		}
 		
+	}
+
+	/**
+	 * Takes a hero subclass instance, and creates and information panel for
+	 * a hero of that type, including its image, type name, special ability,
+	 * max health and description.
+	 * @param hero		An instance of the hero subclass which the information
+	 * 					panel is describing.
+	 * @return			The hero information JPanel.
+	 */
+	private JPanel makeHeroInfoPanel(Hero hero) {
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(null);
+		
+		JLabel label = new JLabel("");
+		label.setBorder(new LineBorder(new Color(0, 0, 0)));
+		label.setBounds(10, 11, 167, 381);
+		infoPanel.add(label);
+		
+		JTextPane txtpnyouDontHave = new JTextPane();
+		txtpnyouDontHave.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnyouDontHave.setText("\"You don't have to look very far to find a gambler these days, but true experts are few and far between. These players use more than luck to tip the odds in their favour.\r\n\r\nWhile fighting villains, Gamblers gain the following advantages:\r\nPaper Scissors Rock: Reveal one option that the villain will not play.\r\nGuess the Number: Get an extra guess.\r\nDice Roll: Increase your roll by one.\\n\";");
+		txtpnyouDontHave.setBounds(187, 150, 331, 242);
+		infoPanel.add(txtpnyouDontHave);
+		
+		JLabel lblGambler = new JLabel("Gambler");
+		lblGambler.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblGambler.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGambler.setBounds(187, 11, 331, 37);
+		infoPanel.add(lblGambler);
+		
+		JLabel lblSpecialAbilityAdvantages = new JLabel("Special Ability: Advantages in villain battles");
+		lblSpecialAbilityAdvantages.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSpecialAbilityAdvantages.setBounds(187, 59, 331, 20);
+		infoPanel.add(lblSpecialAbilityAdvantages);
+		
+		JLabel lblMaxHealth = new JLabel("Max Health: 100");
+		lblMaxHealth.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMaxHealth.setBounds(187, 90, 331, 20);
+		infoPanel.add(lblMaxHealth);
+		
+		return infoPanel;
 	}
 
 	/**
@@ -297,6 +342,4 @@ public class SetUpPanel extends JPanel {
 		lblCreateHero.setText(String.format("Create Hero %s:",
 				gameWindow.getGame().getTeam().getHeroes().size() + 1));
 	}
-	
-	
 }
