@@ -109,7 +109,25 @@ public class HomeBasePanel extends JPanel {
 	private void addSidePanel() {
 		sidePanel = new JPanel();
 		sidePanel.setBounds(0, 75, 190, 535);
+		sidePanel.setLayout(null);
+		
+		JLabel lblCurrentCity = new JLabel();
+		lblCurrentCity.setBounds(65, 11, 52, 25);
+		lblCurrentCity.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCurrentCity.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCurrentCity.setText("City X");
+		sidePanel.add(lblCurrentCity);
+		
+		JButton btnDisplayCity = new JButton("Display City");
+		btnDisplayCity.setBounds(36, 97, 120, 25);
+		sidePanel.add(btnDisplayCity);
+		
+		JButton btnViewStatus = new JButton("View Team Status");
+		btnViewStatus.setBounds(36, 157, 120, 25);
+		sidePanel.add(btnViewStatus);
+	
 		add(sidePanel);
+		
 	}
 	
 	private void addContentPanel() {
