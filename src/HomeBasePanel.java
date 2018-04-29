@@ -48,9 +48,34 @@ public class HomeBasePanel extends JPanel {
 	private Game gameWindow;
 	
 	/**
+	 * The team playing through the current game.
+	 */
+	private Team team;
+	
+	/**
 	 * The main content panel for the home base.
 	 */
 	private JPanel contentPanel;
+	
+	/**
+	 * A panel component of contentPanel
+	 */
+	private JPanel mapPanel;
+	
+	/**
+	 * A string description of mapPanel, used by contentPanelCardLayout.
+	 */
+	private final String MAP_PANEL_NAME = "Map Panel";
+	
+	/**
+	 * A panel component of contentPanel
+	 */
+	private JPanel statusPanel;
+	
+	/**
+	 * A string description of statusPanel, used by contentPanelCardLayout.
+	 */
+	private final String STATUS_PANEL_NAME = "Status Panel";
 	
 	/**
 	 * The side panel which holds buttons to change between views in the main
@@ -62,11 +87,32 @@ public class HomeBasePanel extends JPanel {
 	 * The title panel which holds the title.
 	 */
 	private JPanel titlePanel;
+	
+	/**
+	 * The CardLayout used by contentPanel.
+	 */
+	private CardLayout contentPanelCardLayout;
+	
+	/**
+	 * A button which, when clicked, displays an interactive map of the current city.
+	 */
+	private JButton btnDisplayCity;
+	
+	/**
+	 * A button which, when clicked, displays an overview of the team's heroes.
+	 */
+	private JButton btnViewStatus;
+	
+	/**
+	 * A button which, when clicked, consumes a map and reveals the current city.
+	 */
+	private JButton btnUseMap;
 		
 		
 	public HomeBasePanel(Game game) {
 		super();
 		this.gameWindow = game;
+		this.team = game.getGame().getTeam();
 		
 		setLayout(null);
 		setPreferredSize(new Dimension(880, 610));
@@ -100,18 +146,46 @@ public class HomeBasePanel extends JPanel {
 		lblCurrentCity.setText("City X");
 		sidePanel.add(lblCurrentCity);
 		
-		JButton btnDisplayCity = new JButton("Display City");
+		btnDisplayCity = new JButton("Display City");
+		btnDisplayCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				contentPanelCardLayout.show(contentPanel, MAP_PANEL_NAME);
+				btnDisplayCity.setEnabled(false);
+				btnViewStatus.setEnabled(true);
+			}
+		});
 		btnDisplayCity.setBounds(36, 97, 120, 25);
 		sidePanel.add(btnDisplayCity);
 		
-		JButton btnViewStatus = new JButton("View Team Status");
+		btnViewStatus = new JButton("View Team Status");
+		btnViewStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contentPanelCardLayout.show(contentPanel, STATUS_PANEL_NAME);
+				btnViewStatus.setEnabled(false);
+				btnDisplayCity.setEnabled(true);
+			}
+		});
 		btnViewStatus.setBounds(36, 157, 120, 25);
 		sidePanel.add(btnViewStatus);
 		
-		JButton btnUseMap = new JButton("Use Map");
+		btnUseMap = new JButton("Use Map");
+		btnUseMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().getCurrentCity().setAllDiscovered();
+				team.setNumMaps(team.getNumMaps() - 1);
+			}
+		});
 		btnUseMap.setBounds(36, 217, 120, 25);
+		if (team.getNumMaps() <= 0) {
+			btnUseMap.setEnabled(false);
+		}
 		sidePanel.add(btnUseMap);
 		
+		JLabel lblOwned = new JLabel(String.format("Owned: %d", team.getNumMaps()));
+		lblOwned.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOwned.setBounds(36, 242, 120, 14);
+		sidePanel.add(lblOwned);
+				
 		JTextPane txtRandomEvent = new JTextPane();
 		txtRandomEvent.setBackground(new Color(240, 240, 240));
 		txtRandomEvent.setEditable(false);
@@ -124,18 +198,18 @@ public class HomeBasePanel extends JPanel {
 		sidePanel.add(lblRandomEvent);
 	
 		add(sidePanel);	
-	}
+		}
 	
 	private void addContentPanel() {
 		contentPanel = new JPanel();
 		contentPanel.setBounds(190, 75, 690, 535);
-		contentPanel.setLayout(new CardLayout(0, 0));
-		
-		Team team = gameWindow.getGame().getTeam();
+		contentPanelCardLayout = new CardLayout(0, 0);
+		contentPanel.setLayout(contentPanelCardLayout);
+
 		Hero hero1 = team.getHeroes().get(0);
 				
-		JPanel mapPanel = new JPanel();
-		contentPanel.add(mapPanel, "name_1549287550933804");
+		mapPanel = new JPanel();
+		contentPanel.add(mapPanel, MAP_PANEL_NAME);
 		mapPanel.setLayout(new GridLayout(3, 3, 0, 0));
 		
 		JLabel lblNorthWest = new JLabel("");
@@ -174,8 +248,8 @@ public class HomeBasePanel extends JPanel {
 		lblSouthEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblSouthEast);
 		
-		JPanel statusPanel = new JPanel();
-		contentPanel.add(statusPanel, "name_1550790008331982");
+		statusPanel = new JPanel();
+		contentPanel.add(statusPanel, STATUS_PANEL_NAME);
 		statusPanel.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JPanel pnlHero1Status = new JPanel();
@@ -183,8 +257,9 @@ public class HomeBasePanel extends JPanel {
 		pnlHero1Status.setLayout(null);
 		
 		JLabel imgHero1Portrait = new JLabel("");
-		imgHero1Portrait.setBounds(33, 24, 165, 134);
+		imgHero1Portrait.setBounds(33, 11, 150, 150);
 		imgHero1Portrait.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		imgHero1Portrait.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/bulwark_portrait.png"))); //update this to 150x150 version
 		pnlHero1Status.add(imgHero1Portrait);
 		
 		JLabel lblHero1Name = new JLabel(String.format("%s the %s", hero1.getName(),
@@ -336,7 +411,9 @@ public class HomeBasePanel extends JPanel {
 			pnlHero3Status.add(txtHero3PowerUps);
 			
 		}
-
+		
+		contentPanelCardLayout.show(contentPanel, MAP_PANEL_NAME);
+		btnDisplayCity.setEnabled(false);
 		add(contentPanel);
 	}
 }
