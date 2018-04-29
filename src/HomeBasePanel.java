@@ -48,11 +48,6 @@ public class HomeBasePanel extends JPanel {
 	private Game gameWindow;
 	
 	/**
-	 * The team playing through the current game.
-	 */
-	private Team team;
-	
-	/**
 	 * The main content panel for the home base.
 	 */
 	private JPanel contentPanel;
@@ -112,7 +107,6 @@ public class HomeBasePanel extends JPanel {
 	public HomeBasePanel(Game game) {
 		super();
 		this.gameWindow = game;
-		this.team = game.getGame().getTeam();
 		
 		setLayout(null);
 		setPreferredSize(new Dimension(880, 610));
@@ -122,6 +116,10 @@ public class HomeBasePanel extends JPanel {
 		addContentPanel();
 		}
 	
+	private Team getTeam() {
+		return gameWindow.getGame().getTeam();
+	}
+
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 880, 75);
@@ -172,16 +170,16 @@ public class HomeBasePanel extends JPanel {
 		btnUseMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.getGame().getCurrentCity().setAllDiscovered();
-				team.setNumMaps(team.getNumMaps() - 1);
+				getTeam().setNumMaps(getTeam().getNumMaps() - 1);
 			}
 		});
 		btnUseMap.setBounds(36, 217, 120, 25);
-		if (team.getNumMaps() <= 0) {
+		if (getTeam().getNumMaps() <= 0) {
 			btnUseMap.setEnabled(false);
 		}
 		sidePanel.add(btnUseMap);
 		
-		JLabel lblOwned = new JLabel(String.format("Owned: %d", team.getNumMaps()));
+		JLabel lblOwned = new JLabel(String.format("Owned: %d", getTeam().getNumMaps()));
 		lblOwned.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOwned.setBounds(36, 242, 120, 14);
 		sidePanel.add(lblOwned);
@@ -206,7 +204,7 @@ public class HomeBasePanel extends JPanel {
 		contentPanelCardLayout = new CardLayout(0, 0);
 		contentPanel.setLayout(contentPanelCardLayout);
 
-		Hero hero1 = team.getHeroes().get(0);
+		Hero hero1 = getTeam().getHeroes().get(0);
 				
 		mapPanel = new JPanel();
 		contentPanel.add(mapPanel, MAP_PANEL_NAME);
@@ -224,6 +222,10 @@ public class HomeBasePanel extends JPanel {
 		lblNorthEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorthEast);
 		
+		JLabel lblEast = new JLabel("");
+		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
+		mapPanel.add(lblEast);
+		
 		JLabel lblWest = new JLabel("");
 		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblWest);
@@ -231,10 +233,6 @@ public class HomeBasePanel extends JPanel {
 		JLabel lblCentre = new JLabel("");
 		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblCentre);
-		
-		JLabel lblEast = new JLabel("");
-		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
-		mapPanel.add(lblEast);
 		
 		JLabel lblSouthWest = new JLabel("");
 		lblSouthWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
@@ -302,9 +300,9 @@ public class HomeBasePanel extends JPanel {
 		txtHero1PowerUps.setBounds(10, 402, 210, 122);
 		pnlHero1Status.add(txtHero1PowerUps);
 		
-		if (team.getHeroes().size() >= 2) {
+		if (getTeam().getHeroes().size() >= 2) {
 			
-			Hero hero2 = team.getHeroes().get(1);
+			Hero hero2 = getTeam().getHeroes().get(1);
 			
 			JPanel pnlHero2Status = new JPanel();
 			statusPanel.add(pnlHero2Status);
@@ -357,9 +355,9 @@ public class HomeBasePanel extends JPanel {
 			
 		}
 		
-		if (team.getHeroes().size() >= 3) {
+		if (getTeam().getHeroes().size() >= 3) {
 			
-			Hero hero3 = team.getHeroes().get(2);
+			Hero hero3 = getTeam().getHeroes().get(2);
 			
 			JPanel pnlHero3Status = new JPanel();
 			statusPanel.add(pnlHero3Status);

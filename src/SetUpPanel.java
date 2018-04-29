@@ -23,6 +23,7 @@ import java.awt.Container;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
+import java.awt.GridLayout;
 
 public class SetUpPanel extends JPanel {
 	
@@ -53,7 +54,7 @@ public class SetUpPanel extends JPanel {
 	 * A string representation of the team summary panel, used by the CardLayout
 	 * of the main content panel.
 	 */
-	private static final String TEAM_SUMMARY_PANEL_STRING = "Add Hero Panel";
+	private static final String TEAM_SUMMARY_PANEL_STRING = "Team Summary Panel";
 	
 	/**
 	 * The main Game window that this panel is a part of. Used by event handlers
@@ -90,15 +91,22 @@ public class SetUpPanel extends JPanel {
 	 */
 	private JPanel addHeroPanel;
 	
-	// Add hero panel components
+	/**
+	 * A panel which contains components to display a summary of the newly created
+	 * team to the user, and allow them to begin the game.
+	 */
+	private JPanel teamSummaryPanel;
+	
+	// Add Hero panel components
 	private JLabel lblCreateHero;
 	private JPanel heroInfoPanel;
 	private CardLayout heroInfoPanelCardLayout;
 	private JPanel inputPanel;
-
 	private JLabel lblInvalidNameErrorMessage;
+	private JTextField txtfName;
 
-	private JTextField txtfName;	
+	// Team Summary panel components
+	private JPanel heroSummariesPanel;	
 	
 	/**
 	 * Constructor for a SetUpPanel. Creates a JPanel of the appropriate size,
@@ -114,6 +122,14 @@ public class SetUpPanel extends JPanel {
 		addTitle();
 		addContentPanel();
 		addSubPanels();
+	}
+	
+	/**
+	 * Helper method to return the team of the current GameEnvironment.
+	 * @return		The team of the current GameEnvirionment.
+	 */
+	private Team getTeam() {
+		return gameWindow.getGame().getTeam();
 	}
 	
 	/**
@@ -161,10 +177,21 @@ public class SetUpPanel extends JPanel {
 		initialiseAddHeroPanel();
 		contentPanel.add(addHeroPanel, ADD_HERO_PANEL_STRING);
 		
+		initialiseTeamSummaryPanel();
+		
 		contentPanelCardLayout.show(contentPanel, START_SCREEN_PANEL_STRING);
 		
 	}
-
+	
+	
+	
+	
+	
+	/* 
+	 * -------------------------------------------------------------------------------------
+	 * Start Screen Panel
+	 * -------------------------------------------------------------------------------------
+	 */
 
 	/**
 	 * Adds components to the start screen panel.
@@ -192,6 +219,15 @@ public class SetUpPanel extends JPanel {
 		btnExit.setBounds(346, 256, 168, 57);
 		startScreenPanel.add(btnExit);
 	}
+	
+	
+	
+	
+	/* 
+	 * -------------------------------------------------------------------------------------
+	 * Create Team Panel
+	 * -------------------------------------------------------------------------------------
+	 */
 	
 	/**
 	 * Add components to the create team panel.
@@ -259,6 +295,16 @@ public class SetUpPanel extends JPanel {
 		btnCreateTeamNext.setBounds(381, 320, 98, 32);
 		createTeamPanel.add(btnCreateTeamNext);
 	}
+	
+	
+	
+	
+	
+	/* 
+	 * -------------------------------------------------------------------------------------
+	 * Add Hero Panel
+	 * -------------------------------------------------------------------------------------
+	 */
 	
 	/**
 	 * Adds components to the add hero panel.
@@ -331,21 +377,20 @@ public class SetUpPanel extends JPanel {
 				
 				String heroName = txtfName.getText();
 				String type = (String) cmbHeroTypes.getSelectedItem();
-				Team team = gameWindow.getGame().getTeam();
 				
-				if (! team.isValidName(heroName)) {
+				if (! getTeam().isValidName(heroName)) {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
 				} else if (heroName.trim().isEmpty()) {
 					lblInvalidNameErrorMessage.setText("Invalid name.");
 									
 				} else {
-					team.addHero(heroName, type);
-					if (team.getHeroes().size() < team.getStartNumHeroes()) {
+					getTeam().addHero(heroName, type);
+					if (getTeam().getHeroes().size() < getTeam().getStartNumHeroes()) {
 						refreshAddHeroPanel();
 					} else {
-//						contentPanelCardLayout.show(contentPanel, TEAM_SUMMARY_PANEL_STRING);
-						System.out.println(team.getHeroes());
+						contentPanelCardLayout.show(contentPanel, TEAM_SUMMARY_PANEL_STRING);
+						addHeroSummaries();
 					}
 				}
 			}
@@ -421,11 +466,68 @@ public class SetUpPanel extends JPanel {
 	 */
 	private void refreshAddHeroPanel() {
 		lblCreateHero.setText(String.format("Create Hero %s:",
-				gameWindow.getGame().getTeam().getHeroes().size() + 1));
+				getTeam().getHeroes().size() + 1));
 		
 		txtfName.setText("");
 		
 		lblInvalidNameErrorMessage.setText("");
 
 	}
+
+	
+	
+	
+	
+	/* 
+	 * -------------------------------------------------------------------------------------
+	 * Team Summary Panel
+	 * -------------------------------------------------------------------------------------
+	 */
+	
+	private void initialiseTeamSummaryPanel() {
+		teamSummaryPanel = new JPanel();
+		contentPanel.add(teamSummaryPanel, TEAM_SUMMARY_PANEL_STRING);
+		teamSummaryPanel.setLayout(null);
+		
+		JLabel lblTeamName = new JLabel("Team Name");
+		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblTeamName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTeamName.setBounds(10, 11, 840, 70);
+		teamSummaryPanel.add(lblTeamName);
+		
+		JButton btnStartGame = new JButton("Start Game");
+		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnStartGame.setBounds(369, 367, 122, 36);
+		teamSummaryPanel.add(btnStartGame);
+		
+		heroSummariesPanel = new JPanel();
+		heroSummariesPanel.setBounds(10, 92, 840, 262);
+		teamSummaryPanel.add(heroSummariesPanel);
+	}
+	
+	/**
+	 * Adds the hero summaries to the team summary panel.
+	 * Called once the team has been created.
+	 */
+	private void addHeroSummaries() {
+		GridLayout teamSummaryGridLayout = new GridLayout(0, getTeam().getHeroes().size(), 0, 0);
+		heroSummariesPanel.setLayout(teamSummaryGridLayout);
+		
+		for (Hero hero: getTeam().getHeroes()) {
+			heroSummariesPanel.add(heroSummaryPanel(hero));
+		}
+	}
+	
+	/**
+	 * Takes a hero, and produces a panel containing the hero's image,
+	 * name and type.
+	 * @param hero		The hero for which to make a summary panel.
+	 * @return			A summary panel for the given hero.
+	 */
+	private JPanel heroSummaryPanel(Hero hero) {
+		return new JPanel();
+	}
+	
+	
+	
 }
