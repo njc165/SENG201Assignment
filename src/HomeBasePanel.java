@@ -92,6 +92,11 @@ public class HomeBasePanel extends JPanel {
 	 * A button which, when clicked, consumes a map and reveals the current city.
 	 */
 	private JButton btnUseMap;
+	
+	/**
+	 * A label counting the number of maps the team owns.
+	 */
+	private JLabel lblMapsOwned;
 		
 	public HomeBasePanel(Game game) {
 		super();
@@ -154,23 +159,14 @@ public class HomeBasePanel extends JPanel {
 		sidePanel.add(btnViewStatus);
 		
 		btnUseMap = new JButton("Use Map");
-		btnUseMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gameWindow.getGame().getCurrentCity().setAllDiscovered();
-				getTeam().setNumMaps(getTeam().getNumMaps() - 1);
-				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
-			}
-		});
 		btnUseMap.setBounds(46, 184, 120, 25);
-		if (getTeam().getNumMaps() <= 0) {
-			btnUseMap.setEnabled(false);
-		}
+		btnUseMap.setEnabled(false);
 		sidePanel.add(btnUseMap);
 		
-		JLabel lblOwned = new JLabel(String.format("Owned: %d", getTeam().getNumMaps()));
-		lblOwned.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOwned.setBounds(46, 207, 120, 14);
-		sidePanel.add(lblOwned);
+		lblMapsOwned = new JLabel("Owned: 0");
+		lblMapsOwned.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMapsOwned.setBounds(46, 207, 120, 14);
+		sidePanel.add(lblMapsOwned);
 				
 		JTextPane txtRandomEvent = new JTextPane();
 		txtRandomEvent.setBackground(new Color(240, 240, 240));
@@ -258,6 +254,7 @@ public class HomeBasePanel extends JPanel {
 	 * Called whenever the statusPanel is displayed
 	 */
 	private void refreshStatusPanel() {
+
 		statusPanel.removeAll();
 		
 		for (Hero hero : getTeam().getHeroes()) {
@@ -312,6 +309,29 @@ public class HomeBasePanel extends JPanel {
 
 		}
 		
+	}
+	
+	private void refreshSidePanel() {
+		for (ActionListener listener : btnUseMap.getActionListeners()) {
+			btnUseMap.removeActionListener(listener);
+		}
+		
+		btnUseMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().getCurrentCity().setAllDiscovered();
+				getTeam().setNumMaps(getTeam().getNumMaps() - 1);
+				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
+			}
+		});
+		
+		lblMapsOwned.setText(String.format("Owned: %d", getTeam().getNumMaps()));
+
+	}
+	
+	public void refreshHomeBase() {
+		refreshSidePanel();
+		refreshStatusPanel();
+		refreshMapPanel();
 	}
 	
 	/**
