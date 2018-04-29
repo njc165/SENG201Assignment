@@ -113,4 +113,12 @@ public class GameEnvironment {
 	public Team getTeam() {
 		return team;
 	}
+	
+	/**
+	 * Getter method for currentCity.
+	 * @return The value of currentCity.
+	 */
+	public City getCurrentCity() {
+		return currentCity;
+	}
 }
