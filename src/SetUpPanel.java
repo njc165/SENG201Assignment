@@ -18,8 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.border.LineBorder;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class SetUpPanel extends JPanel {
 	
@@ -45,6 +48,12 @@ public class SetUpPanel extends JPanel {
 	 * of the main content panel.
 	 */
 	private static final String ADD_HERO_PANEL_STRING = "Add Hero Panel";
+	
+	/**
+	 * A string representation of the team summary panel, used by the CardLayout
+	 * of the main content panel.
+	 */
+	private static final String TEAM_SUMMARY_PANEL_STRING = "Add Hero Panel";
 	
 	/**
 	 * The main Game window that this panel is a part of. Used by event handlers
@@ -85,7 +94,11 @@ public class SetUpPanel extends JPanel {
 	private JLabel lblCreateHero;
 	private JPanel heroInfoPanel;
 	private CardLayout heroInfoPanelCardLayout;
-	
+	private JPanel inputPanel;
+
+	private JLabel lblInvalidNameErrorMessage;
+
+	private JTextField txtfName;	
 	
 	/**
 	 * Constructor for a SetUpPanel. Creates a JPanel of the appropriate size,
@@ -253,21 +266,11 @@ public class SetUpPanel extends JPanel {
 	private void initialiseAddHeroPanel() {
 		addHeroPanel.setLayout(null);
 		
-		lblCreateHero = new JLabel("Create Hero");
-		lblCreateHero.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateHero.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblCreateHero.setBounds(10, 11, 300, 41);
-		addHeroPanel.add(lblCreateHero);
+		inputPanel = new JPanel();
+		inputPanel.setBounds(10, 11, 300, 405);
+		addHeroPanel.add(inputPanel);
 		
-		JLabel lblEnterAName = new JLabel("Enter a name:");
-		lblEnterAName.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblEnterAName.setBounds(10, 92, 117, 20);
-		addHeroPanel.add(lblEnterAName);
-		
-		JLabel lblSelectAHero = new JLabel("Select a hero type");
-		lblSelectAHero.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSelectAHero.setBounds(10, 172, 156, 20);
-		addHeroPanel.add(lblSelectAHero);
+		initialiseInputPanel();
 		
 		heroInfoPanel = new JPanel();
 		heroInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -277,12 +280,85 @@ public class SetUpPanel extends JPanel {
 		heroInfoPanelCardLayout = new CardLayout();
 		heroInfoPanel.setLayout(heroInfoPanelCardLayout);
 		
-		addHeroInfoPanels();
+		addHeroInfoPanels();		
+
 	}
 	
+	private void initialiseInputPanel() {
+		inputPanel.setLayout(null);
+		
+		lblCreateHero = new JLabel("Create Hero");
+		lblCreateHero.setBounds(10, 11, 280, 29);
+		lblCreateHero.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreateHero.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		inputPanel.add(lblCreateHero);
+		
+		JLabel lblEnterAName = new JLabel("Enter a name:");
+		lblEnterAName.setBounds(20, 73, 260, 20);
+		lblEnterAName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		inputPanel.add(lblEnterAName);
+		
+		txtfName = new JTextField();
+		txtfName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtfName.setBounds(30, 104, 240, 29);
+		txtfName.setColumns(10);
+		inputPanel.add(txtfName);
+		
+		lblInvalidNameErrorMessage = new JLabel("");
+		lblInvalidNameErrorMessage.setBounds(30, 142, 250, 14);
+		inputPanel.add(lblInvalidNameErrorMessage);
+		
+		JLabel lblSelectHeroType = new JLabel("Select a hero type:");
+		lblSelectHeroType.setBounds(20, 177, 260, 20);
+		lblSelectHeroType.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		inputPanel.add(lblSelectHeroType);
+		
+		JComboBox<String> cmbHeroTypes = new JComboBox<String>();
+		cmbHeroTypes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				heroInfoPanelCardLayout.show(heroInfoPanel,
+										(String) cmbHeroTypes.getSelectedItem());
+			}
+		});
+		cmbHeroTypes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cmbHeroTypes.setModel(new DefaultComboBoxModel<String>(Hero.allHeroTypes()));
+		cmbHeroTypes.setBounds(30, 208, 240, 29);
+		inputPanel.add(cmbHeroTypes);
+		
+		JButton btnAddHeroToTeam = new JButton("Add Hero to Team");
+		btnAddHeroToTeam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String heroName = txtfName.getText();
+				String type = (String) cmbHeroTypes.getSelectedItem();
+				Team team = gameWindow.getGame().getTeam();
+				
+				if (! team.isValidName(heroName)) {
+					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
+					
+				} else if (heroName.trim().isEmpty()) {
+					lblInvalidNameErrorMessage.setText("Invalid name.");
+									
+				} else {
+					team.addHero(heroName, type);
+					if (team.getHeroes().size() < team.getStartNumHeroes()) {
+						refreshAddHeroPanel();
+					} else {
+//						contentPanelCardLayout.show(contentPanel, TEAM_SUMMARY_PANEL_STRING);
+						System.out.println(team.getHeroes());
+					}
+				}
+			}
+		});
+		btnAddHeroToTeam.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAddHeroToTeam.setBounds(43, 335, 214, 29);
+		inputPanel.add(btnAddHeroToTeam);
+		
+	}
+
 	/**
-	 * Adds an information panel for each hero to the
-	 * hero info panel.
+	 * Adds an information panel for each hero to the hero info panel
+	 * card layout, using the hero's type as the String reference.
 	 */
 	private void addHeroInfoPanels() {
 		for (Hero hero: Hero.ALL_HEROES) {
@@ -292,8 +368,8 @@ public class SetUpPanel extends JPanel {
 	}
 
 	/**
-	 * Takes a hero subclass instance, and creates and information panel for
-	 * a hero of that type, including its image, type name, special ability,
+	 * Takes a hero subclass instance, and creates an information panel for
+	 * a hero of that type, including its image, type, special ability,
 	 * max health and description.
 	 * @param hero		An instance of the hero subclass which the information
 	 * 					panel is describing.
@@ -303,31 +379,36 @@ public class SetUpPanel extends JPanel {
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(null);
 		
-		JLabel label = new JLabel("");
-		label.setBorder(new LineBorder(new Color(0, 0, 0)));
-		label.setBounds(10, 11, 167, 381);
-		infoPanel.add(label);
+		JLabel heroImage = new JLabel("");
+		heroImage.setBounds(10, 11, 200, 200);
+		infoPanel.add(heroImage);
 		
-		JTextPane txtpnyouDontHave = new JTextPane();
-		txtpnyouDontHave.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnyouDontHave.setText("\"You don't have to look very far to find a gambler these days, but true experts are few and far between. These players use more than luck to tip the odds in their favour.\r\n\r\nWhile fighting villains, Gamblers gain the following advantages:\r\nPaper Scissors Rock: Reveal one option that the villain will not play.\r\nGuess the Number: Get an extra guess.\r\nDice Roll: Increase your roll by one.\\n\";");
-		txtpnyouDontHave.setBounds(187, 150, 331, 242);
-		infoPanel.add(txtpnyouDontHave);
+		JLabel lblType = new JLabel(hero.getType());
+		lblType.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblType.setHorizontalAlignment(SwingConstants.CENTER);
+		lblType.setBounds(220, 11, 298, 37);
+		infoPanel.add(lblType);
 		
-		JLabel lblGambler = new JLabel("Gambler");
-		lblGambler.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblGambler.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGambler.setBounds(187, 11, 331, 37);
-		infoPanel.add(lblGambler);
+		JTextPane txtpnDescription = new JTextPane();
+		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
+		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnDescription.setText(hero.getDescription());
+		txtpnDescription.setBounds(10, 222, 508, 170);
+		infoPanel.add(txtpnDescription);
 		
-		JLabel lblSpecialAbilityAdvantages = new JLabel("Special Ability: Advantages in villain battles");
-		lblSpecialAbilityAdvantages.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSpecialAbilityAdvantages.setBounds(187, 59, 331, 20);
-		infoPanel.add(lblSpecialAbilityAdvantages);
+		JLabel lblSpecialAbility = new JLabel("Special Ability:");
+		lblSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSpecialAbility.setBounds(220, 59, 298, 20);
+		infoPanel.add(lblSpecialAbility);
 		
-		JLabel lblMaxHealth = new JLabel("Max Health: 100");
+		JLabel lblHerosSpecialAbility = new JLabel(hero.getSpecialAbility());
+		lblHerosSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblHerosSpecialAbility.setBounds(230, 90, 288, 20);
+		infoPanel.add(lblHerosSpecialAbility);
+		
+		JLabel lblMaxHealth = new JLabel(String.format("Max Health: %s", hero.getMaxHealth()));
 		lblMaxHealth.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMaxHealth.setBounds(187, 90, 331, 20);
+		lblMaxHealth.setBounds(220, 131, 298, 20);
 		infoPanel.add(lblMaxHealth);
 		
 		return infoPanel;
@@ -341,5 +422,10 @@ public class SetUpPanel extends JPanel {
 	private void refreshAddHeroPanel() {
 		lblCreateHero.setText(String.format("Create Hero %s:",
 				gameWindow.getGame().getTeam().getHeroes().size() + 1));
+		
+		txtfName.setText("");
+		
+		lblInvalidNameErrorMessage.setText("");
+
 	}
 }

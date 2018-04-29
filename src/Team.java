@@ -111,20 +111,31 @@ public class Team {
 		
 		String type = Hero.ALL_HEROES[heroIndex].getType();
 		
+		addHero(heroName, type);
+
+	}
+	
+	/**
+	 * Creates a new hero with the given name of the given type,
+	 * and adds it to the team's list of heroes.
+	 * @param name	The name of the new hero.
+	 * @param type	The type of the new hero.
+	 */
+	public void addHero(String heroName, String type) {
 		switch (type) {
 			case "Apprentice": heroes.add(new Apprentice(heroName));
-							   break;
+						   	   break;
 			case "Bulwark":    heroes.add(new Bulwark(heroName));
 							   break;
 			case "Explorer":   heroes.add(new Explorer(heroName));
-			                   break;
+		                   	   break;
 			case "Gambler":    heroes.add(new Gambler(heroName));
-			                   break;
+		                       break;
 			case "Mercenary":  heroes.add(new Mercenary(heroName));
-			                   break;
+		                       break;
 			case "Merchant":   heroes.add(new Merchant(heroName));
-							   break;
-		    default:           throw new RuntimeException("No such hero type");
+						       break;
+			default:           throw new RuntimeException("No such hero type");
 		}
 	}
 	
@@ -134,7 +145,7 @@ public class Team {
 	 * on the team.
 	 * @return	true if the name is valid, false otherwise.
 	 */
-	private boolean isValidName(String heroName) {
+	public boolean isValidName(String heroName) {
 		boolean isValid  = true;
 		for (Hero hero: heroes) {
 			if (hero.getName().equals(heroName)) {
