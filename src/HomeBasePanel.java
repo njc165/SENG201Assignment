@@ -46,7 +46,7 @@ public class HomeBasePanel extends JPanel {
 	 * to change the panel shown in game.
 	 */
 	private Game gameWindow;
-			
+
 	/**
 	 * The main content panel for the home base.
 	 */
@@ -110,6 +110,10 @@ public class HomeBasePanel extends JPanel {
 		addContentPanel();
 		}
 	
+	private Team getTeam() {
+		return gameWindow.getGame().getTeam();
+	}
+
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 880, 75);
@@ -187,7 +191,7 @@ public class HomeBasePanel extends JPanel {
 		contentPanel.setBounds(235, 86, 632, 513);
 		contentPanelCardLayout = new CardLayout(0, 0);
 		contentPanel.setLayout(contentPanelCardLayout);
-				
+    
 		addMapPanel();		
 		addStatusPanel();
 		
@@ -214,6 +218,10 @@ public class HomeBasePanel extends JPanel {
 		lblNorthEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorthEast);
 		
+		JLabel lblEast = new JLabel("");
+		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
+		mapPanel.add(lblEast);
+		
 		JLabel lblWest = new JLabel("");
 		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblWest);
@@ -221,10 +229,6 @@ public class HomeBasePanel extends JPanel {
 		JLabel lblCentre = new JLabel("");
 		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblCentre);
-		
-		JLabel lblEast = new JLabel("");
-		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
-		mapPanel.add(lblEast);
 		
 		JLabel lblSouthWest = new JLabel("");
 		lblSouthWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
@@ -308,7 +312,6 @@ public class HomeBasePanel extends JPanel {
 			heroPanel.add(txtHeroPowerUps);
 
 		}
-		
 	}
 	
 	private void refreshSidePanel() {
