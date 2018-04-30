@@ -62,7 +62,7 @@ public class Game {
 		
 		addPanels();
 		
-		cardLayout.show(mainPanel, SetUpPanel.SET_UP_PANEL_STRING);
+		cardLayout.show(mainPanel, ShopPanel.SHOP_PANEL_STRING);
 	}
 	
 	public void addPanels() {

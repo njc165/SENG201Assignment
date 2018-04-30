@@ -11,7 +11,7 @@ public class GameEnvironment {
 	/**
 	 * An array of instances of all the PowerUp subclasses.
 	 */
-	private final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
+	public final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
 			  								 new IncreaseRoll(),
 			  								 new MindReader(),
 			  								 new TieBreaker()};
@@ -19,7 +19,7 @@ public class GameEnvironment {
 	/**
 	 * An array of instances of all the HealingItem subclasses.
 	 */
-	private final  HealingItem[] ALL_HEALING_ITEMS = {new AlicornDust(),
+	public final  HealingItem[] ALL_HEALING_ITEMS = {new AlicornDust(),
 													  new HeartyMeal(),
 													  new SuspiciousTonic()};
 	
