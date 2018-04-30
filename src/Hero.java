@@ -131,19 +131,6 @@ public class Hero {
 	}
 	
 	/**
-	 * Returns an array containing a String representation of the type
-	 * of each Hero subclass.
-	 * @return	A String array of the types of all Hero subclasses.
-	 */
-	public static String[] allHeroTypes() {
-		String[] types = new String[ALL_HEROES.length];
-		for (int i = 0; i < ALL_HEROES.length; i++) {
-			types[i] = ALL_HEROES[i].getType();
-		}
-		return types;
-	}
-	
-	/**
 	 * Returns a string description of all the hero subclasses.
 	 * Used to give the user information when asking them to choose their hero type,
 	 * and includes a number before each hero to allow the user to enter their choice.
