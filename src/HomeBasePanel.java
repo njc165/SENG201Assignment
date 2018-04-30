@@ -109,10 +109,6 @@ public class HomeBasePanel extends JPanel {
 		addSidePanel();
 		addContentPanel();
 		}
-	
-	private Team getTeam() {
-		return gameWindow.getGame().getTeam();
-	}
 
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
