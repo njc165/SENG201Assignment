@@ -257,7 +257,7 @@ public class HomeBasePanel extends JPanel {
 
 		statusPanel.removeAll();
 		
-		for (Hero hero : getTeam().getHeroes()) {
+		for (Hero hero : getTeam().getHeroes()) {			
 			JPanel heroPanel = new JPanel();
 			statusPanel.add(heroPanel);
 			heroPanel.setLayout(null);
@@ -283,13 +283,21 @@ public class HomeBasePanel extends JPanel {
 			JLabel lblHeroHealth = new JLabel(String.format("Health: %d/%d", hero.getCurrentHealth(), hero.getMaxHealth()));
 			lblHeroHealth.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblHeroHealth.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHeroHealth.setBounds(10, 267, 199, 44);
+			lblHeroHealth.setBounds(10, 257, 199, 44);
 			heroPanel.add(lblHeroHealth);
 			
-			JLabel lblHeroHealingItem = new JLabel(String.format("Healing Item:\r\n%s", hero.getAppliedHealingItem().toString()));
+			String healingItem;
+			if (hero.getAppliedHealingItem() instanceof HealingItem) {
+				healingItem = String.format("Applied Healing Item:\n%s", hero.getAppliedHealingItem().toString());
+			}
+			else {
+				healingItem = "No Applied Healing Item";
+			}
+						
+			JLabel lblHeroHealingItem = new JLabel(String.format("%s", healingItem));
 			lblHeroHealingItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblHeroHealingItem.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHeroHealingItem.setBounds(33, 318, 165, 32);
+			lblHeroHealingItem.setBounds(33, 313, 165, 32);
 			heroPanel.add(lblHeroHealingItem);
 
 			JLabel lblHeroPowerUp = new JLabel("Power Ups:");
@@ -303,11 +311,12 @@ public class HomeBasePanel extends JPanel {
 			for (PowerUp pu : hero.getActivePowerUps()) {
 				txtHeroPowerUps.setText(txtHeroPowerUps.getText() + String.format("\n%s", pu.getType().toString()));
 			}
+			
 			txtHeroPowerUps.setEditable(false);
 			txtHeroPowerUps.setBounds(10, 402, 210, 122);
 			heroPanel.add(txtHeroPowerUps);
-
 		}
+		
 	}
 	
 	private void refreshSidePanel() {
