@@ -114,8 +114,10 @@ public class HomeBasePanel extends JPanel {
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 880, 75);
+		titlePanel.setLayout(null);
 		
 		JLabel lblTitle = new JLabel("HOME BASE");
+		lblTitle.setBounds(280, 0, 320, 75);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		titlePanel.add(lblTitle);		
