@@ -87,6 +87,32 @@ public class City {
 		return returnString;
 	}
 	
+	public String getPanelStringFromLocation(Location direction) {
+		SectorType sectorInDirection = sectorLocations.get(direction).getType();
+		String panelString;
+		switch (sectorInDirection) {
+		case HOME_BASE:
+			panelString = "Home Base Panel";
+			break;
+		case HOSPITAL:
+			panelString = "Hospital Panel";
+			break;
+		case POWER_UP_DEN:
+			panelString = "PowerUp Den Panel";
+			break;
+		case SHOP:
+			panelString = "Shop Panel";
+			break;
+		case VILLAINS_LAIR:
+			panelString = "Villains Lair Panel";
+			break;
+		default:
+			panelString = "Invalid parameter 'direction'";
+			break;
+		}
+		return panelString;
+	}
+	
 	/**
 	 * Initialises the sectorLocations HashMap with the home base location
 	 * mapped to the home base sector, and a random mapping between the other
@@ -117,7 +143,7 @@ public class City {
 			sectorLocations.put(location, sector);
 		}
 	}
-	
+		
 	/**
 	 * Sets the discovered attribute of each sector in the city to true.
 	 */

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
@@ -55,7 +56,7 @@ public class HomeBasePanel extends JPanel {
 	/**
 	 * A panel component of contentPanel
 	 */
-	private JPanel mapPanel;
+	private JLayeredPane mapPanel;
 		
 	/**
 	 * A panel component of contentPanel
@@ -198,45 +199,98 @@ public class HomeBasePanel extends JPanel {
 	
 	private void addMapPanel() {
 
-		mapPanel = new JPanel();
+		mapPanel = new JLayeredPane();
 		contentPanel.add(mapPanel, MAP_PANEL_STRING);
-		mapPanel.setLayout(new GridLayout(3, 3, 0, 0));
+		mapPanel.setLayout(null);
 		
 		JLabel lblNorthWest = new JLabel("");
+		lblNorthWest.setBounds(1, 0, 210, 171);
 		lblNorthWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorthWest);
 		
 		JLabel lblNorth = new JLabel("");
+		lblNorth.setBounds(211, 0, 210, 171);
 		lblNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorth);
 		
 		JLabel lblNorthEast = new JLabel("");
+		lblNorthEast.setBounds(421, 0, 210, 171);
 		lblNorthEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorthEast);
 		
 		JLabel lblEast = new JLabel("");
+		lblEast.setBounds(1, 171, 210, 171);
 		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblEast);
 		
 		JLabel lblWest = new JLabel("");
+		lblWest.setBounds(211, 171, 210, 171);
 		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblWest);
 		
 		JLabel lblCentre = new JLabel("");
+		lblCentre.setBounds(421, 171, 210, 171);
 		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblCentre);
 		
 		JLabel lblSouthWest = new JLabel("");
+		lblSouthWest.setBounds(1, 342, 210, 171);
 		lblSouthWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblSouthWest);
 		
 		JLabel lblSouth = new JLabel("");
+		lblSouth.setBounds(211, 342, 210, 171);
 		lblSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblSouth);
 		
 		JLabel lblSouthEast = new JLabel("");
+		lblSouthEast.setBounds(421, 342, 210, 171);
 		lblSouthEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblSouthEast);
+		
+		JButton btnGoWest = new JButton("Go West");
+		btnGoWest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.WEST);
+				gameWindow.setPanel(nextSector);
+			}
+		});
+		mapPanel.setLayer(btnGoWest, 1);
+		btnGoWest.setBounds(159, 239, 89, 23);
+		mapPanel.add(btnGoWest);
+		
+		JButton btnGoNorth = new JButton("Go North");
+		btnGoNorth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.NORTH);
+				gameWindow.setPanel(nextSector);
+			}
+		});
+		mapPanel.setLayer(btnGoNorth, 1);
+		btnGoNorth.setBounds(270, 158, 89, 23);
+		mapPanel.add(btnGoNorth);
+		
+		JButton btnGoEast = new JButton("Go East");
+		btnGoEast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.EAST);
+				gameWindow.setPanel(nextSector);
+			}
+		});
+		mapPanel.setLayer(btnGoEast, 1);
+		btnGoEast.setBounds(379, 239, 89, 23);
+		mapPanel.add(btnGoEast);
+		
+		JButton btnGoSouth = new JButton("Go South");
+		btnGoSouth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.SOUTH);
+				gameWindow.setPanel(nextSector);
+			}
+		});
+		mapPanel.setLayer(btnGoSouth, 1);
+		btnGoSouth.setBounds(270, 330, 89, 23);
+		mapPanel.add(btnGoSouth);
 	}
 	
 	private void addStatusPanel() {		
@@ -257,7 +311,7 @@ public class HomeBasePanel extends JPanel {
 
 		statusPanel.removeAll();
 		
-		for (Hero hero : getTeam().getHeroes()) {
+		for (Hero hero : getTeam().getHeroes()) {			
 			JPanel heroPanel = new JPanel();
 			statusPanel.add(heroPanel);
 			heroPanel.setLayout(null);
@@ -283,13 +337,21 @@ public class HomeBasePanel extends JPanel {
 			JLabel lblHeroHealth = new JLabel(String.format("Health: %d/%d", hero.getCurrentHealth(), hero.getMaxHealth()));
 			lblHeroHealth.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblHeroHealth.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHeroHealth.setBounds(10, 267, 199, 44);
+			lblHeroHealth.setBounds(10, 257, 199, 44);
 			heroPanel.add(lblHeroHealth);
 			
-			JLabel lblHeroHealingItem = new JLabel(String.format("Healing Item:\r\n%s", hero.getAppliedHealingItem().toString()));
+			String healingItem;
+			if (hero.getAppliedHealingItem() instanceof HealingItem) {
+				healingItem = String.format("Applied Healing Item:\n%s", hero.getAppliedHealingItem().toString());
+			}
+			else {
+				healingItem = "No Applied Healing Item";
+			}
+						
+			JLabel lblHeroHealingItem = new JLabel(String.format("%s", healingItem));
 			lblHeroHealingItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblHeroHealingItem.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHeroHealingItem.setBounds(33, 318, 165, 32);
+			lblHeroHealingItem.setBounds(33, 313, 165, 32);
 			heroPanel.add(lblHeroHealingItem);
 
 			JLabel lblHeroPowerUp = new JLabel("Power Ups:");
@@ -303,11 +365,12 @@ public class HomeBasePanel extends JPanel {
 			for (PowerUp pu : hero.getActivePowerUps()) {
 				txtHeroPowerUps.setText(txtHeroPowerUps.getText() + String.format("\n%s", pu.getType().toString()));
 			}
+			
 			txtHeroPowerUps.setEditable(false);
 			txtHeroPowerUps.setBounds(10, 402, 210, 122);
 			heroPanel.add(txtHeroPowerUps);
-
 		}
+		
 	}
 	
 	private void refreshSidePanel() {

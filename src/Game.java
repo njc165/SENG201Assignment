@@ -21,6 +21,9 @@ public class Game {
 	private SetUpPanel startScreenPanel;
 	private ShopPanel shopPanel;
 	private HomeBasePanel homeBasePanel;
+	private HospitalPanel hospitalPanel;
+	private PowerUpDenPanel powerUpDenPanel;
+	private VillainsLairPanel villainsLairPanel;	
 	
 
 	/**
@@ -74,6 +77,15 @@ public class Game {
 		
 		homeBasePanel = new HomeBasePanel(this);
 		mainPanel.add(homeBasePanel, HomeBasePanel.HOME_BASE_PANEL_STRING);
+		
+		hospitalPanel = new HospitalPanel(this);
+		mainPanel.add(hospitalPanel, HospitalPanel.HOSPITAL_PANEL_STRING);
+		
+		powerUpDenPanel = new PowerUpDenPanel(this);
+		mainPanel.add(powerUpDenPanel, PowerUpDenPanel.POWER_UP_DEN_PANEL_STRING);
+		
+		villainsLairPanel = new VillainsLairPanel(this);
+		mainPanel.add(villainsLairPanel, VillainsLairPanel.VILLAINS_LAIR_PANEL_STRING);
 	}
 	
 	/**
