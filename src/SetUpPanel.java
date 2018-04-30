@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 
 public class SetUpPanel extends JPanel {
 	
@@ -106,7 +107,8 @@ public class SetUpPanel extends JPanel {
 	private JTextField txtfName;
 
 	// Team Summary panel components
-	private JPanel heroSummariesPanel;	
+	private JPanel heroSummariesPanel;
+	private JLabel lblTeamName;	
 	
 	/**
 	 * Constructor for a SetUpPanel. Creates a JPanel of the appropriate size,
@@ -130,6 +132,17 @@ public class SetUpPanel extends JPanel {
 	 */
 	private Team getTeam() {
 		return gameWindow.getGame().getTeam();
+	}
+	
+	/**
+	 * Takes a hero instance, and returns the file path for the portrait
+	 * image of this hero type.
+	 * @param hero		The hero whose image file path should be returned.
+	 * @return			The file path of the portrait image of this hero.
+	 */
+	private String portraitImageFilepath(Hero hero) {
+		// TODO return correct picture for each hero
+		return "/img/bulwark_portrait.png";
 	}
 	
 	/**
@@ -246,8 +259,7 @@ public class SetUpPanel extends JPanel {
 		createTeamPanel.add(txtfTeamName);
 		txtfTeamName.setColumns(10);
 		
-		JLabel lblTeamNameErrorMessage = new JLabel("Team name must be between 2 and 10 characters long.");
-		lblTeamNameErrorMessage.setVisible(false);
+		JLabel lblTeamNameErrorMessage = new JLabel("");
 		lblTeamNameErrorMessage.setBounds(447, 113, 403, 14);
 		createTeamPanel.add(lblTeamNameErrorMessage);
 		
@@ -278,16 +290,17 @@ public class SetUpPanel extends JPanel {
 		JButton btnCreateTeamNext = new JButton("Next");
 		btnCreateTeamNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String teamName = txtfTeamName.getText();
+				String teamName = txtfTeamName.getText().trim();
 				int numHeroes = (int) cmbNumHeroes.getSelectedItem();
 				int numCities = (int) cmbNumCities.getSelectedItem();
 				
-				if (Team.isValidTeamName(teamName)) {
+				if (! Team.isValidTeamName(teamName)) {
+					lblTeamNameErrorMessage.setText("Team name must be between 2 and 10 characters long.");
+
+				} else {
 					gameWindow.setGame(new GameEnvironment(teamName, numHeroes, numCities));
 					refreshAddHeroPanel();
 					contentPanelCardLayout.show(contentPanel, ADD_HERO_PANEL_STRING);
-				} else {
-					lblTeamNameErrorMessage.setVisible(true);
 				}
 			}
 		});
@@ -325,9 +338,8 @@ public class SetUpPanel extends JPanel {
 		
 		heroInfoPanelCardLayout = new CardLayout();
 		heroInfoPanel.setLayout(heroInfoPanelCardLayout);
-		
-		addHeroInfoPanels();		
-
+				
+		addHeroInfoPanels();
 	}
 	
 	private void initialiseInputPanel() {
@@ -368,21 +380,21 @@ public class SetUpPanel extends JPanel {
 		});
 		cmbHeroTypes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cmbHeroTypes.setModel(new DefaultComboBoxModel<String>(Hero.allHeroTypes()));
-		cmbHeroTypes.setBounds(30, 208, 240, 29);
+		cmbHeroTypes.setBounds(30, 221, 240, 29);
 		inputPanel.add(cmbHeroTypes);
 		
 		JButton btnAddHeroToTeam = new JButton("Add Hero to Team");
 		btnAddHeroToTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String heroName = txtfName.getText();
+				String heroName = txtfName.getText().trim();
 				String type = (String) cmbHeroTypes.getSelectedItem();
 				
 				if (! getTeam().isValidName(heroName)) {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
-				} else if (heroName.trim().isEmpty()) {
-					lblInvalidNameErrorMessage.setText("Invalid name.");
+				} else if (heroName.isEmpty()) {
+					lblInvalidNameErrorMessage.setText("Invlaid name.");
 									
 				} else {
 					getTeam().addHero(heroName, type);
@@ -390,7 +402,7 @@ public class SetUpPanel extends JPanel {
 						refreshAddHeroPanel();
 					} else {
 						contentPanelCardLayout.show(contentPanel, TEAM_SUMMARY_PANEL_STRING);
-						addHeroSummaries();
+						refreshTeamSummaryPanel();
 					}
 				}
 			}
@@ -424,9 +436,10 @@ public class SetUpPanel extends JPanel {
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(null);
 		
-		JLabel heroImage = new JLabel("");
-		heroImage.setBounds(10, 11, 200, 200);
-		infoPanel.add(heroImage);
+		JLabel lblHeroImage = new JLabel("");
+		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(portraitImageFilepath(hero))));
+		lblHeroImage.setBounds(10, 11, 200, 200);
+		infoPanel.add(lblHeroImage);
 		
 		JLabel lblType = new JLabel(hero.getType());
 		lblType.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -434,27 +447,29 @@ public class SetUpPanel extends JPanel {
 		lblType.setBounds(220, 11, 298, 37);
 		infoPanel.add(lblType);
 		
+		JLabel lblSpecialAbility = new JLabel("Special Ability:");
+		lblSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSpecialAbility.setBounds(230, 59, 278, 20);
+		infoPanel.add(lblSpecialAbility);
+		
+		JTextPane txtpnHerosSpecialAbility = new JTextPane();
+		txtpnHerosSpecialAbility.setBackground(UIManager.getColor("Panel.background"));
+		txtpnHerosSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtpnHerosSpecialAbility.setText(hero.getSpecialAbility());
+		txtpnHerosSpecialAbility.setBounds(240, 90, 268, 50);
+		infoPanel.add(txtpnHerosSpecialAbility);
+		
+		JLabel lblMaxHealth = new JLabel(String.format("Max Health: %s", hero.getMaxHealth()));
+		lblMaxHealth.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMaxHealth.setBounds(230, 160, 278, 20);
+		infoPanel.add(lblMaxHealth);
+		
 		JTextPane txtpnDescription = new JTextPane();
 		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
 		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtpnDescription.setText(hero.getDescription());
-		txtpnDescription.setBounds(10, 222, 508, 170);
+		txtpnDescription.setBounds(10, 232, 508, 160);
 		infoPanel.add(txtpnDescription);
-		
-		JLabel lblSpecialAbility = new JLabel("Special Ability:");
-		lblSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSpecialAbility.setBounds(220, 59, 298, 20);
-		infoPanel.add(lblSpecialAbility);
-		
-		JLabel lblHerosSpecialAbility = new JLabel(hero.getSpecialAbility());
-		lblHerosSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblHerosSpecialAbility.setBounds(230, 90, 288, 20);
-		infoPanel.add(lblHerosSpecialAbility);
-		
-		JLabel lblMaxHealth = new JLabel(String.format("Max Health: %s", hero.getMaxHealth()));
-		lblMaxHealth.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMaxHealth.setBounds(220, 131, 298, 20);
-		infoPanel.add(lblMaxHealth);
 		
 		return infoPanel;
 	}
@@ -489,20 +504,26 @@ public class SetUpPanel extends JPanel {
 		contentPanel.add(teamSummaryPanel, TEAM_SUMMARY_PANEL_STRING);
 		teamSummaryPanel.setLayout(null);
 		
-		JLabel lblTeamName = new JLabel("Team Name");
-		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblTeamName = new JLabel("");
+		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblTeamName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamName.setBounds(10, 11, 840, 70);
 		teamSummaryPanel.add(lblTeamName);
 		
 		JButton btnStartGame = new JButton("Start Game");
+		btnStartGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
+				// TODO refresh home base panel?
+			}
+		});
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnStartGame.setBounds(369, 367, 122, 36);
 		teamSummaryPanel.add(btnStartGame);
 		
 		heroSummariesPanel = new JPanel();
 		heroSummariesPanel.setBounds(10, 92, 840, 262);
-		teamSummaryPanel.add(heroSummariesPanel);
+		teamSummaryPanel.add(heroSummariesPanel);		
 	}
 	
 	/**
@@ -525,9 +546,31 @@ public class SetUpPanel extends JPanel {
 	 * @return			A summary panel for the given hero.
 	 */
 	private JPanel heroSummaryPanel(Hero hero) {
-		return new JPanel();
+		JPanel heroSummaryPanel = new JPanel();
+		
+		heroSummaryPanel.setLayout(new BorderLayout());
+		
+		JLabel lblHeroImage = new JLabel("");
+		lblHeroImage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(portraitImageFilepath(hero))));
+		heroSummaryPanel.add(lblHeroImage, BorderLayout.NORTH);
+		
+		JLabel lblHeroName = new JLabel(String.format(
+								"%s the %s", hero.getName(), hero.getType()));
+		lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		heroSummaryPanel.add(lblHeroName, BorderLayout.CENTER);
+		
+		return heroSummaryPanel;
 	}
 	
-	
-	
+		/**
+	 * Shows the team name, and creates an information panel for each
+	 * hero in the team.
+	 * Called once the team of heroes has been created.
+	 */
+	private void refreshTeamSummaryPanel() {
+		lblTeamName.setText(getTeam().getName());
+		addHeroSummaries();
+	}
 }

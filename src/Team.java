@@ -344,6 +344,14 @@ public class Team {
 	}
 
 	/**
+	 * Getter method for name.
+	 * @return The value of name.
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
 	 * Getter method for heroes.
 	 * @return The value of heroes.
 	 */
