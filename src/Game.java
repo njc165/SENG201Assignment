@@ -72,8 +72,8 @@ public class Game {
 		shopPanel = new ShopPanel(this);
 		mainPanel.add(shopPanel, ShopPanel.SHOP_PANEL_STRING);
 		
-//		homeBasePanel = new HomeBasePanel(this);
-//		mainPanel.add(homeBasePanel, HomeBasePanel.HOME_BASE_PANEL_STRING);
+		homeBasePanel = new HomeBasePanel(this);
+		mainPanel.add(homeBasePanel, HomeBasePanel.HOME_BASE_PANEL_STRING);
 	}
 	
 	/**
