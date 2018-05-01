@@ -11,7 +11,7 @@ public class GameEnvironment {
 	/**
 	 * An array of instances of all the PowerUp subclasses.
 	 */
-	public final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
+	public static final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
 			  								 new IncreaseRoll(),
 			  								 new MindReader(),
 			  								 new TieBreaker()};
@@ -19,7 +19,7 @@ public class GameEnvironment {
 	/**
 	 * An array of instances of all the HealingItem subclasses.
 	 */
-	public final  HealingItem[] ALL_HEALING_ITEMS = {new AlicornDust(),
+	public static final HealingItem[] ALL_HEALING_ITEMS = {new AlicornDust(),
 													  new HeartyMeal(),
 													  new SuspiciousTonic()};
 	
@@ -89,6 +89,7 @@ public class GameEnvironment {
 		this.numberOfCities = numberOfCities;
 		startTime = LocalTime.now();
 		initialiseCities();
+		currentCity = cities.get(0);
 	}
 
 	/**

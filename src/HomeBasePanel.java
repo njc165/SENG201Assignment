@@ -24,20 +24,20 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import javax.swing.JTextPane;
 
-public class HomeBasePanel extends JPanel {
+public class HomeBasePanel extends JPanel implements Refreshable {
 	
 	/**
 	 * A string representation of this panel, used by the CardLayout in Game.
 	 */
 	public static final String HOME_BASE_PANEL_STRING = "Home Base Panel";
 	
-	/** A string representation of the map panel, used by the cardlayout of the
+	/** A string representation of the map panel, used by the CardLayout of the
 	 * main content panel.
 	 */
 	public static final String MAP_PANEL_STRING = "Map Panel";
 	
 	/**
-	 * A string representation of the status panel, used by the cardlayout of the
+	 * A string representation of the status panel, used by the CardLayout of the
 	 * main content panel.
 	 */
 	public static final String STATUS_PANEL_STRING = "Status Panel";
@@ -110,6 +110,24 @@ public class HomeBasePanel extends JPanel {
 		addSidePanel();
 		addContentPanel();
 		}
+	
+	public void refresh() {
+		refreshSidePanel();
+		refreshStatusPanel();
+		refreshMapPanel();
+		System.out.println("Refreshing home base");
+	}
+	
+	/**
+	 * Takes a location, and returns a String representation of the
+	 * panel for the sector at that location in the city.
+	 * @param location	The location of interest.
+	 * @return			A String representation of the panel at the given location.
+	 */
+	private String sectorPanelString(Location location) {
+		return gameWindow.getGame().getCurrentCity().sectorTypeAtLocation(location).toString()
+				+ " Panel";
+	}
 
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
@@ -140,10 +158,10 @@ public class HomeBasePanel extends JPanel {
 		btnDisplayCity = new JButton("Display City");
 		btnDisplayCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				refreshMapPanel();
 				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
 				btnDisplayCity.setEnabled(false);
 				btnViewStatus.setEnabled(true);
-				refreshMapPanel();
 			}
 		});
 		btnDisplayCity.setBounds(46, 64, 120, 25);
@@ -152,10 +170,10 @@ public class HomeBasePanel extends JPanel {
 		btnViewStatus = new JButton("View Team Status");
 		btnViewStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				refreshStatusPanel();
 				contentPanelCardLayout.show(contentPanel, STATUS_PANEL_STRING);
 				btnViewStatus.setEnabled(false);
 				btnDisplayCity.setEnabled(true);
-				refreshStatusPanel();
 			}
 		});
 		btnViewStatus.setBounds(46, 124, 120, 25);
@@ -253,8 +271,7 @@ public class HomeBasePanel extends JPanel {
 		JButton btnGoWest = new JButton("Go West");
 		btnGoWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.WEST);
-				gameWindow.setPanel(nextSector);
+				gameWindow.setPanel(sectorPanelString(Location.WEST));
 			}
 		});
 		mapPanel.setLayer(btnGoWest, 1);
@@ -264,8 +281,7 @@ public class HomeBasePanel extends JPanel {
 		JButton btnGoNorth = new JButton("Go North");
 		btnGoNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.NORTH);
-				gameWindow.setPanel(nextSector);
+				gameWindow.setPanel(sectorPanelString(Location.NORTH));
 			}
 		});
 		mapPanel.setLayer(btnGoNorth, 1);
@@ -275,8 +291,7 @@ public class HomeBasePanel extends JPanel {
 		JButton btnGoEast = new JButton("Go East");
 		btnGoEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.EAST);
-				gameWindow.setPanel(nextSector);
+				gameWindow.setPanel(sectorPanelString(Location.EAST));
 			}
 		});
 		mapPanel.setLayer(btnGoEast, 1);
@@ -286,8 +301,7 @@ public class HomeBasePanel extends JPanel {
 		JButton btnGoSouth = new JButton("Go South");
 		btnGoSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nextSector = gameWindow.getGame().getCurrentCity().getPanelStringFromLocation(Location.SOUTH);
-				gameWindow.setPanel(nextSector);
+				gameWindow.setPanel(sectorPanelString(Location.SOUTH));
 			}
 		});
 		mapPanel.setLayer(btnGoSouth, 1);
@@ -390,12 +404,6 @@ public class HomeBasePanel extends JPanel {
 		
 		lblMapsOwned.setText(String.format("Owned: %d", getTeam().getNumMaps()));
 
-	}
-	
-	public void refreshHomeBase() {
-		refreshSidePanel();
-		refreshStatusPanel();
-		refreshMapPanel();
 	}
 	
 	/**

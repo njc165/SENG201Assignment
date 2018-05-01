@@ -24,7 +24,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import javax.swing.JTextPane;
 
-public class HospitalPanel extends JPanel {
+public class HospitalPanel extends JPanel implements Refreshable {
 
 	public static final String HOSPITAL_PANEL_STRING = "Hospital Panel";
 	
@@ -33,6 +33,22 @@ public class HospitalPanel extends JPanel {
 	public HospitalPanel(Game game) {
 		super();
 		this.gameWindow = game;
-		}
+		
+		setPreferredSize(new Dimension(880, 610));
+		setLayout(null);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
+			}
+		});
+		btnBack.setBounds(209, 136, 89, 23);
+		add(btnBack);
+	}
+
+	public void refresh() {
+		// TODO Auto-generated method stub
+	}
 	
 }

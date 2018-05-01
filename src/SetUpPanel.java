@@ -514,7 +514,6 @@ public class SetUpPanel extends JPanel {
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
-				// TODO refresh home base panel?
 			}
 		});
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 16));
