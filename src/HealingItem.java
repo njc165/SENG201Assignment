@@ -94,6 +94,16 @@ public class HealingItem {
 		return returnString;
 	}
 	
+	public String shopDescriptionGUI() {
+		String returnString = description + "\n\n";
+		returnString += String.format("Restores %s%% of the hero's maximum health in %s%% increments.\n\n",
+											percentageHealthRestored(),
+											(int) (INCREMENT_SIZE * 100));
+		returnString += String.format("Time taken to apply each increment: %s seconds.",
+										timePerIncrement);
+		return returnString;
+	}
+	
 	/**
 	 * Gives the number of increments remaining and the time until the next
 	 * increment is applied.

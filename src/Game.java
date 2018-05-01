@@ -66,7 +66,7 @@ public class Game {
 		
 		addPanels();
 		
-		cardLayout.show(mainPanel, ShopPanel.SHOP_PANEL_STRING);
+		cardLayout.show(mainPanel, SetUpPanel.SET_UP_PANEL_STRING);
 	}
 	
 	public void addPanels() {
@@ -97,6 +97,11 @@ public class Game {
 		((Refreshable) visiblePanel()).refresh();
 	}
 	
+	/**
+	 * Determines which panel in the main panel card layout of the
+	 * game window is currently visible.
+	 * @return	The currently visible panel in the main game window.
+	 */
 	private JPanel visiblePanel() {
 		JPanel visiblePanel = null;
 		for (Component panel: mainPanel.getComponents()) {

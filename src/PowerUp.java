@@ -88,5 +88,13 @@ public class PowerUp {
 			return cost;
 		}
 	}
+
+	/**
+	 * Getter method for description.
+	 * @return The value of description.
+	 */
+	public String getDescription() {
+		return description;
+	}
 	
 }

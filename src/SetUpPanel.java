@@ -130,7 +130,7 @@ public class SetUpPanel extends JPanel {
 	 * Helper method to return the team of the current GameEnvironment.
 	 * @return		The team of the current GameEnvirionment.
 	 */
-	private Team getTeam() {
+	private Team team() {
 		return gameWindow.getGame().getTeam();
 	}
 	
@@ -390,15 +390,15 @@ public class SetUpPanel extends JPanel {
 				String heroName = txtfName.getText().trim();
 				String type = (String) cmbHeroTypes.getSelectedItem();
 				
-				if (! getTeam().isValidName(heroName)) {
+				if (! team().isValidName(heroName)) {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
 				} else if (heroName.isEmpty()) {
 					lblInvalidNameErrorMessage.setText("Invlaid name.");
 									
 				} else {
-					getTeam().addHero(heroName, type);
-					if (getTeam().getHeroes().size() < getTeam().getStartNumHeroes()) {
+					team().addHero(heroName, type);
+					if (team().getHeroes().size() < team().getStartNumHeroes()) {
 						refreshAddHeroPanel();
 					} else {
 						contentPanelCardLayout.show(contentPanel, TEAM_SUMMARY_PANEL_STRING);
@@ -481,7 +481,7 @@ public class SetUpPanel extends JPanel {
 	 */
 	private void refreshAddHeroPanel() {
 		lblCreateHero.setText(String.format("Create Hero %s:",
-				getTeam().getHeroes().size() + 1));
+				team().getHeroes().size() + 1));
 		
 		txtfName.setText("");
 		
@@ -530,10 +530,10 @@ public class SetUpPanel extends JPanel {
 	 * Called once the team has been created.
 	 */
 	private void addHeroSummaries() {
-		GridLayout teamSummaryGridLayout = new GridLayout(0, getTeam().getHeroes().size(), 0, 0);
+		GridLayout teamSummaryGridLayout = new GridLayout(0, team().getHeroes().size(), 0, 0);
 		heroSummariesPanel.setLayout(teamSummaryGridLayout);
 		
-		for (Hero hero: getTeam().getHeroes()) {
+		for (Hero hero: team().getHeroes()) {
 			heroSummariesPanel.add(heroSummaryPanel(hero));
 		}
 	}
@@ -569,7 +569,7 @@ public class SetUpPanel extends JPanel {
 	 * Called once the team of heroes has been created.
 	 */
 	private void refreshTeamSummaryPanel() {
-		lblTeamName.setText(getTeam().getName());
+		lblTeamName.setText(team().getName());
 		addHeroSummaries();
 	}
 }
