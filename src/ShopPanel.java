@@ -20,9 +20,11 @@ import java.awt.CardLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 
-public class ShopPanel extends JPanel {
+public class ShopPanel extends JPanel implements Refreshable {
 	
 	/**
 	 * A string representation of this panel, used by the CardLayout in Game.
@@ -91,6 +93,11 @@ public class ShopPanel extends JPanel {
 		addSidePanel();
 		addContentPanel();
 	}
+	
+	public void refresh() {
+		// TODO
+		System.out.println("Refreshing shop");
+	}
 
 	
 	/**
@@ -121,10 +128,10 @@ public class ShopPanel extends JPanel {
 		add(sidePanel);
 		sidePanel.setLayout(null);	
 		
-		JLabel lblNewLabel = new JLabel("Gold: 100");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(10, 11, 120, 25);
-		sidePanel.add(lblNewLabel);
+		JLabel lblGold = new JLabel("Gold: 100");
+		lblGold.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblGold.setBounds(10, 11, 120, 25);
+		sidePanel.add(lblGold);
 		
 		JButton btnInventory = new JButton("Inventory");
 		btnInventory.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -132,11 +139,21 @@ public class ShopPanel extends JPanel {
 		sidePanel.add(btnInventory);
 		
 		JButton btnViewPowerUps = new JButton("View Power Ups");
+		btnViewPowerUps.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contentPanelCardLayout.show(contentPanel, POWER_UP_MENU_STRING);
+			}
+		});
 		btnViewPowerUps.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnViewPowerUps.setBounds(10, 128, 195, 30);
 		sidePanel.add(btnViewPowerUps);
 		
 		JButton btnViewHealingItems = new JButton("View Healing Items");
+		btnViewHealingItems.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contentPanelCardLayout.show(contentPanel, HEALING_ITEM_MENU_STRING);
+			}
+		});
 		btnViewHealingItems.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnViewHealingItems.setBounds(10, 169, 195, 30);
 		sidePanel.add(btnViewHealingItems);
@@ -178,7 +195,6 @@ public class ShopPanel extends JPanel {
 		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		add(contentPanel);
-		contentPanel.setLayout(new CardLayout(0, 0));
 		
 		contentPanelCardLayout = new CardLayout();
 		contentPanel.setLayout(contentPanelCardLayout);
@@ -188,16 +204,65 @@ public class ShopPanel extends JPanel {
 		addPowerUpMenuPanel();
 		addHealingItemMenuPanel();
 		
-		for (PowerUp powerUp: gameWindow.getGame().ALL_POWER_UPS) {
+		for (PowerUp powerUp: GameEnvironment.ALL_POWER_UPS) {
 			addPowerUpPanel(powerUp);
 		}
 		
-		for (HealingItem healingItem: gameWindow.getGame().ALL_HEALING_ITEMS) {
+		for (HealingItem healingItem: GameEnvironment.ALL_HEALING_ITEMS) {
 			addHealingItemPanel(healingItem);
 		}
 		
 		addMapPanel();
 		
+		//===============================================================
+		
+		PowerUp powerUp = new ExtraGuess();
+		
+		JPanel powerUpInfoPanel = new JPanel();
+		powerUpInfoPanel.setLayout(null);
+		
+		JLabel lblPowerUpImage = new JLabel("");
+		lblPowerUpImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblPowerUpImage.setBounds(75, 50, 150, 150);
+		powerUpInfoPanel.add(lblPowerUpImage);
+		
+		
+		contentPanel.add(powerUpInfoPanel, powerUp.toString());
+		
+		JLabel lblType = new JLabel("Extra Guess");
+		lblType.setHorizontalAlignment(SwingConstants.CENTER);
+		lblType.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblType.setBounds(234, 50, 330, 37);
+		powerUpInfoPanel.add(lblType);
+		
+		JLabel lblPrice = new JLabel("20");
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPrice.setBounds(336, 120, 50, 38);
+		powerUpInfoPanel.add(lblPrice);
+		
+		JLabel lblCoinImage = new JLabel("");
+		lblCoinImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblCoinImage.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCoinImage.setBounds(288, 120, 38, 38);
+		powerUpInfoPanel.add(lblCoinImage);
+		
+		JTextPane txtpnDescription = new JTextPane();
+		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
+		txtpnDescription.setText("When applied to a hero, gain the following benefits:\nGuess the Number:\nGet an extra guess.\nApplying multiple extra guess power-ups to a single hero is allowed. All extra guess power-ups will be consumed at the end of Guess the Number, even if they were not used.");
+		txtpnDescription.setBounds(33, 246, 557, 166);
+		powerUpInfoPanel.add(txtpnDescription);
+		
+		JButton btnBackToMenu = new JButton("Back To Menu");
+		btnBackToMenu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnBackToMenu.setBounds(68, 430, 157, 30);
+		powerUpInfoPanel.add(btnBackToMenu);
+		
+		JButton btnPurchase = new JButton("Purchase");
+		btnPurchase.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnPurchase.setBounds(433, 124, 157, 30);
+		powerUpInfoPanel.add(btnPurchase);
+
 	}
 	
 	
@@ -220,7 +285,7 @@ public class ShopPanel extends JPanel {
 		
 		powerUpMenuPanel.setLayout(new GridLayout(2, 2, 0, 0));
 		
-		for (PowerUp powerUp: gameWindow.getGame().ALL_POWER_UPS) {
+		for (PowerUp powerUp: GameEnvironment.ALL_POWER_UPS) {
 			JPanel powerUpPanel = new JPanel();
 			powerUpPanel.setLayout(null);
 			
@@ -230,9 +295,14 @@ public class ShopPanel extends JPanel {
 			lblPowerUpImage.setBounds(83, 33, 150, 150);
 			powerUpPanel.add(lblPowerUpImage);
 			
-			JButton btnPowerUp = new JButton(powerUp.getType().toString());
+			JButton btnPowerUp = new JButton(powerUp.toString());
 			btnPowerUp.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			btnPowerUp.setBounds(93, 194, 130, 30);
+			btnPowerUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					contentPanelCardLayout.show(contentPanel, powerUp.toString());
+				}
+			});
 			powerUpPanel.add(btnPowerUp);
 			
 			powerUpMenuPanel.add(powerUpPanel);
@@ -247,14 +317,41 @@ public class ShopPanel extends JPanel {
 	 * healing item, and adds it to the contentPanelCardLayout.
 	 */
 	private void addHealingItemMenuPanel() {
-		// TODO Auto-generated method stub
+		JPanel healingItemMenuPanel = new JPanel();
+		
+		healingItemMenuPanel.setLayout(new GridLayout(2, 2, 0, 0));
+		
+		for (HealingItem healingItem: GameEnvironment.ALL_HEALING_ITEMS) {
+			JPanel healingItemPanel = new JPanel();
+			healingItemPanel.setLayout(null);
+			
+			JLabel lblHealingItemImage = new JLabel("");
+			// TODO add healing item icon
+			lblHealingItemImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+			lblHealingItemImage.setBounds(83, 33, 150, 150);
+			healingItemPanel.add(lblHealingItemImage);
+			
+			JButton btnHealingItem = new JButton(healingItem.toString());
+			btnHealingItem.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnHealingItem.setBounds(93, 194, 130, 30);
+			btnHealingItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					contentPanelCardLayout.show(contentPanel, healingItem.toString());
+				}
+			});
+			healingItemPanel.add(btnHealingItem);
+			
+			healingItemMenuPanel.add(healingItemPanel);
+		}
+		
+		contentPanel.add(healingItemMenuPanel, HEALING_ITEM_MENU_STRING);
 		
 	}
 
 
 	/**
 	 * Creates a information panel for the given power up, and adds it to
-	 * the contentPanelCardLayout.
+	 * the contentPanelCardLayout, using the String representation of the power up.
 	 * @param powerUp	An instance of the PowerUp subclass for which the
 	 * 					information panel is being made.
 	 */
@@ -265,7 +362,7 @@ public class ShopPanel extends JPanel {
 	
 	/**
 	 * Creates a information panel for the given healing item, and adds it to
-	 * the contentPanelCardLayout.
+	 * the contentPanelCardLayout, using the String representation of the healing item.
 	 * @param healingItem	An instance of the HealingItem subclass for which the
 	 * 						information panel is being made.
 	 */
@@ -282,9 +379,4 @@ public class ShopPanel extends JPanel {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
-	
-	
 }

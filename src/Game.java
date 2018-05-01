@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
@@ -19,8 +20,8 @@ public class Game {
 	private CardLayout cardLayout;
 	
 	private SetUpPanel startScreenPanel;
-	private ShopPanel shopPanel;
 	private HomeBasePanel homeBasePanel;
+	private ShopPanel shopPanel;
 	private HospitalPanel hospitalPanel;
 	private PowerUpDenPanel powerUpDenPanel;
 	private VillainsLairPanel villainsLairPanel;	
@@ -72,11 +73,11 @@ public class Game {
 		startScreenPanel = new SetUpPanel(this);
 		mainPanel.add(startScreenPanel, SetUpPanel.SET_UP_PANEL_STRING);
 		
-		shopPanel = new ShopPanel(this);
-		mainPanel.add(shopPanel, ShopPanel.SHOP_PANEL_STRING);
-		
 		homeBasePanel = new HomeBasePanel(this);
 		mainPanel.add(homeBasePanel, HomeBasePanel.HOME_BASE_PANEL_STRING);
+		
+		shopPanel = new ShopPanel(this);
+		mainPanel.add(shopPanel, ShopPanel.SHOP_PANEL_STRING);
 		
 		hospitalPanel = new HospitalPanel(this);
 		mainPanel.add(hospitalPanel, HospitalPanel.HOSPITAL_PANEL_STRING);
@@ -93,6 +94,17 @@ public class Game {
 	 */
 	public void setPanel(String panelString) {
 		cardLayout.show(mainPanel, panelString);
+		((Refreshable) visiblePanel()).refresh();
+	}
+	
+	private JPanel visiblePanel() {
+		JPanel visiblePanel = null;
+		for (Component panel: mainPanel.getComponents()) {
+			if (panel.isVisible()) {
+				visiblePanel = (JPanel) panel;
+			}
+		}
+		return visiblePanel;
 	}
 
 	/**
