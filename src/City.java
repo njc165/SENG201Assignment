@@ -171,8 +171,8 @@ public class City {
 	 * @param location		The location of interest.
 	 * @return				The SectorType of the sector at the given location.
 	 */
-	public SectorType sectorTypeAtLocation(Location location) {
-		return sectorLocations.get(location).getType();
+	public Sector sectorAtLocation(Location location) {
+		return sectorLocations.get(location);
 	}
 	
 	/**
