@@ -115,7 +115,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		refreshSidePanel();
 		refreshStatusPanel();
 		refreshMapPanel();
-		System.out.println("Refreshing home base");
 	}
 	
 	/**
