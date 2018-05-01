@@ -292,14 +292,14 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		mapPanel.add(lblWest);
 		
 		lblEast = new JLabel("");
-		lblEast.setBounds(211, 171, 210, 171);
-		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
-		mapPanel.add(lblEast);
-		
-		JLabel lblEast = new JLabel("");
 		lblEast.setBounds(421, 171, 210, 171);
 		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblEast);
+		
+		JLabel lblCentre = new JLabel("");
+		lblCentre.setBounds(211, 171, 210, 171);
+		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
+		mapPanel.add(lblCentre);
 		
 		JLabel lblSouthWest = new JLabel("");
 		lblSouthWest.setBounds(1, 342, 210, 171);
