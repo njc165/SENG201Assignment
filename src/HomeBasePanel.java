@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -41,6 +42,13 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * main content panel.
 	 */
 	public static final String STATUS_PANEL_STRING = "Status Panel";
+	
+	/**
+	 * An array of the cardinal directions as Locations.
+	 * Used to update images on the map when appropriate.
+	 */
+	private final Location[] locations = {Location.NORTH, Location.EAST,
+										  Location.SOUTH, Location.WEST};
 	
 	/**
 	 * The main game that this panel is a part of. Used by event handlers
@@ -98,7 +106,31 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * A label counting the number of maps the team owns.
 	 */
 	private JLabel lblMapsOwned;
-		
+	
+	/**
+	 * A label containing an image of the northern map sector.
+	 */
+	private JLabel lblNorth;
+	
+	/**
+	 * A label containing an image of the eastern map sector.
+	 */
+	private JLabel lblEast;
+	
+	/**
+	 * A label containing an image of the southern map sector.
+	 */
+	private JLabel lblSouth;
+	
+	/**
+	 * A label containing an image of the western map sector.
+	 */
+	private JLabel lblWest;
+	
+	/**
+	 * Constructor for an instance of HomeBasePanel
+	 * @param game The game window to which this panel is being added.
+	 */
 	public HomeBasePanel(Game game) {
 		super();
 		this.gameWindow = game;
@@ -111,6 +143,11 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		addContentPanel();
 		}
 	
+	/**
+	 * Refresh all components of the HomeBasePanel by refreshing
+	 * any panels which contain components whose attributes may
+	 * have changed since they were last viewed.
+	 */
 	public void refresh() {
 		refreshSidePanel();
 		refreshStatusPanel();
@@ -124,10 +161,13 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * @return			A String representation of the panel at the given location.
 	 */
 	private String sectorPanelString(Location location) {
-		return gameWindow.getGame().getCurrentCity().sectorTypeAtLocation(location).toString()
+		return gameWindow.getGame().getCurrentCity().sectorAtLocation(location).getType().toString()
 				+ " Panel";
 	}
-
+	
+	/**
+	 * Create the title panel and add it to the main window.
+	 */
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 880, 75);
@@ -142,6 +182,9 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		add(titlePanel);		
 	}
 	
+	/**
+	 * Create the side panel and add it to the main window.
+	 */
 	private void addSidePanel() {
 		sidePanel = new JPanel();
 		sidePanel.setBounds(10, 86, 215, 513);
@@ -202,6 +245,9 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		add(sidePanel);	
 		}
 	
+	/**
+	 * Create the main content panel and add it to the window.
+	 */
 	private void addContentPanel() {
 		contentPanel = new JPanel();
 		contentPanel.setBounds(235, 86, 632, 513);
@@ -216,8 +262,11 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		add(contentPanel);
 	}
 	
+	/**
+	 * Create the map panel and add it to the main content panel.
+	 */
 	private void addMapPanel() {
-
+		
 		mapPanel = new JLayeredPane();
 		contentPanel.add(mapPanel, MAP_PANEL_STRING);
 		mapPanel.setLayout(null);
@@ -227,7 +276,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblNorthWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorthWest);
 		
-		JLabel lblNorth = new JLabel("");
+		lblNorth = new JLabel("");
 		lblNorth.setBounds(211, 0, 210, 171);
 		lblNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorth);
@@ -237,18 +286,18 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblNorthEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblNorthEast);
 		
-		JLabel lblEast = new JLabel("");
-		lblEast.setBounds(1, 171, 210, 171);
-		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
-		mapPanel.add(lblEast);
-		
-		JLabel lblWest = new JLabel("");
-		lblWest.setBounds(211, 171, 210, 171);
+		lblWest = new JLabel("");
+		lblWest.setBounds(1, 171, 210, 171);
 		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblWest);
 		
+		lblEast = new JLabel("");
+		lblEast.setBounds(421, 171, 210, 171);
+		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
+		mapPanel.add(lblEast);
+		
 		JLabel lblCentre = new JLabel("");
-		lblCentre.setBounds(421, 171, 210, 171);
+		lblCentre.setBounds(211, 171, 210, 171);
 		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblCentre);
 		
@@ -257,7 +306,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblSouthWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblSouthWest);
 		
-		JLabel lblSouth = new JLabel("");
+		lblSouth = new JLabel("");
 		lblSouth.setBounds(211, 342, 210, 171);
 		lblSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
 		mapPanel.add(lblSouth);
@@ -270,6 +319,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoWest = new JButton("Go West");
 		btnGoWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().getCurrentCity().sectorAtLocation(Location.WEST).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.WEST));
 			}
 		});
@@ -280,6 +330,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoNorth = new JButton("Go North");
 		btnGoNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				gameWindow.getGame().getCurrentCity().sectorAtLocation(Location.NORTH).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.NORTH));
 			}
 		});
@@ -290,6 +341,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoEast = new JButton("Go East");
 		btnGoEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().getCurrentCity().sectorAtLocation(Location.EAST).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.EAST));
 			}
 		});
@@ -300,6 +352,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoSouth = new JButton("Go South");
 		btnGoSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().getCurrentCity().sectorAtLocation(Location.SOUTH).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.SOUTH));
 			}
 		});
@@ -308,13 +361,32 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		mapPanel.add(btnGoSouth);
 	}
 	
+	/**
+	 * Create the status panel and add it to the main content panel.
+	 */
 	private void addStatusPanel() {		
 		statusPanel = new JPanel();
 		contentPanel.add(statusPanel, STATUS_PANEL_STRING);
 		statusPanel.setLayout(new GridLayout(0, 3, 0, 0));
 	}
 	
+	/**
+	 * Update the map panel by updating all components with
+	 * variable attributes.
+	 */
 	private void refreshMapPanel() {
+		
+		for (Location location : locations) {
+			JLabel targetLabel = getLabelAtLocation(location);
+			Sector sectorAtLocation = gameWindow.getGame().getCurrentCity().sectorAtLocation(location);
+			if (sectorAtLocation.getDiscovered()) {
+				String filepath = getFilepathFromSectorType(sectorAtLocation.getType());
+				targetLabel.setIcon(new ImageIcon(HomeBasePanel.class.getResource(filepath)));
+			}
+			else {
+				targetLabel.setIcon(new ImageIcon(HomeBasePanel.class.getResource("/img/mountains.png")));
+			}
+		}	
 		
 	}
 	
@@ -388,22 +460,53 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		
 	}
 	
+	/**
+	 * Update the side panel on the home base screen,
+	 * by updating all components with variable attributes.
+	 */
 	private void refreshSidePanel() {
-		for (ActionListener listener : btnUseMap.getActionListeners()) {
-			btnUseMap.removeActionListener(listener);
-		}
-		
-		btnUseMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gameWindow.getGame().getCurrentCity().setAllDiscovered();
-				getTeam().setNumMaps(getTeam().getNumMaps() - 1);
-				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
-			}
-		});
 		
 		lblMapsOwned.setText(String.format("Owned: %d", getTeam().getNumMaps()));
 
 	}
+	
+	/**
+	 * Given a location on the map, return the label containing
+	 * the image for that location on the map panel.
+	 * @param location The location for which a label is retrieved.
+	 * @return The label at the given location.
+	 */
+	private JLabel getLabelAtLocation(Location location) {
+		JLabel returnLabel;
+		switch (location) {
+		case NORTH: returnLabel = lblNorth; break;
+		case EAST: returnLabel = lblEast; break;
+		case SOUTH: returnLabel = lblSouth; break;
+		case WEST: returnLabel = lblWest; break;
+		default: returnLabel = new JLabel();
+		}
+		return returnLabel;
+	}
+	
+	/**
+	 * Given a SectorType, return a filepath to the
+	 * appropriate image for that type, to be displayed
+	 * on the map panel.
+	 * @param type
+	 * @return
+	 */
+	private String getFilepathFromSectorType(SectorType type) {
+		String filepath;
+		switch (type) {
+		case SHOP: filepath = "/img/bulwark_portrait.png"; break;
+		case POWER_UP_DEN: filepath = "/img/bulwark_portrait.png"; break;
+		case HOSPITAL: filepath = "/img/bulwark_portrait.png"; break;
+		case VILLAINS_LAIR: filepath = "/img/bulwark_portrait.png"; break;
+		default: filepath = ""; // This will (and should) cause a runtime error. throw an exception instead?
+		}
+		return filepath;
+	}
+	
 	
 	/**
 	 * Gets the Team object associated with the current Game.
