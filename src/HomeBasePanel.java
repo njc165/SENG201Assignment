@@ -596,6 +596,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 					heroPanel.add(lblNumPowerUps);
 					
 					xCoord += 35;
+					
 				}
 			}
 		}
