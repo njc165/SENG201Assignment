@@ -23,11 +23,21 @@ public class Apprentice extends Hero {
 	private static final int MAX_HEALTH = 100;
 	
 	/**
+	 * Filepath to the Apprentice portrait image.
+	 */
+	private static final String PORTRAIT_FILEPATH = "/img/apprentice_200x200.png";
+	
+	/**
+	 * Filepath to the Apprentice full-body image.
+	 */
+	private static final String FULL_FILEPATH = "not yet imported";
+	
+	/**
 	 * A constructor for the Apprentice class.
 	 * @param name The name of the hero, chosen by the player.
 	 */
 	public Apprentice(String name) {
-		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH);
+		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH, PORTRAIT_FILEPATH, FULL_FILEPATH);
 		setHasFasterHealing(true);
 	}
 	

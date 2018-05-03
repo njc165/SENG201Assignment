@@ -27,7 +27,7 @@ class HeroTest {
 	@Test
 	final void testHero() {
 		// Constructor sets the appropriate attributes
-		Hero hero = new Hero("Name", "Type", "Special ability", "Description", 100);
+		Hero hero = new Hero("Name", "Type", "Special ability", "Description", 100, "portpath", "fullpath");
 		
 		// Getters and setters work
 		assertEquals("Name", hero.getName());
@@ -35,6 +35,8 @@ class HeroTest {
 		assertEquals("Special ability", hero.getSpecialAbility());
 		assertEquals("Description", hero.getDescription());
 		assertEquals(100, hero.getMaxHealth());
+		assertEquals("portpath", hero.getPortraitImageFilepath());
+		assertEquals("fullpath", hero.getFullImageFilepath());
 		
 		// New hero has empty activePowerUps list
 		assertEquals(0, hero.getActivePowerUps().size());
@@ -52,7 +54,7 @@ class HeroTest {
 	@Test
 	final void testNumPowerUps() {
 		// Newly created hero has no power-ups
-		Hero hero = new Hero("Name", "Type", "Special ability", "Description", 100);
+		Hero hero = new Hero("Name", "Type", "Special ability", "Description", 100, "", "");
 		assertEquals(0, hero.numPowerUps(PowerUpType.EXTRA_GUESS));
 		assertEquals(0, hero.numPowerUps(PowerUpType.TIEBREAKER));
 		assertEquals(0, hero.numPowerUps(PowerUpType.INCREASE_ROLL));

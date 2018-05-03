@@ -22,11 +22,21 @@ public class Gambler extends Hero {
 	private static final int MAX_HEALTH = 80;
 	
 	/**
+	 * Filepath to the Gambler portrait image.
+	 */
+	private static final String PORTRAIT_FILEPATH = "/img/gambler_200x200.png";
+	
+	/**
+	 * Filepath to the Gambler full-body image.
+	 */
+	private static final String FULL_FILEPATH = "not yet imported";
+	
+	/**
 	 * A constructor for the Gambler class.
 	 * @param name The name of the hero, chosen by the player.
 	 */
 	public Gambler(String name) {
-		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH);
+		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH, PORTRAIT_FILEPATH, FULL_FILEPATH);
 		setHasBattleAdvantage(true);
 	}
 	

@@ -498,10 +498,10 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	private String getFilepathFromSectorType(SectorType type) {
 		String filepath;
 		switch (type) {
-		case SHOP: filepath = "/img/bulwark_portrait.png"; break;
-		case POWER_UP_DEN: filepath = "/img/bulwark_portrait.png"; break;
-		case HOSPITAL: filepath = "/img/bulwark_portrait.png"; break;
-		case VILLAINS_LAIR: filepath = "/img/bulwark_portrait.png"; break;
+		case SHOP: filepath = "/img/bulwark_200x200.png"; break;
+		case POWER_UP_DEN: filepath = "/img/bulwark_200x200.png"; break;
+		case HOSPITAL: filepath = "/img/bulwark_200x200.png"; break;
+		case VILLAINS_LAIR: filepath = "/img/bulwark_200x200.png"; break;
 		default: filepath = ""; // This will (and should) cause a runtime error. throw an exception instead?
 		}
 		return filepath;

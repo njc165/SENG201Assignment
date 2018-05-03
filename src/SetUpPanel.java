@@ -135,17 +135,6 @@ public class SetUpPanel extends JPanel {
 	}
 	
 	/**
-	 * Takes a hero instance, and returns the file path for the portrait
-	 * image of this hero type.
-	 * @param hero		The hero whose image file path should be returned.
-	 * @return			The file path of the portrait image of this hero.
-	 */
-	private String portraitImageFilepath(Hero hero) {
-		// TODO return correct picture for each hero
-		return "/img/bulwark_portrait.png";
-	}
-	
-	/**
 	 * Creates a label containing the game's title and adds it to the panel.
 	 */
 	private void addTitle() {
@@ -437,7 +426,7 @@ public class SetUpPanel extends JPanel {
 		infoPanel.setLayout(null);
 		
 		JLabel lblHeroImage = new JLabel("");
-		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(portraitImageFilepath(hero))));
+		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(hero.getPortraitImageFilepath())));
 		lblHeroImage.setBounds(10, 11, 200, 200);
 		infoPanel.add(lblHeroImage);
 		
@@ -551,7 +540,7 @@ public class SetUpPanel extends JPanel {
 		
 		JLabel lblHeroImage = new JLabel("");
 		lblHeroImage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(portraitImageFilepath(hero))));
+		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(hero.getPortraitImageFilepath())));
 		heroSummaryPanel.add(lblHeroImage, BorderLayout.NORTH);
 		
 		JLabel lblHeroName = new JLabel(String.format(
