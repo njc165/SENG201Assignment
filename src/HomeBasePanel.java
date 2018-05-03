@@ -48,9 +48,9 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	private static final String STATUS_PANEL_STRING = "Status Panel";
 	
 
-	private static final String UNDISCOVERED_SECTOR_IMAGE_FILEPATH = "/img/mountains.png";
+	private static final String UNDISCOVERED_SECTOR_IMAGE_FILEPATH = "/img/undiscovered_area.png";
 
-	private static final String HOME_BASE_IMAGE_FILEPATH = "/img/mountains.png";
+	private static final String HOME_BASE_IMAGE_FILEPATH = "/img/homebase.png";
 	
 	private static final String MOUNTAINS_IMAGE_FILEPATH = "/img/mountains.png";
 	
@@ -185,8 +185,9 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * @return		The file path for the image representing that sector.
 	 */
 	private String sectorTypeFilepath(SectorType type) {
-//		return String.format("/img/%s.png", type.toString()); TODO
-		return "/img/bulwark_portrait.png";
+		String filepath = String.format("/img/%s.png", type.toString().toLowerCase());
+		filepath = filepath.replaceAll("[^a-z/.]", "");
+		return filepath;
 	}
 	
 	/**
