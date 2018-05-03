@@ -42,16 +42,6 @@ public class Hero {
 	private String type;
 	
 	/**
-	 * The filepath to a portrait image of the hero.
-	 */
-	private String portraitImageFilepath;
-	
-	/**
-	 * The filepath to a full-body image of the hero.
-	 */
-	private String fullImageFilepath;
-	
-	/**
 	 * A String description of the hero's special ability,
 	 * e.g. "Advantages in villain battles".
 	 * Each subclass of Hero has a different special ability.
@@ -131,15 +121,13 @@ public class Hero {
 	 * @param description	The String description of the Hero subclass.
 	 * @param maxHealth	The maximum health of the Hero subclass.
 	 */
-	public Hero(String name, String type, String specialAbility, String description, int maxHealth, String portrait_path, String full_path) {
+	public Hero(String name, String type, String specialAbility, String description, int maxHealth) {
 		this.name = name;
 		this.type = type;
 		this.specialAbility = specialAbility;
 		this.description = description;
 		this.maxHealth = maxHealth;
 		this.currentHealth = maxHealth;
-		this.portraitImageFilepath = portrait_path;
-		this.fullImageFilepath = full_path;
 	}
 	
 	/**
@@ -456,22 +444,6 @@ public class Hero {
 	public void setAppliedHealingItem(HealingItem appliedHealingItem) {
 		this.appliedHealingItem = appliedHealingItem;
 		appliedHealingItem.applyToHero(hasFasterHealing);
-	}
-	
-	/**
-	 * Getter method for portraitImageFilepath.
-	 * @return the value of portraitImageFilepath.
-	 */
-	public String getPortraitImageFilepath() {
-		return portraitImageFilepath;
-	}
-	
-	/**
-	 * Getter method for portraitImageFilepath.
-	 * @return the value of portraitImageFilepath
-	 */
-	public String getFullImageFilepath() {
-		return fullImageFilepath;
 	}
 	
 }

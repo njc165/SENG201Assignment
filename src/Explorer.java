@@ -22,21 +22,11 @@ public class Explorer extends Hero {
 	private static final int MAX_HEALTH = 100;
 	
 	/**
-	 * Filepath to the Explorer portrait image.
-	 */
-	private static final String PORTRAIT_FILEPATH = "/img/explorer_200x200.png";
-	
-	/**
-	 * Filepath to the Explorer full-body image.
-	 */
-	private static final String FULL_FILEPATH = "not yet imported";
-	
-	/**
 	 * A constructor for the Explorer class.
 	 * @param name The name of the hero, chosen by the player.
 	 */
 	public Explorer(String name) {
-		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH, PORTRAIT_FILEPATH, FULL_FILEPATH);
+		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH);
 		setHasMapAbility(true);
 	}
 	

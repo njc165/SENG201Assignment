@@ -22,21 +22,11 @@ public class Mercenary extends Hero {
 	private static final int MAX_HEALTH = 50;
 	
 	/**
-	 * Filepath to the Mercenary portrait image.
-	 */
-	private static final String PORTRAIT_FILEPATH = "/img/mercenary_200x200.png";
-	
-	/**
-	 * Filepath to the Mercenary full-body image.
-	 */
-	private static final String FULL_FILEPATH = "not yet imported";
-	
-	/**
 	 * A constructor for the Mercenary class.
 	 * @param name The name of the hero, chosen by the player.
 	 */
 	public Mercenary(String name) {
-		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH, PORTRAIT_FILEPATH, FULL_FILEPATH);
+		super(name, TYPE, SPECIAL_ABILITY, DESCRIPTION, MAX_HEALTH);
 		setHasDoubleDamage(true);
 	}
 	
