@@ -142,7 +142,7 @@ public class SetUpPanel extends JPanel {
 	 */
 	private String portraitImageFilepath(Hero hero) {
 		// TODO return correct picture for each hero
-		return "/img/bulwark_portrait.png";
+		return String.format("/img/%s_200x200.png", hero.getType().toLowerCase());
 	}
 	
 	/**
@@ -394,7 +394,7 @@ public class SetUpPanel extends JPanel {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
 				} else if (heroName.isEmpty()) {
-					lblInvalidNameErrorMessage.setText("Invlaid name.");
+					lblInvalidNameErrorMessage.setText("Invalid name.");
 									
 				} else {
 					team().addHero(heroName, type);

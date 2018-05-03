@@ -22,7 +22,7 @@ public class Bulwark extends Hero {
 	 * The maximum health the hero can have.
 	 */
 	private static final int MAX_HEALTH = 120;
-	
+		
 	/**
 	 * A constructor for the Bulwark class.
 	 * @param name The name of the hero, chosen by the player.
