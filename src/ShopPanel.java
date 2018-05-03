@@ -238,9 +238,8 @@ public class ShopPanel extends JPanel implements Refreshable {
 		contentPanel.setLayout(contentPanelCardLayout);
 		
 		// remove when finished testing
-//		addSubPanels();
+//		addSubPanels();	}
 	}
-	
 	
 	/**
 	 * Adds all the panels and their components to the contentPanelCardLayout.
@@ -274,12 +273,18 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 		inventoryPanel.setLayout(null);
 		
+		JLabel lblInventory = new JLabel("Inventory");
+		lblInventory.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblInventory.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInventory.setBounds(10, 11, 613, 51);
+		inventoryPanel.add(lblInventory);
+		
 		JLabel lblPowerUps = new JLabel("Power Ups");
 		lblPowerUps.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblPowerUps.setBounds(46, 32, 181, 30);
+		lblPowerUps.setBounds(46, 73, 181, 30);
 		inventoryPanel.add(lblPowerUps);
 		
-		int yCoord = 83;
+		int yCoord = 124;
 		for (PowerUp powerUp: GameEnvironment.ALL_POWER_UPS) {
 			JLabel lblPowerUpIcon = new JLabel("");
 			// TODO add power up icons
@@ -300,10 +305,10 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 		JLabel lblHealingItems = new JLabel("Healing Items");
 		lblHealingItems.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblHealingItems.setBounds(329, 32, 181, 30);
+		lblHealingItems.setBounds(329, 73, 181, 30);
 		inventoryPanel.add(lblHealingItems);
 		
-		yCoord = 83;
+		yCoord = 124;
 		for (HealingItem healingItem: GameEnvironment.ALL_HEALING_ITEMS) {
 			JLabel lblHealingItemIcon = new JLabel("");
 			// TODO add healing item icons
@@ -324,20 +329,20 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 		JLabel lblMaps = new JLabel("Maps");
 		lblMaps.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblMaps.setBounds(46, 312, 181, 30);
+		lblMaps.setBounds(46, 353, 181, 30);
 		inventoryPanel.add(lblMaps);
 		
 		JLabel lblMapIcon = new JLabel("");
 		// TODO add map icon
 		lblMapIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblMapIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblMapIcon.setBounds(56, 363, 38, 38);
+		lblMapIcon.setBounds(56, 404, 38, 38);
 		inventoryPanel.add(lblMapIcon);
 		
 		JLabel lblMapNumOwned = new JLabel(String.format("(%s)  Map",
 														 team().getNumMaps()));
 		lblMapNumOwned.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMapNumOwned.setBounds(104, 363, 187, 38);
+		lblMapNumOwned.setBounds(104, 404, 187, 38);
 		inventoryPanel.add(lblMapNumOwned);
 		
 		contentPanel.add(inventoryPanel, INVENTORY_PANEL_STRING);
@@ -608,5 +613,4 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 		contentPanel.add(mapInfoPanel, MAP_PANEL_STRING);
 	}
-	
 }

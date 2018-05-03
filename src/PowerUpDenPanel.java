@@ -49,7 +49,6 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 	
 	public void refresh() {
 		// TODO
-		System.out.println("Refreshing power up den");
 	}
 
 }

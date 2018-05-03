@@ -135,7 +135,7 @@ public class SetUpPanel extends JPanel {
 	}
 	
 	/**
-	 * Takes a hero instance, and returns the file path for the portrait
+	 * Takes a hero instance, and returns the file path for the 200x200 portrait
 	 * image of this hero type.
 	 * @param hero		The hero whose image file path should be returned.
 	 * @return			The file path of the portrait image of this hero.
@@ -513,6 +513,7 @@ public class SetUpPanel extends JPanel {
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().enterFirstCity();
 				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
 			}
 		});

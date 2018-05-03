@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Hero {
 	
@@ -199,18 +200,37 @@ public class Hero {
 		
 		returnString += "Applied power ups:\n";
 		
-		if (activePowerUps.size() == 0) {
+		HashMap<PowerUpType, Integer> powerUpTypeCounts = powerUpTypeCounts();
+		
+		if (powerUpTypeCounts.size() == 0) {
 			returnString += "None\n";
 		} else {
-			for (PowerUpType powerUpType: PowerUpType.values()) {
-				int count = numPowerUps(powerUpType);
-				if (count > 0)
-					returnString += String.format("%s (%s)\n",
+			for (PowerUpType powerUpType: powerUpTypeCounts.keySet()) {
+				int count = powerUpTypeCounts.get(powerUpType);
+				returnString += String.format("%s (%s)\n",
 												  powerUpType.toString(),
 												  count);
 			}
 		}
 		return returnString;
+	}
+	
+	/**
+	 * Creates a HashMap mapping each power up type to the number
+	 * of that power up applied to the hero. If no power ups of a type
+	 * are applied to the hero, then that type does not appear in the
+	 * HashMap.
+	 * @return	A HashMap mapping each power up type to the number applied
+	 * 			to the hero.
+	 */
+	public HashMap<PowerUpType, Integer> powerUpTypeCounts() {
+		HashMap<PowerUpType, Integer> powerUpTypeCounts = new HashMap<PowerUpType, Integer>();
+		for (PowerUpType powerUpType: PowerUpType.values()) {
+			int count = numPowerUps(powerUpType);
+			if (count > 0)
+				powerUpTypeCounts.put(powerUpType, count);
+		}
+		return powerUpTypeCounts;
 	}
 	
 	/**
