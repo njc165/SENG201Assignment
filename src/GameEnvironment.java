@@ -70,16 +70,16 @@ public class GameEnvironment {
 	private ArrayList<City> cities = new ArrayList<City>();
 	
 	/**
-	 * The city currently being played by the team.
+	 * The index of the city currently being played in the list of cities.
 	 */
-	private City currentCity;
+	private int currentCityIndex;
 	
+
 	/**
-	 * Creates a new game with the given team of heroes and the given number
-	 * of cities.
-	 * The number of cities is assumed to be in the accepted range.
-	 * The team should already have the correct number of heroes added to it,
-	 * and have a valid team name within the accepted length.
+	 * Creates a new game.
+	 * Creates a team with the given team name, and sets startNumHeroes of
+	 * team to the given number of heroes, but doesn't add any heroes to the team.
+	 * Initialises the list of cities and sets currentCityIndex to 0.
 	 * @param team				The team of heroes playing the game.
 	 * @param numberOfCities	The number of cities the team needs to play
 	 * 							through to complete the game.
@@ -89,7 +89,6 @@ public class GameEnvironment {
 		this.numberOfCities = numberOfCities;
 		startTime = LocalTime.now();
 		initialiseCities();
-		currentCity = cities.get(0);
 	}
 
 	/**
@@ -106,6 +105,35 @@ public class GameEnvironment {
 			cities.add(city);
 		}
 	}
+	
+	
+	/**
+	 * Sets currentCityIndex to 0, and sets all the sectors of the first city
+	 * to discovered if the team has a hero with the map special ability.
+	 */
+	public void enterFirstCity() {
+		currentCityIndex = 0;
+		if (team.hasMapHero()) {
+			currentCity().setAllDiscovered();
+		}
+	}
+	
+	/**
+	 * Increments the currentCityIndex, and sets all sectors in the new city
+	 * to discovered if the team has a hero with the map specialAbility.
+	 * Throws a RuntimeException if currentCityIndex >= numerOfCities.
+	 */
+	public void nextCity() {
+		if (currentCityIndex < numberOfCities - 1) {
+			currentCityIndex++;
+			if (team.hasMapHero()) {
+				currentCity().setAllDiscovered();
+			}
+			
+		} else {
+			throw new RuntimeException("Already in last city, can't move to next city");
+		}
+	}
 
 	/**
 	 * Getter method for team.
@@ -116,10 +144,18 @@ public class GameEnvironment {
 	}
 	
 	/**
-	 * Getter method for currentCity.
-	 * @return The value of currentCity.
+	 * Getter method for currentCityIndex.
+	 * @return The value of currentCityIndex.
 	 */
-	public City getCurrentCity() {
-		return currentCity;
+	public int getCurrentCityIndex() {
+		return currentCityIndex;
+	}
+	
+	/**
+	 * Returns the current city being played.
+	 * @return The current city.
+	 */
+	public City currentCity() {
+		return cities.get(currentCityIndex);
 	}
 }
