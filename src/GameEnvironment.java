@@ -32,7 +32,7 @@ public class GameEnvironment {
 	 * The probability as a decimal that a random event will occur each time the
 	 * team returns to the home base.
 	 */
-	private final double RANDOM_EVENT_PROBABILITY = 0.2;
+	private final double RANDOM_EVENT_PROBABILITY = 0.5;
 	
 	/**
 	 * The team of heroes playing the game.
@@ -134,6 +134,101 @@ public class GameEnvironment {
 			throw new RuntimeException("Already in last city, can't move to next city");
 		}
 	}
+	
+	
+	
+	
+	/**
+	 * Implements the possibility of a random event occurring to the team.
+	 * The probability that a random event occurs each time the team enters the
+	 * home base is given by RANDOM_EVENT_PROBABILITY.
+	 * A random event can be:
+	 * - the team loses a random item from their inventory (team gets robbed).
+	 * - the team is gifted a random item to their inventory.
+	 * The two types of random event occur with equal probability.
+	 * @return		A string description of the random event that has occurred,
+	 * 				or the empty string if no event occurred.
+	 */
+	public String randomEvent() {
+		String randomEventDescription = "";
+		
+		Random random = new Random();
+		if(random.nextDouble() < RANDOM_EVENT_PROBABILITY) {
+						
+			if (random.nextDouble() < 0.5) {
+				randomEventDescription = giftTeam();
+			} else {
+				randomEventDescription = robTeam();
+			}
+		}
+		
+		return randomEventDescription;
+	}
+	
+	/**
+	 * Adds a random power up or healing item to the team's inventory.
+	 * @return A string description of the random event that has occurred.
+	 */
+	private String giftTeam() {
+		Random random = new Random();
+		
+		ArrayList<Object> allItems = new ArrayList<Object>();
+		Collections.addAll(allItems, ALL_POWER_UPS);
+		Collections.addAll(allItems, ALL_HEALING_ITEMS);
+		
+		int itemIndex = random.nextInt(allItems.size());
+		Object itemToAdd = allItems.get(itemIndex);
+		
+		if (itemToAdd instanceof PowerUp) {
+			team.getPowerUpsOwned().add((PowerUp) itemToAdd);
+		} else {
+			team.getHealingItemsOwned().add((HealingItem) itemToAdd);
+		}
+		
+		return String.format("Random Event!\n\n"
+				+ "The citizens aid you in your fight against the villains. "
+				+ "They have gifted you one %s.", itemToAdd);
+	}
+	
+	/**
+	 * Removes a random power up or healing item from the team.
+	 * If the team doesn't own any power ups or healing items, there is no change.
+	 * @return A string description of the random event that has occurred.
+	 */
+	private String robTeam() {
+		Random random = new Random();
+		Object itemLost = null;
+		
+		if (random.nextDouble() > 0.5) {
+			
+			if (team.getPowerUpsOwned().size() > 0) {
+				int itemIndex = random.nextInt(team.getPowerUpsOwned().size());
+				itemLost = team.getPowerUpsOwned().get(itemIndex);
+				team.getPowerUpsOwned().remove(itemIndex);
+			}
+			
+		} else {
+			
+			if (team.getHealingItemsOwned().size() > 0) {
+				int itemIndex = random.nextInt(team.getHealingItemsOwned().size());
+				itemLost = team.getHealingItemsOwned().get(itemIndex);
+				team.getHealingItemsOwned().remove(itemIndex);
+			}
+		}
+		
+		if (itemLost != null) {
+			return String.format("Random Event!\n\n"
+					+ "You have been robbed. A sneaky bandit has run off with your %s.",
+					itemLost);
+		} else {
+			return "";
+		}
+	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Getter method for team.
