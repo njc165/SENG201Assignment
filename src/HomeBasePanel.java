@@ -46,14 +46,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * main content panel.
 	 */
 	private static final String STATUS_PANEL_STRING = "Status Panel";
-	
 
-	private static final String UNDISCOVERED_SECTOR_IMAGE_FILEPATH = "/img/undiscovered_area.png";
-
-	private static final String HOME_BASE_IMAGE_FILEPATH = "/img/homebase.png";
-	
-	private static final String MOUNTAINS_IMAGE_FILEPATH = "/img/mountains.png";
-	
 	/**
 	 * An array of the cardinal directions as Locations.
 	 * Used to update images on the map when appropriate.
@@ -119,6 +112,17 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	private JLabel lblMapsOwned;
 	
 	/**
+	 * A text pane displayed when the user uses a map.
+	 */
+	private JTextPane txtpnMapUsedMessage;
+	
+	/**
+	 * A text pane which displays a description of random events when they occur,
+	 * and is otherwise empty.
+	 */
+	private JTextPane txtpnRandomEvent;
+	
+	/**
 	 * A label showing the number of the current city.
 	 */
 	private JLabel lblCurrentCity;
@@ -171,23 +175,21 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	}
 	
 	/**
+	 * Sets the random event information panel to show the given text.
+	 * Called every time the team returns to the home base.
+	 * @param randomEvent	A string description of the random event that has
+	 * 						occurred, or the empty string if no event occurred.
+	 */
+	public void setRandomEventText(String randomEventDescription) {
+		txtpnRandomEvent.setText(randomEventDescription);
+	}
+	
+	/**
 	 * Gets the Team object associated with the current Game.
 	 * @return the Team associated with the current Game.
 	 */
 	private Team team() {
 		return gameWindow.getGame().getTeam();
-	}
-	
-	/**
-	 * Given a SectorType, return a file path to the appropriate image 
-	 * for that type, to be displayed on the map panel.
-	 * @param type	The sector type of the sector to be displayed.
-	 * @return		The file path for the image representing that sector.
-	 */
-	private String sectorTypeFilepath(SectorType type) {
-		String filepath = String.format("/img/%s.png", type.toString().toLowerCase());
-		filepath = filepath.replaceAll("[^a-z/.]", "");
-		return filepath;
 	}
 	
 	/**
@@ -199,28 +201,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	private String sectorPanelString(Location location) {
 		return gameWindow.getGame().currentCity().sectorAtLocation(location).getType().toString()
 				+ " Panel";
-	}
-	
-	/**
-	 * Takes a healing item, and returns the file path of the 25x25 image
-	 * for that healing item.
-	 * @param healingItem	The relevant healing item.
-	 * @return				The file path of the image for that healing item.
-	 */
-	private String healingItemImageFilepath(HealingItem healingItem) {
-		// TODO
-		return "/img/bulwark_portrait.png";
-	}
-	
-	/**
-	 * Takes a power up type, and returns the file path of
-	 * the 25x25 image for that power up type.
-	 * @param powerUpType	The relevant power up.
-	 * @return	The file path of the image for that power up.
-	 */
-	private String powerUpImageFilepath(PowerUpType powerUpType) {
-		// TODO 
-		return "/img/bulwark_portrait.png";
 	}
 	
 	/**
@@ -256,53 +236,67 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		sidePanel.add(lblCurrentCity);
 		
 		btnDisplayCity = new JButton("Display City");
+		btnDisplayCity.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnDisplayCity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				refreshMapPanel();
+			public void actionPerformed(ActionEvent e) {
+				refresh();
 				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
-				btnDisplayCity.setEnabled(false);
-				btnViewStatus.setEnabled(true);
 			}
 		});
-		btnDisplayCity.setBounds(46, 64, 120, 25);
+		btnDisplayCity.setBounds(10, 76, 195, 30);
 		sidePanel.add(btnDisplayCity);
 		
 		btnViewStatus = new JButton("View Team Status");
+		btnViewStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnViewStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				refreshStatusPanel();
+				refresh();
 				contentPanelCardLayout.show(contentPanel, STATUS_PANEL_STRING);
-				btnViewStatus.setEnabled(false);
-				btnDisplayCity.setEnabled(true);
 			}
 		});
-		btnViewStatus.setBounds(46, 124, 120, 25);
+		btnViewStatus.setBounds(10, 124, 195, 30);
 		sidePanel.add(btnViewStatus);
 		
-		// TODO add event handler, enable button when refreshed
 		btnUseMap = new JButton("Use Map");
-		btnUseMap.setBounds(46, 184, 120, 25);
+		btnUseMap.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnUseMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (team().getNumMaps() <= 0)
+					throw new RuntimeException("Team doesn't own any maps. Use map button should be disabled.");
+				
+				team().setNumMaps(team().getNumMaps() - 1);
+				gameWindow.getGame().currentCity().setAllDiscovered();
+				refresh();
+				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
+				txtpnMapUsedMessage.setVisible(true);
+			}
+		});
+		btnUseMap.setBounds(10, 196, 195, 30);
 		btnUseMap.setEnabled(false);
 		sidePanel.add(btnUseMap);
 		
 		lblMapsOwned = new JLabel("Owned:");
+		lblMapsOwned.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblMapsOwned.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMapsOwned.setBounds(46, 207, 120, 14);
+		lblMapsOwned.setBounds(49, 228, 120, 20);
 		sidePanel.add(lblMapsOwned);
-				
-		// TODO add random event functionality
-		JLabel lblRandomEvent = new JLabel("Random Event!");
-		lblRandomEvent.setBounds(10, 279, 82, 14);
-		sidePanel.add(lblRandomEvent);
 		
-		JTextPane txtRandomEvent = new JTextPane();
-		txtRandomEvent.setBackground(new Color(240, 240, 240));
-		txtRandomEvent.setEditable(false);
-		txtRandomEvent.setText("Sample Text\r\nThe villagers aid you in your fight againts the villains!\r\nYou received: Alicorn Dust");
-		txtRandomEvent.setBounds(10, 292, 170, 97);
-		sidePanel.add(txtRandomEvent);
+		txtpnMapUsedMessage = new JTextPane();
+		txtpnMapUsedMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnMapUsedMessage.setBackground(UIManager.getColor("Panel.background"));
+		txtpnMapUsedMessage.setText("The location of each sector of the city has been revealed!");
+		txtpnMapUsedMessage.setBounds(10, 266, 195, 45);
+		txtpnMapUsedMessage.setVisible(false);
+		sidePanel.add(txtpnMapUsedMessage);
 		
-		add(sidePanel);	
+		txtpnRandomEvent = new JTextPane();
+		txtpnRandomEvent.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnRandomEvent.setBackground(new Color(240, 240, 240));
+		txtpnRandomEvent.setEditable(false);
+		txtpnRandomEvent.setBounds(10, 328, 195, 134);
+		sidePanel.add(txtpnRandomEvent);
+		
+		add(sidePanel);
 	}
 	
 	/**
@@ -318,7 +312,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		addStatusPanel();
 		
 		contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
-		btnDisplayCity.setEnabled(false);
 		add(contentPanel);
 	}
 	
@@ -341,28 +334,27 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		mapSquaresPanel.add(mountainsImageLabel());
 		
 		lblNorth = new JLabel("");
-		lblNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
+		lblNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblNorth);
 		
 		mapSquaresPanel.add(mountainsImageLabel());
 		
 		lblWest = new JLabel("");
-		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource(UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
+		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblWest);
 		
 		JLabel lblCentre = new JLabel("");
-		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource(HOME_BASE_IMAGE_FILEPATH)));
+		lblCentre.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.HOME_BASE_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblCentre);
-		// TODO add home base image
 		
 		lblEast = new JLabel("");
-		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource(UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
+		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblEast);
 		
 		mapSquaresPanel.add(mountainsImageLabel());
 		
 		lblSouth = new JLabel("");
-		lblSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
+		lblSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblSouth);
 		
 		mapSquaresPanel.add(mountainsImageLabel());
@@ -374,7 +366,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 */
 	private JLabel mountainsImageLabel() {
 		JLabel lblMountainsImage = new JLabel("");
-		lblMountainsImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(MOUNTAINS_IMAGE_FILEPATH)));
+		lblMountainsImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.MOUNTAINS_IMAGE_FILEPATH)));
 		return lblMountainsImage;
 	}
 	
@@ -440,10 +432,13 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * by updating all components with variable attributes.
 	 */
 	private void refreshSidePanel() {
+		lblCurrentCity.setText(String.format("City %s",
+				gameWindow.getGame().getCurrentCityIndex() + 1));
 		
 		lblMapsOwned.setText(String.format("Owned: %d", team().getNumMaps()));
-		lblCurrentCity.setText(String.format("City %s",
-								gameWindow.getGame().getCurrentCityIndex() + 1));
+		txtpnMapUsedMessage.setVisible(false);
+		btnUseMap.setEnabled(team().getNumMaps() > 0);
+		txtpnRandomEvent.setText("");
 	}
 	
 	/**
@@ -458,9 +453,9 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			
 			String filepath = null;
 			if (sectorAtLocation.getDiscovered()) {
-				filepath = sectorTypeFilepath(sectorAtLocation.getType());
+				filepath = Image.sectorTypeFilepath(sectorAtLocation.getType());
 			} else {
-				filepath = UNDISCOVERED_SECTOR_IMAGE_FILEPATH;
+				filepath = Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH;
 
 			}
 			targetLabel.setIcon(new ImageIcon(HomeBasePanel.class.getResource(filepath)));
@@ -499,10 +494,10 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			heroPanel.setLayout(null);
 			statusPanel.add(heroPanel);
 			
-			// TODO add hero images
 			JLabel lblHeroPortrait = new JLabel("");
 			lblHeroPortrait.setBounds(30, 24, 150, 150);
-			lblHeroPortrait.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			lblHeroPortrait.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
+										Image.heroPortraitFilepath(hero, 150))));
 			heroPanel.add(lblHeroPortrait);
 
 			JLabel lblHeroName = new JLabel(String.format("%s the %s", hero.getName(),
@@ -553,7 +548,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			} else {
 				JLabel lblHealingItemImage = new JLabel("");
 				lblHealingItemImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
-						healingItemImageFilepath(hero.getAppliedHealingItem()))));
+						Image.healingItemImageFilepath(hero.getAppliedHealingItem(), 25))));
 				lblHealingItemImage.setBounds(20, 370, 25, 25);
 				heroPanel.add(lblHealingItemImage);
 				
@@ -585,7 +580,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 					JLabel lblPowerUpImage = new JLabel("");
 					lblPowerUpImage.setToolTipText(powerUpType.toString());
 					lblPowerUpImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
-							powerUpImageFilepath(powerUpType))));
+							Image.powerUpImageFilepath(powerUpType, 25))));
 					lblPowerUpImage.setBounds(xCoord, 441, 25, 25);
 					heroPanel.add(lblPowerUpImage);
 					
@@ -603,4 +598,10 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		}
 		
 	}
+
+
+	
+	
+	
+	
 }

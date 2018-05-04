@@ -90,11 +90,17 @@ public class Game {
 	}
 	
 	/**
-	 * @param panelString
+	 * Takes a string representation of a panel in the main panel card layout,
+	 * and sets that panel to be visible.
+	 * @param panelString	A string representation of the panel to be shown.
 	 */
 	public void setPanel(String panelString) {
 		cardLayout.show(mainPanel, panelString);
 		((Refreshable) visiblePanel()).refresh();
+		
+		if (visiblePanel() instanceof HomeBasePanel) {
+			((HomeBasePanel) visiblePanel()).setRandomEventText(game.randomEvent());
+		}
 	}
 	
 	/**
