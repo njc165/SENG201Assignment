@@ -26,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 public class HospitalPanel extends JPanel implements Refreshable {
 
@@ -69,6 +70,9 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	}
 	
 	public void refresh() {
+		// TODO remove after testing
+//		team().getHeroes().get(0).setAppliedHealingItem(new AlicornDust());
+//		team().getHeroes().get(1).setAppliedHealingItem(new SuspiciousTonic());
 		refreshStatusPanel();
 		refreshApplyPanel();
 	}
@@ -94,16 +98,6 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		JPanel sidePanel = new JPanel();
 		sidePanel.setBounds(10, 86, 215, 513);
 		sidePanel.setLayout(null);
-		
-		JButton btnBack = new JButton("Exit Hospital");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
-			}
-		});
-		btnBack.setBounds(37, 462, 140, 30);	
-		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		sidePanel.add(btnBack);
 		
 		JButton btnStatus = new JButton("View Statuses");
 		btnStatus.addActionListener(new ActionListener() {
@@ -142,6 +136,16 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		txtAreaInfo.setBounds(10, 296, 195, 152);
 		sidePanel.add(txtAreaInfo);
 		
+		JButton btnBack = new JButton("Return to Home Base");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
+			}
+		});
+		btnBack.setBounds(10, 462, 195, 30);	
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		sidePanel.add(btnBack);
+		
 		add(sidePanel);
 	}
 	
@@ -179,8 +183,9 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		
 		statusPanel.removeAll();
 		
-		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(537, 479, 95, 23);
+		JButton btnRefresh = new JButton("Refresh Times");
+		btnRefresh.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRefresh.setBounds(241, 474, 149, 30);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refreshStatusPanel();
@@ -189,14 +194,15 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		statusPanel.add(btnRefresh);
 		
 		JPanel heroStatusPanel = new JPanel(new GridLayout(0, 3, 0, 0));
-		heroStatusPanel.setBounds(0, 0, 632, 463);		
+		heroStatusPanel.setBounds(0, 0, 632, 460);		
 		statusPanel.add(heroStatusPanel);
 		
 		for (Hero hero : team().getHeroes()) {
 			
 			//TODO remove this once Apply panel is created
-			HealingItem someItem = new AlicornDust();
-			hero.setAppliedHealingItem(someItem);
+//			HealingItem someItem = new AlicornDust();
+//			hero.setAppliedHealingItem(someItem);
+			//
 			
 			HealingItem healingItem = hero.getAppliedHealingItem();
 			
@@ -213,62 +219,63 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			
 			JLabel lblName = new JLabel(String.format("%s the %s", hero.getName(), hero.getType()));
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
-			lblName.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblName.setBounds(0, 164, 210, 22);
+			lblName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblName.setBounds(10, 161, 190, 34);
 			heroPanel.add(lblName);
 			
-			JLabel lblHealth = new JLabel(String.format("Health: %d/%d", hero.getCurrentHealth(), hero.getMaxHealth()));
-			lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHealth.setBounds(28, 197, 150, 22);
+			JLabel lblHealth = new JLabel("Health:");
+			lblHealth.setFont(new Font("Tahoma", Font.BOLD, 13));
+			lblHealth.setBounds(10, 209, 54, 22);
 			heroPanel.add(lblHealth);
 			
-			JLabel lblAppliedItem = new JLabel("Applied Item:");
-			lblAppliedItem.setHorizontalAlignment(SwingConstants.CENTER);
+			JLabel lblHealthValue = new JLabel(String.format("%d/%d",
+												hero.getCurrentHealth(),
+												hero.getMaxHealth()));
+			lblHealthValue.setBounds(65, 208, 104, 25);
+			heroPanel.add(lblHealthValue);
+			lblHealthValue.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblHealthValue.setHorizontalAlignment(SwingConstants.LEFT);
+			
+			JLabel lblAppliedItem = new JLabel("Applied healing item:");
+			lblAppliedItem.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAppliedItem.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblAppliedItem.setBounds(28, 230, 150, 22);
+			lblAppliedItem.setBounds(10, 250, 168, 22);
 			heroPanel.add(lblAppliedItem);
 			
-			JPanel appliedItemPanel = new JPanel();
-			appliedItemPanel.setBounds(28, 255, 150, 175);
-			heroPanel.add(appliedItemPanel);
-			appliedItemPanel.setLayout(null);
-			
-			if (healingItem instanceof HealingItem) {
+			if (healingItem != null) {
 				int incrementsRemaining = healingItem.getIncrementsRemaining();
-				int numIncrements = healingItem.getNumIncrements();
 				
-				JLabel lblItemIcon = new JLabel("");
-				lblItemIcon.setBounds(10, 10, 38, 38);
-				lblItemIcon.setIcon(new ImageIcon(HospitalPanel.class.getResource(Image.healingItemImageFilepath(healingItem, 38))));
-				appliedItemPanel.add(lblItemIcon);
+				JLabel lblHealingItemIcon = new JLabel("");
+				lblHealingItemIcon.setBounds(26, 277, 38, 38);
+				heroPanel.add(lblHealingItemIcon);
+				lblHealingItemIcon.setIcon(new ImageIcon(HospitalPanel.class.getResource(
+						Image.healingItemImageFilepath(healingItem, 38))));
 				
-				JLabel lblAppliedItemName = new JLabel(hero.getAppliedHealingItem().getName());
-				lblAppliedItemName.setHorizontalAlignment(SwingConstants.RIGHT);
-				lblAppliedItemName.setBounds(60, 22, 80, 15);
-				appliedItemPanel.add(lblAppliedItemName);
+				JLabel lblAppliedItemName = new JLabel(healingItem.toString());
+				lblAppliedItemName.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				lblAppliedItemName.setBounds(74, 277, 126, 38);
+				heroPanel.add(lblAppliedItemName);
 				
-				JLabel lblTimeRemaining = new JLabel("Time Until Heal:");
-				lblTimeRemaining.setHorizontalAlignment(SwingConstants.CENTER);
-				lblTimeRemaining.setBounds(10, 69, 130, 21);
-				appliedItemPanel.add(lblTimeRemaining);
+				JLabel lblHealingItemStatus = new JLabel("Healing item status:");
+				lblHealingItemStatus.setHorizontalAlignment(SwingConstants.LEFT);
+				lblHealingItemStatus.setFont(new Font("Tahoma", Font.BOLD, 13));
+				lblHealingItemStatus.setBounds(10, 326, 168, 22);
+				heroPanel.add(lblHealingItemStatus);
 				
-				JLabel lblSeconds = new JLabel(String.format("%d seconds", hero.getAppliedHealingItem().secondsRemaining()));
-				lblSeconds.setHorizontalAlignment(SwingConstants.CENTER);
-				lblSeconds.setBounds(10, 104, 130, 15);
-				appliedItemPanel.add(lblSeconds);
-				
-				JLabel lblApplied = new JLabel(String.format("%d%% of %d%% applied",
-															 (int)(HealingItem.INCREMENT_SIZE*100)*(numIncrements - incrementsRemaining),
-															 (int)(HealingItem.INCREMENT_SIZE*100)*numIncrements));				
-				lblApplied.setHorizontalAlignment(SwingConstants.CENTER);
-				lblApplied.setBounds(10, 132, 130, 15);
-				appliedItemPanel.add(lblApplied);
+				JTextPane txtpnOfHealth = new JTextPane();
+				txtpnOfHealth.setBackground(UIManager.getColor("Panel.background"));
+				txtpnOfHealth.setText(String.format("Remaining health to restore:\r\n    %s%%\r\n\r\n"
+						+ "Time until next 25%% increment in health:\r\n    %s seconds.\r\n",
+						(int) (incrementsRemaining * HealingItem.INCREMENT_SIZE * 100),
+						healingItem.secondsRemaining()));
+				txtpnOfHealth.setBounds(20, 350, 175, 102);
+				heroPanel.add(txtpnOfHealth);
 			}
 			else {
 				JLabel lblNoItem = new JLabel("No applied Healing Item");
-				lblNoItem.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNoItem.setBounds(0, 5, 150, 21);
-				appliedItemPanel.add(lblNoItem);
+				lblNoItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				lblNoItem.setBounds(20, 277, 158, 38);
+				heroPanel.add(lblNoItem);
 			}
 		}
 	}

@@ -448,6 +448,7 @@ public class SetUpPanel extends JPanel {
 		txtpnHerosSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtpnHerosSpecialAbility.setText(hero.getSpecialAbility());
 		txtpnHerosSpecialAbility.setBounds(240, 90, 268, 50);
+		txtpnHerosSpecialAbility.setEditable(false);
 		infoPanel.add(txtpnHerosSpecialAbility);
 		
 		JLabel lblMaxHealth = new JLabel(String.format("Max Health: %s", hero.getMaxHealth()));
@@ -460,6 +461,7 @@ public class SetUpPanel extends JPanel {
 		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtpnDescription.setText(hero.getDescription());
 		txtpnDescription.setBounds(10, 232, 508, 160);
+		txtpnDescription.setEditable(false);
 		infoPanel.add(txtpnDescription);
 		
 		return infoPanel;
