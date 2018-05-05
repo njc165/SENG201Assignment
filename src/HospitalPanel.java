@@ -69,7 +69,8 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	}
 	
 	public void refresh() {
-		// TODO Auto-generated method stub
+		refreshStatusPanel();
+		refreshApplyPanel();
 	}
 	
 	/**
@@ -194,7 +195,8 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		for (Hero hero : team().getHeroes()) {
 			
 			//TODO remove this once Apply panel is created
-			hero.setAppliedHealingItem(new AlicornDust());
+			HealingItem someItem = new AlicornDust();
+			hero.setAppliedHealingItem(someItem);
 			
 			HealingItem healingItem = hero.getAppliedHealingItem();
 			
@@ -205,14 +207,14 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			
 			JLabel lblImage = new JLabel("");
 			lblImage.setBounds(28, 11, 150, 150);
-			// TODO lblImage.setIcon(new ImageIcon(HospitalPanel.class.getResource(filepath)));
+			lblImage.setIcon(new ImageIcon(HospitalPanel.class.getResource(Image.heroPortraitFilepath(hero, 150))));
 			lblImage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroPanel.add(lblImage);
 			
 			JLabel lblName = new JLabel(String.format("%s the %s", hero.getName(), hero.getType()));
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 			lblName.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblName.setBounds(28, 164, 150, 22);
+			lblName.setBounds(0, 164, 210, 22);
 			heroPanel.add(lblName);
 			
 			JLabel lblHealth = new JLabel(String.format("Health: %d/%d", hero.getCurrentHealth(), hero.getMaxHealth()));
@@ -237,7 +239,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 				
 				JLabel lblItemIcon = new JLabel("");
 				lblItemIcon.setBounds(10, 10, 38, 38);
-				lblItemIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				lblItemIcon.setIcon(new ImageIcon(HospitalPanel.class.getResource(Image.healingItemImageFilepath(healingItem, 38))));
 				appliedItemPanel.add(lblItemIcon);
 				
 				JLabel lblAppliedItemName = new JLabel(hero.getAppliedHealingItem().getName());
