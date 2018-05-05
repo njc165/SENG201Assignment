@@ -586,9 +586,9 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 					
 					JLabel lblNumPowerUps = new JLabel(String.format("(%s)",
 															powerUpTypeCounts.get(powerUpType)));
-					lblNumPowerUps.setHorizontalAlignment(SwingConstants.LEFT);
+					lblNumPowerUps.setHorizontalAlignment(SwingConstants.CENTER);
 					lblNumPowerUps.setFont(new Font("Tahoma", Font.PLAIN, 13));
-					lblNumPowerUps.setBounds(xCoord, 466, 35, 25);
+					lblNumPowerUps.setBounds(xCoord - 5, 466, 35, 25);
 					heroPanel.add(lblNumPowerUps);
 					
 					xCoord += 35;
