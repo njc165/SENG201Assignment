@@ -158,11 +158,15 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		
 		contentPanelCardLayout.show(contentPanel, STATUS_PANEL_STRING);
 		add(contentPanel);
-		}
+	}
 	
 	private void addStatusPanel() {	
-		statusPanel = new JPanel(new GridLayout(0, 3, 0, 0));
+		statusPanel = new JPanel(null);
 		contentPanel.add(statusPanel, STATUS_PANEL_STRING);
+		
+		/*JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setBounds(527, 479, 95, 23);
+		statusPanel.add(btnRefresh);*/
 	}
 	
 	private void addApplyPanel() {
@@ -174,6 +178,19 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		
 		statusPanel.removeAll();
 		
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setBounds(537, 479, 95, 23);
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshStatusPanel();
+			}
+		});
+		statusPanel.add(btnRefresh);
+		
+		JPanel heroStatusPanel = new JPanel(new GridLayout(0, 3, 0, 0));
+		heroStatusPanel.setBounds(0, 0, 632, 463);		
+		statusPanel.add(heroStatusPanel);
+		
 		for (Hero hero : team().getHeroes()) {
 			
 			//TODO remove this once Apply panel is created
@@ -182,7 +199,8 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			HealingItem healingItem = hero.getAppliedHealingItem();
 			
 			JPanel heroPanel = new JPanel();
-			statusPanel.add(heroPanel);
+			heroPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			heroStatusPanel.add(heroPanel);
 			heroPanel.setLayout(null);
 			
 			JLabel lblImage = new JLabel("");
@@ -229,19 +247,19 @@ public class HospitalPanel extends JPanel implements Refreshable {
 				
 				JLabel lblTimeRemaining = new JLabel("Time Until Heal:");
 				lblTimeRemaining.setHorizontalAlignment(SwingConstants.CENTER);
-				lblTimeRemaining.setBounds(10, 59, 130, 21);
+				lblTimeRemaining.setBounds(10, 69, 130, 21);
 				appliedItemPanel.add(lblTimeRemaining);
 				
 				JLabel lblSeconds = new JLabel(String.format("%d seconds", hero.getAppliedHealingItem().secondsRemaining()));
 				lblSeconds.setHorizontalAlignment(SwingConstants.CENTER);
-				lblSeconds.setBounds(10, 84, 130, 15);
+				lblSeconds.setBounds(10, 104, 130, 15);
 				appliedItemPanel.add(lblSeconds);
 				
 				JLabel lblApplied = new JLabel(String.format("%d%% of %d%% applied",
 															 (int)(HealingItem.INCREMENT_SIZE*100)*(numIncrements - incrementsRemaining),
 															 (int)(HealingItem.INCREMENT_SIZE*100)*numIncrements));				
 				lblApplied.setHorizontalAlignment(SwingConstants.CENTER);
-				lblApplied.setBounds(10, 117, 130, 15);
+				lblApplied.setBounds(10, 132, 130, 15);
 				appliedItemPanel.add(lblApplied);
 			}
 			else {
