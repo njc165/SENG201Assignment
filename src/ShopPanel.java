@@ -125,7 +125,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		JLabel lblShop = new JLabel("SHOP");
 		lblShop.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		lblShop.setHorizontalAlignment(SwingConstants.CENTER);
-		lblShop.setBounds(0, 0, 880, 75);
+		lblShop.setBounds(10, 11, 860, 64);
 		add(lblShop);
 	}
 	
@@ -202,15 +202,15 @@ public class ShopPanel extends JPanel implements Refreshable {
 		btnViewMaps.setBounds(10, 289, 195, 30);
 		sidePanel.add(btnViewMaps);
 		
-		JButton btnExitShop = new JButton("Exit Shop");
-		btnExitShop.addActionListener(new ActionListener() {
+		JButton btnReturnToHomeBase = new JButton("Return to Home Base");
+		btnReturnToHomeBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
 			}
 		});
-		btnExitShop.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnExitShop.setBounds(47, 462, 120, 30);
-		sidePanel.add(btnExitShop);
+		btnReturnToHomeBase.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnReturnToHomeBase.setBounds(10, 461, 195, 30);
+		sidePanel.add(btnReturnToHomeBase);
 		
 		
 	}

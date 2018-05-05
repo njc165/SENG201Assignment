@@ -28,8 +28,6 @@ public class Image {
 	 * @return			The file path of the portrait image of this hero.
 	 */
 	public static String heroPortraitFilepath(Hero hero, int size) {
-		// TODO
-		size = 200;
 		return String.format("/img/%s_%sx%s.png",
 								hero.getType().toLowerCase(),
 								size, size);
