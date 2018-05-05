@@ -120,9 +120,8 @@ public class HealingItem {
 	 * Returns the time in seconds remaining until the next increment.
 	 * @return The number of seconds until the next increment.
 	 */
-	public int secondsRemaining() {
-		long secondsUntilNextIncrement = Long.max(0, LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
-		return (int) secondsUntilNextIncrement;
+	public long secondsRemaining() {
+		return Long.max(0, LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
 	}
 	
 	/**
@@ -230,5 +229,9 @@ public class HealingItem {
 	 */
 	public int getNumIncrements() {
 		return numIncrements;
+	}
+	
+	public String toString() {
+		return name;
 	}
 }

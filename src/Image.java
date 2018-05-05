@@ -53,9 +53,9 @@ public class Image {
 	 * @param size 			The size of the image to return.
 	 * @return				The file path of the image for that healing item.
 	 */
-	public static String healingItemImageFilepath(HealingItem healingItem, int size) {
+	public static String healingItemImageFilepath(HealingItem healingItem, int size) {		
 		return String.format("/img/%s_%sx%s.png",
-				healingItem.toString().toLowerCase().replaceAll(" ", "_"),
+				healingItem.getName().toLowerCase().replaceAll(" ", "_"),
 				size, size);
 	}
 	
