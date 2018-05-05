@@ -61,13 +61,6 @@ public class HealingItem {
 		this.incrementsRemaining = numIncrements;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		return name;
-	}
-	
 	/**
 	 * Returns a description of the item as a formatted String to be displayed
 	 * to the user in the shop.
@@ -121,6 +114,15 @@ public class HealingItem {
 							 percentageRemaining,
 							 timeUntilNextIncrement,
 							 incrementPercentage);
+	}
+	
+	/**
+	 * Returns the time in seconds remaining until the next increment.
+	 * @return The number of seconds until the next increment.
+	 */
+	public int secondsRemaining() {
+		long secondsUntilNextIncrement = Long.max(0, LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
+		return (int) secondsUntilNextIncrement;
 	}
 	
 	/**
@@ -220,5 +222,13 @@ public class HealingItem {
 	 */
 	public int getIncrementsRemaining() {
 		return incrementsRemaining;
+	}
+	
+	/**
+	 * Getter method for numIncrements.
+	 * @return The value of numIncrements.
+	 */
+	public int getNumIncrements() {
+		return numIncrements;
 	}
 }
