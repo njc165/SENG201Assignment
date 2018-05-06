@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.CardLayout;
@@ -96,10 +97,14 @@ public class Game {
 	 */
 	public void setPanel(String panelString) {
 		cardLayout.show(mainPanel, panelString);
+		game.healHeroes();
 		((Refreshable) visiblePanel()).refresh();
 		
 		if (visiblePanel() instanceof HomeBasePanel) {
-			((HomeBasePanel) visiblePanel()).setRandomEventText(game.randomEvent());
+			String randomEventText = game.randomEvent();
+			if (randomEventText != null) {
+				JOptionPane.showMessageDialog(frame, randomEventText);
+			}
 		}
 	}
 	
@@ -133,6 +138,4 @@ public class Game {
 	public void setGame(GameEnvironment game) {
 		this.game = game;
 	}
-	
-
 }

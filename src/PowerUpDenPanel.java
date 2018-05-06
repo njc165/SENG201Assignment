@@ -102,23 +102,6 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 	}
 	
 	/**
-	 * Takes a ButtonGroup of JRadioButtons and returns the selected button.
-	 * @param buttonGroup	The relevant ButtonGroup.
-	 * @return				The currently selected button in the ButtonGroup.
-	 */
-	private JRadioButton selectedButton(ButtonGroup buttonGroup) {
-		JRadioButton selectedButton = null;
-		for (Enumeration<AbstractButton> e = buttonGroup.getElements(); e.hasMoreElements();) {
-			JRadioButton button = (JRadioButton) e.nextElement();
-			if (button.isSelected()) {
-				selectedButton = button;
-			}
-		}
-		return selectedButton;
-		       
-	}
-	
-	/**
 	 * Adds the power up den title label.
 	 */
 	private void addTitle() {
@@ -208,8 +191,8 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 		btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JRadioButton selectedHeroRadioButton = selectedButton(heroRadioButtonGroup);
-				JRadioButton selectedPowerUpRadioButton = selectedButton(powerUpRadioButtonGroup);
+				JRadioButton selectedHeroRadioButton = Util.selectedButton(heroRadioButtonGroup);
+				JRadioButton selectedPowerUpRadioButton = Util.selectedButton(powerUpRadioButtonGroup);
 				
 				Hero hero = (Hero) selectedHeroRadioButton.getClientProperty("Hero");
 				PowerUp powerUp = (PowerUp) selectedPowerUpRadioButton.getClientProperty("PowerUp");
@@ -303,8 +286,9 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 			powerUpPanel.setLayout(null);
 			
 			JLabel lblPowerUpImage = new JLabel("");
-			//TODO add power up images
 			lblPowerUpImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+			lblPowerUpImage.setIcon(new ImageIcon(PowerUpDenPanel.class.getResource(
+					Image.powerUpImageFilepath(powerUp.getType(), 80))));
 			lblPowerUpImage.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPowerUpImage.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblPowerUpImage.setBounds(34, 0, 80, 80);
