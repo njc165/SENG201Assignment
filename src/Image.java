@@ -80,6 +80,10 @@ public class Image {
 		return filepath;
 	}
 
-
+	public static String villainImageFilepath(Villain villain) {
+		String name = villain.getName().split(" ")[0].toLowerCase();
+		String filepath = String.format("/img/%s.png", name);
+		return filepath;
+	}
 
 }
