@@ -3,10 +3,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -19,6 +21,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -47,9 +50,38 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	private JPanel contentPanel;
 	
 	/**
-	 * A subpanel of the hospital content panel.
+	 * A sub panel of the hospital content panel.
 	 */
 	private JPanel statusPanel;
+	
+	/**
+	 * A panel allowing the user to select a hero and select a healing item
+	 * to apply to the hero.
+	 */
+	private JPanel applyPanel;
+	
+	/**
+	 * A ButtonGroup containing a radio button for each hero currently on
+	 * the team.
+	 */
+	private ButtonGroup heroRadioButtonGroup;
+	
+	/**
+	 * A ButtonGroup containing a radio button for each healing item.
+	 */
+	private ButtonGroup healingItemRadioButtonGroup;
+	
+	/**
+	 * A button which when pressed, applies the selected healing item to
+	 * the selected hero.
+	 */
+	private JButton btnApply;
+	
+	/**
+	 * A text pane which informs the user when a healing item has been applied
+	 * to a hero, and is empty otherwise.
+	 */
+	private JTextPane txtpnHealingItemApplied;
 	
 	private Game gameWindow;
 	
@@ -70,9 +102,6 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	}
 	
 	public void refresh() {
-		// TODO remove after testing
-//		team().getHeroes().get(0).setAppliedHealingItem(new AlicornDust());
-//		team().getHeroes().get(1).setAppliedHealingItem(new SuspiciousTonic());
 		refreshStatusPanel();
 		refreshApplyPanel();
 	}
@@ -174,11 +203,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		statusPanel.add(btnRefresh);*/
 	}
 	
-	private void addApplyPanel() {
-		JPanel applyPanel = new JPanel();
-		contentPanel.add(applyPanel, APPLY_PANEL_STRING);
-	}
-	
+
 	private void refreshStatusPanel() {
 		
 		statusPanel.removeAll();
@@ -188,6 +213,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		btnRefresh.setBounds(241, 474, 149, 30);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gameWindow.getGame().healHeroes();
 				refreshStatusPanel();
 			}
 		});
@@ -198,11 +224,6 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		statusPanel.add(heroStatusPanel);
 		
 		for (Hero hero : team().getHeroes()) {
-			
-			//TODO remove this once Apply panel is created
-//			HealingItem someItem = new AlicornDust();
-//			hero.setAppliedHealingItem(someItem);
-			//
 			
 			HealingItem healingItem = hero.getAppliedHealingItem();
 			
@@ -280,7 +301,200 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		}
 	}
 	
-	private void refreshApplyPanel() {
-		//TODO
+	
+	
+	
+	
+	
+	/**
+	 * Adds the panel allowing the user to apply healing items to heroes
+	 * to the content panel card layout.
+	 */
+	private void addApplyPanel() {
+		applyPanel = new JPanel();
+		applyPanel.setLayout(null);
+		applyPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		contentPanel.add(applyPanel, APPLY_PANEL_STRING);
 	}
+	
+	
+	/**
+	 * Removes all components from the apply panel, and adds them again.
+	 */
+	private void refreshApplyPanel() {
+		applyPanel.removeAll();
+		
+		JLabel lblSelectHero = new JLabel("Select a Hero:");
+		lblSelectHero.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSelectHero.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblSelectHero.setBounds(10, 6, 615, 40);
+		applyPanel.add(lblSelectHero);
+		
+		JLabel lblSelectHealingItem = new JLabel("Select a Healing Item:");
+		lblSelectHealingItem.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSelectHealingItem.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblSelectHealingItem.setBounds(10, 222, 615, 40);
+		applyPanel.add(lblSelectHealingItem);
+		
+		addSelectHeroPanel();
+		
+		addSelectHealingItemPanel();
+
+		btnApply = new JButton("Apply");
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JRadioButton selectedHeroRadioButton = Util.selectedButton(heroRadioButtonGroup);
+				JRadioButton selectedHealingItemRadioButton = Util.selectedButton(healingItemRadioButtonGroup);
+				
+				Hero hero = (Hero) selectedHeroRadioButton.getClientProperty("Hero");
+				HealingItem healingItem = (HealingItem) selectedHealingItemRadioButton.getClientProperty("HealingItem");
+				
+				HealingItem healingItemFromTeam = team().healingItemOfGivenType(healingItem.getName());
+				team().getHealingItemsOwned().remove(healingItemFromTeam);
+				hero.setAppliedHealingItem(healingItemFromTeam);
+				
+				refresh();
+				contentPanelCardLayout.show(contentPanel, APPLY_PANEL_STRING);
+				
+				txtpnHealingItemApplied.setText(String.format(
+						"One %s has been applied to %s!",
+						healingItem,
+						hero));
+			}
+		});
+		btnApply.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnApply.setBounds(250, 446, 135, 30);
+		applyPanel.add(btnApply);
+		
+		refreshApplyButton();
+		
+		txtpnHealingItemApplied = new JTextPane();
+		txtpnHealingItemApplied.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnHealingItemApplied.setBackground(UIManager.getColor("Panel.background"));
+		txtpnHealingItemApplied.setBounds(395, 442, 230, 50);
+		applyPanel.add(txtpnHealingItemApplied);
+
+
+	}
+	
+	/**
+	 * Adds a panel showing each hero on the team, with a radio button
+	 * allowing the user to select that hero. Each radio button is only
+	 * enabled if that hero does not already have an applied healing item.
+	 */
+	private void addSelectHeroPanel() {
+		JPanel selectHeroPanel = new JPanel();
+		selectHeroPanel.setBounds(21, 57, 593, 154);
+		applyPanel.add(selectHeroPanel);
+		selectHeroPanel.setLayout(new GridLayout(0, team().getHeroes().size(), 0, 0));
+		
+		heroRadioButtonGroup = new ButtonGroup();
+		
+		for (Hero hero: team().getHeroes()) {
+			
+			JPanel heroPanel = new JPanel();
+			selectHeroPanel.add(heroPanel);
+			heroPanel.setLayout(new BorderLayout(0, 0));
+			
+			JLabel lblHeroImage = new JLabel("");
+			lblHeroImage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroImage.setIcon(new ImageIcon(PowerUpDenPanel.class.getResource(
+									Image.heroPortraitFilepath(hero, 100))));
+			heroPanel.add(lblHeroImage, BorderLayout.NORTH);
+			
+			JLabel lblHeroName = new JLabel(hero.toString());
+			lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
+			heroPanel.add(lblHeroName, BorderLayout.CENTER);
+			
+			JRadioButton radioButton = new JRadioButton("");
+			radioButton.setHorizontalAlignment(SwingConstants.CENTER);
+			radioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					refreshApplyButton();
+				}
+			});
+			radioButton.putClientProperty("Hero", hero);
+			radioButton.setEnabled(hero.getAppliedHealingItem() == null);
+			heroPanel.add(radioButton, BorderLayout.SOUTH);
+			heroRadioButtonGroup.add(radioButton);
+		}
+	}
+	
+	/**
+	 * Adds a panel showing each healing item and the number of that healing item
+	 * owned by the team. Each healing item has a radio button allowing the user
+	 * to select it, which is only enabled if the team owns at least one of
+	 * that healing item.
+	 */
+	private void addSelectHealingItemPanel() {
+		JPanel selectHealingItemPanel = new JPanel();
+		selectHealingItemPanel.setBounds(20, 273, 593, 154);
+		applyPanel.add(selectHealingItemPanel);
+		selectHealingItemPanel.setLayout(new GridLayout(0, GameEnvironment.ALL_HEALING_ITEMS.length, 0, 0));
+		
+		healingItemRadioButtonGroup = new ButtonGroup();
+		
+		for (HealingItem healingItem: GameEnvironment.ALL_HEALING_ITEMS) {
+			
+			JPanel healingItemPanel = new JPanel();
+			selectHealingItemPanel.add(healingItemPanel);
+			healingItemPanel.setLayout(null);
+			
+			JLabel lblHealingItemImage = new JLabel("");
+			lblHealingItemImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+			lblHealingItemImage.setIcon(new ImageIcon(HospitalPanel.class.getResource(
+									Image.healingItemImageFilepath(healingItem, 80))));
+			lblHealingItemImage.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHealingItemImage.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			lblHealingItemImage.setBounds(59, 0, 80, 80);
+			healingItemPanel.add(lblHealingItemImage);
+			
+			JLabel lblHealingItemType = new JLabel(healingItem.toString());
+			lblHealingItemType.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHealingItemType.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblHealingItemType.setBounds(10, 82, 178, 25);
+			healingItemPanel.add(lblHealingItemType);
+			
+			JLabel lblNumOwned = new JLabel(String.format("(%s owned)",
+									team().numHealingItemsOwned(healingItem.getName())));
+			lblNumOwned.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNumOwned.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			lblNumOwned.setBounds(10, 106, 178, 25);
+			healingItemPanel.add(lblNumOwned);
+			
+			JRadioButton radioButton = new JRadioButton("");
+			radioButton.setHorizontalAlignment(SwingConstants.CENTER);
+			radioButton.setBounds(0, 133, 198, 21);
+			radioButton.setEnabled(team().numHealingItemsOwned(healingItem.getName()) > 0);
+			radioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					refreshApplyButton();
+				}
+			});
+			radioButton.putClientProperty("HealingItem", healingItem);
+			healingItemPanel.add(radioButton);
+			healingItemRadioButtonGroup.add(radioButton);
+		}
+	}
+	
+	/**
+	 * Enables the Apply button if there is a hero and a healing item
+	 * selected, otherwise disables it.
+	 */
+	private void refreshApplyButton() {
+		btnApply.setEnabled(heroRadioButtonGroup.getSelection() != null
+						 	&& healingItemRadioButtonGroup.getSelection() != null);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

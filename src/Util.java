@@ -1,5 +1,10 @@
 import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
 import java.util.Scanner;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 public class Util {
 	
@@ -117,8 +122,20 @@ public class Util {
 	}
 	
 	
-	public static void main(String[] args) {
-		Util.getIntFromUser(5, "Enter number");
+	/**
+	 * Takes a ButtonGroup of JRadioButtons and returns the selected button.
+	 * @param buttonGroup	The relevant ButtonGroup.
+	 * @return				The currently selected button in the ButtonGroup.
+	 */
+	public static JRadioButton selectedButton(ButtonGroup buttonGroup) {
+		JRadioButton selectedButton = null;
+		for (Enumeration<AbstractButton> e = buttonGroup.getElements(); e.hasMoreElements();) {
+			JRadioButton button = (JRadioButton) e.nextElement();
+			if (button.isSelected()) {
+				selectedButton = button;
+			}
+		}
+		return selectedButton;
 	}
 	
 }
