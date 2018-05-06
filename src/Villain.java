@@ -117,7 +117,7 @@ public class Villain {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return name;
+		return getName();
 	}
 	
 	/**
@@ -146,6 +146,16 @@ public class Villain {
 		return taunt;
 	}
 	
+	/**
+	 * Getter method for name.
+	 * @return The value of name.
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+
 	/**
 	 * Getter method for damageDealt.
 	 * @return The value of damageDealt.
