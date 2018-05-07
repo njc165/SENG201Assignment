@@ -30,10 +30,19 @@ import javax.swing.UIManager;
 
 public class HospitalPanel extends JPanel implements Refreshable {
 
+	/**
+	 * A String representation of the Hospital Panel
+	 */
 	public static final String HOSPITAL_PANEL_STRING = "Hospital Panel";
 	
+	/**
+	 * A String representation of the status panel
+	 */
 	private static final String STATUS_PANEL_STRING = "Status Panel";
 	
+	/**
+	 * A String representation of the apply panel.
+	 */
 	private static final String APPLY_PANEL_STRING = "Apply Panel";
 	
 	/**
@@ -51,8 +60,15 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	 */
 	private JPanel statusPanel;
 	
+	/**
+	 * The main game window.
+	 */
 	private Game gameWindow;
 	
+	/**
+	 * A constructor for the HospitalPanel class.
+	 * @param game
+	 */
 	public HospitalPanel(Game game) {
 		super();
 		this.gameWindow = game;
@@ -65,10 +81,18 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		addContentPanel();
 		}
 
+	/**
+	 * Provides access to the team associated with the current Game.
+	 * @return
+	 */
 	private Team team() {
 		return gameWindow.getGame().getTeam();
 	}
 	
+	/**
+	 * Refresh all panels belonging to HospitalPanel which
+	 * display information which may have changed.
+	 */
 	public void refresh() {
 		// TODO remove after testing
 //		team().getHeroes().get(0).setAppliedHealingItem(new AlicornDust());
@@ -94,6 +118,9 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		add(titlePanel);		
 	}
 	
+	/**
+	 * Create the side panel and add it to the HospitalPanel
+	 */
 	private void addSidePanel() {
 		JPanel sidePanel = new JPanel();
 		sidePanel.setBounds(10, 86, 215, 513);
@@ -165,20 +192,29 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		add(contentPanel);
 	}
 	
+	/**
+	 * Create the status panel used by the main content panel.
+	 * Remains bare until populated by refreshStatusPanel.
+	 */
 	private void addStatusPanel() {	
 		statusPanel = new JPanel(null);
 		contentPanel.add(statusPanel, STATUS_PANEL_STRING);
-		
-		/*JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(527, 479, 95, 23);
-		statusPanel.add(btnRefresh);*/
 	}
 	
+	/**
+	 * Create the apply panel used by the main content panel.
+	 * Remains bare until populated by refreshApplyPanel.
+	 */
 	private void addApplyPanel() {
 		JPanel applyPanel = new JPanel();
 		contentPanel.add(applyPanel, APPLY_PANEL_STRING);
 	}
 	
+	/**
+	 * Refreshes the status panel by removing and rebuilding all its
+	 * components. This ensures any changes in variable components
+	 * are displayed correctly.
+	 */
 	private void refreshStatusPanel() {
 		
 		statusPanel.removeAll();
@@ -280,6 +316,11 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		}
 	}
 	
+	/**
+	 * Refreshes the apply panel by removing and reconstructing
+	 * all its components. This ensures any changes in variable
+	 * components are displayed correctly.
+	 */
 	private void refreshApplyPanel() {
 		//TODO
 	}
