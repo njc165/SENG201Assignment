@@ -32,7 +32,7 @@ public class GameEnvironment {
 	 * The probability as a decimal that a random event will occur each time the
 	 * team returns to the home base.
 	 */
-	private final double RANDOM_EVENT_PROBABILITY = 0.5;
+	private final double RANDOM_EVENT_PROBABILITY = 1;
 	
 	/**
 	 * The team of heroes playing the game.
@@ -135,8 +135,15 @@ public class GameEnvironment {
 		}
 	}
 	
-	
-	
+	/**
+	 * Any healing items currently applied to heroes on the team are updated,
+	 * increasing the hero's health if needed.
+	 */
+	public void healHeroes() {
+		for (Hero hero: team.getHeroes()) {
+			hero.heal();
+		}
+	}
 	
 	/**
 	 * Implements the possibility of a random event occurring to the team.
@@ -147,10 +154,10 @@ public class GameEnvironment {
 	 * - the team is gifted a random item to their inventory.
 	 * The two types of random event occur with equal probability.
 	 * @return		A string description of the random event that has occurred,
-	 * 				or the empty string if no event occurred.
+	 * 				or null if no event occurred.
 	 */
 	public String randomEvent() {
-		String randomEventDescription = "";
+		String randomEventDescription = null;
 		
 		Random random = new Random();
 		if(random.nextDouble() < RANDOM_EVENT_PROBABILITY) {
@@ -186,7 +193,7 @@ public class GameEnvironment {
 		}
 		
 		return String.format("Random Event!\n\n"
-				+ "The citizens aid you in your fight against the villains. "
+				+ "The citizens aid you in your fight against the villains.\n"
 				+ "They have gifted you one %s.", itemToAdd);
 	}
 	
@@ -218,18 +225,13 @@ public class GameEnvironment {
 		
 		if (itemLost != null) {
 			return String.format("Random Event!\n\n"
-					+ "You have been robbed. A sneaky bandit has run off with your %s.",
+					+ "You have been robbed.\nA sneaky bandit has run off with your %s.",
 					itemLost);
 		} else {
-			return "";
+			return null;
 		}
 	}
 	
-	
-	
-	
-	
-
 	/**
 	 * Getter method for team.
 	 * @return The value of team.

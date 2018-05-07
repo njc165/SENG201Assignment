@@ -117,12 +117,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	private JTextPane txtpnMapUsedMessage;
 	
 	/**
-	 * A text pane which displays a description of random events when they occur,
-	 * and is otherwise empty.
-	 */
-	private JTextPane txtpnRandomEvent;
-	
-	/**
 	 * A label showing the number of the current city.
 	 */
 	private JLabel lblCurrentCity;
@@ -172,16 +166,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		refreshSidePanel();
 		refreshStatusPanel();
 		refreshMapPanel();
-	}
-	
-	/**
-	 * Sets the random event information panel to show the given text.
-	 * Called every time the team returns to the home base.
-	 * @param randomEvent	A string description of the random event that has
-	 * 						occurred, or the empty string if no event occurred.
-	 */
-	public void setRandomEventText(String randomEventDescription) {
-		txtpnRandomEvent.setText(randomEventDescription);
 	}
 	
 	/**
@@ -288,13 +272,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		txtpnMapUsedMessage.setBounds(10, 266, 195, 45);
 		txtpnMapUsedMessage.setVisible(false);
 		sidePanel.add(txtpnMapUsedMessage);
-		
-		txtpnRandomEvent = new JTextPane();
-		txtpnRandomEvent.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnRandomEvent.setBackground(new Color(240, 240, 240));
-		txtpnRandomEvent.setEditable(false);
-		txtpnRandomEvent.setBounds(10, 328, 195, 134);
-		sidePanel.add(txtpnRandomEvent);
 		
 		add(sidePanel);
 	}
@@ -438,7 +415,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblMapsOwned.setText(String.format("Owned: %d", team().getNumMaps()));
 		txtpnMapUsedMessage.setVisible(false);
 		btnUseMap.setEnabled(team().getNumMaps() > 0);
-		txtpnRandomEvent.setText("");
 	}
 	
 	/**

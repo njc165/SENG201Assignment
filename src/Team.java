@@ -266,7 +266,7 @@ public class Team {
 	/**
 	 * Takes the name of a healing item, and returns a healing item of that type
 	 * from the team's list of owned healing items.
-	 * If the team doesn't own any healing items of that type, raises a RuntimeException.
+	 * If the team doesn't own any healing items of that type, raises a NoneOwnedException.
 	 * @param name	The name of the healing item to be found
 	 * @return		A HealingItem object with the given name from the teams list of
 	 * 				owned healing items.
