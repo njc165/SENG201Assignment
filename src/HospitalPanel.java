@@ -231,15 +231,6 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	}
 	
 	/**
-	 * Create the apply panel used by the main content panel.
-	 * Remains bare until populated by refreshApplyPanel.
-	 */
-	private void addApplyPanel() {
-		JPanel applyPanel = new JPanel();
-		contentPanel.add(applyPanel, APPLY_PANEL_STRING);
-	}
-	
-	/**
 	 * Refreshes the status panel by removing and rebuilding all its
 	 * components. This ensures any changes in variable components
 	 * are displayed correctly.
@@ -521,15 +512,4 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		btnApply.setEnabled(heroRadioButtonGroup.getSelection() != null
 						 	&& healingItemRadioButtonGroup.getSelection() != null);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
