@@ -32,7 +32,7 @@ public class GameEnvironment {
 	 * The probability as a decimal that a random event will occur each time the
 	 * team returns to the home base.
 	 */
-	private final double RANDOM_EVENT_PROBABILITY = 1;
+	private final double RANDOM_EVENT_PROBABILITY = 0.2;
 	
 	/**
 	 * The team of heroes playing the game.

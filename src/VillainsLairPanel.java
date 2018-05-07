@@ -39,6 +39,8 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	
 	private static final String SELECT_HERO_PANEL_STRING = "Select Hero Panel";
 	
+	private static final String BATTLE_PANEL_STRING = "Battle Panel";
+	
 	private JPanel titlePanel;
 	
 	private CardLayout subContentPanelCardLayout;
@@ -53,15 +55,23 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	
 	private JPanel heroListPanel;
 	
+	/**
+	 * A panel showing the selected hero's image, and a panel for the mini-game
+	 * being played.
+	 */
+	private JPanel battlePanel;
+	
 	private ButtonGroup heroSelectButtonGroup;
 	
 	private JButton btnGo;
 	
-	private Villain villain;
-	
-	private Team team;
-	
 	private Game gameWindow;
+	
+	/**
+	 * The hero which the user has chosen to battle the villain.
+	 * Updated when the user chooses a new hero at the start of each round.
+	 */
+	private Hero currentHero;
 	
 	public VillainsLairPanel(Game game) {
 		super();
@@ -77,6 +87,22 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	public void refresh() {
 		refreshContentPanel();
 		
+	}
+	
+	/**
+	 * Returns the villain in the current city.
+	 * @return	The villain in the current city.
+	 */
+	private Villain villain() {
+		return gameWindow.getGame().currentCity().getVillain();
+	}
+	
+	/**
+	 * Returns the team of the game environment.
+	 * @return	The team of the game environment.
+	 */
+	private Team team() {
+		return gameWindow.getGame().getTeam();
 	}
 	
 	private void addTitlePanel() {
@@ -95,16 +121,56 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	
 	private void addContentPanel() {
 		contentPanel = new JPanel(null);
-		contentPanel.setBounds(10, 84, 870, 527);
+		contentPanel.setBounds(10, 85, 870, 515);
+		add(contentPanel);
+		
+		//=============================================
+//		contentPanel.removeAll();
+//		
+//		JLabel lblVillainImage = new JLabel("");
+//		lblVillainImage.setBounds(694, 61, 150, 300);
+//		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(new Invictus()))));
+//		contentPanel.add(lblVillainImage);
+//		
+//		JLabel lblVillainName = new JLabel((new Invictus()).toString());
+//		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+//		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblVillainName.setBounds(694, 389, 166, 25);
+//		contentPanel.add(lblVillainName);
+//		
+//		addSubContentPanel();
+		
+		
+		
+		
+
+	}
+	
+	private void refreshContentPanel() {
+		contentPanel.removeAll();
+		
+		JLabel lblVillainImage = new JLabel("");
+		lblVillainImage.setBounds(694, 62, 150, 300);
+		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(new Invictus()))));
+		contentPanel.add(lblVillainImage);
+		
+		JLabel lblVillainName = new JLabel((new Invictus()).toString());
+		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVillainName.setBounds(694, 389, 166, 25);
+		contentPanel.add(lblVillainName);
+		
+		addSubContentPanel();
 	}
 		
 	private void addSubContentPanel() {
 		subContentPanelCardLayout = new CardLayout();
 		subContentPanel = new JPanel(subContentPanelCardLayout);
-		subContentPanel.setBounds(0, 0, 634, 516);
+		subContentPanel.setBounds(0, 0, 670, 516);
 		
 		addStartEncounterPanel();
 		addSelectHeroPanel();
+		addBattlePanel();
 		
 		subContentPanelCardLayout.show(subContentPanel, START_ENCOUNTER_PANEL_STRING);
 		
@@ -116,35 +182,34 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		
 		subContentPanel.add(startEncounterPanel, START_ENCOUNTER_PANEL_STRING);
 		
-		JLabel lblYouFound = new JLabel("You found");
-		lblYouFound.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblYouFound.setBounds(274, 53, 89, 37);
+		JLabel lblYouFound = new JLabel("You have found the lair of");
+		lblYouFound.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYouFound.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblYouFound.setBounds(10, 57, 664, 37);
 		startEncounterPanel.add(lblYouFound);
 		
-		JLabel lblVillainName = new JLabel(villain.toString());
+		JLabel lblVillainName = new JLabel(villain().toString());
 		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVillainName.setBounds(32, 105, 571, 71);
+		lblVillainName.setBounds(10, 105, 664, 71);
 		startEncounterPanel.add(lblVillainName);
 		
-		JTextArea txtVillainTaunt = new JTextArea();
-		txtVillainTaunt.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtVillainTaunt.setLineWrap(true);
-		txtVillainTaunt.setEditable(false);
-		txtVillainTaunt.setText(villain.getTaunt());
-		txtVillainTaunt.setBackground(UIManager.getColor("contentPanel.background"));
-		txtVillainTaunt.setBounds(103, 210, 432, 105);
+		JLabel txtVillainTaunt = new JLabel();
+		txtVillainTaunt.setHorizontalAlignment(SwingConstants.CENTER);
+		txtVillainTaunt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtVillainTaunt.setText(String.format("\"%s\"", villain().getTaunt()));
+		txtVillainTaunt.setBounds(10, 187, 664, 53);
 		startEncounterPanel.add(txtVillainTaunt);
 		
-		JButton btnFight = new JButton("Fight Him!");
+		JButton btnFight = new JButton("Fight!");
 		btnFight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refreshSelectHeroPanel();
 				subContentPanelCardLayout.show(subContentPanel, SELECT_HERO_PANEL_STRING);
 			}
 		});
-		btnFight.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnFight.setBounds(123, 375, 145, 35);
+		btnFight.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnFight.setBounds(148, 382, 145, 35);
 		startEncounterPanel.add(btnFight);
 		
 		JButton btnRunAway = new JButton("Run Away!");
@@ -153,27 +218,56 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 				gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
 			}
 		});
-		btnRunAway.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnRunAway.setBounds(366, 376, 145, 35);
+		btnRunAway.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRunAway.setBounds(393, 382, 145, 35);
 		startEncounterPanel.add(btnRunAway);
 	}
 	
 	private void addSelectHeroPanel() {
 		selectHeroPanel = new JPanel();	
 		subContentPanel.add(selectHeroPanel, SELECT_HERO_PANEL_STRING);
-		selectHeroPanel.setLayout(null);
+		selectHeroPanel.setLayout(null);		
+	}
+	
+	private void refreshSelectHeroPanel() {
+		selectHeroPanel.removeAll();
+		
+		JLabel lblChooseAHero = new JLabel("Choose a Hero for the Battle...");
+		lblChooseAHero.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChooseAHero.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblChooseAHero.setBounds(10, 36, 612, 42);
+		selectHeroPanel.add(lblChooseAHero);
+		
+		addHeroListPanel();
+		
+		btnGo = new JButton("Go!");
+		btnGo.setEnabled(false);
+		btnGo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnGo.setBounds(250, 474, 183, 29);
+		btnGo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentHero = (Hero) Util.selectedButton(heroSelectButtonGroup)
+										.getClientProperty("Hero");
+				refreshBattlePanel();
+				subContentPanelCardLayout.show(subContentPanel, BATTLE_PANEL_STRING);
+			}
+		});
+		selectHeroPanel.add(btnGo);
+
 	}
 	
 	private void addHeroListPanel() {
+		heroListPanel = new JPanel(new GridLayout(0, 3, 0, 0));
+		heroListPanel.setBounds(10, 89, 612, 374);
+		
 		heroSelectButtonGroup = new ButtonGroup();
-		for (Hero hero : team.getHeroes()) {
+		for (Hero hero : team().getHeroes()) {
 			JPanel heroPanel = new JPanel();
-			heroPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroListPanel.add(heroPanel);
 			heroPanel.setLayout(null);
 			
 			JLabel heroImage = new JLabel();
-			heroImage.setBounds(25, 10, 150, 150);
+			heroImage.setBounds(35, 10, 150, 150);
 			heroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroPortraitFilepath(hero, 150))));
 			heroImage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroPanel.add(heroImage);
@@ -181,37 +275,38 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			JLabel heroName = new JLabel(String.format("%s the %s", hero.getName(), hero.getType()));
 			heroName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			heroName.setHorizontalAlignment(SwingConstants.CENTER);
-			heroName.setBounds(10, 158, 184, 27);
+			heroName.setBounds(8, 171, 204, 27);
 			heroPanel.add(heroName);
 			
 			JLabel lblHealth = new JLabel("Health:");
 			lblHealth.setHorizontalAlignment(SwingConstants.LEFT);
 			lblHealth.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblHealth.setBounds(25, 196, 67, 27);
+			lblHealth.setBounds(18, 209, 56, 27);
 			heroPanel.add(lblHealth);
 			
 			JLabel lblHealthAmount = new JLabel();
-			lblHealthAmount.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblHealthAmount.setHorizontalAlignment(SwingConstants.LEFT);
 			lblHealthAmount.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			lblHealthAmount.setBounds(72, 196, 107, 27);
+			lblHealthAmount.setBounds(84, 209, 71, 27);
 			lblHealthAmount.setText(String.format("%d/%d", hero.getCurrentHealth(), hero.getMaxHealth()));
 			heroPanel.add(lblHealthAmount);
 			
 			JLabel lblSpecialAbility = new JLabel("Special Ability:");
 			lblSpecialAbility.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblSpecialAbility.setBounds(10, 233, 107, 27);
+			lblSpecialAbility.setBounds(18, 242, 107, 27);
 			heroPanel.add(lblSpecialAbility);
 			
-			JTextArea txtSpecialAbility = new JTextArea(hero.getSpecialAbility());
+			JTextPane txtSpecialAbility = new JTextPane();
+			txtSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			txtSpecialAbility.setText(hero.getSpecialAbility());
 			txtSpecialAbility.setBackground(UIManager.getColor("contentPanel.background"));
 			txtSpecialAbility.setEditable(false);
-			txtSpecialAbility.setWrapStyleWord(true);
-			txtSpecialAbility.setLineWrap(true);
-			txtSpecialAbility.setBounds(10, 260, 184, 46);
+			txtSpecialAbility.setBounds(28, 270, 160, 45);
 			heroPanel.add(txtSpecialAbility);
 			
 			JRadioButton radioButton = new JRadioButton("");
-			radioButton.setBounds(89, 326, 26, 23);
+			radioButton.setHorizontalAlignment(SwingConstants.CENTER);
+			radioButton.setBounds(6, 322, 206, 45);
 			radioButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					refreshGoButton();
@@ -226,56 +321,72 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		selectHeroPanel.add(heroListPanel);
 	}
 	
-	private void refreshContentPanel() {
-		contentPanel.removeAll();
-		
-		villain = gameWindow.getGame().currentCity().getVillain();
-		team = gameWindow.getGame().getTeam();
-		
-		JLabel lblVillainImage = new JLabel("");
-		lblVillainImage.setBounds(633, 32, 200, 400);
-		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(villain))));
-		contentPanel.add(lblVillainImage);
-		
-		JLabel lblVillainName = new JLabel(villain.toString());
-		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVillainName.setBounds(633, 443, 200, 25);
-		contentPanel.add(lblVillainName);
-		
-		addSubContentPanel();
-		
-		add(contentPanel);
-	}
-	
-	private void refreshSelectHeroPanel() {
-		selectHeroPanel.removeAll();
-		
-		JLabel lblChooseAHero = new JLabel("Choose a Hero for the Battle...");
-		lblChooseAHero.setHorizontalAlignment(SwingConstants.CENTER);
-		lblChooseAHero.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblChooseAHero.setBounds(10, 36, 612, 42);
-		selectHeroPanel.add(lblChooseAHero);
-		
-		heroListPanel = new JPanel(new GridLayout(0, 3, 0, 0));
-		heroListPanel.setBounds(10, 89, 612, 374);
-		
-		addHeroListPanel();
-		
-		btnGo = new JButton("Go!");
-		btnGo.setEnabled(false);
-		btnGo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnGo.setBounds(217, 474, 183, 29);
-		btnGo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// TODO implement this - starts the fight
-			}
-		});
-		selectHeroPanel.add(btnGo);
-
-	}
-	
 	private void refreshGoButton() {
 		btnGo.setEnabled(heroSelectButtonGroup.getSelection() != null);
 	}
+	
+	/**
+	 * Adds the panel showing the hero's image, and the mini-game panel.
+	 */
+	private void addBattlePanel() {
+		battlePanel = new JPanel();
+		subContentPanel.add(battlePanel, BATTLE_PANEL_STRING);
+		battlePanel.setLayout(null);
+	}
+	
+	/**
+	 * Removes all components from the battle panel and reloads them.
+	 * Should be called before each round of the battle, to display the
+	 * correct hero's image, and create a new mini-game.
+	 */
+	private void refreshBattlePanel() {
+		battlePanel.removeAll();
+		
+		JPanel heroImagePanel = new JPanel();
+		heroImagePanel.setBounds(10, 11, 170, 494);
+		battlePanel.add(heroImagePanel);
+		heroImagePanel.setLayout(null);
+		
+		JLabel lblHeroImage = new JLabel("");
+		// TODO change to heroes' images
+		lblHeroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource("/img/invictus.png")));
+		lblHeroImage.setBounds(10, 51, 150, 300);
+		heroImagePanel.add(lblHeroImage);
+		
+		JLabel lblHeroName = new JLabel(String.format("%s the", currentHero.getName()));
+		lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblHeroName.setBounds(10, 362, 150, 25);
+		heroImagePanel.add(lblHeroName);
+		
+		JLabel lblHeroType = new JLabel(currentHero.getType());
+		lblHeroType.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeroType.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblHeroType.setBounds(10, 385, 150, 25);
+		heroImagePanel.add(lblHeroType);
+		
+		JPanel miniGamePanel = new JPanel();
+		miniGamePanel.setBounds(190, 11, 484, 494);
+		battlePanel.add(miniGamePanel);
+		
+		miniGamePanel.add(newMiniGamePanel());
+	}
+	
+	/**
+	 * Creates and returns a new mini-game panel of one of the three possible types,
+	 * depending on the games played by the current villain.
+	 */
+	private JPanel newMiniGamePanel() {
+		MiniGames miniGameType = villain().getGame();
+		
+		// TODO
+		return new JPanel();
+		
+		
+	}
+	
+	
+	
+	
+	
 }
