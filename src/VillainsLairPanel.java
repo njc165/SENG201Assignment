@@ -33,36 +33,92 @@ import javax.swing.JRadioButton;
 
 public class VillainsLairPanel extends JPanel implements Refreshable {
 
+	/**
+	 * A String representation of the villains lair panel
+	 */
 	public static final String VILLAINS_LAIR_PANEL_STRING = "Villain's Lair Panel";
 	
+	/**
+	 * A String representation of the start encounter panel
+	 */
 	private static final String START_ENCOUNTER_PANEL_STRING = "Start Encounter Panel";
 	
+	/**
+	 * A String representation of the select hero panel
+	 */
 	private static final String SELECT_HERO_PANEL_STRING = "Select Hero Panel";
 	
+	/**
+	 * The panel which appears at the top of the window and displays
+	 * the name of the currently visited location.
+	 */
 	private JPanel titlePanel;
 	
+	/**
+	 * The cardlayout used by subContentPanel.
+	 */
 	private CardLayout subContentPanelCardLayout;
 	
+	/**
+	 * The main content panel for VillainsLairPanel.
+	 * Contains few components with most contained
+	 * within subContentPanel.
+	 */
 	private JPanel contentPanel;
 	
+	/**
+	 * A subpanel of contentPanel which holds most of the components.
+	 */
 	private JPanel subContentPanel;
 	
+	/**
+	 * The panel first displayed when entering the villains lair.
+	 */
 	private JPanel startEncounterPanel;
 	
+	/**
+	 * The panel through which a player selects the hero with which they
+	 * will battle the villain.
+	 */
 	private JPanel selectHeroPanel;
 	
+	/**
+	 * A subpanel of selectHeroPanel, uses a GridLayout to list all the
+	 * heroes on the team and prompts the user to select one.
+	 */
 	private JPanel heroListPanel;
 	
+	/**
+	 * Holds all the radio buttons for selecting a hero to fight the villain
+	 */
 	private ButtonGroup heroSelectButtonGroup;
 	
+	/**
+	 * The button which initiates a fight with the villain,
+	 * using the selected hero.
+	 */
 	private JButton btnGo;
 	
+	/**
+	 * The villain associated with the current city (and this
+	 * instance of VillainsLairPanel)
+	 */
 	private Villain villain;
 	
+	/**
+	 * The team associated with the current game instance.
+	 */
 	private Team team;
 	
+	/**
+	 * The game currently being played.
+	 */
 	private Game gameWindow;
 	
+	/**
+	 * Constructor for VillainsLairPanel
+	 * @param game
+	 */
 	public VillainsLairPanel(Game game) {
 		super();
 		this.gameWindow = game;
@@ -74,11 +130,17 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		addContentPanel();
 	}
 
+	/**
+	 * Refreshes all components which display information
+	 * which may have changed.
+	 */
 	public void refresh() {
-		refreshContentPanel();
-		
+		refreshContentPanel();	
 	}
 	
+	/**
+	 * Create the title panel and add it to the window.
+	 */
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
 		titlePanel.setBounds(10, 10, 870, 64);
@@ -93,11 +155,18 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		add(titlePanel);		
 	}
 	
+	/**
+	 * Create the main content panel and add it to the window
+	 */
 	private void addContentPanel() {
 		contentPanel = new JPanel(null);
 		contentPanel.setBounds(10, 84, 870, 527);
 	}
-		
+	
+	/**
+	 * Create the component of contentPanel which holds most of the
+	 * information.
+	 */
 	private void addSubContentPanel() {
 		subContentPanelCardLayout = new CardLayout();
 		subContentPanel = new JPanel(subContentPanelCardLayout);
@@ -111,6 +180,10 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		contentPanel.add(subContentPanel);
 	}
 	
+	/**
+	 * Create the panel which is displayed when a player
+	 * first enters the villains lair.
+	 */
 	private void addStartEncounterPanel() {
 		startEncounterPanel = new JPanel(null);
 		
@@ -158,12 +231,20 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		startEncounterPanel.add(btnRunAway);
 	}
 	
+	/**
+	 * Create the panel through which the player
+	 * selects a hero to battle the villain.
+	 */
 	private void addSelectHeroPanel() {
 		selectHeroPanel = new JPanel();	
 		subContentPanel.add(selectHeroPanel, SELECT_HERO_PANEL_STRING);
 		selectHeroPanel.setLayout(null);
 	}
 	
+	/**
+	 * Create the panel component of selectHeroPanel
+	 * which lists all the heroes on the team.
+	 */
 	private void addHeroListPanel() {
 		heroSelectButtonGroup = new ButtonGroup();
 		for (Hero hero : team.getHeroes()) {
@@ -226,6 +307,11 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		selectHeroPanel.add(heroListPanel);
 	}
 	
+	/**
+	 * Refresh the main content panel by removing and
+	 * rebuilding all of its components.
+	 * This keeps variable components up to date.
+	 */
 	private void refreshContentPanel() {
 		contentPanel.removeAll();
 		
@@ -248,6 +334,11 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		add(contentPanel);
 	}
 	
+	/**
+	 * Refresh the selectHeroPanel by removing and
+	 * rebuilding all of its components.
+	 * This keeps variable components up to date.
+	 */
 	private void refreshSelectHeroPanel() {
 		selectHeroPanel.removeAll();
 		
@@ -275,6 +366,11 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 
 	}
 	
+	/**
+	 * Refresh the 'Go' button component of the selectHero panel.
+	 * Used to enable the button if and only if a valid hero has
+	 * been selected from heroListPanel.
+	 */
 	private void refreshGoButton() {
 		btnGo.setEnabled(heroSelectButtonGroup.getSelection() != null);
 	}
