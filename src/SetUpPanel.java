@@ -238,7 +238,7 @@ public class SetUpPanel extends JPanel {
 	private void initialiseCreateTeamPanel() {
 		createTeamPanel.setLayout(null);
 		
-		JLabel lblEnterTeamName = new JLabel("Enter a name for you team of heroes:");
+		JLabel lblEnterTeamName = new JLabel("Enter a name for your team of heroes:");
 		lblEnterTeamName.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEnterTeamName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblEnterTeamName.setBounds(10, 74, 414, 32);
