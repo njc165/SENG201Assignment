@@ -238,7 +238,7 @@ public class SetUpPanel extends JPanel {
 	private void initialiseCreateTeamPanel() {
 		createTeamPanel.setLayout(null);
 		
-		JLabel lblEnterTeamName = new JLabel("Enter a name for you team of heroes:");
+		JLabel lblEnterTeamName = new JLabel("Enter a name for your team of heroes:");
 		lblEnterTeamName.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEnterTeamName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblEnterTeamName.setBounds(10, 74, 414, 32);
@@ -428,7 +428,7 @@ public class SetUpPanel extends JPanel {
 		
 		JLabel lblHeroImage = new JLabel("");
 		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(
-				  				Image.heroPortraitFilepath(hero, 200))));
+				  				Image.heroImageFilepath(hero, 200, 200))));
 		lblHeroImage.setBounds(10, 11, 200, 200);
 		infoPanel.add(lblHeroImage);
 		
@@ -546,7 +546,7 @@ public class SetUpPanel extends JPanel {
 		JLabel lblHeroImage = new JLabel("");
 		lblHeroImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(
-								Image.heroPortraitFilepath(hero, 200))));
+								Image.heroImageFilepath(hero, 200, 200))));
 		heroSummaryPanel.add(lblHeroImage, BorderLayout.NORTH);
 		
 		JLabel lblHeroName = new JLabel(String.format(

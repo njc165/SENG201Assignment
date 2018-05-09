@@ -265,7 +265,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			
 			JLabel lblImage = new JLabel("");
 			lblImage.setBounds(28, 11, 150, 150);
-			lblImage.setIcon(new ImageIcon(HospitalPanel.class.getResource(Image.heroPortraitFilepath(hero, 150))));
+			lblImage.setIcon(new ImageIcon(HospitalPanel.class.getResource(Image.heroImageFilepath(hero, 150, 150))));
 			lblImage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroPanel.add(lblImage);
 			
@@ -425,7 +425,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			JLabel lblHeroImage = new JLabel("");
 			lblHeroImage.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHeroImage.setIcon(new ImageIcon(PowerUpDenPanel.class.getResource(
-									Image.heroPortraitFilepath(hero, 100))));
+									Image.heroImageFilepath(hero, 100, 100))));
 			heroPanel.add(lblHeroImage, BorderLayout.NORTH);
 			
 			JLabel lblHeroName = new JLabel(hero.toString());

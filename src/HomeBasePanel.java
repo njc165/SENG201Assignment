@@ -473,7 +473,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			JLabel lblHeroPortrait = new JLabel("");
 			lblHeroPortrait.setBounds(30, 24, 150, 150);
 			lblHeroPortrait.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
-										Image.heroPortraitFilepath(hero, 150))));
+										Image.heroImageFilepath(hero, 150, 150))));
 			heroPanel.add(lblHeroPortrait);
 
 			JLabel lblHeroName = new JLabel(String.format("%s the %s", hero.getName(),
