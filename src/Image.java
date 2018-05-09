@@ -27,10 +27,10 @@ public class Image {
 	 * @param size 		The size of the image to be returned.
 	 * @return			The file path of the portrait image of this hero.
 	 */
-	public static String heroPortraitFilepath(Hero hero, int size) {
+	public static String heroImageFilepath(Hero hero, int width, int height) {
 		return String.format("/img/%s_%sx%s.png",
 								hero.getType().toLowerCase(),
-								size, size);
+								width, height);
 	}
 	
 	/**

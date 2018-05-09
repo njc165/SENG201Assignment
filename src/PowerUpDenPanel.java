@@ -244,7 +244,7 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 			JLabel lblHeroImage = new JLabel("");
 			lblHeroImage.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHeroImage.setIcon(new ImageIcon(PowerUpDenPanel.class.getResource(
-									Image.heroPortraitFilepath(hero, 100))));
+									Image.heroImageFilepath(hero, 100, 100))));
 			heroPanel.add(lblHeroImage, BorderLayout.NORTH);
 			
 			JLabel lblHeroName = new JLabel(hero.toString());

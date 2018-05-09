@@ -128,16 +128,16 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 //		contentPanel.removeAll();
 //		
 //		JLabel lblVillainImage = new JLabel("");
-//		lblVillainImage.setBounds(694, 61, 150, 300);
+//		lblVillainImage.setBounds(694, 11, 150, 375);
 //		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(new Invictus()))));
 //		contentPanel.add(lblVillainImage);
 //		
 //		JLabel lblVillainName = new JLabel((new Invictus()).toString());
 //		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 //		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblVillainName.setBounds(694, 389, 166, 25);
+//		lblVillainName.setBounds(673, 397, 190, 25);
 //		contentPanel.add(lblVillainName);
-//		
+
 //		addSubContentPanel();
 		
 		
@@ -150,14 +150,14 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		contentPanel.removeAll();
 		
 		JLabel lblVillainImage = new JLabel("");
-		lblVillainImage.setBounds(694, 62, 150, 300);
-		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(new Invictus()))));
+		lblVillainImage.setBounds(694, 11, 150, 375);
+		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(villain()))));
 		contentPanel.add(lblVillainImage);
 		
-		JLabel lblVillainName = new JLabel((new Invictus()).toString());
+		JLabel lblVillainName = new JLabel((villain().toString()));
 		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVillainName.setBounds(694, 389, 166, 25);
+		lblVillainName.setBounds(673, 397, 190, 25);
 		contentPanel.add(lblVillainName);
 		
 		addSubContentPanel();
@@ -268,7 +268,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			
 			JLabel heroImage = new JLabel();
 			heroImage.setBounds(35, 10, 150, 150);
-			heroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroPortraitFilepath(hero, 150))));
+			heroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroImageFilepath(hero, 150, 150))));
 			heroImage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroPanel.add(heroImage);
 			
@@ -349,7 +349,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		
 		JLabel lblHeroImage = new JLabel("");
 		// TODO change to heroes' images
-		lblHeroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource("/img/invictus.png")));
+		lblHeroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroImageFilepath(currentHero, 150, 300))));
 		lblHeroImage.setBounds(10, 51, 150, 300);
 		heroImagePanel.add(lblHeroImage);
 		
