@@ -53,27 +53,25 @@ public class PaperScissorsRock extends MiniGame {
 	/**
 	 * Given the hero and villain choices of paper, scissors, or rock,
 	 * determines who won the game.
-	 * @param heroChoice The choice made by the hero.
-	 * @param villainChoice The choice made by the villain.
 	 * @return A String representing the outcome of the game, from the hero's perspective. Could be "Win", "Draw", or "Loss"
 	 */
-	private String computeOutcome(String heroChoice, String villainChoice) {
-		if (heroChoice == "Paper") {
-			if (villainChoice == "Paper") {
+	public String computeOutcome() {
+		if (herosChoice == "Paper") {
+			if (villainsChoice == "Paper") {
 				return "Draw";
 			}
-			else if (villainChoice == "Scissors") {
+			else if (villainsChoice == "Scissors") {
 				return "Loss";
 			}
 			else {
 				return "Win";
 			}
 		}
-		else if (heroChoice == "Scissors") {
-			if (villainChoice == "Paper") {
+		else if (herosChoice == "Scissors") {
+			if (villainsChoice == "Paper") {
 				return "Win";
 			}
-			else if (villainChoice == "Scissors") {
+			else if (villainsChoice == "Scissors") {
 				return "Draw";
 			}
 			else {
@@ -81,10 +79,10 @@ public class PaperScissorsRock extends MiniGame {
 			}
 		}
 		else {
-			if (villainChoice == "Paper") {
+			if (villainsChoice == "Paper") {
 				return "Loss";
 			}
-			else if (villainChoice == "Scissors") {
+			else if (villainsChoice == "Scissors") {
 				return "Win";
 			}
 			else {
@@ -92,59 +90,20 @@ public class PaperScissorsRock extends MiniGame {
 			}
 		}
 		
-	}
-	
-	/**
-	 * When a game is drawn, checks if hero has a Tiebreaker power-up
-	 * and responds appropriately.
-	 */
-	private boolean handleDraw() {
-		
-		boolean hasTiebreaker = getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0;
-		
-		if (hasTiebreaker) {
-			System.out.println("It was a draw, but your Tiebreaker power-up gives you the win!\n");
-			this.setHasWon(true);
-			return true;
-		}
-		else {
-			System.out.println("It was a draw! Play again.\n");
-			return false;
-		}
-				
-	}
-	
-	/**
-	 * Checks if the current hero has a Mindreader power-up.
-	 * @return true if the hero has a Mindreader power-up, false otherwise.
-	 */
-	private boolean hasMindReader() {
-		Hero hero = getHero();
-		return (hero.getHasBattleAdvantage()
-				|| hero.numPowerUps(PowerUpType.MINDREADER) > 0);
 	}
 	
 	/**
 	 * Prints to output one choice that the villain did not make.
 	 * @param villainChoice
 	 */
-	private void revealNot(String villainChoice) {
+	public String revealNot() {
+		String returnString = "If you see this, PSR.revealNot() is broken";
 		for (String choice : CHOICES) {		
-			if (!(choice == villainChoice)) {
-				if (getHero().getHasBattleAdvantage()) {
-					System.out.println(String.format("Your special ability lets you sense that "
-														+ "%s did not play %s.\n",
-															getVillain(),
-															choice));
-				} else {
-					System.out.println(String.format("Your Mindreader power up lets you sense that "
-													+ "%s did not play %s.\n",
-													getVillain(),
-													choice));
-				}
-				break;
+			if ( choice != villainsChoice) {
+				returnString = choice;
 			}
 		}
+		return returnString;
 	}
 	
 	/**
@@ -153,6 +112,14 @@ public class PaperScissorsRock extends MiniGame {
 	 */
 	public void setHerosChoice(String choice) {
 		herosChoice = choice;
+	}
+	
+	public String getHeroChoiceImage() {
+		return Image.getHeroPSRImage(herosChoice);
+	}
+	
+	public String getVillainChoiceImage() {
+		return Image.getVillainPSRImage(villainsChoice);
 	}
 	
 }

@@ -85,5 +85,15 @@ public class Image {
 		String filepath = String.format("/img/%s.png", name);
 		return filepath;
 	}
+	
+	public static String getHeroPSRImage(String choice) {
+		String filepath = String.format("/img/PSR_hero_%s.png", choice.toLowerCase());
+		return filepath;
+	}
+	
+	public static String getVillainPSRImage(String choice) {
+		String filepath = String.format("/img/PSR_villain_%s.png", choice.toLowerCase());
+		return filepath;
+	}
 
 }

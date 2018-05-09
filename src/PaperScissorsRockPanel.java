@@ -72,10 +72,16 @@ public class PaperScissorsRockPanel extends JPanel {
 	 */
 	private JPanel gamePanel;
 	
+	private JPanel endGamePanel;
+	
 	/**
 	 * A subpanel of gamePanel which holds all interactive elements.
 	 */
 	private JPanel interactivePanel;
+	
+	private JLabel lblHeroChoice;
+	
+	private JLabel lblVillainChoice;
 	
 	/**
 	 * Creates a new panel which displays the game play for a single
@@ -146,9 +152,9 @@ public class PaperScissorsRockPanel extends JPanel {
 		lblSource.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		powerUpPanel.add(lblSource);
 		
-		String notPlayed = "";
+		String notPlayed = minigame.revealNot();
 		
-		JLabel lblNotPlayed = new JLabel("New label");
+		JLabel lblNotPlayed = new JLabel(notPlayed);
 		lblNotPlayed.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNotPlayed.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNotPlayed.setBounds(10, 20, 424, 20);
@@ -166,13 +172,13 @@ public class PaperScissorsRockPanel extends JPanel {
 		add(gamePanel);
 		gamePanel.setLayout(null);
 		
-		JLabel lblHeroChoice = new JLabel("");
+		lblHeroChoice = new JLabel("");
 		lblHeroChoice.setBounds(10, 11, 100, 100);
 		lblHeroChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		//TODO add image
 		gamePanel.add(lblHeroChoice);
 		
-		JLabel lblVillainChoice = new JLabel("");
+		lblVillainChoice = new JLabel("");
 		lblVillainChoice.setBounds(354, 11, 100, 100);
 		lblVillainChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		//TODO add image
@@ -198,19 +204,147 @@ public class PaperScissorsRockPanel extends JPanel {
 	
 	private void addChoosePanel() {
 		JPanel choosePanel = new JPanel();
-		//TODO
+		choosePanel.setLayout(null);
+		
+		JButton btnPaper = new JButton("Paper");
+		btnPaper.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				minigame.setHerosChoice("Paper");
+				refreshGamePanel();
+				String result = minigame.computeOutcome();
+				manageGameOutcome(result);
+			}
+		});
+		btnPaper.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnPaper.setBounds(10, 100, 203, 40);
+		choosePanel.add(btnPaper);
+		
+		JButton btnScissors = new JButton("Scissors");
+		btnScissors.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				minigame.setHerosChoice("Scissors");
+				refreshGamePanel();
+				String result = minigame.computeOutcome();
+				manageGameOutcome(result);
+			}
+		});
+		btnScissors.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnScissors.setBounds(10, 151, 203, 40);
+		choosePanel.add(btnScissors);
+		
+		JButton btnRock = new JButton("Rock");
+		btnRock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				minigame.setHerosChoice("Rock");
+				refreshGamePanel();
+				String result = minigame.computeOutcome();
+				manageGameOutcome(result);
+			}
+		});
+		btnRock.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRock.setBounds(10, 202, 203, 40);
+		choosePanel.add(btnRock);
+		
 		interactivePanel.add(choosePanel, CHOOSE_PANEL_STRING);
+		
+		JLabel lblPromptChoice = new JLabel("What will you play?");
+		lblPromptChoice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPromptChoice.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPromptChoice.setBounds(10, 11, 203, 75);
+		choosePanel.add(lblPromptChoice);
 	}
 	
 	private void addEndGamePanel() {
-		JPanel endGamePanel = new JPanel();
-		//TODO
+		endGamePanel = new JPanel();
+		endGamePanel.setLayout(null);
 		interactivePanel.add(endGamePanel, END_GAME_PANEL_STRING);
-	}
+	    }
 	
 	private void addDrawPanel() {
 		JPanel drawPanel = new JPanel();
-		//TODO
+		drawPanel.setLayout(null);
+				
+		JLabel lblDraw = new JLabel("DRAW");
+		lblDraw.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDraw.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblDraw.setBounds(10, 11, 203, 80);
+		drawPanel.add(lblDraw);
+		
+		JLabel lblPlayAgain = new JLabel("You'll have to play again.");
+		lblPlayAgain.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblPlayAgain.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPlayAgain.setBounds(0, 102, 223, 40);
+		drawPanel.add(lblPlayAgain);
+		
+		JButton btnPlayAgain = new JButton("Play Again");
+		btnPlayAgain.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnPlayAgain.setBounds(10, 167, 203, 40);
+		btnPlayAgain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO restart game
+			}
+		});
+		drawPanel.add(btnPlayAgain);
+
+		
 		interactivePanel.add(drawPanel, DRAW_PANEL_STRING);
+	}
+	
+	private void manageGameOutcome(String outcome) {
+		if (outcome == "Draw") {
+			if (minigame.getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0) {
+				refreshEndGamePanel(outcome, true);
+				interactivePanelCardLayout.show(interactivePanel, END_GAME_PANEL_STRING);
+			}
+			else {
+				interactivePanelCardLayout.show(interactivePanel, DRAW_PANEL_STRING);
+			}
+		}
+		else {
+			refreshEndGamePanel(outcome, false);
+			interactivePanelCardLayout.show(interactivePanel, END_GAME_PANEL_STRING);
+		}
+	}
+	
+	private void refreshGamePanel() {
+		String heroChoiceImageFilepath = minigame.getHeroChoiceImage();
+		String villainChoiceImageFilepath = minigame.getVillainChoiceImage();
+		
+		lblHeroChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(heroChoiceImageFilepath)));
+		lblVillainChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(villainChoiceImageFilepath)));
+	}
+	
+	private void refreshEndGamePanel(String outcome, boolean wonViaTiebreaker) {
+		JLabel lblResult = new JLabel();
+		String result;
+		if (outcome == "Win") {
+			result = "VICTORY";
+		}
+		else {
+			result = "DEFEAT";
+		}
+		lblResult.setText(result);
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblResult.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResult.setBounds(10, 11, 203, 80);
+		endGamePanel.add(lblResult);
+		
+		JLabel lblYourTiebreakerPowerup = new JLabel("Your Tiebreaker power-up activated!");
+		lblYourTiebreakerPowerup.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYourTiebreakerPowerup.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblYourTiebreakerPowerup.setBounds(0, 102, 223, 40);
+		if (wonViaTiebreaker) {
+			endGamePanel.add(lblYourTiebreakerPowerup);
+		}
+		
+		JButton btnContinue = new JButton("Continue");
+		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnContinue.setBounds(10, 167, 203, 40);
+		btnContinue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO go to damage dealt screen
+			}
+		});
+		endGamePanel.add(btnContinue);
 	}
 }
