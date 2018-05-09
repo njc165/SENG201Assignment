@@ -128,16 +128,25 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 //		contentPanel.removeAll();
 //		
 //		JLabel lblVillainImage = new JLabel("");
-//		lblVillainImage.setBounds(694, 11, 150, 375);
-//		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(new Invictus()))));
+//		lblVillainImage.setBounds(714, -24, 150, 375);
+//		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(villain()))));
 //		contentPanel.add(lblVillainImage);
 //		
-//		JLabel lblVillainName = new JLabel((new Invictus()).toString());
+//		String villainFirstName = villain().toString().split(" ")[0];
+//		String villainTitle     = villain().toString().split(" ")[2];
+//		
+//		JLabel lblVillainName = new JLabel(villainFirstName);
 //		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 //		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblVillainName.setBounds(673, 397, 190, 25);
+//		lblVillainName.setBounds(680, 362, 184, 25);
 //		contentPanel.add(lblVillainName);
-
+//		
+//		JLabel lblVillainTitle = new JLabel(String.format("the %s", villainTitle));
+//		lblVillainTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
+//		lblVillainTitle.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblVillainTitle.setBounds(680, 390, 180, 25);
+//		contentPanel.add(lblVillainTitle);
+//		
 //		addSubContentPanel();
 		
 		
@@ -150,15 +159,24 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		contentPanel.removeAll();
 		
 		JLabel lblVillainImage = new JLabel("");
-		lblVillainImage.setBounds(694, 11, 150, 375);
+		lblVillainImage.setBounds(714, -24, 150, 375);
 		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(villain()))));
 		contentPanel.add(lblVillainImage);
 		
-		JLabel lblVillainName = new JLabel((villain().toString()));
+		String villainFirstName = villain().toString().split(" ")[0];
+		String villainTitle     = villain().toString().split(" ")[2];
+		
+		JLabel lblVillainName = new JLabel(villainFirstName);
 		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVillainName.setBounds(673, 397, 190, 25);
+		lblVillainName.setBounds(693, 362, 190, 25);
 		contentPanel.add(lblVillainName);
+		
+		JLabel lblVillainTitle = new JLabel(String.format("the %s", villainTitle));
+		lblVillainTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblVillainTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVillainTitle.setBounds(693, 387, 190, 25);
+		contentPanel.add(lblVillainTitle);
 		
 		addSubContentPanel();
 	}
@@ -187,7 +205,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		lblYouFound.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblYouFound.setBounds(10, 57, 664, 37);
 		startEncounterPanel.add(lblYouFound);
-		
+				
 		JLabel lblVillainName = new JLabel(villain().toString());
 		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -353,16 +371,16 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		lblHeroImage.setBounds(10, 51, 150, 300);
 		heroImagePanel.add(lblHeroImage);
 		
-		JLabel lblHeroName = new JLabel(String.format("%s the", currentHero.getName()));
+		JLabel lblHeroName = new JLabel((currentHero.getName()));
 		lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblHeroName.setBounds(10, 362, 150, 25);
 		heroImagePanel.add(lblHeroName);
 		
-		JLabel lblHeroType = new JLabel(currentHero.getType());
+		JLabel lblHeroType = new JLabel(String.format("the %s", currentHero.getType()));
 		lblHeroType.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHeroType.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblHeroType.setBounds(10, 385, 150, 25);
+		lblHeroType.setBounds(5, 385, 150, 25);
 		heroImagePanel.add(lblHeroType);
 		
 		JPanel miniGamePanel = new JPanel();
