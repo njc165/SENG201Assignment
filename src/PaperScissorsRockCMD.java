@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class PaperScissorsRock extends MiniGame {
+public class PaperScissorsRockCMD extends MiniGame {
 
 	/**
 	 * An array of the power-up types which are relevant to Paper Scissors Rock.
@@ -11,43 +11,71 @@ public class PaperScissorsRock extends MiniGame {
 	 * The possible choices in a game of PaperScissorsRock.
 	 */
 	private final String[] CHOICES = {"Paper", "Scissors", "Rock"};
-	
-	/**
-	 * A string representation of what the villain associated with this game
-	 * will play (paper, scissors, or rock).
-	 */
-	private String villainsChoice;
-	
-	/**
-	 * A string representation of what the hero associated with this game
-	 * chose to play.
-	 */
-	private String herosChoice;
 		
 	/**
 	 * A constructor for PaperScissorsRock.
 	 * @param hero The hero playing Paper Scissors Rock.
 	 * @param villain The villain playing Paper Scissors Rock.
 	 */
-	public PaperScissorsRock(Hero hero, Villain villain) {
+	public PaperScissorsRockCMD(Hero hero, Villain villain) {
 		super(hero, villain, RELEVANT_POWER_UPS);
-		this.villainsChoice = getVillainChoice();
-	}
-	
-	public void play() {
-		//TODO what to do here?
 	}
 
 	/**
-	 * Uses random numbers to select a random choice that
-	 * the villain will play. Determined at the start of the game.
-	 * @return A string representing the villain's choice of
-	 *         paper, scissors, or rock.
+	 * Plays through a game of PaperScissorsRock.
+	 * Sets victory depending on the outcome.
 	 */
-	private String getVillainChoice() {
+	public void play() {
+		
 		Random rand = new Random();
-		int randNum = rand.nextInt(CHOICES.length);
-		return CHOICES[randNum];
+		boolean gameConcluded = false;
+		
+		while (!gameConcluded) {
+			int randNum = rand.nextInt(CHOICES.length);
+			String villainChoice = CHOICES[randNum];
+						
+			if (hasMindReader()) {
+				revealNot(villainChoice);
+			}
+			
+			System.out.println("What would you like to play?\n");
+			
+			for (int i = 0; i < CHOICES.length; i++) {
+				System.out.println(String.format("%s. %s", i+1, CHOICES[i]));
+			}
+			
+			int input = Util.getIntFromUser(3, "Enter you choice:");
+			String heroChoice = CHOICES[input - 1];
+						
+			System.out.println(String.format("You played %s. %s played %s.\n",
+												heroChoice,
+												getVillain(),
+												villainChoice));
+			
+			String gameOutcome = computeOutcome(heroChoice, villainChoice);
+			
+			if (gameOutcome == "Win") {
+				System.out.println("You won!");
+				System.out.println(String.format("You have defeated %s.\n",
+													getVillain()));
+				setHasWon(true);
+				gameConcluded = true;
+				
+			} else if (gameOutcome == "Draw") {
+				gameConcluded = handleDraw();
+				
+			} else if (gameOutcome == "Loss") {
+				System.out.println("You lost!");
+				System.out.println(String.format("%s has defeated you.\n",
+													getVillain()));
+				gameConcluded = true;
+				
+			} else {
+				throw new RuntimeException("Unexpected game outcome");
+			}
+		}
+	
+	removeRelevantPowerUps();
 	}
 	
 	/**
@@ -145,14 +173,6 @@ public class PaperScissorsRock extends MiniGame {
 				break;
 			}
 		}
-	}
-	
-	/**
-	 * Setter method for herosChoice.
-	 * @param choice The new value for herosChoice.
-	 */
-	public void setHerosChoice(String choice) {
-		herosChoice = choice;
 	}
 	
 }

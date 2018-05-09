@@ -16,7 +16,7 @@ class MiniGameTest {
 		MiniGame game3 = MiniGame.createGame(MiniGames.DICE_ROLLS, hero, villain);
 		
 		// Check that each game is correctly instantiatied
-		assertTrue(game1 instanceof PaperScissorsRock);
+		assertTrue(game1 instanceof PaperScissorsRockCMD);
 		assertTrue(game2 instanceof GuessNumber);
 		assertTrue(game3 instanceof DiceRolls);
 		
