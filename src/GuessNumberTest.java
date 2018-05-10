@@ -27,7 +27,7 @@ class GuessNumberTest {
 	@Test
 	final void testGuessNumber() {
 		// Create new guess number game
-		GuessNumber game = new GuessNumber(new Apprentice(""), new John());
+		GuessNumberCMD game = new GuessNumberCMD(new Apprentice(""), new John());
 		
 		// Superclass getters and setters can be used
 		assertEquals("Apprentice", game.getHero().getType());
@@ -43,7 +43,7 @@ class GuessNumberTest {
 	@Test
 	final void testRemoveRelevantPowerUps() {
 		Hero hero = new Apprentice("");
-		GuessNumber game = new GuessNumber(hero, new John());
+		GuessNumberCMD game = new GuessNumberCMD(hero, new John());
 		
 		// No effect if hero has no power-ups
 		game.removeRelevantPowerUps();
