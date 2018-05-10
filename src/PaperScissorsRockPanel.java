@@ -175,9 +175,9 @@ public class PaperScissorsRockPanel extends JPanel {
 			sense = "Mindreader power-up";
 		}
 		
-		JLabel lblSource = new JLabel(String.format("Your %s lets you sense that %s will not play:",
-													sense, minigame.getVillain().toString()));
-		lblSource.setBounds(10, 5, 444, 14);
+		JLabel lblSource = new JLabel(String.format("Your %s lets you sense that they will not play:",
+													sense));
+		lblSource.setBounds(10, 5, 444, 16);
 		lblSource.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSource.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		powerUpPanel.add(lblSource);
@@ -309,7 +309,7 @@ public class PaperScissorsRockPanel extends JPanel {
 	
 	/**
 	 * Create and populate the draw panel; a panel owned by the
-	 * interactive panel which dosplays the result of a drawn game and
+	 * interactive panel which displays the result of a drawn game and
 	 * prompts the player to play again.
 	 */
 	private void addDrawPanel() {
@@ -333,11 +333,11 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnPlayAgain.setBounds(10, 167, 203, 40);
 		btnPlayAgain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO this is broken. it isnt even remotely functional
 				buildPanel();
 			}
 		});
 		drawPanel.add(btnPlayAgain);
-
 		
 		interactivePanel.add(drawPanel, DRAW_PANEL_STRING);
 	}
@@ -352,6 +352,7 @@ public class PaperScissorsRockPanel extends JPanel {
 	private void manageGameOutcome(String outcome) {
 		if (outcome == "Draw") {
 			if (minigame.getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0) {
+				outcome = "Win";
 				refreshEndGamePanel(outcome, true);
 				interactivePanelCardLayout.show(interactivePanel, END_GAME_PANEL_STRING);
 			}
@@ -403,10 +404,10 @@ public class PaperScissorsRockPanel extends JPanel {
 		JLabel lblTiebreakerActivated = new JLabel("Your Tiebreaker power-up activated!");
 		lblTiebreakerActivated.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTiebreakerActivated.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTiebreakerActivated.setBounds(0, 102, 223, 40);
+		lblTiebreakerActivated.setBounds(0, 82, 223, 40);
 			
 		JLabel lblTiebreakerIcon = new JLabel();
-		lblTiebreakerIcon.setBounds(90, 126, 38, 38);
+		lblTiebreakerIcon.setBounds(90, 116, 38, 38);
 		lblTiebreakerIcon.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(Image.powerUpImageFilepath(PowerUpType.TIEBREAKER, 38))));
 		
 		if (wonViaTiebreaker) {
