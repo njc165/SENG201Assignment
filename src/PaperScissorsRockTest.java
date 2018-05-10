@@ -27,7 +27,7 @@ class PaperScissorsRockTest {
 	@Test
 	final void testPaperScissorsRock() {
 		// Create paper scissors rock number game
-		PaperScissorsRock game = new PaperScissorsRock(new Apprentice(""), new John());
+		PaperScissorsRockCMD game = new PaperScissorsRockCMD(new Apprentice(""), new John());
 		
 		// Superclass getters and setters can be used
 		assertEquals("Apprentice", game.getHero().getType());
@@ -41,7 +41,7 @@ class PaperScissorsRockTest {
 	@Test
 	final void testRemoveRelevantPowerUps() {
 		Hero hero = new Apprentice("");
-		PaperScissorsRock game = new PaperScissorsRock(hero, new John());
+		PaperScissorsRockCMD game = new PaperScissorsRockCMD(hero, new John());
 		
 		// No effect if hero has no power-ups
 		game.removeRelevantPowerUps();

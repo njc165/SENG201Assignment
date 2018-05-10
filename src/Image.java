@@ -18,7 +18,11 @@ public class Image {
 	
 	public static final String COIN_IMAGE_FILEPATH = "/img/coin_38x38.png";
 	
-	
+	/**
+	 * The file path for the image used in games of paper scissors rock,
+	 * before the player has selected a move.
+	 */
+	public static final String PSR_UNDECIDED_FILEPATH = "/img/PSR_undecided.png";
 	
 	/**
 	 * Takes a hero instance, and returns the file path for the portrait
@@ -80,9 +84,36 @@ public class Image {
 		return filepath;
 	}
 
+	/**
+	 * Returns the file path for the image of a given villain.
+	 * @param villain The villain for which a filepath is returned
+	 * @return The filepath to an appropriate image.
+	 */
 	public static String villainImageFilepath(Villain villain) {
 		String name = villain.getName().split(" ")[0].toLowerCase();
 		String filepath = String.format("/img/%s.png", name);
+		return filepath;
+	}
+	
+	/**
+	 * Returns the filepath for the image representing a hero's
+	 * choice in a game of paper, scissors, rock.
+	 * @param choice A string representation of the hero's choice.
+	 * @return A filepath to the appropriate image.
+	 */
+	public static String getHeroPSRImage(String choice) {
+		String filepath = String.format("/img/PSR_hero_%s.png", choice.toLowerCase());
+		return filepath;
+	}
+	
+	/**
+	 * Returns the filepath for the image representing a villain's
+	 * choice in a game of paper, scissors, rock.
+	 * @param choice A string representation of the villain's choice.
+	 * @return A filepath to the appropriate image.
+	 */
+	public static String getVillainPSRImage(String choice) {
+		String filepath = String.format("/img/PSR_villain_%s.png", choice.toLowerCase());
 		return filepath;
 	}
 
