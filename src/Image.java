@@ -109,7 +109,7 @@ public class Image {
 		// TODO
 		return "/img/alicorn_dust_80x80.png";
 	}
-	
+
 	/**
 	 * Returns the filepath for the image representing a hero's
 	 * choice in a game of paper, scissors, rock.

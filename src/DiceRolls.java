@@ -59,7 +59,6 @@ public class DiceRolls extends MiniGame{
 	 * Sets heroRoll and villainRoll to new randomised numbers,
 	 * determines the result and whether or not a Tiebreaker was used.
 	 * Removes a Tiebreaker from the hero if it is used, and removes all
-	 * Increase Roll power ups from the hero when the game is finished.
 	 * Sets hasWon to true if the hero wins the game.
 	 */
 	public void roll() {
@@ -67,10 +66,6 @@ public class DiceRolls extends MiniGame{
 		heroRoll = getRoll();
 		
 		determineResult();
-		
-		if (result == "Win" || result == "Lose") {
-			removeAllPowerUps(PowerUpType.INCREASE_ROLL);
-		}
 	}
 	
 	/**

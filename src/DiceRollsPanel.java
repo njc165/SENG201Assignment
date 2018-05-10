@@ -120,6 +120,8 @@ public class DiceRollsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				diceRolls.roll();
 				showResultScreen();
+				revalidate();
+				repaint();
 			}
 		});
 		btnRoll.setBounds(192, 197, 80, 29);
@@ -176,11 +178,12 @@ public class DiceRollsPanel extends JPanel {
 		
 		if (diceRolls.getHero().getHasBattleAdvantage()) {
 			JTextPane txtpnGamblerAbility = new JTextPane();
-			txtpnGamblerAbility.setText(String.format("Your Gambler ability gives you a score of %s.",
-														diceRolls.getHeroRoll() + 1));
+			txtpnGamblerAbility.setText(String.format(String.format(
+												"Your Gambler ability gives you a score of %s.",
+												diceRolls.getHeroRoll() + 1)));
 			txtpnGamblerAbility.setEditable(false);
 			txtpnGamblerAbility.setBackground(SystemColor.menu);
-			txtpnGamblerAbility.setBounds(10, 157, 222, 20);
+			txtpnGamblerAbility.setBounds(10, 158, 250, 20);
 			contentPanel.add(txtpnGamblerAbility);
 		}
 
@@ -189,7 +192,7 @@ public class DiceRollsPanel extends JPanel {
 			lblIncreaseRollImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lblIncreaseRollImage.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
 											Image.powerUpImageFilepath(PowerUpType.INCREASE_ROLL, 25))));
-			lblIncreaseRollImage.setBounds(10, 183, 25, 25);
+			lblIncreaseRollImage.setBounds(10, 188, 25, 25);
 			contentPanel.add(lblIncreaseRollImage);
 			
 			String template = "";
@@ -203,7 +206,7 @@ public class DiceRollsPanel extends JPanel {
 			txtpnIncreaseRoll.setEditable(false);
 			txtpnIncreaseRoll.setBackground(UIManager.getColor("Panel.background"));
 			txtpnIncreaseRoll.setText(String.format(template, diceRolls.getHeroRoll() + diceRolls.getRollIncrease()));
-			txtpnIncreaseRoll.setBounds(45, 178, 187, 34);
+			txtpnIncreaseRoll.setBounds(45, 185, 187, 35);
 			contentPanel.add(txtpnIncreaseRoll);
 		}
 		
@@ -230,6 +233,8 @@ public class DiceRollsPanel extends JPanel {
 			btnPlayAgain.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					showRollScreen();
+					revalidate();
+					repaint();
 				}
 			});
 			contentPanel.add(btnPlayAgain);
@@ -240,6 +245,7 @@ public class DiceRollsPanel extends JPanel {
 			btnContinue.setBounds(173, 324, 117, 30);
 			btnContinue.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					diceRolls.removeAllPowerUps(PowerUpType.INCREASE_ROLL);
 					endGame();
 				}
 			});
