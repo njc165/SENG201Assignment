@@ -1,22 +1,23 @@
 import java.util.Random;
 
-public class GuessNumber extends MiniGame {
+public class GuessNumberCMD extends MiniGame {
 	
 	/**
 	 * An array of the power-up types which are relevant to Paper Scissors Rock.
 	 */
 	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.EXTRA_GUESS};
-	
-	/**
-	 * The upper limit of the number to be guessed.
-	 * The number to be guessed will be between 1 and MAX_NUMBER inclusive.
-	 */
-	public static final int MAX_NUMBER = 10;
 
+	
 	/**
 	 * The default number of guesses received by the hero (without power-ups or special abilities).
 	 */
 	private final int DEFAULT_GUESSES = 2;
+	
+	/**
+	 * The upper limit of the number to be guessed.
+	 * The number to be guessed will be between 1 and MAX_NUMBER_TO_BE_GUESSED inclusive.
+	 */
+	private final int MAX_NUMBER_TO_BE_GUESSED = 10;
 	
 	/**
 	 * The number which the hero is trying to guess.
@@ -30,33 +31,15 @@ public class GuessNumber extends MiniGame {
 	private int guessesLeft;
 	
 	/**
-	 * The value of the most recent guess made by the user.
-	 */
-	private int guess;
-	
-	/**
 	 * Constructor for a new Guess the Number game.
 	 * Initialises guessesLeft to the appropriate value.
 	 * @param hero		The hero playing the game.
 	 * @param villain	The villain playing the game.
 	 */
-	public GuessNumber(Hero hero, Villain villain) {
+	public GuessNumberCMD(Hero hero, Villain villain) {
 		super(hero, villain, RELEVANT_POWER_UPS);
 		guessesLeft = calculateGuessesLeft();
-		numberToGuess = numberToGuess();
-	}
-	
-
-	public void guess(int guess) {
-		this.guess = guess;
-		
-		if (guess == numberToGuess) {
-			setHasWon(true);
-			removeAllPowerUps(PowerUpType.EXTRA_GUESS);
-			
-		} else {
-			guessesLeft--;
-		}
+		numberToGuess = getNumberToGuess();
 	}
 	
 	/**
@@ -65,16 +48,31 @@ public class GuessNumber extends MiniGame {
 	 * All power-ups relevant to Guess the Number will have been removed from the hero, whether or not they were used.
 	 */
 	public void play() {
-		
-	}
-	
-	/**
-	 * Returns the number of extra guess power ups applied to the hero
-	 * playing the game.
-	 * @return	The number of extra guess power ups applied to the hero.
-	 */
-	public int numExtraGuesses() {
-		return getHero().numPowerUps(PowerUpType.EXTRA_GUESS);
+		System.out.println(String.format("%s has chosen a number between 1 and %s.\n",
+				getVillain(), MAX_NUMBER_TO_BE_GUESSED));
+		while ((guessesLeft > 0) && (!getHasWon())) {
+			System.out.println(String.format("You have %s chance(s) left to guess the number.\n", guessesLeft));
+			int guess = getGuessFromPlayer();
+			if (guess == numberToGuess) {
+				setHasWon(true);
+			} else if (guess > numberToGuess) {
+				System.out.println("Your guess was too high.\n");
+			} else {
+				System.out.println("Your guess was too low.\n");
+			}
+			guessesLeft--;
+		}
+		if (getHasWon()) {
+			System.out.println(String.format("You guessed correctly! You have defeated %s!\n",
+					getVillain()));
+		}
+		else {
+			System.out.println(String.format("The chosen number was %s.\n",
+												numberToGuess));
+			System.out.println(String.format("You have run out of guesses.\n%s has defeated you!\n",
+												getVillain()));
+		}
+		removeRelevantPowerUps();
 	}
 	
 	/**
@@ -96,37 +94,25 @@ public class GuessNumber extends MiniGame {
 	 * Chooses a random number between 1 and MAX_NUMBER_TO_BE_GUESSED inclusive.
 	 * @return	The random number.
 	 */
-	private int numberToGuess() {
+	private int getNumberToGuess() {
 		Random generator = new Random();
-		return generator.nextInt(MAX_NUMBER) + 1;
-	}
-
-
-	/**
-	 * Getter method for numberToGuess.
-	 * @return The value of numberToGuess.
-	 */
-	public int getNumberToGuess() {
-		return numberToGuess;
-	}
-
-
-	/**
-	 * Getter method for guessesLeft.
-	 * @return The value of guessesLeft.
-	 */
-	public int getGuessesLeft() {
-		return guessesLeft;
-	}
-
-
-	/**
-	 * Getter method for guess.
-	 * @return The value of guess.
-	 */
-	public int getGuess() {
-		return guess;
+		return generator.nextInt(MAX_NUMBER_TO_BE_GUESSED) + 1;
 	}
 	
+	/**
+	 * Asks the user to input a number, until a valid number
+	 * between 1 and MAX_NUMBER_TO_BE_GUESSED is entered.
+	 * @return	The number entered by the user.
+	 */
+	private int getGuessFromPlayer() {
+		return Util.getIntFromUser(MAX_NUMBER_TO_BE_GUESSED, "Enter your guess:");
+	}
+	
+	public static void main(String[] args) {
+		Gambler hero = new Gambler("");
+		Invictus villain = new Invictus();
+		GuessNumber game = new GuessNumber(hero, villain);
+		game.play();
+	}
 	
 }

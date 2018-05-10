@@ -17,7 +17,7 @@ class MiniGameTest {
 		
 		// Check that each game is correctly instantiatied
 		assertTrue(game1 instanceof PaperScissorsRockCMD);
-		assertTrue(game2 instanceof GuessNumber);
+		assertTrue(game2 instanceof GuessNumberCMD);
 		assertTrue(game3 instanceof DiceRollsCMD);
 		
 		

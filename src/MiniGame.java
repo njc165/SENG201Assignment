@@ -49,7 +49,7 @@ public abstract class MiniGame {
 		switch (type) {
 			case PAPER_SCISSORS_ROCK: game = new PaperScissorsRock(hero, villain); break;
 			case DICE_ROLLS: game = new DiceRolls(hero, villain); break;
-			case GUESS_NUMBER: game = new GuessNumber(hero, villain); break;
+			case GUESS_NUMBER: game = new GuessNumberCMD(hero, villain); break;
 			default: throw new RuntimeException("Invalid MiniGame type");
 		}
 		
