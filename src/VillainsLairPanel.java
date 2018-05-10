@@ -33,26 +33,65 @@ import javax.swing.JRadioButton;
 
 public class VillainsLairPanel extends JPanel implements Refreshable {
 
+	/**
+	 * A string representation of this panel.
+	 */
 	public static final String VILLAINS_LAIR_PANEL_STRING = "Villain's Lair Panel";
 	
+	/**
+	 * A string representation of the start encounter panel, used
+	 * by the subContentPanel card layout.
+	 */
 	private static final String START_ENCOUNTER_PANEL_STRING = "Start Encounter Panel";
 	
+	/**
+	 * A string representation of the select hero panel, used
+	 * by the subContentPanel card layout.
+	 */
 	private static final String SELECT_HERO_PANEL_STRING = "Select Hero Panel";
 	
+	/**
+	 * A string representation of the battle panel, used
+	 * by the subContentPanel card layout.
+	 */
 	private static final String BATTLE_PANEL_STRING = "Battle Panel";
 	
+	/**
+	 * A JPanel containing all components related to the title of this panel.
+	 */
 	private JPanel titlePanel;
 	
+	/**
+	 * A card layout used by the sunContentPanel.
+	 */
 	private CardLayout subContentPanelCardLayout;
 	
+	/**
+	 * A JPanel containing all major components related to this panel.
+	 */
 	private JPanel contentPanel;
 	
+	/**
+	 * A JPanel containing interactive components related to this panel.
+	 */
 	private JPanel subContentPanel;
 	
+	/**
+	 * A JPanel containing buttons to start fighting the villain
+	 * or to run away.
+	 */
 	private JPanel startEncounterPanel;
 	
+	/**
+	 * A JPanel which allows the user to select a hero with which
+	 * to fight the villain.
+	 */
 	private JPanel selectHeroPanel;
 	
+	/**
+	 * A JPanel which lists all heros currently alive on the team and
+	 * prompts the user to select one.
+	 */
 	private JPanel heroListPanel;
 	
 	/**
@@ -61,10 +100,21 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 */
 	private JPanel battlePanel;
 	
+	/**
+	 * A group of radio buttons which represent the player's selection of
+	 * which hero will battle the villain.
+	 */
 	private ButtonGroup heroSelectButtonGroup;
 	
+	/**
+	 * A button which takes the villain and a selected hero and begins a minigame
+	 * between them.
+	 */
 	private JButton btnGo;
 	
+	/**
+	 * The main game window.
+	 */
 	private Game gameWindow;
 	
 	/**
@@ -73,6 +123,10 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 */
 	private Hero currentHero;
 	
+	/**
+	 * A constructor for VillainsLairPanel.
+	 * @param game The game window to which this panel belongs.
+	 */
 	public VillainsLairPanel(Game game) {
 		super();
 		this.gameWindow = game;
@@ -84,9 +138,11 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		addContentPanel();
 	}
 
+	/**
+	 * Refresh all dynamic components belonging to this panel.
+	 */
 	public void refresh() {
-		refreshContentPanel();
-		
+		refreshContentPanel();	
 	}
 	
 	/**
@@ -105,6 +161,9 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		return gameWindow.getGame().getTeam();
 	}
 	
+	/**
+	 * Create and populate the title panel.
+	 */
 	private void addTitlePanel() {
 		titlePanel = new JPanel();
 		titlePanel.setBounds(10, 10, 870, 64);
@@ -119,42 +178,18 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		add(titlePanel);		
 	}
 	
+	/**
+	 * Create and populate the content panel.
+	 */
 	private void addContentPanel() {
 		contentPanel = new JPanel(null);
 		contentPanel.setBounds(10, 85, 870, 515);
 		add(contentPanel);
-		
-		//=============================================
-//		contentPanel.removeAll();
-//		
-//		JLabel lblVillainImage = new JLabel("");
-//		lblVillainImage.setBounds(714, -24, 150, 375);
-//		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(villain()))));
-//		contentPanel.add(lblVillainImage);
-//		
-//		String villainFirstName = villain().toString().split(" ")[0];
-//		String villainTitle     = villain().toString().split(" ")[2];
-//		
-//		JLabel lblVillainName = new JLabel(villainFirstName);
-//		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblVillainName.setBounds(680, 362, 184, 25);
-//		contentPanel.add(lblVillainName);
-//		
-//		JLabel lblVillainTitle = new JLabel(String.format("the %s", villainTitle));
-//		lblVillainTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		lblVillainTitle.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblVillainTitle.setBounds(680, 390, 180, 25);
-//		contentPanel.add(lblVillainTitle);
-//		
-//		addSubContentPanel();
-		
-		
-		
-		
-
 	}
 	
+	/**
+	 * Refresh all dynamic components belonging to contentPanel.
+	 */
 	private void refreshContentPanel() {
 		contentPanel.removeAll();
 		
@@ -181,6 +216,9 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		addSubContentPanel();
 	}
 		
+	/**
+	 * Create and populate the sub-content panel.
+	 */
 	private void addSubContentPanel() {
 		subContentPanelCardLayout = new CardLayout();
 		subContentPanel = new JPanel(subContentPanelCardLayout);
@@ -195,6 +233,9 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		contentPanel.add(subContentPanel);
 	}
 	
+	/**
+	 * Create and populate the start encounter panel.
+	 */
 	private void addStartEncounterPanel() {
 		startEncounterPanel = new JPanel(null);
 		
@@ -241,12 +282,19 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		startEncounterPanel.add(btnRunAway);
 	}
 	
+	/**
+	 * Create and populate the select hero panel.
+	 */
 	private void addSelectHeroPanel() {
 		selectHeroPanel = new JPanel();	
 		subContentPanel.add(selectHeroPanel, SELECT_HERO_PANEL_STRING);
 		selectHeroPanel.setLayout(null);		
 	}
 	
+	/**
+	 * Refresh all dynamic components belonging to the
+	 * select hero panel.
+	 */
 	private void refreshSelectHeroPanel() {
 		selectHeroPanel.removeAll();
 		
@@ -274,6 +322,9 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 
 	}
 	
+	/**
+	 * Create and populate the hero list panel.
+	 */
 	private void addHeroListPanel() {
 		heroListPanel = new JPanel(new GridLayout(0, 3, 0, 0));
 		heroListPanel.setBounds(10, 89, 612, 374);
@@ -339,6 +390,10 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		selectHeroPanel.add(heroListPanel);
 	}
 	
+	/**
+	 * Refresh the 'Go' button by enabling it if and only if
+	 * a valid hero has been selected.
+	 */
 	private void refreshGoButton() {
 		btnGo.setEnabled(heroSelectButtonGroup.getSelection() != null);
 	}
@@ -366,7 +421,6 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		heroImagePanel.setLayout(null);
 		
 		JLabel lblHeroImage = new JLabel("");
-		// TODO change to heroes' images
 		lblHeroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroImageFilepath(currentHero, 150, 300))));
 		lblHeroImage.setBounds(10, 51, 150, 300);
 		heroImagePanel.add(lblHeroImage);
@@ -408,9 +462,5 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 //		}
 		
 	}
-	
-	
-	
-	
 	
 }

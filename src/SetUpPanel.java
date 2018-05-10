@@ -25,6 +25,7 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import javax.swing.JSlider;
 
 public class SetUpPanel extends JPanel {
 	
@@ -175,7 +176,7 @@ public class SetUpPanel extends JPanel {
 		createTeamPanel = new JPanel();
 		initialiseCreateTeamPanel();
 		contentPanel.add(createTeamPanel, CREATE_TEAM_PANEL_STRING);
-		
+						
 		addHeroPanel = new JPanel();
 		initialiseAddHeroPanel();
 		contentPanel.add(addHeroPanel, ADD_HERO_PANEL_STRING);
@@ -259,30 +260,40 @@ public class SetUpPanel extends JPanel {
 		lblChooseNumHeroes.setBounds(10, 150, 414, 32);
 		createTeamPanel.add(lblChooseNumHeroes);
 		
-		JComboBox<Integer> cmbNumHeroes = new JComboBox<Integer>();
-		cmbNumHeroes.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2, 3}));
-		cmbNumHeroes.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		cmbNumHeroes.setBounds(447, 150, 66, 32);
-		createTeamPanel.add(cmbNumHeroes);
+		JSlider sliderNumHeroes = new JSlider();
+		sliderNumHeroes.setSnapToTicks(true);
+		sliderNumHeroes.setPaintTicks(true);
+		sliderNumHeroes.setPaintLabels(true);
+		sliderNumHeroes.setMinimum(1);
+		sliderNumHeroes.setMaximum(3);
+		sliderNumHeroes.setMajorTickSpacing(1);
+		sliderNumHeroes.setBounds(447, 156, 200, 45);
+		sliderNumHeroes.setValue(1);
+		createTeamPanel.add(sliderNumHeroes);
 		
 		JLabel lblChooseNumCities = new JLabel("How many cities would you like to play?");
 		lblChooseNumCities.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblChooseNumCities.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblChooseNumCities.setBounds(10, 230, 414, 32);
 		createTeamPanel.add(lblChooseNumCities);
-		
-		JComboBox<Integer> cmbNumCities = new JComboBox<Integer>();
-		cmbNumCities.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {3, 4, 5, 6}));
-		cmbNumCities.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		cmbNumCities.setBounds(447, 230, 66, 32);
-		createTeamPanel.add(cmbNumCities);
+				
+		JSlider sliderNumCities = new JSlider();
+		sliderNumCities.setSnapToTicks(true);
+		sliderNumCities.setPaintTicks(true);
+		sliderNumCities.setPaintLabels(true);
+		sliderNumCities.setMinimum(3);
+		sliderNumCities.setMaximum(6);
+		sliderNumCities.setMajorTickSpacing(1);
+		sliderNumCities.setBounds(447, 236, 200, 45);
+		sliderNumCities.setValue(3);
+		createTeamPanel.add(sliderNumCities);
 		
 		JButton btnCreateTeamNext = new JButton("Next");
 		btnCreateTeamNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String teamName = txtfTeamName.getText().trim();
-				int numHeroes = (int) cmbNumHeroes.getSelectedItem();
-				int numCities = (int) cmbNumCities.getSelectedItem();
+				int numHeroes = sliderNumHeroes.getValue();
+				int numCities = sliderNumCities.getValue();
 				
 				if (! Team.isValidTeamName(teamName)) {
 					lblTeamNameErrorMessage.setText("Team name must be between 2 and 10 characters long.");
