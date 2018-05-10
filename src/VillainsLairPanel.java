@@ -366,7 +366,6 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		heroImagePanel.setLayout(null);
 		
 		JLabel lblHeroImage = new JLabel("");
-		// TODO change to heroes' images
 		lblHeroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroImageFilepath(currentHero, 150, 300))));
 		lblHeroImage.setBounds(10, 51, 150, 300);
 		heroImagePanel.add(lblHeroImage);
@@ -405,9 +404,5 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		}
 		
 	}
-	
-	
-	
-	
 	
 }
