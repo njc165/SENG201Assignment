@@ -18,6 +18,10 @@ public class Image {
 	
 	public static final String COIN_IMAGE_FILEPATH = "/img/coin_38x38.png";
 	
+	// TODO
+	public static final String UNROLLED_DICE_IMAGE_FILEPATH = "/img/alicorn_dust_80x80.png";
+	
+	
 	/**
 	 * The file path for the image used in games of paper scissors rock,
 	 * before the player has selected a move.
@@ -96,6 +100,15 @@ public class Image {
 	}
 	
 	/**
+	 * Takes a number between 1 and 6 and returns the filepath for
+	 * the image of a dice showing that number.
+	 * @param diceNum	The number showing on the dice image.
+	 * @return			The filepath of the appropriate dice image.
+	 */
+	public static String diceImageFilepath(int diceNum) {
+		// TODO
+		return "/img/alicorn_dust_80x80.png";
+
 	 * Returns the filepath for the image representing a hero's
 	 * choice in a game of paper, scissors, rock.
 	 * @param choice A string representation of the hero's choice.

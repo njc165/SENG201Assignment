@@ -13,9 +13,26 @@ public class DiceRolls extends MiniGame{
 	private final int NUM_DICE_SIDES = 6;
 	
 	/**
-	 * Set to true once the game is finished, regardless of the winner.
+	 * The value of the hero's last dice roll.
 	 */
-	private boolean gameFinished = false;
+	private int heroRoll;
+	
+	/**
+	 * The value of the villain's last dice roll.
+	 */
+	private int villainRoll;
+	
+	/**
+	 * The result of the last round of the game.
+	 * Possible values are "Win", "Draw" and "Lose".
+	 */
+	private String result;
+	
+	/**
+	 * After each roll, set to true if it was a draw and the hero has
+	 * a tiebreaker, and false otherwise.
+	 */
+	private boolean usedTieBreaker;
 	
 	/**
 	 * The bonus added to each die roll of the hero.
@@ -29,39 +46,31 @@ public class DiceRolls extends MiniGame{
 	 */
 	public DiceRolls(Hero hero, Villain villain) {
 		super(hero, villain, RELEVANT_POWER_UPS);
+		
 		rollIncrease = calculateRollIncrease();
 	}
 	
-	/**
-	 * Carries out a Dice Rolls game. When finished, hasWon will be true if the hero won and false otherwise.
-	 * All power-ups relevant to Guess the Number will have been removed from the hero, whether or not they were used.
-	 */
 	public void play() {
+		//TODO remove play method from MiniGame?
+	}
+	
+	/**
+	 * Carries out one round of a dice rolls game.
+	 * Sets heroRoll and villainRoll to new randomised numbers,
+	 * determines the result and whether or not a Tiebreaker was used.
+	 * Removes a Tiebreaker from the hero if it is used, and removes all
+	 * Increase Roll power ups from the hero when the game is finished.
+	 * Sets hasWon to true if the hero wins the game.
+	 */
+	public void roll() {
+		villainRoll = getRoll();
+		heroRoll = getRoll();
 		
-		while (!gameFinished) {
-			int villainRoll = getRoll();
-			System.out.println(String.format("%s has rolled %s.\n", getVillain(), villainRoll));
-			
-			Util.getIntFromUser(1, "Enter 1 to roll the die");
-			int heroRoll = getRoll();
-			System.out.println(String.format("You have rolled %s.\n", heroRoll));
-			
-			if (rollIncrease > 0) {
-				heroRoll += rollIncrease;
-				System.out.println(String.format("Since you have a roll bonus of %s, your score is %s.\n",
-						rollIncrease, heroRoll));
-			}
-			
-			determineResult(heroRoll, villainRoll);			
+		determineResult();
+		
+		if (result == "Win" || result == "Lose") {
+			removeAllPowerUps(PowerUpType.INCREASE_ROLL);
 		}
-		
-		if (getHasWon()) {
-			System.out.println(String.format("You have defeated %s!\n", getVillain()));
-		} else {
-			System.out.println(String.format("%s has defeated you!\n", getVillain()));
-		}
-		
-		removeRelevantPowerUps();
 	}
 	
 	/**
@@ -71,24 +80,26 @@ public class DiceRolls extends MiniGame{
 	 * If the game is finished (either hero or villain has won), sets gameFinished to true,
 	 * otherwise it remains false.
 	 */
-	private void determineResult(int heroRoll, int villainRoll) {
+	private void determineResult() {
+		usedTieBreaker = false;
 		
-		if (heroRoll > villainRoll) {
+		if (heroRoll + rollIncrease > villainRoll) {
 			setHasWon(true);
-			gameFinished = true;
+			result = "Win";
 			
-		} else if (heroRoll == villainRoll) {
-			System.out.println("It is a draw.");
+		} else if (heroRoll + rollIncrease == villainRoll) {
 			if (heroHasTieBreaker()) {
-				System.out.println("You use your Tie Breaker power-up to win the game.\n");
+				usedTieBreaker = true;
+				removePowerUps(PowerUpType.TIEBREAKER, 1);
 				setHasWon(true);
-				gameFinished = true;
+				result = "Win";
+				
 			} else {
-				System.out.println("Play again!\n");
+				result = "Draw";
 			}
 			
 		} else {
-			gameFinished = true;
+			result = "Lose";
 		}
 	}
 	
@@ -122,6 +133,55 @@ public class DiceRolls extends MiniGame{
 			increase++;
 		increase += getHero().numPowerUps(PowerUpType.INCREASE_ROLL);
 		return increase;
+	}
+	
+	/**
+	 * Returns the number of increase roll power ups applied to the hero
+	 * playing the game.
+	 * @return	The number of increase roll power ups applied to the hero.
+	 */
+	public int numIncreaseRolls() {
+		return getHero().numPowerUps(PowerUpType.INCREASE_ROLL);
+	}
+
+	/**
+	 * Getter method for rollIncrease.
+	 * @return The value of rollIncrease.
+	 */
+	public int getRollIncrease() {
+		return rollIncrease;
+	}
+
+	/**
+	 * Getter method for heroRoll.
+	 * @return The value of heroRoll.
+	 */
+	public int getHeroRoll() {
+		return heroRoll;
+	}
+
+	/**
+	 * Getter method for villainRoll.
+	 * @return The value of villainRoll.
+	 */
+	public int getVillainRoll() {
+		return villainRoll;
+	}
+
+	/**
+	 * Getter method for result.
+	 * @return The value of result.
+	 */
+	public String getResult() {
+		return result;
+	}
+
+	/**
+	 * Getter method for usedTieBreaker.
+	 * @return The value of usedTieBreaker.
+	 */
+	public boolean getUsedTieBreaker() {
+		return usedTieBreaker;
 	}
 		
 }

@@ -27,7 +27,7 @@ class DiceRollsTest {
 	@Test
 	final void testDiceRolls() {
 		// Create new dice rolls game
-		DiceRolls game = new DiceRolls(new Apprentice(""), new John());
+		DiceRollsCMD game = new DiceRollsCMD(new Apprentice(""), new John());
 		
 		// Superclass getters and setters can be used
 		assertEquals("Apprentice", game.getHero().getType());
@@ -42,7 +42,7 @@ class DiceRollsTest {
 	@Test
 	final void testRemoveRelevantPowerUps() {
 		Hero hero = new Apprentice("");
-		DiceRolls game = new DiceRolls(hero, new John());
+		DiceRollsCMD game = new DiceRollsCMD(hero, new John());
 		
 		// No effect if hero has no power-ups
 		game.removeRelevantPowerUps();
