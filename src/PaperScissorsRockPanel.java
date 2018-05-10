@@ -208,13 +208,11 @@ public class PaperScissorsRockPanel extends JPanel {
 		
 		lblHeroChoice = new JLabel("");
 		lblHeroChoice.setBounds(10, 11, 100, 100);
-		lblHeroChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblHeroChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(Image.PSR_UNDECIDED_FILEPATH)));
 		gamePanel.add(lblHeroChoice);
 		
 		lblVillainChoice = new JLabel("");
 		lblVillainChoice.setBounds(354, 11, 100, 100);
-		lblVillainChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblVillainChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(Image.PSR_UNDECIDED_FILEPATH)));
 		gamePanel.add(lblVillainChoice);
 		
