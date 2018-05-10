@@ -48,7 +48,7 @@ public abstract class MiniGame {
 		
 		switch (type) {
 			case PAPER_SCISSORS_ROCK: game = new PaperScissorsRock(hero, villain); break;
-			case DICE_ROLLS: game = new DiceRolls(hero, villain); break;
+			case DICE_ROLLS: game = new DiceRollsCMD(hero, villain); break;
 			case GUESS_NUMBER: game = new GuessNumber(hero, villain); break;
 			default: throw new RuntimeException("Invalid MiniGame type");
 		}
@@ -77,6 +77,49 @@ public abstract class MiniGame {
 				newActivePowerUps.add(powerUp);
 			}
 		}
+		hero.setActivePowerUps(newActivePowerUps);
+	}
+	
+	/**
+	 * Removes the given number of power ups of the given type from the
+	 * hero playing the game.
+	 * Throws a RuntimeException if the hero does not contain at least
+	 * this many power ups of the given type.
+	 * @param type	The type of power up to remove.
+	 * @param numToRemove	The number of power ups to remove.
+	 */
+	public void removePowerUps(PowerUpType type, int numToRemove) {
+		ArrayList<PowerUp> newActivePowerUps = new ArrayList<PowerUp>();
+		
+		for (PowerUp powerUp: hero.getActivePowerUps()) {
+			if (powerUp.getType() == type) {
+				numToRemove--;
+			} else {
+				newActivePowerUps.add(powerUp);
+			}
+		}
+		
+		if (numToRemove > 0) {
+			throw new RuntimeException("The hero does not have that many power ups of the given type");									
+		}
+
+		hero.setActivePowerUps(newActivePowerUps);
+	}
+	
+	/**
+	 * Removes all the power ups of the given type from the hero
+	 * playing the game.
+	 * @param type	The type of power up to remove.
+	 */
+	public void removeAllPowerUps(PowerUpType type) {
+		ArrayList<PowerUp> newActivePowerUps = new ArrayList<PowerUp>();
+		
+		for (PowerUp powerUp: hero.getActivePowerUps()) {
+			if (! (powerUp.getType() == type)) {
+				newActivePowerUps.add(powerUp);
+			}
+		}
+		
 		hero.setActivePowerUps(newActivePowerUps);
 	}
 

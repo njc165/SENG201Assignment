@@ -18,6 +18,9 @@ public class Image {
 	
 	public static final String COIN_IMAGE_FILEPATH = "/img/coin_38x38.png";
 	
+	// TODO
+	public static final String UNROLLED_DICE_IMAGE_FILEPATH = "/img/alicorn_dust_80x80.png";
+	
 	
 	
 	/**
@@ -84,6 +87,17 @@ public class Image {
 		String name = villain.getName().split(" ")[0].toLowerCase();
 		String filepath = String.format("/img/%s.png", name);
 		return filepath;
+	}
+	
+	/**
+	 * Takes a number between 1 and 6 and returns the filepath for
+	 * the image of a dice showing that number.
+	 * @param diceNum	The number showing on the dice image.
+	 * @return			The filepath of the appropriate dice image.
+	 */
+	public static String diceImageFilepath(int diceNum) {
+		// TODO
+		return "/img/alicorn_dust_80x80.png";
 	}
 
 }

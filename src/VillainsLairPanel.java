@@ -395,14 +395,17 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * depending on the games played by the current villain.
 	 */
 	private JPanel newMiniGamePanel() {
-		MiniGames miniGameType = villain().getGame();
+		return new DiceRollsPanel(this, currentHero, villain());
 		
-		switch (miniGameType) {
-			case PAPER_SCISSORS_ROCK: return new PaperScissorsRockPanel(this, currentHero, villain());
-			case DICE_ROLLS: return new DiceRollsPanel(this, currentHero, villain());
-			case GUESS_NUMBER: return new GuessNumberPanel(this, currentHero, villain());
-			default: throw new RuntimeException("Incorrect MiniGame type");
-		}
+		// TODO remove after testing
+//		MiniGames miniGameType = villain().getGame();
+//		
+//		switch (miniGameType) {
+//			case PAPER_SCISSORS_ROCK: return new PaperScissorsRockPanel(this, currentHero, villain());
+//			case DICE_ROLLS: return new DiceRollsPanel(this, currentHero, villain());
+//			case GUESS_NUMBER: return new GuessNumberPanel(this, currentHero, villain());
+//			default: throw new RuntimeException("Incorrect MiniGame type");
+//		}
 		
 	}
 	

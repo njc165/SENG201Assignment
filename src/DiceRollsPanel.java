@@ -30,6 +30,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
+import java.awt.SystemColor;
 
 
 public class DiceRollsPanel extends JPanel {
@@ -40,14 +41,15 @@ public class DiceRollsPanel extends JPanel {
 	private VillainsLairPanel villainsLairPanel;
 	
 	/**
-	 * The Hero playing the game.
+	 * The DiceRolls object which controls all the logic of the game.
 	 */
-	private Hero hero;
+	private DiceRolls diceRolls;
 	
 	/**
-	 * The villain playing the game.
+	 * A panel containing all the components of the dice rolls panel
+	 * except the title.
 	 */
-	private Villain villain;
+	private JPanel contentPanel;
 
 	/**
 	 * Creates a new panel which displays the game play for a single
@@ -60,15 +62,204 @@ public class DiceRollsPanel extends JPanel {
 		super();
 		
 		this.villainsLairPanel = villainsLairPanel;
-		this.hero = hero;
-		this.villain = villain;
+		
+		this.diceRolls = new DiceRolls(hero, villain);
 		
 		setPreferredSize(new Dimension(484, 494));
 		setLayout(null);
 		
-		// testing
-		JLabel lblHello = new JLabel("Hello");
-		lblHello.setBounds(192, 169, 46, 14);
-		add(lblHello);
+		addTitle();
+		
+		contentPanel = new JPanel();
+		contentPanel.setBounds(10, 119, 464, 365);
+		add(contentPanel);
+		contentPanel.setLayout(null);
+		
+		showRollScreen();
+//		showResultScreen();
 	}
+
+	/**
+	 * Adds a title alerting the user that they are playing
+	 * dice rolls.
+	 */
+	private void addTitle() {
+		JLabel lblVillainDemands = new JLabel(String.format("%s demands that you play",
+															diceRolls.getVillain()));
+		lblVillainDemands.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVillainDemands.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblVillainDemands.setBounds(10, 22, 464, 35);
+		add(lblVillainDemands);
+		
+		JLabel lblDiceRolls = new JLabel("Dice Rolls");
+		lblDiceRolls.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblDiceRolls.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDiceRolls.setBounds(10, 68, 464, 40);
+		add(lblDiceRolls);		
+	}
+	
+	/**
+	 * Removes all components from the content panel and adds the components
+	 * which allow the user to roll the dice.
+	 */
+	private void showRollScreen() {
+		contentPanel.removeAll();
+		
+		JLabel lblVillainDice = new JLabel("");
+		lblVillainDice.setBounds(80, 40, 80, 80);
+		contentPanel.add(lblVillainDice);
+		lblVillainDice.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(Image.UNROLLED_DICE_IMAGE_FILEPATH)));
+		
+		JLabel lblHeroDice = new JLabel("");
+		lblHeroDice.setBounds(304, 40, 80, 80);
+		contentPanel.add(lblHeroDice);
+		lblHeroDice.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(Image.UNROLLED_DICE_IMAGE_FILEPATH)));
+		
+		JButton btnRoll = new JButton("Roll!");
+		btnRoll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				diceRolls.roll();
+				showResultScreen();
+			}
+		});
+		btnRoll.setBounds(192, 197, 80, 29);
+		contentPanel.add(btnRoll);
+		btnRoll.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	}
+	
+	/**
+	 * Removes all components from the content panel and adds components to
+	 * alert the user if they have won or lost, and let them know if power ups
+	 * were used.
+	 */
+	private void showResultScreen() {
+		contentPanel.removeAll();
+		
+		System.out.println("1");
+		JLabel lblHeroDice = new JLabel("");
+		lblHeroDice.setBounds(304, 40, 80, 80);
+		contentPanel.add(lblHeroDice);
+		lblHeroDice.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
+								Image.diceImageFilepath(diceRolls.getHeroRoll()))));
+		
+		JLabel lblVillainDice = new JLabel("");
+		lblVillainDice.setBounds(80, 40, 80, 80);
+		contentPanel.add(lblVillainDice);
+		lblVillainDice.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
+								Image.diceImageFilepath(diceRolls.getVillainRoll()))));
+		
+		JLabel lblHeroRoll = new JLabel(String.format("You rolled a %s.",
+															diceRolls.getHeroRoll()));
+		lblHeroRoll.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeroRoll.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblHeroRoll.setBounds(10, 132, 222, 20);
+		contentPanel.add(lblHeroRoll);
+		
+		JLabel lblVillainRoll = new JLabel(String.format("Invictus the Unconquered rolled a %s.",
+															diceRolls.getVillainRoll()));
+		lblVillainRoll.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVillainRoll.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblVillainRoll.setBounds(232, 132, 222, 20);
+		contentPanel.add(lblVillainRoll);
+		
+		JLabel lblResult = new JLabel("You have won!");
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblResult.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResult.setBounds(10, 229, 444, 30);
+		contentPanel.add(lblResult);
+		if (diceRolls.getResult() == "Win") {
+			lblResult.setText("You have won!");
+		} else if (diceRolls.getResult() == "Draw") {
+			lblResult.setText("It was a draw!");
+		} else {
+			lblResult.setText("You have lost!");
+		}
+		
+		if (diceRolls.getHero().getHasBattleAdvantage()) {
+			JTextPane txtpnGamblerAbility = new JTextPane();
+			txtpnGamblerAbility.setText(String.format("Your Gambler ability gives you a score of %s.",
+														diceRolls.getHeroRoll() + 1));
+			txtpnGamblerAbility.setEditable(false);
+			txtpnGamblerAbility.setBackground(SystemColor.menu);
+			txtpnGamblerAbility.setBounds(10, 157, 222, 20);
+			contentPanel.add(txtpnGamblerAbility);
+		}
+
+		if (diceRolls.numIncreaseRolls() > 0) {
+			JLabel lblIncreaseRollImage = new JLabel("");
+			lblIncreaseRollImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+			lblIncreaseRollImage.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
+											Image.powerUpImageFilepath(PowerUpType.INCREASE_ROLL, 25))));
+			lblIncreaseRollImage.setBounds(10, 183, 25, 25);
+			contentPanel.add(lblIncreaseRollImage);
+			
+			String template = "";
+			if (diceRolls.numIncreaseRolls() == 1) {
+				template = "Your Increase Roll power up gives you a score of %s.";
+			} else {
+				template = "Your Increase Roll power ups give you a score of %s.";
+			}
+			
+			JTextPane txtpnIncreaseRoll = new JTextPane();
+			txtpnIncreaseRoll.setEditable(false);
+			txtpnIncreaseRoll.setBackground(UIManager.getColor("Panel.background"));
+			txtpnIncreaseRoll.setText(String.format(template, diceRolls.getHeroRoll() + diceRolls.getRollIncrease()));
+			txtpnIncreaseRoll.setBounds(45, 178, 187, 34);
+			contentPanel.add(txtpnIncreaseRoll);
+		}
+		
+		if (diceRolls.getUsedTieBreaker()) {
+			JLabel lblTiebreakerImage = new JLabel("");
+			lblTiebreakerImage.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
+											Image.powerUpImageFilepath(PowerUpType.TIEBREAKER, 25))));
+			lblTiebreakerImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+			lblTiebreakerImage.setBounds(135, 270, 25, 25);
+			contentPanel.add(lblTiebreakerImage);
+			
+			JTextPane txtpnTiebreaker = new JTextPane();
+			txtpnTiebreaker.setEditable(false);
+			txtpnTiebreaker.setText("You use you Tiebreaker power up to win the game!");
+			txtpnTiebreaker.setBackground(SystemColor.menu);
+			txtpnTiebreaker.setBounds(173, 265, 149, 34);
+			contentPanel.add(txtpnTiebreaker);
+		}
+			
+		if (diceRolls.getResult() == "Draw") {
+			JButton btnPlayAgain = new JButton("Play Again");
+			btnPlayAgain.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnPlayAgain.setBounds(173, 324, 117, 30);
+			btnPlayAgain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showRollScreen();
+				}
+			});
+			contentPanel.add(btnPlayAgain);
+			
+		} else {
+			JButton btnContinue = new JButton("Continue");
+			btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnContinue.setBounds(173, 324, 117, 30);
+			btnContinue.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					endGame();
+				}
+			});
+			contentPanel.add(btnContinue);
+		}
+		
+	}
+	
+	
+	/**
+	 * Returns the result of the game to the villain's lair panel, and
+	 * shows the game summary panel.
+	 */
+	private void endGame() {
+		// TODO
+	}
+	
+	
+	
+	
+	
 }
