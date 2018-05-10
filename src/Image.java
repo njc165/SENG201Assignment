@@ -106,8 +106,8 @@ public class Image {
 	 * @return			The filepath of the appropriate dice image.
 	 */
 	public static String diceImageFilepath(int diceNum) {
-		// TODO
-		return "/img/alicorn_dust_80x80.png";
+		String filepath = String.format("/img/dice_%d.png", diceNum);
+		return filepath;
 	}
 
 	/**
