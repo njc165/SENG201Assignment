@@ -111,10 +111,19 @@ public class PaperScissorsRockPanel extends JPanel {
 		setPreferredSize(new Dimension(484, 494));
 		setLayout(null);
 		
+		buildPanel();			
+	}
+	
+	/**
+	 * Creates and adds all components belonging to
+	 * this instance of PaperScissorsRockPanel.
+	 */
+	private void buildPanel() {
+		removeAll();
+		minigame.play();
 		addHeadingPanel();
 		addPowerUpPanel();
 		addGamePanel();
-		
 	}
 	
 	/**
@@ -200,13 +209,13 @@ public class PaperScissorsRockPanel extends JPanel {
 		lblHeroChoice = new JLabel("");
 		lblHeroChoice.setBounds(10, 11, 100, 100);
 		lblHeroChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//TODO add image
+		lblHeroChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(Image.PSR_UNDECIDED_FILEPATH)));
 		gamePanel.add(lblHeroChoice);
 		
 		lblVillainChoice = new JLabel("");
 		lblVillainChoice.setBounds(354, 11, 100, 100);
 		lblVillainChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//TODO add image
+		lblVillainChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(Image.PSR_UNDECIDED_FILEPATH)));
 		gamePanel.add(lblVillainChoice);
 		
 		addInteractivePanel();
@@ -326,7 +335,7 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnPlayAgain.setBounds(10, 167, 203, 40);
 		btnPlayAgain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO restart game
+				buildPanel();
 			}
 		});
 		drawPanel.add(btnPlayAgain);
@@ -406,6 +415,7 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnContinue.setBounds(10, 167, 203, 40);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				minigame.removeRelevantPowerUps();
 				//TODO go to damage dealt screen
 			}
 		});

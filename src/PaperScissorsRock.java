@@ -31,11 +31,10 @@ public class PaperScissorsRock extends MiniGame {
 	 */
 	public PaperScissorsRock(Hero hero, Villain villain) {
 		super(hero, villain, RELEVANT_POWER_UPS);
-		this.villainsChoice = getVillainChoice();
 	}
 	
 	public void play() {
-		//TODO what to do here?
+		this.villainsChoice = generateVillainsChoice();
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class PaperScissorsRock extends MiniGame {
 	 * @return A string representing the villain's choice of
 	 *         paper, scissors, or rock.
 	 */
-	private String getVillainChoice() {
+	private String generateVillainsChoice() {
 		Random rand = new Random();
 		int randNum = rand.nextInt(CHOICES.length);
 		return CHOICES[randNum];
