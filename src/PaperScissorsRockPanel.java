@@ -72,6 +72,10 @@ public class PaperScissorsRockPanel extends JPanel {
 	 */
 	private JPanel gamePanel;
 	
+	/**
+	 * A panel belonging to interactivePanelCardLayout which
+	 * displays the result of a concluded (non-drawn) game.
+	 */
 	private JPanel endGamePanel;
 	
 	/**
@@ -79,8 +83,16 @@ public class PaperScissorsRockPanel extends JPanel {
 	 */
 	private JPanel interactivePanel;
 	
+	/**
+	 * A string representing the hero's choice of
+	 * paper, scissors, or rock.
+	 */
 	private JLabel lblHeroChoice;
 	
+	/**
+	 * A string representing the villain's choice of
+	 * paper, scissors, or rock.
+	 */
 	private JLabel lblVillainChoice;
 	
 	/**
@@ -103,9 +115,12 @@ public class PaperScissorsRockPanel extends JPanel {
 		addPowerUpPanel();
 		addGamePanel();
 		
-		minigame.play();
 	}
 	
+	/**
+	 * Create and populate the heading panel,
+	 * which contains an introduction to the minigame.
+	 */
 	private void addHeadingPanel() {
 		JPanel headingPanel = new JPanel();
 		headingPanel.setBounds(10, 10, 464, 130);
@@ -132,6 +147,12 @@ public class PaperScissorsRockPanel extends JPanel {
 		add(headingPanel);
 		}
 	
+	/**
+	 * Create and populate the powerUp panel,
+	 * which implements the Mindreader and Gambler abilities.
+	 * This panel is only visible to the player if their
+	 * hero is a Gambler or is using a Mindreader power-up.
+	 */
 	private void addPowerUpPanel() {
 		JPanel powerUpPanel = new JPanel();
 		powerUpPanel.setBounds(10, 144, 464, 45);
@@ -165,6 +186,10 @@ public class PaperScissorsRockPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Create and populate the game panel, which holds images of the current
+	 * choices for the hero and villain, and contains the interactive panel.
+	 */
 	private void addGamePanel() {
 		gamePanel = new JPanel();
 		gamePanel.setBounds(10, 200, 464, 283);
@@ -187,6 +212,11 @@ public class PaperScissorsRockPanel extends JPanel {
 		addInteractivePanel();
 	}
 	
+	/**
+	 * Create and populate the interactive panel.
+	 * This panel holds all interactive elements of the game and
+	 * uses a card layout to respond to the player's choices.
+	 */
 	private void addInteractivePanel() {
 		interactivePanel = new JPanel();
 		interactivePanel.setBounds(120, 11, 223, 260);
@@ -202,6 +232,11 @@ public class PaperScissorsRockPanel extends JPanel {
 		gamePanel.add(interactivePanel);
 	}
 	
+	/**
+	 * Create and populate the choose panel; a panel owned by interactive panel
+	 * which has buttons to select a choice of
+	 * paper, scissors or rock.
+	 */
 	private void addChoosePanel() {
 		JPanel choosePanel = new JPanel();
 		choosePanel.setLayout(null);
@@ -254,12 +289,22 @@ public class PaperScissorsRockPanel extends JPanel {
 		choosePanel.add(lblPromptChoice);
 	}
 	
+	/**
+	 * Create and populate the end game panel; a panel owned by the
+	 * interactive panel which displays the result of a concluded,
+	 * non-drawn game.
+	 */
 	private void addEndGamePanel() {
 		endGamePanel = new JPanel();
 		endGamePanel.setLayout(null);
 		interactivePanel.add(endGamePanel, END_GAME_PANEL_STRING);
 	    }
 	
+	/**
+	 * Create and populate the draw panel; a panel owned by the
+	 * interactive panel which dosplays the result of a drawn game and
+	 * prompts the player to play again.
+	 */
 	private void addDrawPanel() {
 		JPanel drawPanel = new JPanel();
 		drawPanel.setLayout(null);
@@ -290,6 +335,13 @@ public class PaperScissorsRockPanel extends JPanel {
 		interactivePanel.add(drawPanel, DRAW_PANEL_STRING);
 	}
 	
+	/**
+	 * Given a game outcome (win, loss, draw), responds appropriately by
+	 * switching the current view of interactivePanel to the corresponding
+	 * panel (endGamePanel or drawPanel). In the case of a draw, this method
+	 * checks for a Tiebreaker and treats the game as a win if one is found.
+	 * @param outcome A string representing the outcome of the game.
+	 */
 	private void manageGameOutcome(String outcome) {
 		if (outcome == "Draw") {
 			if (minigame.getHero().numPowerUps(PowerUpType.TIEBREAKER) > 0) {
@@ -306,6 +358,9 @@ public class PaperScissorsRockPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Refreshes gamePanel by updating labels to show the correct image.
+	 */
 	private void refreshGamePanel() {
 		String heroChoiceImageFilepath = minigame.getHeroChoiceImage();
 		String villainChoiceImageFilepath = minigame.getVillainChoiceImage();
@@ -314,6 +369,15 @@ public class PaperScissorsRockPanel extends JPanel {
 		lblVillainChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(villainChoiceImageFilepath)));
 	}
 	
+	/**
+	 * Refreshes the endGame panel by creating components and setting their
+	 * attributed depening on the result of the game, including if the game
+	 * was won via a Tiebreaker power-up.
+	 * @param outcome A string representation of the outcome of the game.
+	 * @param wonViaTiebreaker A boolean showing how the game was won.
+	 *                         True if a Tiebreaker was used,
+	 *                         False otherwise.
+	 */
 	private void refreshEndGamePanel(String outcome, boolean wonViaTiebreaker) {
 		JLabel lblResult = new JLabel();
 		String result;
