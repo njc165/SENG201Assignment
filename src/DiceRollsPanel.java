@@ -135,7 +135,6 @@ public class DiceRollsPanel extends JPanel {
 	private void showResultScreen() {
 		contentPanel.removeAll();
 		
-		System.out.println("1");
 		JLabel lblHeroDice = new JLabel("");
 		lblHeroDice.setBounds(304, 40, 80, 80);
 		contentPanel.add(lblHeroDice);

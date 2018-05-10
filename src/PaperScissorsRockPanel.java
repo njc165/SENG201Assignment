@@ -124,6 +124,8 @@ public class PaperScissorsRockPanel extends JPanel {
 		addHeadingPanel();
 		addPowerUpPanel();
 		addGamePanel();
+		revalidate();
+		repaint();
 	}
 	
 	/**
@@ -132,25 +134,25 @@ public class PaperScissorsRockPanel extends JPanel {
 	 */
 	private void addHeadingPanel() {
 		JPanel headingPanel = new JPanel();
-		headingPanel.setBounds(10, 10, 464, 130);
+		headingPanel.setBounds(10, 10, 464, 111);
 		headingPanel.setLayout(null);
 		
 		JLabel lblVillainName = new JLabel(minigame.getVillain().toString());
 		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVillainName.setBounds(40, 10, 405, 45);
+		lblVillainName.setBounds(10, 10, 435, 31);
 		headingPanel.add(lblVillainName);
 		
 		JLabel lblPaperScissorsRock = new JLabel("Paper Scissors Rock!");
 		lblPaperScissorsRock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPaperScissorsRock.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblPaperScissorsRock.setBounds(40, 80, 405, 45);
+		lblPaperScissorsRock.setBounds(10, 63, 445, 45);
 		headingPanel.add(lblPaperScissorsRock);
 		
 		JLabel lblDemandsYouPlay = new JLabel("has demanded that you play");
 		lblDemandsYouPlay.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblDemandsYouPlay.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDemandsYouPlay.setBounds(40, 43, 405, 45);
+		lblDemandsYouPlay.setBounds(10, 43, 435, 24);
 		headingPanel.add(lblDemandsYouPlay);
 
 		add(headingPanel);
@@ -164,7 +166,7 @@ public class PaperScissorsRockPanel extends JPanel {
 	 */
 	private void addPowerUpPanel() {
 		JPanel powerUpPanel = new JPanel();
-		powerUpPanel.setBounds(10, 144, 464, 45);
+		powerUpPanel.setBounds(10, 132, 464, 69);
 		powerUpPanel.setLayout(null);
 		
 		String sense;		
@@ -182,17 +184,29 @@ public class PaperScissorsRockPanel extends JPanel {
 		lblSource.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		powerUpPanel.add(lblSource);
 		
+		JLabel lblMindreaderIconLeft = new JLabel("");
+		lblMindreaderIconLeft.setBounds(140, 25, 38, 38);
+		lblMindreaderIconLeft.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(
+													Image.powerUpImageFilepath(PowerUpType.MINDREADER, 38))));
+		lblMindreaderIconLeft.setVisible(false);
+		powerUpPanel.add(lblMindreaderIconLeft);		
+		
 		String notPlayed = minigame.revealNot();
 		
 		JLabel lblNotPlayed = new JLabel(notPlayed);
 		lblNotPlayed.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNotPlayed.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNotPlayed.setBounds(50, 20, 364, 20);
+		lblNotPlayed.setBounds(185, 30, 94, 20);
 		powerUpPanel.add(lblNotPlayed);
 		
-		if (minigame.getHero().numPowerUps(PowerUpType.MINDREADER) > 0 || minigame.getHero().getHasBattleAdvantage()) {
+		if (minigame.getHero().getHasBattleAdvantage()) {
+			add(powerUpPanel);
+		} else if (minigame.getHero().numPowerUps(PowerUpType.MINDREADER) > 0) {
+			minigame.removePowerUps(PowerUpType.MINDREADER, 1);
+			lblMindreaderIconLeft.setVisible(true);
 			add(powerUpPanel);
 		}
+		
 	}
 	
 	/**
@@ -333,7 +347,6 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnPlayAgain.setBounds(10, 167, 203, 40);
 		btnPlayAgain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO this is broken. it isnt even remotely functional
 				buildPanel();
 			}
 		});
@@ -413,6 +426,7 @@ public class PaperScissorsRockPanel extends JPanel {
 		if (wonViaTiebreaker) {
 			endGamePanel.add(lblTiebreakerActivated);
 			endGamePanel.add(lblTiebreakerIcon);
+			minigame.removePowerUps(PowerUpType.TIEBREAKER, 1);
 		}
 
 		JButton btnContinue = new JButton("Continue");
@@ -420,7 +434,6 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnContinue.setBounds(10, 167, 203, 40);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				minigame.removeRelevantPowerUps();
 				//TODO go to damage dealt screen
 			}
 		});

@@ -108,7 +108,9 @@ public class Image {
 	public static String diceImageFilepath(int diceNum) {
 		// TODO
 		return "/img/alicorn_dust_80x80.png";
-
+	}
+	
+	/**
 	 * Returns the filepath for the image representing a hero's
 	 * choice in a game of paper, scissors, rock.
 	 * @param choice A string representation of the hero's choice.
