@@ -260,7 +260,7 @@ public class DiceRollsPanel extends JPanel {
 	 */
 	private void endGame() {
 		diceRolls.removeAllPowerUps(PowerUpType.INCREASE_ROLL);
-		// TODO
+		villainsLairPanel.miniGameFinished(diceRolls.getHasWon());
 	}
 	
 	
