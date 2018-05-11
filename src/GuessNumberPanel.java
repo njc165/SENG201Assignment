@@ -47,8 +47,8 @@ public class GuessNumberPanel extends JPanel {
 	private GuessNumber guessNumber;
 	
 	/**
-	 * A panel containing all the components of the dice rolls panel
-	 * except the title.
+	 * A panel containing all the components of the guess the number
+	 * panel except the title.
 	 */
 	private JPanel contentPanel;
 
@@ -78,6 +78,7 @@ public class GuessNumberPanel extends JPanel {
 		
 		showGuessScreen();
 //		showGuessAgainScreen();
+//		showResultScreen();
 	}
 	
 	
@@ -133,7 +134,7 @@ public class GuessNumberPanel extends JPanel {
 			txtpnGambler.setText("Your Gambler special ability gives you 1 extra guess.");
 			txtpnGambler.setEditable(false);
 			txtpnGambler.setBackground(SystemColor.menu);
-			txtpnGambler.setBounds(56, 98, 290, 25);
+			txtpnGambler.setBounds(56, 98, 310, 25);
 			contentPanel.add(txtpnGambler);
 		}
 		
@@ -234,7 +235,7 @@ public class GuessNumberPanel extends JPanel {
 		contentPanel.add(lblGuessesLeft);
 		
 		JSlider sldGuess = new JSlider();
-		sldGuess.setValue(1);
+		sldGuess.setValue(guessNumber.getGuess());
 		sldGuess.setSnapToTicks(true);
 		sldGuess.setPaintTicks(true);
 		sldGuess.setMajorTickSpacing(1);
@@ -271,7 +272,59 @@ public class GuessNumberPanel extends JPanel {
 	 * chosen number.
 	 */
 	private void showResultScreen() {
+		contentPanel.removeAll();
 		
+		JLabel lblNumberImage = new JLabel(Integer.toString(guessNumber.getNumberToGuess()));
+		lblNumberImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblNumberImage.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		lblNumberImage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumberImage.setBounds(363, 98, 60, 60);
+		contentPanel.add(lblNumberImage);
+		
+		String result = "";
+		if (guessNumber.getHasWon()) {
+			result = "You win!";
+		} else {
+			result = "You lost!";
+		}
+		JLabel lblResult = new JLabel(result);
+		lblResult.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblResult.setBounds(116, 109, 232, 30);
+		contentPanel.add(lblResult);
+		
+		String message = "";
+		if (guessNumber.getHasWon()) {
+			message = String.format("You have guessed %s's number correctly.",
+									guessNumber.getVillain());
+		} else {
+			message = "You have run out of guesses.";
+		}
+		JLabel lblMessage = new JLabel(message);
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessage.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMessage.setBounds(10, 199, 444, 30);
+		contentPanel.add(lblMessage);
+		
+		JButton btnContinue = new JButton("Continue");
+		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnContinue.setBounds(177, 308, 110, 30);
+		btnContinue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				endGame();
+			}
+		});
+		contentPanel.add(btnContinue);
+	
+	}
+	
+	/**
+	 * Returns the result of the game to the VillainsLairPanel,
+	 * and shows the game result panel.
+	 */
+	private void endGame() {
+		guessNumber.removeAllPowerUps(PowerUpType.EXTRA_GUESS);
+		// TODO
 	}
 	
 	

@@ -55,7 +55,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * by the subContentPanel card layout.
 	 */
 	private static final String BATTLE_PANEL_STRING = "Battle Panel";
-	
+		
 	/**
 	 * A JPanel containing all components related to the title of this panel.
 	 */
@@ -449,7 +449,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * depending on the games played by the current villain.
 	 */
 	private JPanel newMiniGamePanel() {
-		return new PaperScissorsRockPanel(this, currentHero, villain());
+		return new DiceRollsPanel(this, currentHero, villain());
 		
 		// TODO remove after testing
 //		MiniGames miniGameType = villain().getGame();

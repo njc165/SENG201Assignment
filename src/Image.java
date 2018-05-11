@@ -16,10 +16,16 @@ public class Image {
 	 */
 	public static final String MOUNTAINS_IMAGE_FILEPATH = "/img/mountains.png";
 	
+	/**
+	 * The file path for the coin image used in the shop.
+	 */
 	public static final String COIN_IMAGE_FILEPATH = "/img/coin_38x38.png";
 	
-	// TODO
-	public static final String UNROLLED_DICE_IMAGE_FILEPATH = "/img/alicorn_dust_80x80.png";
+	
+	/**
+	 * The file path for the unrolled dice image used in the Dice Rolls game.
+	 */
+	public static final String UNROLLED_DICE_IMAGE_FILEPATH = "/img/dice_unrolled.png";
 	
 	
 	/**

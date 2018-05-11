@@ -42,7 +42,7 @@ public class GuessNumber extends MiniGame {
 	 */
 	public GuessNumber(Hero hero, Villain villain) {
 		super(hero, villain, RELEVANT_POWER_UPS);
-		guessesLeft = calculateGuessesLeft();
+		guessesLeft = initialGuesses();
 		numberToGuess = numberToGuess();
 	}
 	
@@ -84,7 +84,7 @@ public class GuessNumber extends MiniGame {
 	 * -one extra guess for each ExtraGuess power-up currently applied to the hero
 	 * @return	The initial number of guesses the hero has.
 	 */
-	private int calculateGuessesLeft() {
+	private int initialGuesses() {
 		int guesses = DEFAULT_GUESSES;
 		if (getHero().getHasBattleAdvantage())
 			guesses++;

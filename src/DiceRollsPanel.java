@@ -138,13 +138,13 @@ public class DiceRollsPanel extends JPanel {
 		contentPanel.removeAll();
 		
 		JLabel lblHeroDice = new JLabel("");
-		lblHeroDice.setBounds(304, 40, 80, 80);
+		lblHeroDice.setBounds(80, 40, 80, 80);
 		contentPanel.add(lblHeroDice);
 		lblHeroDice.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
 								Image.diceImageFilepath(diceRolls.getHeroRoll()))));
 		
 		JLabel lblVillainDice = new JLabel("");
-		lblVillainDice.setBounds(80, 40, 80, 80);
+		lblVillainDice.setBounds(304, 40, 80, 80);
 		contentPanel.add(lblVillainDice);
 		lblVillainDice.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
 								Image.diceImageFilepath(diceRolls.getVillainRoll()))));
@@ -245,7 +245,6 @@ public class DiceRollsPanel extends JPanel {
 			btnContinue.setBounds(173, 324, 117, 30);
 			btnContinue.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					diceRolls.removeAllPowerUps(PowerUpType.INCREASE_ROLL);
 					endGame();
 				}
 			});
@@ -257,9 +256,10 @@ public class DiceRollsPanel extends JPanel {
 	
 	/**
 	 * Returns the result of the game to the villain's lair panel, and
-	 * shows the game summary panel.
+	 * shows the game result panel.
 	 */
 	private void endGame() {
+		diceRolls.removeAllPowerUps(PowerUpType.INCREASE_ROLL);
 		// TODO
 	}
 	
