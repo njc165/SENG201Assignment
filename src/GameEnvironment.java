@@ -233,6 +233,37 @@ public class GameEnvironment {
 	}
 	
 	/**
+	 * Takes the result of a completed mini game, and processes the result.
+	 * If the hero won, does damage to the villain, checking whether the hero
+	 * does double damage. If the villain has been defeated three times,
+	 * rewards the team with coins.
+	 * If the hero lost, the hero takes the appropriate amount of damage.
+	 * @param hasWon	Whether or not the hero won the mini game.
+	 * @param hero		The hero who was playing the mini game.
+	 * @param villain 	The villain who was playing the mini game.
+	 */
+	public void processMiniGameResult(boolean hasWon, Hero hero, Villain villain) {
+		if (villain != currentCity().getVillain()) {
+			throw new IllegalArgumentException("Incorrect villain");
+		}
+		
+		if (hasWon) {
+			villain.setTimesDefeated(villain.getTimesDefeated() + 1);	
+			if (hero.getHasDoubleDamage()) {
+				villain.setTimesDefeated(villain.getTimesDefeated() + 1);
+			}
+			
+			if (villain.isDefeated()) {
+				team.setCurrentMoney(team.getCurrentMoney() + PRIZE_MONEY);
+			}
+			
+		} else {
+			int damage = villain.getDamageDealt();
+			team.takeDamage(hero, damage);
+		}
+	}
+	
+	/**
 	 * Getter method for team.
 	 * @return The value of team.
 	 */

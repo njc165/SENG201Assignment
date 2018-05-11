@@ -324,7 +324,7 @@ public class GuessNumberPanel extends JPanel {
 	 */
 	private void endGame() {
 		guessNumber.removeAllPowerUps(PowerUpType.EXTRA_GUESS);
-		// TODO
+		villainsLairPanel.miniGameFinished(guessNumber.getHasWon());
 	}
 	
 	

@@ -434,7 +434,8 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnContinue.setBounds(10, 167, 203, 40);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO go to damage dealt screen
+				// TODO
+				villainsLairPanel.miniGameFinished(minigame.getHasWon());
 			}
 		});
 		endGamePanel.add(btnContinue);
