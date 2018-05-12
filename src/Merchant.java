@@ -8,7 +8,7 @@ public class Merchant extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = String.format("%s%% Store Discount",
+	private static final String SPECIAL_ABILITY = String.format("%s%% Store Discount.",
 												(int) (100 - (Hero.STORE_DISCOUNT_MULTIPLIER * 100)));
 	
 	/**

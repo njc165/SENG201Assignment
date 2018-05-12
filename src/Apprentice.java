@@ -8,7 +8,7 @@ public class Apprentice extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = "Healing items apply faster";
+	private static final String SPECIAL_ABILITY = "Healing items apply faster.";
 	
 	/**
 	 * An extended string description of the hero.

@@ -8,7 +8,7 @@ public class Gambler extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = "Advantages in villain battles.";
+	private static final String SPECIAL_ABILITY = "Advantages in battles.";
 	
 	/**
 	 * An extended string description of the hero.
