@@ -156,7 +156,9 @@ public class DiceRollsPanel extends JPanel {
 		lblHeroRoll.setBounds(10, 132, 222, 20);
 		contentPanel.add(lblHeroRoll);
 		
-		JLabel lblVillainRoll = new JLabel(String.format("Invictus the Unconquered rolled a %s.",
+		
+		JLabel lblVillainRoll = new JLabel(String.format("%s rolled a %s.",
+															diceRolls.getVillain().getName(),
 															diceRolls.getVillainRoll()));
 		lblVillainRoll.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVillainRoll.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -253,7 +255,6 @@ public class DiceRollsPanel extends JPanel {
 		
 	}
 	
-	
 	/**
 	 * Returns the result of the game to the villain's lair panel, and
 	 * shows the game result panel.
@@ -262,9 +263,5 @@ public class DiceRollsPanel extends JPanel {
 		diceRolls.removeAllPowerUps(PowerUpType.INCREASE_ROLL);
 		villainsLairPanel.miniGameFinished(diceRolls.getHasWon());
 	}
-	
-	
-	
-	
 	
 }
