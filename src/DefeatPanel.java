@@ -14,6 +14,8 @@ import javax.swing.JButton;
 
 public class DefeatPanel extends JPanel {
 	
+	public static final String DEFEAT_PANEL_STRING = "Defeat Panel";
+	
 	private Game gameWindow;
 	
 	public DefeatPanel(Game game) {
@@ -29,10 +31,10 @@ public class DefeatPanel extends JPanel {
 		lblBanner.setBounds(10, 290, 860, 65);
 		add(lblBanner);
 		
-		JLabel lblFireworks = new JLabel("");
-		lblFireworks.setIcon(new ImageIcon(VictoryPanel.class.getResource(Image.GRAVESTONE_IMAGE_FILEPATH)));
-		lblFireworks.setBounds(332, 22, 207, 268);
-		add(lblFireworks);
+		JLabel lblGravestone = new JLabel("");
+		lblGravestone.setIcon(new ImageIcon(VictoryPanel.class.getResource(Image.GRAVESTONE_IMAGE_FILEPATH)));
+		lblGravestone.setBounds(342, 22, 207, 268);
+		add(lblGravestone);
 		
 		JLabel lblYouLost = new JLabel("Your team was defeated and villains took over the world.");
 		lblYouLost.setFont(new Font("Tahoma", Font.PLAIN, 20));

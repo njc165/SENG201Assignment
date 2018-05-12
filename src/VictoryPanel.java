@@ -14,6 +14,8 @@ import javax.swing.JButton;
 
 public class VictoryPanel extends JPanel {
 	
+	public static final String VICTORY_PANEL_STRING = "Victory Panel";
+	
 	private Game gameWindow;
 	
 	public VictoryPanel(Game game) {

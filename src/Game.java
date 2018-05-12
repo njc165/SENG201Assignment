@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.BorderLayout;
 
 public class Game {
@@ -26,7 +25,8 @@ public class Game {
 	private HospitalPanel hospitalPanel;
 	private PowerUpDenPanel powerUpDenPanel;
 	private VillainsLairPanel villainsLairPanel;	
-	
+	private VictoryPanel victoryPanel;
+	private DefeatPanel defeatPanel;
 
 	/**
 	 * Launch the application.
@@ -105,6 +105,23 @@ public class Game {
 			if (randomEventText != null) {
 				JOptionPane.showMessageDialog(frame, randomEventText);
 			}
+		}
+	}
+	
+	/**
+	 * Ends the current game by displaying a victory panel
+	 * or defeat panel as appropriate.
+	 * @param won true if the team won the game, false otherwise.
+	 */
+	public void endGame(boolean won) {
+		if (won) {
+			victoryPanel = new VictoryPanel(this);
+			mainPanel.add(victoryPanel, VictoryPanel.VICTORY_PANEL_STRING);
+			cardLayout.show(mainPanel, VictoryPanel.VICTORY_PANEL_STRING);
+		} else {
+			defeatPanel = new DefeatPanel(this);
+			mainPanel.add(defeatPanel, DefeatPanel.DEFEAT_PANEL_STRING);
+			cardLayout.show(mainPanel, DefeatPanel.DEFEAT_PANEL_STRING);
 		}
 	}
 	

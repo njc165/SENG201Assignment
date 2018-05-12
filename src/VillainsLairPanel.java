@@ -289,9 +289,6 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		subContentPanelCardLayout.show(subContentPanel, START_ENCOUNTER_PANEL_STRING);
 		
 		contentPanel.add(subContentPanel);
-		
-		// TODO
-//		refreshGameResultPanel();
 	}
 	
 	/**
@@ -582,7 +579,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		
 		if (villain().isDefeated()) {
 			JLabel lblDefeatedVillain = new JLabel();
-			lblDefeatedVillain.setText(String.format("You have defeated %s", villain().getName()));
+			lblDefeatedVillain.setText(String.format("You have defeated %s.", villain().getName()));
 			lblDefeatedVillain.setHorizontalAlignment(SwingConstants.CENTER);
 			lblDefeatedVillain.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			lblDefeatedVillain.setBounds(190, 233, 470, 31);
@@ -602,16 +599,15 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 				btnContinue.setText("Continue");
 				btnContinue.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//TODO
-						System.out.println("Go to end game screen");
+						gameWindow.endGame(true);
 					}
 				});
 			} else {
 				btnContinue.setText("Next City");
 				btnContinue.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//TODO
-						System.out.println("Go to next city");
+						gameWindow.getGame().nextCity();
+						gameWindow.setPanel(HomeBasePanel.HOME_BASE_PANEL_STRING);
 					}
 				});
 			}		
@@ -697,7 +693,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		if (team().getHeroes().isEmpty()) {
 			btnContinue.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO go to defeated screen
+					gameWindow.endGame(false);
 				}
 			});
 		}
