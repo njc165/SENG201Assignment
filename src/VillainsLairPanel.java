@@ -518,18 +518,15 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * Creates and returns a new mini-game panel of one of the three possible types,
 	 * depending on the games played by the current villain.
 	 */
-	private JPanel newMiniGamePanel() {
-		return new GuessNumberPanel(this, currentHero, villain());
+	private JPanel newMiniGamePanel() {		
+		MiniGames miniGameType = villain().getGame();
 		
-		// TODO remove after testing
-//		MiniGames miniGameType = villain().getGame();
-//		
-//		switch (miniGameType) {
-//			case PAPER_SCISSORS_ROCK: return new PaperScissorsRockPanel(this, currentHero, villain());
-//			case DICE_ROLLS: return new DiceRollsPanel(this, currentHero, villain());
-//			case GUESS_NUMBER: return new GuessNumberPanel(this, currentHero, villain());
-//			default: throw new RuntimeException("Incorrect MiniGame type");
-//		}
+		switch (miniGameType) {
+			case PAPER_SCISSORS_ROCK: return new PaperScissorsRockPanel(this, currentHero, villain());
+			case DICE_ROLLS: return new DiceRollsPanel(this, currentHero, villain());
+			case GUESS_NUMBER: return new GuessNumberPanel(this, currentHero, villain());
+			default: throw new RuntimeException("Incorrect MiniGame type");
+		}
 		
 	}
 	
@@ -538,8 +535,8 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 */
 	private void addGameResultPanel() {
 		gameResultPanel = new JPanel();
-		subContentPanel.add(gameResultPanel, GAME_RESULT_PANEL_STRING);
 		gameResultPanel.setLayout(null);
+		subContentPanel.add(gameResultPanel, GAME_RESULT_PANEL_STRING);
 	}
 	
 	/**
@@ -553,10 +550,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	private void refreshGameResultPanel() {
 		gameResultPanel.removeAll();
 		gameResultPanel.add(heroImagePanel());
-		
-//		 TODO for testing
-//		wonLastMinigame = true;
-		
+				
 		if (wonLastMinigame) {
 			addWonComponents();
 		} else {
@@ -580,40 +574,74 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			txtpnMercenary.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			txtpnMercenary.setEditable(false);
 			txtpnMercenary.setBackground(UIManager.getColor("Panel.background"));
-			txtpnMercenary.setText("John the Merceneray used their special ability to do Invictus the unconquered double damage.");
+			txtpnMercenary.setText(String.format("%s used their special ability to attack twice!", currentHero.getName()));
 			txtpnMercenary.setBounds(267, 111, 340, 39);
 			gameResultPanel.add(txtpnMercenary);
 		}
 
 		
 		if (villain().isDefeated()) {
-			// TODO
+			JLabel lblDefeatedVillain = new JLabel();
+			lblDefeatedVillain.setText(String.format("You have defeated %s", villain().getName()));
+			lblDefeatedVillain.setHorizontalAlignment(SwingConstants.CENTER);
+			lblDefeatedVillain.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblDefeatedVillain.setBounds(190, 233, 470, 31);
+			gameResultPanel.add(lblDefeatedVillain);
+			
+			JLabel lblPrizeMoney = new JLabel();
+			lblPrizeMoney.setText(String.format("The citizens have rewarded you with %d coins!", gameWindow.getGame().getPrizeMoney()));
+			lblPrizeMoney.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPrizeMoney.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblPrizeMoney.setBounds(190, 270, 470, 31);
+			gameResultPanel.add(lblPrizeMoney);
+			
+			JButton btnContinue = new JButton();
+			btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			btnContinue.setBounds(373, 425, 110, 30);
+			if (villain() instanceof Invictus) {
+				btnContinue.setText("Continue");
+				btnContinue.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//TODO
+						System.out.println("Go to end game screen");
+					}
+				});
+			} else {
+				btnContinue.setText("Next City");
+				btnContinue.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//TODO
+						System.out.println("Go to next city");
+					}
+				});
+			}		
+			gameResultPanel.add(btnContinue);
+			
 		} else {
-			JLabel lblYouNeedTo = new JLabel(String.format("You need to win %s more rounds",
+			JLabel lblRoundsRemaining = new JLabel(String.format("You need to win %s more rounds",
 									villain().remainingTimesToDefeat()));
-			lblYouNeedTo.setHorizontalAlignment(SwingConstants.CENTER);
-			lblYouNeedTo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblYouNeedTo.setBounds(190, 233, 470, 31);
-			gameResultPanel.add(lblYouNeedTo);
+			lblRoundsRemaining.setHorizontalAlignment(SwingConstants.CENTER);
+			lblRoundsRemaining.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblRoundsRemaining.setBounds(190, 233, 470, 31);
+			gameResultPanel.add(lblRoundsRemaining);
 			
-			JLabel lblToDefeatInvictus = new JLabel("to defeat Invictus the Unconquered.");
-			lblToDefeatInvictus.setHorizontalAlignment(SwingConstants.CENTER);
-			lblToDefeatInvictus.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblToDefeatInvictus.setBounds(190, 257, 470, 31);
-			gameResultPanel.add(lblToDefeatInvictus);
+			JLabel lblToDefeat = new JLabel(String.format("to defeat %s.", villain().getName()));
+			lblToDefeat.setHorizontalAlignment(SwingConstants.CENTER);
+			lblToDefeat.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblToDefeat.setBounds(190, 257, 470, 31);
+			gameResultPanel.add(lblToDefeat);
 			
-			JButton btnNewButton = new JButton("Next Round");
-			btnNewButton.addActionListener(new ActionListener() {
+			JButton btnNextRound = new JButton("Next Round");
+			btnNextRound.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					refreshSelectHeroPanel();
 					subContentPanelCardLayout.show(subContentPanel, SELECT_HERO_PANEL_STRING);
 				}
 			});
-			btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			btnNewButton.setBounds(373, 425, 110, 30);
-			gameResultPanel.add(btnNewButton);
+			btnNextRound.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			btnNextRound.setBounds(373, 425, 110, 30);
+			gameResultPanel.add(btnNextRound);
 		}
-		
 
 	}
 	
@@ -622,6 +650,66 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * the mini game.
 	 */
 	private void addLostComponents() {
-		// TODO
+		JLabel lblLost = new JLabel("Oh no! You lost the round!");
+		lblLost.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLost.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblLost.setBounds(190, 51, 470, 31);
+		gameResultPanel.add(lblLost);
+		
+		JLabel lblVillainAttacked = new JLabel();
+		lblVillainAttacked.setText(String.format("%s attacks %s!", villain().getName(), currentHero.getName()));
+		lblVillainAttacked.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVillainAttacked.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblVillainAttacked.setBounds(190, 257, 470, 31);
+		gameResultPanel.add(lblVillainAttacked);
+		
+		int damageTaken = villain().getDamageDealt();
+		if (currentHero.getHasReducedDamage()) {
+			damageTaken = (int) (damageTaken * Hero.DAMAGE_REDUCTION_MULTIPLIER);
+		}
+		
+		JLabel lblDamageTaken = new JLabel();
+		lblDamageTaken.setText(String.format("%s took %d damage!", currentHero.getName(), damageTaken));
+		lblDamageTaken.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDamageTaken.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDamageTaken.setBounds(190, 300, 470, 31);
+		gameResultPanel.add(lblDamageTaken);
+				
+		if (currentHero.getCurrentHealth() <= 0) {
+			JLabel lblHeroDied = new JLabel();
+			lblHeroDied.setText(String.format("%s has fallen in battle!", currentHero.getName()));
+			lblHeroDied.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroDied.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblHeroDied.setBounds(190, 340, 470, 31);
+			gameResultPanel.add(lblHeroDied);
+		}
+		
+		JLabel lblRoundsRemaining = new JLabel(String.format("You need to win %s more rounds",
+															villain().remainingTimesToDefeat()));
+		lblRoundsRemaining.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRoundsRemaining.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRoundsRemaining.setBounds(190, 380, 470, 31);
+		gameResultPanel.add(lblRoundsRemaining);
+		
+		JButton btnContinue = new JButton("Continue");	
+		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnContinue.setBounds(373, 425, 110, 30);
+		if (team().getHeroes().isEmpty()) {
+			btnContinue.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//TODO go to defeated screen
+				}
+			});
+		}
+		else {
+			btnContinue.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					refreshSelectHeroPanel();
+					subContentPanelCardLayout.show(subContentPanel, SELECT_HERO_PANEL_STRING);
+				}
+			});
+		}
+		
+		gameResultPanel.add(btnContinue);
 	}
 }
