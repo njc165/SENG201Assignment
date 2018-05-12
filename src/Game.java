@@ -138,4 +138,12 @@ public class Game {
 	public void setGame(GameEnvironment game) {
 		this.game = game;
 	}
+	
+	/**
+	 * Getter method for frame.
+	 * @return The value of frame.
+	 */
+	public JFrame getFrame() {
+		return frame;
+	}
 }
