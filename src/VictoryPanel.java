@@ -45,7 +45,7 @@ public class VictoryPanel extends JPanel {
 		long secondsTaken = timeTaken - 60 * minutesTaken;
 		
 		JLabel lblTimeTaken = new JLabel();
-		lblTimeTaken.setText(String.format("It took %d minutes and %d seconds.", minutesTaken, secondsTaken));
+		lblTimeTaken.setText(String.format("You played for %d minutes and %d seconds.", minutesTaken, secondsTaken));
 		lblTimeTaken.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimeTaken.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTimeTaken.setBounds(213, 442, 470, 57);
