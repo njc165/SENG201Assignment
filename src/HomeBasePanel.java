@@ -573,11 +573,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			}
 		}
 		
-	}
-
-
-	
-	
-	
+	}	
 	
 }
