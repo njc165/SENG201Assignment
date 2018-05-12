@@ -154,8 +154,6 @@ public class Villain {
 		return name;
 	}
 
-
-
 	/**
 	 * Getter method for damageDealt.
 	 * @return The value of damageDealt.

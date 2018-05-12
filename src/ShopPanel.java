@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -462,6 +463,8 @@ public class ShopPanel extends JPanel implements Refreshable {
 			public void actionPerformed(ActionEvent e) {
 				PowerUp newPowerUp = (PowerUp) Util.instantiate(powerUp.getClass());
 				team().buyPowerUp(newPowerUp);
+				String template = String.format("You purchased one %s.", newPowerUp.toString());
+				JOptionPane.showMessageDialog(gameWindow.getFrame(), template);
 				refresh();
 				contentPanelCardLayout.show(contentPanel, powerUp.toString());
 			}
@@ -530,6 +533,8 @@ public class ShopPanel extends JPanel implements Refreshable {
 			public void actionPerformed(ActionEvent e) {
 				HealingItem newHealingItem = (HealingItem) Util.instantiate(healingItem.getClass());
 				team().buyHealingItem(newHealingItem);
+				String template = String.format("You purchased one %s.", newHealingItem.toString());
+				JOptionPane.showMessageDialog(gameWindow.getFrame(), template);
 				refresh();
 				contentPanelCardLayout.show(contentPanel, healingItem.toString());
 			}

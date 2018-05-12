@@ -286,4 +286,20 @@ public class GameEnvironment {
 	public City currentCity() {
 		return cities.get(currentCityIndex);
 	}
+	
+	/**
+	 * Getter method for PRIZE_MONEY.
+	 * @return the value of PRIZE_MONEY.
+	 */
+	public int getPrizeMoney() {
+		return PRIZE_MONEY;
+	}
+	
+	/**
+	 * Getter method for startTime.
+	 * @return The value of startTime.
+	 */
+	public LocalTime getStartTime() {
+		return startTime;
+	}
 }

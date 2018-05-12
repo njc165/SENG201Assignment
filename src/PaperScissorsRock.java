@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class PaperScissorsRock extends MiniGame {
@@ -96,8 +98,10 @@ public class PaperScissorsRock extends MiniGame {
 	 * @param villainChoice
 	 */
 	public String revealNot() {
+		String[] choices = CHOICES.clone();
+		Collections.shuffle(Arrays.asList(choices));
 		String returnString = "If you see this, PSR.revealNot() is broken";
-		for (String choice : CHOICES) {		
+		for (String choice : choices) {		
 			if ( choice != villainsChoice) {
 				returnString = choice;
 			}

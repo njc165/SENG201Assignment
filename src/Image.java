@@ -35,6 +35,13 @@ public class Image {
 	public static final String PSR_UNDECIDED_FILEPATH = "/img/PSR_undecided.png";
 	
 	/**
+	 * The file path for the image used ihe victory screen.
+	 */
+	public static final String FIREWORKS_IMAGE_FILEPATH = "/img/fireworks.png";
+	
+	public static final String GRAVESTONE_IMAGE_FILEPATH = "/img/gravestone.png";
+	
+	/**
 	 * Takes a hero instance, and returns the file path for the portrait
 	 * image of the given size for this hero type.
 	 * @param hero		The hero whose image file path should be returned.

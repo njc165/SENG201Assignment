@@ -403,6 +403,7 @@ public class PaperScissorsRockPanel extends JPanel {
 		JLabel lblResult = new JLabel();
 		String result;
 		if (outcome == "Win") {
+			minigame.setHasWon(true);
 			result = "VICTORY";
 		}
 		else {
@@ -434,10 +435,13 @@ public class PaperScissorsRockPanel extends JPanel {
 		btnContinue.setBounds(10, 167, 203, 40);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
-				villainsLairPanel.miniGameFinished(minigame.getHasWon());
+				endGame();
 			}
 		});
 		endGamePanel.add(btnContinue);
+	}
+	
+	private void endGame() {
+		villainsLairPanel.miniGameFinished(minigame.getHasWon());
 	}
 }
