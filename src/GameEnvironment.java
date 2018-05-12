@@ -294,4 +294,12 @@ public class GameEnvironment {
 	public int getPrizeMoney() {
 		return PRIZE_MONEY;
 	}
+	
+	/**
+	 * Getter method for startTime.
+	 * @return The value of startTime.
+	 */
+	public LocalTime getStartTime() {
+		return startTime;
+	}
 }
