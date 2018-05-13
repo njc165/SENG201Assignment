@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -446,6 +448,16 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			heroSelectButtonGroup.add(radioButton);
 			heroPanel.add(radioButton);			
 			heroListPanel.add(heroPanel);
+			
+			heroPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (radioButton.isEnabled()) {
+						radioButton.setSelected(true);
+						refreshGoButton();
+					}
+				}
+			});
 		}
 		
 		selectHeroPanel.add(heroListPanel);
@@ -519,17 +531,17 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * depending on the games played by the current villain.
 	 */
 	private JPanel newMiniGamePanel() {
-		return new GuessNumberPanel(this, currentHero, villain());
+//		return new GuessNumberPanel(this, currentHero, villain());
 		
 		// TODO remove after testing
-//		MiniGames miniGameType = villain().getGame();
-//		
-//		switch (miniGameType) {
-//			case PAPER_SCISSORS_ROCK: return new PaperScissorsRockPanel(this, currentHero, villain());
-//			case DICE_ROLLS: return new DiceRollsPanel(this, currentHero, villain());
-//			case GUESS_NUMBER: return new GuessNumberPanel(this, currentHero, villain());
-//			default: throw new RuntimeException("Incorrect MiniGame type");
-//		}
+		MiniGames miniGameType = villain().getGame();
+		
+		switch (miniGameType) {
+			case PAPER_SCISSORS_ROCK: return new PaperScissorsRockPanel(this, currentHero, villain());
+			case DICE_ROLLS: return new DiceRollsPanel(this, currentHero, villain());
+			case GUESS_NUMBER: return new GuessNumberPanel(this, currentHero, villain());
+			default: throw new RuntimeException("Incorrect MiniGame type");
+		}
 		
 	}
 	
