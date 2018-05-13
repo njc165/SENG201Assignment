@@ -124,7 +124,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 	 */
 	private void addTitle() {
 		JLabel lblShop = new JLabel("SHOP");
-		lblShop.setFont(new Font("Tahoma", Font.PLAIN, 60));
+		lblShop.setFont(new Font("Rockwell", Font.PLAIN, 60));
 		lblShop.setHorizontalAlignment(SwingConstants.CENTER);
 		lblShop.setBounds(10, 11, 860, 64);
 		add(lblShop);
