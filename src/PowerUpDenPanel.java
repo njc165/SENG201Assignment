@@ -35,6 +35,8 @@ import java.awt.BorderLayout;
 import javax.swing.JRadioButton;
 import javax.swing.JProgressBar;
 import javax.swing.border.LineBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PowerUpDenPanel extends JPanel implements Refreshable {
 	
@@ -262,6 +264,16 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 			radioButton.putClientProperty("Hero", hero);
 			heroPanel.add(radioButton, BorderLayout.SOUTH);
 			heroRadioButtonGroup.add(radioButton);
+			
+			heroPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (radioButton.isEnabled()) {
+						radioButton.setSelected(true);
+						refreshApplyButton();
+					}
+				}
+			});
 		}
 	}
 	
@@ -319,6 +331,16 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 			radioButton.putClientProperty("PowerUp", powerUp);
 			powerUpPanel.add(radioButton);
 			powerUpRadioButtonGroup.add(radioButton);
+			
+			powerUpPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (radioButton.isEnabled()) {
+						radioButton.setSelected(true);
+						refreshApplyButton();
+					}
+				}
+			});
 		}
 	}
 	

@@ -17,6 +17,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -444,6 +446,16 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			radioButton.setEnabled(hero.getAppliedHealingItem() == null);
 			heroPanel.add(radioButton, BorderLayout.SOUTH);
 			heroRadioButtonGroup.add(radioButton);
+			
+			heroPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (radioButton.isEnabled()) {
+						radioButton.setSelected(true);
+						refreshApplyButton();
+					}
+				}
+			});
 		}
 	}
 	
@@ -501,6 +513,16 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			radioButton.putClientProperty("HealingItem", healingItem);
 			healingItemPanel.add(radioButton);
 			healingItemRadioButtonGroup.add(radioButton);
+			
+			healingItemPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (radioButton.isEnabled()) {
+						radioButton.setSelected(true);
+						refreshApplyButton();
+					}
+				}
+			});
 		}
 	}
 	
