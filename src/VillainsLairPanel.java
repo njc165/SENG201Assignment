@@ -204,7 +204,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		JLabel lblTitle = new JLabel("VILLAIN'S LAIR");
 		lblTitle.setBounds(10, 0, 850, 64);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 60));
+		lblTitle.setFont(new Font("Rockwell", Font.PLAIN, 60));
 		titlePanel.add(lblTitle);		
 		
 		add(titlePanel);		

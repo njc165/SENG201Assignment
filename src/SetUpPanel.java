@@ -141,11 +141,10 @@ public class SetUpPanel extends JPanel {
 	 */
 	private void addTitle() {
 		JLabel lblTitle = new JLabel("HEROES AND VILLAINS");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 80));
+		lblTitle.setFont(MyFont.getHeadingFont(70));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 11, 860, 150);
 		add(lblTitle);		
-		
 	}
 
 	/**

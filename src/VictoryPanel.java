@@ -26,7 +26,7 @@ public class VictoryPanel extends JPanel {
 		setPreferredSize(new Dimension(880, 610));
 		
 		JLabel lblBanner = new JLabel("VICTORY");
-		lblBanner.setFont(new Font("Tahoma", Font.PLAIN, 60));
+		lblBanner.setFont(MyFont.getHeadingFont(50));
 		lblBanner.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBanner.setBounds(10, 290, 860, 65);
 		add(lblBanner);

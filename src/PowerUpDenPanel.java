@@ -107,7 +107,7 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 	private void addTitle() {
 		JLabel lblPowerUpDen = new JLabel("POWER UP DEN");
 		lblPowerUpDen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPowerUpDen.setFont(new Font("Tahoma", Font.PLAIN, 60));
+		lblPowerUpDen.setFont(new Font("Rockwell", Font.PLAIN, 60));
 		lblPowerUpDen.setBounds(10, 11, 860, 75);
 		add(lblPowerUpDen);		
 	}
