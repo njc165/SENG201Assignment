@@ -8,7 +8,7 @@ public class Explorer extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = "Cities start fully explored";
+	private static final String SPECIAL_ABILITY = "Cities start fully explored.";
 	
 	/**
 	 * An extended string description of the hero.

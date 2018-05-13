@@ -201,7 +201,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JLabel lblTitle = new JLabel("HOME BASE");
 		lblTitle.setBounds(10, 0, 850, 64);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 60));
+		lblTitle.setFont(new Font("Rockwell", Font.PLAIN, 60));
 		titlePanel.add(lblTitle);		
 		
 		add(titlePanel);		
@@ -576,11 +576,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			}
 		}
 		
-	}
-
-
-	
-	
-	
+	}	
 	
 }

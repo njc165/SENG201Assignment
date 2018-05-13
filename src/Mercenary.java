@@ -8,7 +8,7 @@ public class Mercenary extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = "Double damage to villains";
+	private static final String SPECIAL_ABILITY = "Double damage to villains.";
 	
 	/**
 	 * An extended string description of the hero.
