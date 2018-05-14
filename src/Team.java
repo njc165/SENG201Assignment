@@ -6,7 +6,7 @@ public class Team {
 	/**
 	 * The amount of money a team starts with.
 	 */
-	private final int STARTING_MONEY = 50;
+	private final int STARTING_MONEY = 100;
 	
 	/**
 	 * An ArrayList of power-ups currently owned and not applied,
@@ -200,10 +200,10 @@ public class Team {
 	 * @param powerUp The new PowerUp instance to be bought.
 	 */
 	public void buyPowerUp(PowerUp powerUp) {
-		if (powerUp.getCost(hasDiscountHero()) > currentMoney) {
+		if (powerUp.getCost(numDiscountHeroes()) > currentMoney) {
 			throw new NotEnoughMoneyException("Not enough money to buy that power up");
 		} else {
-			currentMoney -= powerUp.getCost(hasDiscountHero());
+			currentMoney -= powerUp.getCost(numDiscountHeroes());
 			powerUpsOwned.add(powerUp);
 		}
 	}
@@ -217,10 +217,10 @@ public class Team {
 	 * @param healingItem The new HealingItem instance to be bought.
 	 */
 	public void buyHealingItem(HealingItem healingItem) {
-		if (healingItem.getCost(hasDiscountHero()) > currentMoney) {
+		if (healingItem.getCost(numDiscountHeroes()) > currentMoney) {
 			throw new NotEnoughMoneyException("Not enough money to buy that healing item");
 		} else {
-			currentMoney -= healingItem.getCost(hasDiscountHero());
+			currentMoney -= healingItem.getCost(numDiscountHeroes());
 			healingItemsOwned.add(healingItem);
 		}
 	}
@@ -231,10 +231,10 @@ public class Team {
 	 * If the team doesn't have enough money, a NotEnoughMoneyException is thrown.
 	 */
 	public void buyMap() {
-		if (Map.getCost(hasDiscountHero()) > currentMoney) {
+		if (Map.getCost(numDiscountHeroes()) > currentMoney) {
 			throw new NotEnoughMoneyException("Not enough money to buy a map");
 		} else {
-			currentMoney -= Map.getCost(hasDiscountHero());
+			currentMoney -= Map.getCost(numDiscountHeroes());
 			numMaps++;
 		}
 	}
@@ -331,16 +331,17 @@ public class Team {
 	}
 	
 	/**
-	 * Checks if the team has a Merchant.
-	 * @return true if the team has a Merchant, false otherwise.
+	 * Returns the number of Merchants on the team.
+	 * @return The number of Merchants on the team.
 	 */
-	public boolean hasDiscountHero() {
+	public int numDiscountHeroes() {
+		int numDiscountHeroes = 0;
 		for (Hero hero : heroes) {
 			if (hero.getHasStoreDiscount()) {
-				return true;
+				numDiscountHeroes++;
 			}
 		}
-		return false;
+		return numDiscountHeroes;
 	}
 
 	/**

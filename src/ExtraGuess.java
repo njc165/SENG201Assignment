@@ -13,7 +13,8 @@ public class ExtraGuess extends PowerUp {
 	/**
 	 * A description of the power-up.
 	 */
-	private final static String DESCRIPTION = "When playing Guess the Number, each Extra Guess power up applied to a hero gives them one extra guess.\n\nAll Extra Guess power ups applied to the hero will be consumed at the end of a game of Guess the Number.";
+	private final static String DESCRIPTION = "When playing Guess the Number, each Extra Guess power up applied to a hero gives them one extra guess."
+											+ "\n\nAll Extra Guess power ups applied to the hero will be consumed at the end of a game of Guess the Number.";
 	
 	public ExtraGuess() {
 		super(TYPE, COST, DESCRIPTION);

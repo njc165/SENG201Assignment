@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -88,12 +89,6 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	 */
 	private JButton btnApply;
 	
-	/**
-	 * A text pane which informs the user when a healing item has been applied
-	 * to a hero, and is empty otherwise.
-	 */
-	private JTextPane txtpnHealingItemApplied;
-	
  /**
 	 * The main game window.
 	 */
@@ -130,6 +125,9 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	public void refresh() {
 		refreshStatusPanel();
 		refreshApplyPanel();
+		
+		repaint();
+		revalidate();
 	}
 	
 	/**
@@ -381,13 +379,13 @@ public class HospitalPanel extends JPanel implements Refreshable {
 				team().getHealingItemsOwned().remove(healingItemFromTeam);
 				hero.setAppliedHealingItem(healingItemFromTeam);
 				
-				refresh();
-				contentPanelCardLayout.show(contentPanel, APPLY_PANEL_STRING);
-				
-				txtpnHealingItemApplied.setText(String.format(
+				JOptionPane.showMessageDialog(gameWindow.getFrame(), String.format(
 						"One %s has been applied to %s!",
 						healingItem,
 						hero));
+				
+				refresh();
+				contentPanelCardLayout.show(contentPanel, APPLY_PANEL_STRING);
 			}
 		});
 		btnApply.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -395,14 +393,6 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		applyPanel.add(btnApply);
 		
 		refreshApplyButton();
-		
-		txtpnHealingItemApplied = new JTextPane();
-		txtpnHealingItemApplied.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnHealingItemApplied.setBackground(UIManager.getColor("Panel.background"));
-		txtpnHealingItemApplied.setBounds(395, 442, 230, 50);
-		applyPanel.add(txtpnHealingItemApplied);
-
-
 	}
 	
 	/**

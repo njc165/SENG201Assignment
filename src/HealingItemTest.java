@@ -10,7 +10,7 @@ class HealingItemTest {
 		HealingItem item = new HealingItem("potion", "a potion", 2, 3, 20);
 		assertEquals("potion", item.getName());
 		assertEquals("a potion", item.getDescription());
-		assertEquals(20, item.getCost(false));
+		assertEquals(20, item.getCost(0));
 		assertEquals(2, item.getIncrementsRemaining());
 	}
 

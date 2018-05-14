@@ -59,7 +59,7 @@ public class PowerUp {
 		
 		String returnString = type.toString() + "\n";
 		returnString += String.format("Number currently owned: %s\n", numOwned);
-		returnString += String.format("Price: %s coins\n", getCost(team.hasDiscountHero()));
+		returnString += String.format("Price: %s coins\n", getCost(team.numDiscountHeroes()));
 		returnString += description + "\n";
 		
 		return returnString;
@@ -76,17 +76,18 @@ public class PowerUp {
 	
 	/**
 	 * Getter method for cost.
-	 * If hasDiscount is true, multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER.
-	 * @param hasDiscount	true if the team has a hero with the store discount
-	 * 						special ability, false otherwise.
-	 * @return The value of cost, with the discount applied if needed.
+	 * Multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER once for each hero
+	 * on the team with the store discount special ability.
+	 * @param numDiscountHeroes	The number of heroes on the team with the store
+	 * 							discount special ability.
+	 * @return The value of cost.
 	 */
-	public int getCost(boolean hasDiscount) {
-		if (hasDiscount) {
-			return (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
-		} else {
-			return cost;
+	public int getCost(int numDiscountHeroes) {
+		int cost = this.cost;
+		for (int i = 0; i < numDiscountHeroes; i++) {
+			cost = (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
 		}
+		return cost;
 	}
 
 	/**

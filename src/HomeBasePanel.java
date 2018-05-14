@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
@@ -112,11 +113,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * A label counting the number of maps the team owns.
 	 */
 	private JLabel lblMapsOwned;
-	
-	/**
-	 * A text pane displayed when the user uses a map.
-	 */
-	private JTextPane txtpnMapUsedMessage;
 	
 	/**
 	 * A label showing the number of the current city.
@@ -257,7 +253,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 				gameWindow.getGame().currentCity().setAllDiscovered();
 				refresh();
 				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
-				txtpnMapUsedMessage.setVisible(true);
+				JOptionPane.showMessageDialog(gameWindow.getFrame(), "The location of each sector in the city has been revealed!");
 			}
 		});
 		btnUseMap.setBounds(10, 196, 195, 30);
@@ -269,14 +265,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblMapsOwned.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMapsOwned.setBounds(49, 228, 120, 20);
 		sidePanel.add(lblMapsOwned);
-		
-		txtpnMapUsedMessage = new JTextPane();
-		txtpnMapUsedMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnMapUsedMessage.setBackground(UIManager.getColor("Panel.background"));
-		txtpnMapUsedMessage.setText("The location of each sector of the city has been revealed!");
-		txtpnMapUsedMessage.setBounds(10, 266, 195, 45);
-		txtpnMapUsedMessage.setVisible(false);
-		sidePanel.add(txtpnMapUsedMessage);
 		
 		add(sidePanel);
 	}
@@ -470,7 +458,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 				gameWindow.getGame().getCurrentCityIndex() + 1));
 		
 		lblMapsOwned.setText(String.format("Owned: %d", team().getNumMaps()));
-		txtpnMapUsedMessage.setVisible(false);
 		btnUseMap.setEnabled(team().getNumMaps() > 0);
 	}
 	

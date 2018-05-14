@@ -529,7 +529,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 */
 
 	private JPanel newMiniGamePanel() {
-//		return new GuessNumberPanel(this, currentHero, villain());
+//		return new PaperScissorsRockPanel(this, currentHero, villain());
 		
 		// TODO remove after testing
 		MiniGames miniGameType = villain().getGame();
@@ -550,6 +550,12 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		gameResultPanel = new JPanel();
 		gameResultPanel.setLayout(null);
 		subContentPanel.add(gameResultPanel, GAME_RESULT_PANEL_STRING);
+		
+		// for testing
+		//=============================================================
+//		gameResultPanel.add(heroImagePanel());
+//		addWonComponents();
+//		addLostComponents();
 	}
 	
 	/**
@@ -578,17 +584,16 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	private void addWonComponents() {
 		JLabel lblCongratulations = new JLabel("Congratulations on winning the round!");
 		lblCongratulations.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCongratulations.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblCongratulations.setBounds(190, 51, 470, 31);
+		lblCongratulations.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblCongratulations.setBounds(190, 69, 470, 31);
 		gameResultPanel.add(lblCongratulations);
 		
 		if (currentHero.getHasDoubleDamage()) {
-			JTextPane txtpnMercenary = new JTextPane();
+			JLabel txtpnMercenary = new JLabel();
+			txtpnMercenary.setHorizontalAlignment(SwingConstants.CENTER);
 			txtpnMercenary.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			txtpnMercenary.setEditable(false);
-			txtpnMercenary.setBackground(UIManager.getColor("Panel.background"));
 			txtpnMercenary.setText(String.format("%s used their special ability to attack twice!", currentHero.getName()));
-			txtpnMercenary.setBounds(267, 111, 340, 39);
+			txtpnMercenary.setBounds(190, 111, 470, 39);
 			gameResultPanel.add(txtpnMercenary);
 		}
 
@@ -602,10 +607,10 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			gameResultPanel.add(lblDefeatedVillain);
 			
 			JLabel lblPrizeMoney = new JLabel();
-			lblPrizeMoney.setText(String.format("The citizens have rewarded you with %d coins!", gameWindow.getGame().getPrizeMoney()));
+			lblPrizeMoney.setText(String.format("The citizens have rewarded you with %d coins.", gameWindow.getGame().getPrizeMoney()));
 			lblPrizeMoney.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPrizeMoney.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblPrizeMoney.setBounds(190, 270, 470, 31);
+			lblPrizeMoney.setBounds(190, 296, 470, 31);
 			gameResultPanel.add(lblPrizeMoney);
 			
 			JButton btnContinue = new JButton();
@@ -638,7 +643,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 				plural = "s";
 			}
 
-			JLabel lblRoundsRemaining = new JLabel(String.format("You need to win %s more round%s.",
+			JLabel lblRoundsRemaining = new JLabel(String.format("You need to win %s more round%s",
 									villain().remainingTimesToDefeat(), 
 									plural));
 			lblRoundsRemaining.setHorizontalAlignment(SwingConstants.CENTER);
@@ -646,14 +651,11 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			lblRoundsRemaining.setBounds(190, 233, 470, 31);
 			gameResultPanel.add(lblRoundsRemaining);
 			
-			//TODO Nathan doesn't like this label, but will let Reka decide if it should
-			//     be deleted.
-			
-			//JLabel lblToDefeat = new JLabel(String.format("to defeat %s.", villain().getName()));
-			//lblToDefeat.setHorizontalAlignment(SwingConstants.CENTER);
-			//lblToDefeat.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			//lblToDefeat.setBounds(190, 257, 470, 31);
-			//gameResultPanel.add(lblToDefeat);
+			JLabel lblToDefeat = new JLabel(String.format("to defeat %s.", villain().getName()));
+			lblToDefeat.setHorizontalAlignment(SwingConstants.CENTER);
+			lblToDefeat.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblToDefeat.setBounds(190, 263, 470, 31);
+			gameResultPanel.add(lblToDefeat);
 			
 			JButton btnNextRound = new JButton("Next Round");
 			btnNextRound.addActionListener(new ActionListener() {
@@ -676,15 +678,15 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	private void addLostComponents() {
 		JLabel lblLost = new JLabel("Oh no! You lost the round!");
 		lblLost.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLost.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblLost.setBounds(190, 51, 470, 31);
+		lblLost.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblLost.setBounds(190, 71, 470, 31);
 		gameResultPanel.add(lblLost);
 		
 		JLabel lblVillainAttacked = new JLabel();
 		lblVillainAttacked.setText(String.format("%s attacks %s!", villain().getName(), currentHero.getName()));
 		lblVillainAttacked.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVillainAttacked.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblVillainAttacked.setBounds(190, 170, 470, 31);
+		lblVillainAttacked.setBounds(190, 153, 470, 31);
 		gameResultPanel.add(lblVillainAttacked);
 		
 		int damageTaken = villain().getDamageDealt();
@@ -695,11 +697,11 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		JLabel lblDamageTaken = new JLabel();
 		lblDamageTaken.setText(String.format("%s took %d damage.", currentHero.getName(), damageTaken));
 		lblDamageTaken.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDamageTaken.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDamageTaken.setBounds(190, 210, 470, 31);
+		lblDamageTaken.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDamageTaken.setBounds(190, 195, 470, 31);
 		gameResultPanel.add(lblDamageTaken);
 				
-		if (currentHero.getCurrentHealth() <= 0) {
+		if (! team().getHeroes().contains(currentHero)) {
 			JLabel lblHeroDied = new JLabel();
 			lblHeroDied.setText(String.format("%s has fallen in battle!", currentHero.getName()));
 			lblHeroDied.setHorizontalAlignment(SwingConstants.CENTER);
@@ -715,13 +717,19 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			plural = "s";
 		}
 		
-		JLabel lblRoundsRemaining = new JLabel(String.format("You need to win %s more round%s.",
+		JLabel lblRoundsRemaining = new JLabel(String.format("You need to win %s more round%s",
 															villain().remainingTimesToDefeat(), 
 															plural));
 		lblRoundsRemaining.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRoundsRemaining.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRoundsRemaining.setBounds(190, 375, 470, 31);
+		lblRoundsRemaining.setBounds(190, 331, 470, 31);
 		gameResultPanel.add(lblRoundsRemaining);
+		
+		JLabel lblToDefeat = new JLabel(String.format("to defeat %s.", villain().getName()));
+		lblToDefeat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblToDefeat.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblToDefeat.setBounds(190, 361, 470, 31);
+		gameResultPanel.add(lblToDefeat);
 		
 		JButton btnContinue = new JButton("Continue");	
 		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 16));

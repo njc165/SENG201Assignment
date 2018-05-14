@@ -54,7 +54,7 @@ public class VictoryPanel extends JPanel {
 		add(lblTimeTaken);
 		
 		JButton btnEndGame = new JButton("End Game");
-		btnEndGame.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnEndGame.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnEndGame.setBounds(359, 522, 178, 50);
 		btnEndGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

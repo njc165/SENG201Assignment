@@ -120,7 +120,7 @@ public class PaperScissorsRockPanel extends JPanel {
 	 */
 	private void buildPanel() {
 		removeAll();
-		minigame.play();
+		minigame.updateVillainsChoice();
 		addHeadingPanel();
 		addPowerUpPanel();
 		addGamePanel();
@@ -179,15 +179,16 @@ public class PaperScissorsRockPanel extends JPanel {
 		
 		JLabel lblSource = new JLabel(String.format("Your %s lets you sense that they will not play:",
 													sense));
-		lblSource.setBounds(10, 5, 444, 16);
+		lblSource.setBounds(35, 5, 397, 16);
 		lblSource.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSource.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		powerUpPanel.add(lblSource);
 		
 		JLabel lblMindreaderIconLeft = new JLabel("");
-		lblMindreaderIconLeft.setBounds(140, 25, 38, 38);
+		lblMindreaderIconLeft.setBounds(7, 1, 25, 25);
+		lblMindreaderIconLeft.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblMindreaderIconLeft.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(
-													Image.powerUpImageFilepath(PowerUpType.MINDREADER, 38))));
+													Image.powerUpImageFilepath(PowerUpType.MINDREADER, 25))));
 		lblMindreaderIconLeft.setVisible(false);
 		powerUpPanel.add(lblMindreaderIconLeft);		
 		
