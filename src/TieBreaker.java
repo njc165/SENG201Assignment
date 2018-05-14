@@ -13,7 +13,9 @@ public class TieBreaker extends PowerUp {
 	/**
 	 * A description of the power-up.
 	 */
-	private final static String DESCRIPTION = "When applied to a hero, gain the following benefits:\nPaper Scissors Rock:\nWin ties.\nDice Roll:\nWin ties.\nApplying multiple Tiebreaker power-ups to a single hero will have no extra effect. All Tiebreaker power-ups will be consumed at the end of Paper Scissors Rock or Dice Rolls, even if they were not used.";
+	private final static String DESCRIPTION = "When a Tiebreaker power up is applied to a hero, they will win ties when playing Paper Scissors Rock or Dice Rolls."
+											+ "\n\nApplying multiple Tiebreaker power ups to a single hero will have no extra effect."
+											+ "\n\n One Tiebreaker will be consumed each time it is used to win a tie.";
 	
 	public TieBreaker() {
 		super(TYPE, COST, DESCRIPTION);

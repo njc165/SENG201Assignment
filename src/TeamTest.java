@@ -37,24 +37,24 @@ class TeamTest {
 	}
 
 	@Test
-	final void testHasDiscountHero() {
+	final void testNumDiscountHeroes() {
 		Team team = new Team("Team name");
 		
 		// Empty team doesn't have discount hero
-		assertFalse(team.hasDiscountHero());
+		assertEquals(0, team.numDiscountHeroes());
 		
 		// Team without Merchant doesn't have discount hero
 		team.getHeroes().add(new Apprentice("Name"));
 		team.getHeroes().add(new Explorer("Name"));
-		assertFalse(team.hasDiscountHero());
+		assertEquals(0, team.numDiscountHeroes());
 		
-		// Team with Merchant does have discount hero
+		// Team with Merchant has one discount hero
 		team.getHeroes().add(new Merchant("Name"));
-		assertTrue(team.hasDiscountHero());
+		assertEquals(1, team.numDiscountHeroes());
 		
-		// Team with more than one Merchant does have discount hero
+		// Team with two Merchants has two discount heroes
 		team.getHeroes().add(new Merchant("Name"));
-		assertTrue(team.hasDiscountHero());
+		assertEquals(2, team.numDiscountHeroes());
 	}
 
 	@Test
@@ -112,7 +112,7 @@ class TeamTest {
 		// Buying a power up adds it to the team's inventory and decreases the
 		// team's current money
 		team.buyPowerUp(powerUp);
-		assertEquals(200 - powerUp.getCost(false), team.getCurrentMoney());
+		assertEquals(200 - powerUp.getCost(0), team.getCurrentMoney());
 		assertEquals(1, team.getPowerUpsOwned().size());
 		
 		// If a team doesn't have enough money to buy the power up,
@@ -129,7 +129,7 @@ class TeamTest {
 		// If a team has exactly enough money to buy a power up,
 		// the power up is bought, and the team's current money ends up 0
 		MindReader mindReader = new MindReader();
-		team.setCurrentMoney(mindReader.getCost(false));
+		team.setCurrentMoney(mindReader.getCost(0));
 		team.buyPowerUp(mindReader);
 		assertEquals(0, team.getCurrentMoney());
 		assertEquals(2, team.getPowerUpsOwned().size());		
@@ -148,7 +148,7 @@ class TeamTest {
 		// Buying a healing item adds it to the team's inventory and decreases the
 		// team's current money
 		team.buyHealingItem(alicornDust);
-		assertEquals(200 - alicornDust.getCost(false), team.getCurrentMoney());
+		assertEquals(200 - alicornDust.getCost(0), team.getCurrentMoney());
 		assertEquals(1, team.getHealingItemsOwned().size());
 		
 		// If a team doesn't have enough money to buy the healing item,
@@ -165,7 +165,7 @@ class TeamTest {
 		// If a team has exactly enough money to buy a healing item,
 		// the healing item is bought, and the team's current money ends up 0
 		SuspiciousTonic tonic = new SuspiciousTonic();
-		team.setCurrentMoney(tonic.getCost(false));
+		team.setCurrentMoney(tonic.getCost(0));
 		team.buyHealingItem(tonic);
 		assertEquals(0, team.getCurrentMoney());
 		assertEquals(2, team.getHealingItemsOwned().size());		
@@ -182,7 +182,7 @@ class TeamTest {
 		// Buying a map increases the teams number of maps owned and decreases the
 		// team's current money
 		team.buyMap();
-		assertEquals(200 - Map.getCost(false), team.getCurrentMoney());
+		assertEquals(200 - Map.getCost(0), team.getCurrentMoney());
 		assertEquals(1, team.getNumMaps());
 		
 		// If a team doesn't have enough money to buy a map,
@@ -198,7 +198,7 @@ class TeamTest {
 		
 		// If a team has exactly enough money to buy a map,
 		// the map is bought, and the team's current money ends up 0
-		team.setCurrentMoney(Map.getCost(false));
+		team.setCurrentMoney(Map.getCost(0));
 		team.buyMap();
 		assertEquals(0, team.getCurrentMoney());
 		assertEquals(2, team.getNumMaps());		

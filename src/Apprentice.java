@@ -14,8 +14,10 @@ public class Apprentice extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = String.format("Being the slow learners that they, Apprentices make a lot of mistakes and often injure themselves. Over time, they have become proficient at applying medication.\nHealing items applied to an Apprentice will be consumed %s%% faster.\n",
-																(int) (Hero.FASTER_HEALING_MULTIPLIER * 100));
+	private static final String DESCRIPTION = String.format("Being the slow learners that they, Apprentices make a lot of mistakes and often injure themselves."
+														  + " Over time, they have become proficient at applying medication."
+														  + "\n\nHealing items applied to an Apprentice will be applied %s%% faster.\n",
+																(int) ((1 - Hero.FASTER_HEALING_MULTIPLIER) * 100));
 	
 	/**
 	 * The maximum health the hero can have.

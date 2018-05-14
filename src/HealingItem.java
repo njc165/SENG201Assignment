@@ -193,17 +193,18 @@ public class HealingItem {
 
 	/**
 	 * Getter method for cost.
-	 * If hasDiscount is true, multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER.
-	 * @param hasDiscount	true if the team has a hero with the store discount
-	 * 						special ability, false otherwise.
+	 * Multiplies the cost by Hero.STORE_DISCOUNT_MULTIPLIER once for each hero
+	 * on the team with the store discount special ability.
+	 * @param numDiscountHeroes	The number of heroes on the team with the store
+	 * 							discount special ability.
 	 * @return The value of cost.
 	 */
-	public int getCost(boolean hasDiscount) {
-		if (hasDiscount) {
-			return (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
-		} else {
-			return cost;
-		}	
+	public int getCost(int numDiscountHeroes) {
+		int cost = this.cost;
+		for (int i = 0; i < numDiscountHeroes; i++) {
+			cost = (int) (cost * Hero.STORE_DISCOUNT_MULTIPLIER);
+		}
+		return cost;
 	}
 
     /**

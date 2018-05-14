@@ -446,7 +446,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		lblType.setBounds(234, 50, 330, 37);
 		powerUpInfoPanel.add(lblType);
 		
-		JLabel lblPrice = new JLabel(Integer.toString(powerUp.getCost(team().hasDiscountHero())));
+		JLabel lblPrice = new JLabel(Integer.toString(powerUp.getCost(team().numDiscountHeroes())));
 		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblPrice.setBounds(336, 120, 50, 38);
 		powerUpInfoPanel.add(lblPrice);
@@ -458,7 +458,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		powerUpInfoPanel.add(lblCoinImage);
 		
 		JButton btnPurchase = new JButton("Purchase");
-		btnPurchase.setEnabled(team().getCurrentMoney() >= powerUp.getCost(team().hasDiscountHero()));
+		btnPurchase.setEnabled(team().getCurrentMoney() >= powerUp.getCost(team().numDiscountHeroes()));
 		btnPurchase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PowerUp newPowerUp = (PowerUp) Util.instantiate(powerUp.getClass());
@@ -474,10 +474,11 @@ public class ShopPanel extends JPanel implements Refreshable {
 		powerUpInfoPanel.add(btnPurchase);
 		
 		JTextPane txtpnDescription = new JTextPane();
-		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
 		txtpnDescription.setText(powerUp.getDescription());
 		txtpnDescription.setBounds(33, 234, 565, 176);
+		txtpnDescription.setEditable(false);
 		powerUpInfoPanel.add(txtpnDescription);
 		
 		JButton btnBackToMenu = new JButton("Back To Menu");
@@ -516,7 +517,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		lblType.setBounds(234, 50, 330, 37);
 		healingItemInfoPanel.add(lblType);
 		
-		JLabel lblPrice = new JLabel(Integer.toString(healingItem.getCost(team().hasDiscountHero())));
+		JLabel lblPrice = new JLabel(Integer.toString(healingItem.getCost(team().numDiscountHeroes())));
 		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblPrice.setBounds(336, 120, 50, 38);
 		healingItemInfoPanel.add(lblPrice);
@@ -528,7 +529,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		healingItemInfoPanel.add(lblCoinImage);
 		
 		JButton btnPurchase = new JButton("Purchase");
-		btnPurchase.setEnabled(team().getCurrentMoney() >= healingItem.getCost(team().hasDiscountHero()));
+		btnPurchase.setEnabled(team().getCurrentMoney() >= healingItem.getCost(team().numDiscountHeroes()));
 		btnPurchase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HealingItem newHealingItem = (HealingItem) Util.instantiate(healingItem.getClass());
@@ -544,10 +545,11 @@ public class ShopPanel extends JPanel implements Refreshable {
 		healingItemInfoPanel.add(btnPurchase);
 		
 		JTextPane txtpnDescription = new JTextPane();
-		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
 		txtpnDescription.setText(healingItem.shopDescriptionGUI());
 		txtpnDescription.setBounds(33, 234, 565, 176);
+		txtpnDescription.setEditable(false);
 		healingItemInfoPanel.add(txtpnDescription);
 		
 		JButton btnBackToMenu = new JButton("Back To Menu");
@@ -583,7 +585,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		lblMap.setBounds(234, 50, 330, 37);
 		mapInfoPanel.add(lblMap);
 		
-		JLabel lblPrice = new JLabel(Integer.toString(Map.getCost(team().hasDiscountHero())));
+		JLabel lblPrice = new JLabel(Integer.toString(Map.getCost(team().numDiscountHeroes())));
 		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblPrice.setBounds(336, 120, 50, 38);
 		mapInfoPanel.add(lblPrice);
@@ -595,10 +597,11 @@ public class ShopPanel extends JPanel implements Refreshable {
 		mapInfoPanel.add(lblCoinImage);
 		
 		JButton btnPurchase = new JButton("Purchase");
-		btnPurchase.setEnabled(team().getCurrentMoney() >= Map.getCost(team().hasDiscountHero()));
+		btnPurchase.setEnabled(team().getCurrentMoney() >= Map.getCost(team().numDiscountHeroes()));
 		btnPurchase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				team().buyMap();
+				JOptionPane.showMessageDialog(gameWindow.getFrame(), "You purchased one map.");
 				refresh();
 				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
 			}
@@ -608,10 +611,11 @@ public class ShopPanel extends JPanel implements Refreshable {
 		mapInfoPanel.add(btnPurchase);
 		
 		JTextPane txtpnDescription = new JTextPane();
-		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
 		txtpnDescription.setText(Map.getDescription());
 		txtpnDescription.setBounds(33, 234, 565, 176);
+		txtpnDescription.setEditable(false);
 		mapInfoPanel.add(txtpnDescription);
 		
 		contentPanel.add(mapInfoPanel, MAP_PANEL_STRING);

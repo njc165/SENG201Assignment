@@ -14,7 +14,8 @@ public class Explorer extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = "These streetwise intrepids know every city inside and out.\nWith an Explorer on your team, new cities will start with all areas revealed.\n";
+	private static final String DESCRIPTION = "These streetwise intrepids know every city inside and out."
+											+ "\n\nWith an Explorer on your team, new cities will start with all areas revealed.\n";
 	
 	/**
 	 * The maximum health the hero can have.

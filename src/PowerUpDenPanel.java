@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -70,12 +71,6 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 	private JButton btnApply;
 	
 	/**
-	 * Displays a message informing the user when a power up has been
-	 * applied to a hero.
-	 */
-	private JTextPane txtpnPowerUpApplied;
-	
-	/**
 	 * Creates a new PowerUpDenPanel and adds all the required components.
 	 * @param game	The main game window which this panel is a part of.
 	 */
@@ -93,6 +88,8 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 	
 	public void refresh() {
 		refreshContentPanel();
+		repaint();
+		revalidate();
 	}
 	
 	/**
@@ -202,12 +199,12 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 				PowerUp powerUpFromTeam = team().popPowerUpFromList(powerUp.getType());
 				hero.addPowerUp(powerUpFromTeam);
 				
-				refresh();
-				
-				txtpnPowerUpApplied.setText(String.format(
+				JOptionPane.showMessageDialog(gameWindow.getFrame(), String.format(
 						"%s has been powered up with one %s!",
 						hero,
 						powerUp));
+				
+				refresh();
 			}
 		});
 		btnApply.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -215,14 +212,6 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 		contentPanel.add(btnApply);
 		
 		refreshApplyButton();
-		
-		txtpnPowerUpApplied = new JTextPane();
-		txtpnPowerUpApplied.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnPowerUpApplied.setBackground(UIManager.getColor("Panel.background"));
-		txtpnPowerUpApplied.setBounds(395, 442, 230, 50);
-		contentPanel.add(txtpnPowerUpApplied);
-
-
 	}
 	
 	/**

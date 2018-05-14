@@ -14,7 +14,8 @@ public class Mercenary extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = "Mercenaries are renowned as the best fighters, motivated by the prospect of riches.\nWhen chosen to fight villains, Mercenaries will deal double damage.\n";
+	private static final String DESCRIPTION = "Mercenaries are renowned as the best fighters, motivated by the prospect of riches."
+											+ "\n\nWhen a Mercenary wins a game in a villain battle, their victory counts twice.\n";
 	
 	/**
 	 * The maximum health the hero can have.

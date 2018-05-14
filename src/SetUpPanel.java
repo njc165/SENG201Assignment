@@ -468,7 +468,7 @@ public class SetUpPanel extends JPanel {
 		
 		JTextPane txtpnDescription = new JTextPane();
 		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
-		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnDescription.setText(hero.getDescription());
 		txtpnDescription.setBounds(10, 232, 508, 160);
 		txtpnDescription.setEditable(false);

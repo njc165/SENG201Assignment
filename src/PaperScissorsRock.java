@@ -36,6 +36,9 @@ public class PaperScissorsRock extends MiniGame {
 	}
 	
 	public void play() {
+	}
+	
+	public void updateVillainsChoice() {
 		this.villainsChoice = generateVillainsChoice();
 	}
 
