@@ -13,6 +13,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
@@ -355,44 +357,96 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * which to move.
 	 */
 	private void addMapButtons() {
-		JButton btnGoWest = new JButton("Go West");
+		JButton btnGoWest = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.WEST, "red"))));
 		btnGoWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.getGame().currentCity().sectorAtLocation(Location.WEST).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.WEST));
 			}
 		});
-		btnGoWest.setBounds(159, 239, 89, 23);
+		btnGoWest.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				btnGoWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.WEST, "yellow"))));
+			}
+			
+			public void mouseExited(MouseEvent e) {
+				btnGoWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.WEST, "red"))));
+			}
+		});
+		btnGoWest.setBorderPainted(false);
+		btnGoWest.setContentAreaFilled(false);
+		btnGoWest.setFocusPainted(false);
+		btnGoWest.setOpaque(false);;
+		btnGoWest.setBounds(159, 229, 68, 51);
 		mapPanel.add(btnGoWest);
 		
-		JButton btnGoNorth = new JButton("Go North");
+		JButton btnGoNorth = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.NORTH, "red"))));
 		btnGoNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				gameWindow.getGame().currentCity().sectorAtLocation(Location.NORTH).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.NORTH));
 			}
 		});
-		btnGoNorth.setBounds(270, 158, 89, 23);
+		btnGoNorth.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				btnGoNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.NORTH, "yellow"))));
+			}
+			
+			public void mouseExited(MouseEvent e) {
+				btnGoNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.NORTH, "red"))));
+			}
+		});
+		btnGoNorth.setBorderPainted(false);
+		btnGoNorth.setContentAreaFilled(false);
+		btnGoNorth.setFocusPainted(false);
+		btnGoNorth.setOpaque(false);;
+		btnGoNorth.setBounds(290, 131, 51, 68);
 		mapPanel.add(btnGoNorth);
 		
-		JButton btnGoEast = new JButton("Go East");
+		JButton btnGoEast = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.EAST, "red"))));
 		btnGoEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.getGame().currentCity().sectorAtLocation(Location.EAST).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.EAST));
 			}
 		});
-		btnGoEast.setBounds(379, 239, 89, 23);
+		btnGoEast.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				btnGoEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.EAST, "yellow"))));
+			}
+			
+			public void mouseExited(MouseEvent e) {
+				btnGoEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.EAST, "red"))));
+			}
+		});
+		btnGoEast.setBorderPainted(false);
+		btnGoEast.setContentAreaFilled(false);
+		btnGoEast.setFocusPainted(false);
+		btnGoEast.setOpaque(false);;
+		btnGoEast.setBounds(405, 229, 68, 51);
 		mapPanel.add(btnGoEast);
 		
-		JButton btnGoSouth = new JButton("Go South");
+		JButton btnGoSouth = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.SOUTH, "red"))));
 		btnGoSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.getGame().currentCity().sectorAtLocation(Location.SOUTH).setDiscovered(true);
 				gameWindow.setPanel(sectorPanelString(Location.SOUTH));
 			}
 		});
-		btnGoSouth.setBounds(270, 330, 89, 23);
+		btnGoSouth.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				btnGoSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.SOUTH, "yellow"))));
+			}
+			
+			public void mouseExited(MouseEvent e) {
+				btnGoSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.SOUTH, "red"))));
+			}
+		});
+		btnGoSouth.setBorderPainted(false);
+		btnGoSouth.setContentAreaFilled(false);
+		btnGoSouth.setFocusPainted(false);
+		btnGoSouth.setOpaque(false);;
+		btnGoSouth.setBounds(290, 310, 51, 68);
 		mapPanel.add(btnGoSouth);
 	}
 	

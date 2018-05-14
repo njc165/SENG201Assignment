@@ -144,5 +144,20 @@ public class Image {
 		String filepath = String.format("/img/PSR_villain_%s.png", choice.toLowerCase());
 		return filepath;
 	}
+	
+	/**
+	 * Returns the filepath for an arrow image.
+	 * @param direction The direction the returned arrow should be facing.
+	 * @param color The color of the arrow. "yellow" or "red" only.
+	 * @return The filepath to the appropriate arrow image.
+	 */
+	public static String getMapArrowImage(Location direction, String color) {
+		String dir = direction.toString().toLowerCase();
+		if (color != "yellow" && color != "red") {
+			throw new RuntimeException("invalid color for map arrow.");
+		}
+		String filepath = String.format("/img/arrow_%s_%s.png", dir, color);
+		return filepath;
+	}
 
 }
