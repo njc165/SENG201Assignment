@@ -48,6 +48,9 @@ public class Game {
 	 * Create the application.
 	 */
 	public Game() {
+		
+		MyFont.registerAll();
+		
 		initialize();
 	}
 

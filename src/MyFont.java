@@ -1,18 +1,24 @@
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.io.InputStream;
 
 public class MyFont {
-
-	public static Font getHeadingFont(float size) {
+	
+	public static void registerAll() {
+		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		
 		InputStream is = MyFont.class.getResourceAsStream("/font/ringbearer.ttf");
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, is);
-			return font.deriveFont(size);
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
+			is = MyFont.class.getResourceAsStream("/font/rock.ttf");
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
+			is = MyFont.class.getResourceAsStream("/font/tahoma.ttf");
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
 		} catch (Exception e) {
-			throw new RuntimeException("Unable to create Font");
+			throw new RuntimeException("blah");
 		}
-			
+		
 	}
 	
 }
