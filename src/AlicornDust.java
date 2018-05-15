@@ -1,5 +1,5 @@
 
-public class AlicornDust extends HealingItem{
+public class AlicornDust extends HealingItem {
 	
 	/**
 	 * A string representation of the name of AlicornDust.

@@ -61,33 +61,7 @@ public class HealingItem {
 		this.incrementsRemaining = numIncrements;
 	}
 	
-	/**
-	 * Returns a description of the item as a formatted String to be displayed
-	 * to the user in the shop.
-	 * Includes:
-	 * - name of item
-	 * - description of item's use
-	 * - price of item
-	 * - number currently owned by the team
-	 * @param team The team currently playing the game.
-	 * @return	A description of a purchasable item to be displayed in the shop.
-	 */
-	public String shopDescription(Team team) {
-		int numOwned = team.numHealingItemsOwned(name);
-		
-		String returnString = name + "\n";
-		returnString += String.format("Number currently owned: %s\n", numOwned);
-		returnString += String.format("Price: %s coins\n", cost);
-		returnString += description + "\n";
-		returnString += String.format("Total health restored: %s%% of the hero's max health in %s%% increments.\n",
-										percentageHealthRestored(),
-										(int) (INCREMENT_SIZE * 100));
-		returnString += String.format("Time taken to apply each increment: %s seconds.\n",
-										timePerIncrement);
-		return returnString;
-	}
-	
-	public String shopDescriptionGUI() {
+	public String shopDescription() {
 		String returnString = description + "\n\n";
 		returnString += String.format("Restores %s%% of the hero's maximum health in %s%% increments.\n\n",
 											percentageHealthRestored(),
@@ -95,33 +69,6 @@ public class HealingItem {
 		returnString += String.format("Time taken to apply each increment: %s seconds.",
 										timePerIncrement);
 		return returnString;
-	}
-	
-	/**
-	 * Gives the number of increments remaining and the time until the next
-	 * increment is applied.
-	 * @return A string representing the number of increments remaining and the
-	 * 			time until the next increment is applied.
-	 */
-	public String getStatus() {
-		int incrementPercentage = (int) (INCREMENT_SIZE * 100);
-		int percentageRemaining = (int) (incrementsRemaining * INCREMENT_SIZE * 100);
-		long timeUntilNextIncrement = Long.max(0,
-						LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
-		
-		return String.format("%d%% of max health left to restore.\n"
-							  + "%d seconds until next %d%% increment in health.",
-							 percentageRemaining,
-							 timeUntilNextIncrement,
-							 incrementPercentage);
-	}
-	
-	/**
-	 * Returns the time in seconds remaining until the next increment.
-	 * @return The number of seconds until the next increment.
-	 */
-	public long secondsRemaining() {
-		return Long.max(0, LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
 	}
 	
 	/**
@@ -157,6 +104,14 @@ public class HealingItem {
 		}
 		incrementsRemaining--;
 		lastApplicationTime = LocalTime.now();
+	}
+	
+	/**
+	 * Returns the time in seconds remaining until the next increment.
+	 * @return The number of seconds until the next increment.
+	 */
+	public long secondsRemaining() {
+		return Long.max(0, LocalTime.now().until(nextApplicationTime(), ChronoUnit.SECONDS));
 	}
 	
 	/**

@@ -18,7 +18,7 @@ public class Evan extends Villain {
 	/**
 	 * Array of games the villain could choose to play.
 	 */
-	private static final MiniGames[] GAMES_PLAYED = {MiniGames.PAPER_SCISSORS_ROCK, MiniGames.DICE_ROLLS};
+	private static final MiniGameType[] GAMES_PLAYED = {MiniGameType.PAPER_SCISSORS_ROCK, MiniGameType.DICE_ROLLS};
 	
 	/**
 	 * A constructor for Evan.

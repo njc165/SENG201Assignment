@@ -108,7 +108,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		addTitlePanel();
 		addSidePanel();
 		addContentPanel();
-		}
+	}
 
 	/**
 	 * Provides access to the team associated with the current Game.
@@ -125,6 +125,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	public void refresh() {
 		refreshStatusPanel();
 		refreshApplyPanel();
+		contentPanelCardLayout.show(contentPanel, STATUS_PANEL_STRING);
 		
 		repaint();
 		revalidate();

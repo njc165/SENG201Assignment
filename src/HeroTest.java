@@ -75,21 +75,6 @@ class HeroTest {
 		assertEquals(2, hero.numPowerUps(PowerUpType.INCREASE_ROLL));
 		assertEquals(1, hero.numPowerUps(PowerUpType.MINDREADER));
 	}
-
-	@Test
-	final void testAllHerosDescription() {
-		String description = Hero.allHeroesDescription();
-		
-		// description contains names of some heroes
-		assertTrue(description.contains("Apprentice"));
-		assertTrue(description.contains("Merchant"));
-		assertTrue(description.contains("Gambler"));
-		
-		// description contains special abilities of some heroes
-		assertTrue(description.contains(new Bulwark("").getSpecialAbility()));
-		assertTrue(description.contains(new Mercenary("").getSpecialAbility()));
-		assertTrue(description.contains(new Merchant("").getSpecialAbility()));
-	}
 	
 	@Test
 	final void testHeal() {
@@ -148,32 +133,6 @@ class HeroTest {
 		assertEquals(50, hero.getCurrentHealth());
 		assertEquals(2, hero.getAppliedHealingItem().getIncrementsRemaining());
 	}
-	
-	@Test
-	final void testStatus() {
-		// Status contains name and type, 
-		Apprentice hero = new Apprentice("John");
-		assertTrue(hero.status().contains("John the Apprentice"));
 		
-		// Healing item and power ups are none
-		assertTrue(hero.status().contains("Applied healing item: None"));
-		assertTrue(hero.status().contains("Applied power ups:\nNone"));
-
-		// Status contains added healing items and power ups
-		hero.setAppliedHealingItem(new AlicornDust());
-		assertTrue(hero.status().contains("Applied healing item: Alicorn Dust"));
-
-		hero.addPowerUp(new ExtraGuess());
-		hero.addPowerUp(new ExtraGuess());
-		hero.addPowerUp(new TieBreaker());
-		assertTrue(hero.status().contains("Extra Guess (2)"));
-		assertTrue(hero.status().contains("Tiebreaker (1)"));
-
-
-	}
-	
-	
-	
-	
 
 }

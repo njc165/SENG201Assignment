@@ -49,7 +49,7 @@ public class Villain {
 	 * Each game on the list has an equal probability of being chosen.
 	 * Each subclass of Villain has a different list of games played.
 	 */
-	private MiniGames[] gamesPlayed;
+	private MiniGameType[] gamesPlayed;
 	
 	/**
 	 * The number of times this villain has been defeated in a MiniGame.
@@ -70,7 +70,7 @@ public class Villain {
 	 * @param damageDealt	The damage dealt by the Villain subclass.
 	 * @param gamesPlayed	The list of games which are played by the villain subclass.
 	 */
-	public Villain(String name, String taunt, int damageDealt, MiniGames[] gamesPlayed) {
+	public Villain(String name, String taunt, int damageDealt, MiniGameType[] gamesPlayed) {
 		this.name = name;
 		this.taunt = taunt;
 		this.damageDealt = damageDealt;
@@ -124,7 +124,7 @@ public class Villain {
 	 * Get a random game from the list of games the villain can play.
 	 * @return	A game of the enum type MiniGame.
 	 */
-	public MiniGames getGame() {
+	public MiniGameType getGame() {
 		Random generator = new Random();
 		int randomIndex = generator.nextInt(gamesPlayed.length);
 		return gamesPlayed[randomIndex];

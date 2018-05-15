@@ -18,7 +18,7 @@ public class Bucephalus extends Villain {
 	/**
 	 * Array of games the villain could choose to play.
 	 */
-	private static final MiniGames[] GAMES_PLAYED = {MiniGames.GUESS_NUMBER};
+	private static final MiniGameType[] GAMES_PLAYED = {MiniGameType.GUESS_NUMBER};
 	
 	/**
 	 * A constructor for Bucephalus.

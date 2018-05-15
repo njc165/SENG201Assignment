@@ -3,11 +3,6 @@ import java.util.Collections;
 import java.util.Random;
 
 public class PaperScissorsRock extends MiniGame {
-
-	/**
-	 * An array of the power-up types which are relevant to Paper Scissors Rock.
-	 */
-	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.MINDREADER, PowerUpType.TIEBREAKER};
 	
 	/**
 	 * The possible choices in a game of PaperScissorsRock.
@@ -32,12 +27,13 @@ public class PaperScissorsRock extends MiniGame {
 	 * @param villain The villain playing Paper Scissors Rock.
 	 */
 	public PaperScissorsRock(Hero hero, Villain villain) {
-		super(hero, villain, RELEVANT_POWER_UPS);
+		super(hero, villain);
 	}
 	
-	public void play() {
-	}
-	
+	/**
+	 * Randomly selects a new value for the villain's choice, out of
+	 * Paper, Scissors and Rock.
+	 */
 	public void updateVillainsChoice() {
 		this.villainsChoice = generateVillainsChoice();
 	}
@@ -97,15 +93,15 @@ public class PaperScissorsRock extends MiniGame {
 	}
 	
 	/**
-	 * Prints to output one choice that the villain did not make.
-	 * @param villainChoice
+	 * Returns one of the choices that the villain did not make.
 	 */
 	public String revealNot() {
 		String[] choices = CHOICES.clone();
 		Collections.shuffle(Arrays.asList(choices));
+		
 		String returnString = "If you see this, PSR.revealNot() is broken";
 		for (String choice : choices) {		
-			if ( choice != villainsChoice) {
+			if (choice != villainsChoice) {
 				returnString = choice;
 			}
 		}
@@ -120,12 +116,20 @@ public class PaperScissorsRock extends MiniGame {
 		herosChoice = choice;
 	}
 	
-	public String getHeroChoiceImage() {
-		return Image.getHeroPSRImage(herosChoice);
+	/**
+	 * Getter method for villainsChoice.
+	 * @return The value of villainsChoice.
+	 */
+	public String getVillainsChoice() {
+		return villainsChoice;
 	}
-	
-	public String getVillainChoiceImage() {
-		return Image.getVillainPSRImage(villainsChoice);
+
+	/**
+	 * Getter method for herosChoice.
+	 * @return The value of herosChoice.
+	 */
+	public String getHerosChoice() {
+		return herosChoice;
 	}
 	
 }

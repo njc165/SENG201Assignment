@@ -30,20 +30,6 @@ class PowerUpTest {
 	}
 	
 	@Test
-	final void testShopDecription() {
-		// Create new team and powerUp
-		Team team = new Team("TeamName");
-		PowerUp pu = new PowerUp(PowerUpType.MINDREADER, 20, "d");
-		
-		// Create a shop description of the power up item
-		String returnedString = pu.shopDescription(team);
-		
-		// Check that the returned string has the expected value
-		assertEquals("Mindreader\nNumber currently owned: 0\nPrice: 20 coins\nd\n", returnedString);
-		
-	}
-	
-	@Test
 	final void testToString() {
 		// Create a new powerUp
 		PowerUp pu = new ExtraGuess();

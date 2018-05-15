@@ -144,75 +144,11 @@ public class Hero {
 		return types;
 	}
 	
-	/**
-	 * Returns a string description of all the hero subclasses.
-	 * Used to give the user information when asking them to choose their hero type,
-	 * and includes a number before each hero to allow the user to enter their choice.
-	 * Formatted with newline characters to allow it to be printed directly.
-	 * Each hero's description includes their type, special ability, maximum health and description.
-	 * @return	A description of all the hero subclasses.
-	 */
-	public static String allHeroesDescription() {
-		String returnString = "";
-		for (int i = 0; i < ALL_HEROES.length; i++) {
-			
-			Hero hero = ALL_HEROES[i];
-			int heroNumber = i + 1;
-			
-			returnString += String.format("\n%d: %s\nMax Health: %s\nSpecial Ability: %s\n%s",
-					heroNumber,
-					hero.type,
-					hero.maxHealth,
-					hero.specialAbility,
-					hero.description);
-		}
-		return returnString;
-	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
 		return String.format("%s the %s", name, type);
-	}
-	
-	/**
-	 * Returns a string with the hero's current status, including:
-	 * - name and type
-	 * - special ability
-	 * - current health
-	 * - max health
-	 * - applied healing item
-	 * - active power ups
-	 * @return		A String representation of the hero's status, formatted with newline
-	 * characters so that it can be printed.
-	 */
-	public String status() {
-		String healingItemString = "None";
-		if (appliedHealingItem != null)
-			healingItemString = appliedHealingItem.toString();
-		
-		String returnString = toString() + "\n";
-		returnString += String.format("Special ability: %s\n", specialAbility);
-		returnString += String.format("Current health: %s\n", currentHealth);
-		returnString += String.format("Max health: %s\n", maxHealth);
-		returnString += String.format("Applied healing item: %s\n", healingItemString);
-		
-		returnString += "Applied power ups:\n";
-		
-		HashMap<PowerUpType, Integer> powerUpTypeCounts = powerUpTypeCounts();
-		
-		if (powerUpTypeCounts.size() == 0) {
-			returnString += "None\n";
-		} else {
-			for (PowerUpType powerUpType: powerUpTypeCounts.keySet()) {
-				int count = powerUpTypeCounts.get(powerUpType);
-				returnString += String.format("%s (%s)\n",
-												  powerUpType.toString(),
-												  count);
-			}
-		}
-		return returnString;
 	}
 	
 	/**
@@ -241,11 +177,15 @@ public class Hero {
 	 */
 	public void heal() {
 		if (appliedHealingItem != null) {
-			
 			if (appliedHealingItem.readyToIncrement()) {
 				int newHealth = (int) (currentHealth +
 										maxHealth * HealingItem.INCREMENT_SIZE);
 				currentHealth = Integer.min(maxHealth, newHealth);
+				
+				if (appliedHealingItem.getIncrementsRemaining() <= 0) {
+					appliedHealingItem = null;
+					return;
+				}
 				
 				appliedHealingItem.applyIncrement();
 								

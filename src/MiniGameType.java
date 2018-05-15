@@ -1,4 +1,4 @@
-public enum MiniGames {
+public enum MiniGameType {
 	PAPER_SCISSORS_ROCK("Paper Scissors Rock"),
 	DICE_ROLLS("Dice Rolls"),
 	GUESS_NUMBER("Guess the Number");
@@ -8,7 +8,7 @@ public enum MiniGames {
 	 */
 	String string;
 	
-	private MiniGames(String string) {
+	private MiniGameType(String string) {
 		this.string = string;
 	}
 	

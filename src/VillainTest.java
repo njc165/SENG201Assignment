@@ -30,13 +30,13 @@ class VillainTest {
 	@Test
 	void testVillain() {
 		// Create new villain, check that name is set correctly
-		Villain villain = new Villain("Name", "", 0, new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK});
+		Villain villain = new Villain("Name", "", 0, new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK});
 		assertEquals("Name", villain);
 		
 		// An exception is thrown if the constructor is given an empty gamesPlayed array
 		boolean exceptionThrown = false;
 		try {
-			villain = new Villain("Name", "", 0, new MiniGames[0]);
+			villain = new Villain("Name", "", 0, new MiniGameType[0]);
 		} catch (IllegalArgumentException iae) {
 			exceptionThrown = true;
 		}
@@ -46,12 +46,12 @@ class VillainTest {
 	@Test
 	final void testGetGame() {
 		// If villain only plays one game, test that getGame() returns this game.
-		MiniGames[] games = new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK};
+		MiniGameType[] games = new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK};
 		Villain villain1 = new Villain("", "", 0, games);
-		assertEquals(MiniGames.PAPER_SCISSORS_ROCK, villain1.getGame());
+		assertEquals(MiniGameType.PAPER_SCISSORS_ROCK, villain1.getGame());
 		
 		// If villain plays several games, test that getGame() returns one of these games.
-		games = new MiniGames[]{MiniGames.PAPER_SCISSORS_ROCK, MiniGames.GUESS_NUMBER, MiniGames.DICE_ROLLS};
+		games = new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK, MiniGameType.GUESS_NUMBER, MiniGameType.DICE_ROLLS};
 		Villain villain2 = new Villain("", "", 0, games);
 		assertTrue(Arrays.asList(games).contains(villain2.getGame()));
 		

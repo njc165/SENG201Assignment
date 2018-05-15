@@ -1,5 +1,7 @@
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class MyFont {
@@ -15,8 +17,9 @@ public class MyFont {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
 			is = MyFont.class.getResourceAsStream("/font/tahoma.ttf");
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
-		} catch (Exception e) {
-			throw new RuntimeException("blah");
+			
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
 		}
 		
 	}
