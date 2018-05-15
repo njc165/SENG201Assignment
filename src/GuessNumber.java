@@ -3,11 +3,6 @@ import java.util.Random;
 public class GuessNumber extends MiniGame {
 	
 	/**
-	 * An array of the power-up types which are relevant to Paper Scissors Rock.
-	 */
-	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.EXTRA_GUESS};
-	
-	/**
 	 * The upper limit of the number to be guessed.
 	 * The number to be guessed will be between 1 and MAX_NUMBER inclusive.
 	 */
@@ -41,7 +36,8 @@ public class GuessNumber extends MiniGame {
 	 * @param villain	The villain playing the game.
 	 */
 	public GuessNumber(Hero hero, Villain villain) {
-		super(hero, villain, RELEVANT_POWER_UPS);
+		super(hero, villain);
+		
 		guessesLeft = initialGuesses();
 		numberToGuess = numberToGuess();
 	}
@@ -57,15 +53,6 @@ public class GuessNumber extends MiniGame {
 		} else {
 			guessesLeft--;
 		}
-	}
-	
-	/**
-	 * Carries out the Guess the Number game.
-	 * Once complete, hasWon will be set to true if the hero won, and false if the villain won.
-	 * All power-ups relevant to Guess the Number will have been removed from the hero, whether or not they were used.
-	 */
-	public void play() {
-		
 	}
 	
 	/**

@@ -384,8 +384,8 @@ public class PaperScissorsRockPanel extends JPanel {
 	 * Refreshes gamePanel by updating labels to show the correct image.
 	 */
 	private void refreshGamePanel() {
-		String heroChoiceImageFilepath = minigame.getHeroChoiceImage();
-		String villainChoiceImageFilepath = minigame.getVillainChoiceImage();
+		String heroChoiceImageFilepath = Image.getHeroPSRImage(minigame.getHerosChoice());
+		String villainChoiceImageFilepath = Image.getVillainPSRImage(minigame.getVillainsChoice());
 		
 		lblHeroChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(heroChoiceImageFilepath)));
 		lblVillainChoice.setIcon(new ImageIcon(PaperScissorsRockPanel.class.getResource(villainChoiceImageFilepath)));

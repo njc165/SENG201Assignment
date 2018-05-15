@@ -42,29 +42,6 @@ public class PowerUp {
 			return this.getType() == powerUp.getType();
 		}
 	}
-	
-	/**
-	 * Returns a description of the item as a formatted String to be displayed
-	 * to the user in the shop.
-	 * Includes:
-	 * - name of item
-	 * - description of item's use
-	 * - price of item
-	 * - number currently owned by the team
-	 * @param team The team currently playing the game.
-	 * @return	A description of a purchasable item to be displayed in the shop.
-	 */
-	public String shopDescription(Team team) {
-		int numOwned = team.numPowerUpsOwned(type);
-		
-		String returnString = type.toString() + "\n";
-		returnString += String.format("Number currently owned: %s\n", numOwned);
-		returnString += String.format("Price: %s coins\n", getCost(team.numDiscountHeroes()));
-		returnString += description + "\n";
-		
-		return returnString;
-		
-	}
 
 	/**
 	 * Getter method for type.

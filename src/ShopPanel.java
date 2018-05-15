@@ -547,7 +547,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		JTextPane txtpnDescription = new JTextPane();
 		txtpnDescription.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnDescription.setBackground(UIManager.getColor("Panel.background"));
-		txtpnDescription.setText(healingItem.shopDescriptionGUI());
+		txtpnDescription.setText(healingItem.shopDescription());
 		txtpnDescription.setBounds(33, 234, 565, 176);
 		txtpnDescription.setEditable(false);
 		healingItemInfoPanel.add(txtpnDescription);

@@ -58,29 +58,14 @@ public class City {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return stringWithNumbers(false);
-	}
-	
-	/**
-	 * Returns a String representation of the city, with the option to number the
-	 * locations from 1.
-	 * Used when asking the user to select their destination by entering a number.
-	 * @param withNumbers	true if the locations should be numbered, false otherwise.
-	 * @return	A String representation of the city with the locations numbered.
-	 */
-	public String stringWithNumbers(boolean withNumbers) {
 		String returnString = "";
 		
-		Location location = null;
+		Location location;
 		for (int i = 0; i < ORDERED_LOCATIONS.length; i++) {
 			location = ORDERED_LOCATIONS[i];
 			Sector sector = sectorLocations.get(location);
 			
-			String template = "%s: %s\n";
-			if (withNumbers)
-				template = (i + 1) + ". %s: %s\n";
-			
-			returnString += String.format(template,
+			returnString += String.format("%s: %s\n",
 										  location.toString(),
 										  sector.toString());
 		}
@@ -147,15 +132,6 @@ public class City {
 	public void setCurrentSectorDiscovered() {
 		Sector currentSector = sectorLocations.get(currentLocation);
 		currentSector.setDiscovered(true);
-	}
-	
-	/**
-	 * Sets currentLocation to the location which will be numbered with the given
-	 * number in the stringWithNumbers representation of the city.
-	 * (Numbering starts from one).
-	 */
-	public void setCurrentLocationByNumber(int locationNumber) {
-		setCurrentLocation(ORDERED_LOCATIONS[locationNumber - 1]);
 	}
 
 	/** Gets the current sector of the city as a value of SectorType.

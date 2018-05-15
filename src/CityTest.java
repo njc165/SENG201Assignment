@@ -71,28 +71,6 @@ class CityTest {
 	}
 	
 	@Test
-	final void testStringWithNumbers() {
-		// A newly created city returns the correct string
-		City city = new City(new Janken());
-		assertEquals("1. North: ?\n2. East: ?\n3. South: ?\n4. West: ?\n",
-					city.stringWithNumbers(true));
-	}
-	
-	@Test
-	final void testSetCurrentLocationByNumber() {
-		// Initial location is set correctly
-		City city = new City(new Bucephalus());
-		assertEquals(Location.CENTRE, city.getCurrentLocation());
-		
-		// Location can be set correctly by number
-		city.setCurrentLocationByNumber(1);
-		assertEquals(Location.NORTH, city.getCurrentLocation());
-		
-		city.setCurrentLocationByNumber(4);
-		assertEquals(Location.WEST, city.getCurrentLocation());
-	}
-	
-	@Test
 	final void testSetCurrentSectorDiscovered() {
 		City city = new City(new Invictus());
 		city.setCurrentLocation(Location.NORTH);

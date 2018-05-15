@@ -12,25 +12,6 @@ public class Map {
 	private static final int COST = 10;
 	
 	/**
-	 * Returns a description of the item as a formatted String to be displayed
-	 * to the user in the shop.
-	 * Includes:
-	 * - name of item
-	 * - description of item's use
-	 * - price of item
-	 * - number currently owned by the team
-	 * @param team The team currently playing the game.
-	 * @return	A description of a purchasable item to be displayed in the shop.
-	 */
-	public static String shopDescription(Team team) {
-		String returnString = NAME + "\n";
-		returnString += String.format("Number currently owned: %s\n", team.getNumMaps());
-		returnString += String.format("Price: %s coins\n", COST);
-		returnString += DESCRIPTION + "\n";
-		return returnString;
-	}
-	
-	/**
 	 * Getter method for description.
 	 * @return The value of description.
 	 */

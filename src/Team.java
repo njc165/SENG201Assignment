@@ -6,7 +6,7 @@ public class Team {
 	/**
 	 * The amount of money a team starts with.
 	 */
-	private final int STARTING_MONEY = 100;
+	private final int STARTING_MONEY = 50;
 	
 	/**
 	 * An ArrayList of power-ups currently owned and not applied,
@@ -80,40 +80,6 @@ public class Team {
 	public static boolean isValidTeamName(String name) {
 		return name.length() >= 2 && name.length() <= 10;
 	}
-
-	/**
-	 * Add heroes to the team after the team is constructed.
-	 * Asks the user for a hero name and type, disallows names
-	 * that have already been taken.
-	 */
-	public void addHeroFromInput() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter a name for a hero:");
-		
-		boolean validName = false;
-		String heroName = null;
-		
-		while (!validName) {
-			heroName = sc.nextLine();
-			if (isValidName(heroName)) {
-				validName = true;
-			} else {
-				System.out.println("That name has already been taken. Please enter another:");
-			}
-		}
-		
-		System.out.println(String.format("Enter a number to select a hero type for %s:\n",
-				heroName));
-		System.out.println(Hero.allHeroesDescription());
-		
-		int choice = Util.getIntFromUser(Hero.ALL_HEROES.length, "Enter your choice:");
-		int heroIndex = choice - 1;
-		
-		String type = Hero.ALL_HEROES[heroIndex].getType();
-		
-		addHero(heroName, type);
-
-	}
 	
 	/**
 	 * Creates a new hero with the given name of the given type,
@@ -153,26 +119,6 @@ public class Team {
 			}
 		}
 		return isValid;
-	}
-	
-	/**
-	 * Asks the user to select a hero from the team.
-	 * @return The selected Hero.
-	 */
-	public Hero selectHero() {
-		
-		System.out.println("Choose a hero:\n");
-		
-		for (int i = 0; i < heroes.size(); i++) {
-			int optionNum = i + 1;
-			System.out.println(String.format("%d: %s", optionNum, heroes.get(i)));
-		}
-		System.out.println();
-		
-		int userChoice = Util.getIntFromUser(heroes.size(), "Enter your choice:");
-		
-		return heroes.get(userChoice - 1);
-		
 	}
 	
 	/**

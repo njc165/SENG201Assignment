@@ -14,29 +14,29 @@ class HealingItemTest {
 		assertEquals(2, item.getIncrementsRemaining());
 	}
 
-	@Test
-	final void testGetStatus() {
-		// Create a new HealingItem
-		int numIncrements = 3;
-		int timePerIncrement = 5;
-		HealingItem item = new HealingItem("name", "description", numIncrements,
-											timePerIncrement, 100);
-		item.applyToHero(false);
-		
-		// Check that getStatus returns the expected string
-		assertEquals(item.getStatus(), "75% of max health left to restore.\n"
-										+ "5 seconds until next 25% increment in health.");
-		
-		// Check that time until next increment doesn't fall below 0
-		try {
-			Thread.sleep(6000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		assertEquals(item.getStatus(), "75% of max health left to restore.\n"
-				+ "0 seconds until next 25% increment in health.");
-		
-	}
+//	@Test
+//	final void testGetStatus() {
+//		// Create a new HealingItem
+//		int numIncrements = 3;
+//		int timePerIncrement = 5;
+//		HealingItem item = new HealingItem("name", "description", numIncrements,
+//											timePerIncrement, 100);
+//		item.applyToHero(false);
+//		
+//		// Check that getStatus returns the expected string
+//		assertEquals(item.getStatus(), "75% of max health left to restore.\n"
+//										+ "5 seconds until next 25% increment in health.");
+//		
+//		// Check that time until next increment doesn't fall below 0
+//		try {
+//			Thread.sleep(6000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		assertEquals(item.getStatus(), "75% of max health left to restore.\n"
+//				+ "0 seconds until next 25% increment in health.");
+//		
+//	}
 	
 	@Test
 	final void testApplyToHero() {
@@ -99,18 +99,18 @@ class HealingItemTest {
 		assertFalse(item2.readyToIncrement());
 	}
 	
-	@Test
-	final void testShopDescription() {
-		// Create a new team and healing item
-		Team team = new Team("TeamName");
-		HealingItem item = new HealingItem("name", "description", 3, 20, 100);
-		
-		// Create a shop description string
-		String returnedString = item.shopDescription(team);
-		
-		// Check that the returned string is as expected
-		assertEquals("name\nNumber currently owned: 0\nPrice: 100 coins\ndescription\nTotal health restored: 75% of the hero's max health in 25.0% increments.\nTime taken to apply each increment: 20 seconds.\n", returnedString);
-	}
+//	@Test
+//	final void testShopDescription() {
+//		// Create a new team and healing item
+//		Team team = new Team("TeamName");
+//		HealingItem item = new HealingItem("name", "description", 3, 20, 100);
+//		
+//		// Create a shop description string
+//		String returnedString = item.shopDescription(team);
+//		
+//		// Check that the returned string is as expected
+//		assertEquals("name\nNumber currently owned: 0\nPrice: 100 coins\ndescription\nTotal health restored: 75% of the hero's max health in 25.0% increments.\nTime taken to apply each increment: 20 seconds.\n", returnedString);
+//	}
 	
 	@Test
 	final void testToString() {

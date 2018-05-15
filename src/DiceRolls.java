@@ -1,11 +1,6 @@
 import java.util.Random;
 
-public class DiceRolls extends MiniGame{
-	
-	/**
-	 * An array of the power-up types which are relevant to Paper Scissors Rock.
-	 */
-	private static final PowerUpType[] RELEVANT_POWER_UPS = {PowerUpType.INCREASE_ROLL, PowerUpType.TIEBREAKER};
+public class DiceRolls extends MiniGame {
 
 	/**
 	 * The number of sides on the dice being used in the game.
@@ -45,13 +40,9 @@ public class DiceRolls extends MiniGame{
 	 * @param villain	The villain playing the game.
 	 */
 	public DiceRolls(Hero hero, Villain villain) {
-		super(hero, villain, RELEVANT_POWER_UPS);
+		super(hero, villain);
 		
 		rollIncrease = calculateRollIncrease();
-	}
-	
-	public void play() {
-		//TODO remove play method from MiniGame?
 	}
 	
 	/**
@@ -62,8 +53,8 @@ public class DiceRolls extends MiniGame{
 	 * Sets hasWon to true if the hero wins the game.
 	 */
 	public void roll() {
-		villainRoll = getRoll();
-		heroRoll = getRoll();
+		villainRoll = generateRoll();
+		heroRoll = generateRoll();
 		
 		determineResult();
 	}
@@ -102,7 +93,7 @@ public class DiceRolls extends MiniGame{
 	 * Generates a random die roll between 1 and NUM_DICE_SIDES inclusive.
 	 * @return	The random die roll.
 	 */
-	private int getRoll() {
+	private int generateRoll() {
 		Random generator = new Random();
 		return generator.nextInt(NUM_DICE_SIDES) + 1;
 	}
