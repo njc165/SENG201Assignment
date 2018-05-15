@@ -26,7 +26,7 @@ public class DefeatPanel extends JPanel {
 		setPreferredSize(new Dimension(880, 610));
 		
 		JLabel lblBanner = new JLabel("DEFEAT");
-		lblBanner.setFont(MyFont.getHeadingFont(50));
+		lblBanner.setFont(new Font("Ringbearer", Font.PLAIN, 50));
 		lblBanner.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBanner.setBounds(10, 290, 860, 65);
 		add(lblBanner);
