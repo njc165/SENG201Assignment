@@ -99,6 +99,7 @@ public class Game {
 	 * @param panelString	A string representation of the panel to be shown.
 	 */
 	public void setPanel(String panelString) {
+		
 		cardLayout.show(mainPanel, panelString);
 		game.healHeroes();
 		((Refreshable) visiblePanel()).refresh();
