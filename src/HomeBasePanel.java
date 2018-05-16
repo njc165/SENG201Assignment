@@ -336,7 +336,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 */
 	private JLabel mountainsImageLabel() {
 		JLabel lblMountainsImage = new JLabel("");
-		lblMountainsImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.MOUNTAINS_IMAGE_FILEPATH)));
+		lblMountainsImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.FOREST_IMAGE_FILEPATH)));
 		return lblMountainsImage;
 	}
 	
