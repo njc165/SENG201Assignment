@@ -12,9 +12,9 @@ public class Image {
 	public static final String HOME_BASE_IMAGE_FILEPATH = "/img/homebase.png";
 	
 	/**
-	 * The file path for the mountains image used in the corners of the map.
+	 * The file path for the forest image used in the corners of the map.
 	 */
-	public static final String MOUNTAINS_IMAGE_FILEPATH = "/img/mountains.png";
+	public static final String FOREST_IMAGE_FILEPATH = "/img/forest.png";
 	
 	/**
 	 * The file path for the coin image used in the shop.
