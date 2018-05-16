@@ -12,16 +12,16 @@ public class GameEnvironment {
 	 * An array of instances of all the PowerUp subclasses.
 	 */
 	public static final PowerUp[] ALL_POWER_UPS = {new ExtraGuess(),
-			  								 new IncreaseRoll(),
-			  								 new MindReader(),
-			  								 new TieBreaker()};
+			  								 	   new IncreaseRoll(),
+			  								 	   new MindReader(),
+			  								 	   new TieBreaker()};
 	
 	/**
 	 * An array of instances of all the HealingItem subclasses.
 	 */
 	public static final HealingItem[] ALL_HEALING_ITEMS = {new AlicornDust(),
-													  new HeartyMeal(),
-													  new SuspiciousTonic()};
+													  	   new HeartyMeal(),
+													  	   new SuspiciousTonic()};
 	
 	/**
 	 * The amount of money the team is given when they defeat a villain.
@@ -40,26 +40,18 @@ public class GameEnvironment {
 	private Team team;
 	
 	/**
-	 * The number of cities the team need to play through in order to complete
-	 * the game.
-	 * User is asked to choose the number of cities before the game is created.
-	 * Can be between 3 and 6.
-	 */
-	private int numberOfCities;
-	
-	/**
 	 * The start time of the game, as a LocalTime object.
 	 * Used to calculate the time taken to finish the game.
 	 */
 	private LocalTime startTime;
 	
 	/**
-	 * If gameOver is still false once all the cities have been completed, the game
-	 * is won, and a victory message is displayed.
-	 * If all heroes die (the team is empty), gameOver is set to true,
-	 * causing the game to end and a game over message to be displayed.
+	 * The number of cities the team need to play through in order to complete
+	 * the game.
+	 * User is asked to choose the number of cities before the game is created.
+	 * Can be between 3 and 6.
 	 */
-	private boolean gameOver = false;
+	private int numberOfCities;
 	
 	/**
 	 * An list of the cities to be played in the game.

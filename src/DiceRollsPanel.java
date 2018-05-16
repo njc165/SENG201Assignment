@@ -75,8 +75,7 @@ public class DiceRollsPanel extends JPanel {
 		add(contentPanel);
 		contentPanel.setLayout(null);
 		
-//		showRollScreen();
-		showResultScreen();
+		showRollScreen();
 	}
 
 	/**
@@ -212,7 +211,7 @@ public class DiceRollsPanel extends JPanel {
 			contentPanel.add(txtpnIncreaseRoll);
 		}
 		
-//		if (diceRolls.getUsedTieBreaker()) {
+		if (diceRolls.getUsedTieBreaker()) {
 			JLabel lblTiebreakerImage = new JLabel("");
 			lblTiebreakerImage.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
 											Image.powerUpImageFilepath(PowerUpType.TIEBREAKER, 25))));
@@ -226,7 +225,7 @@ public class DiceRollsPanel extends JPanel {
 			txtpnTiebreaker.setBackground(SystemColor.menu);
 			txtpnTiebreaker.setBounds(173, 265, 169, 34);
 			contentPanel.add(txtpnTiebreaker);
-//		}
+		}
 			
 		if (diceRolls.getResult() == "Draw") {
 			JButton btnPlayAgain = new JButton("Play Again");

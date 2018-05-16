@@ -16,9 +16,16 @@ class DiceRollsTest {
 		// Dice Rolls is a subclass of MiniGame
 		assertTrue(game instanceof MiniGame);
 		
-		// Hero and villain getters and setters work.
+		// Hero and villain getters from MiniGame superclass work.
 		assertEquals(hero, game.getHero());
 		assertEquals(villain, game.getVillain());
+		
+		// Initially, hasWon is false
+		assertFalse(game.getHasWon());
+		
+		// hasWon can be set to true
+		game.setHasWon(true);
+		assertTrue(game.getHasWon());
 		
 		// Roll increase is set to 0 if hero has no Increase Roll
 		// power ups and no battle advantage special ability.
@@ -86,16 +93,6 @@ class DiceRollsTest {
 		
 		// When the hero has no Tiebreaker power ups, usedTiebreaker remains false
 		assertFalse(game.getUsedTieBreaker());
-	}
-
-	@Test
-	final void testRemovePowerUps() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	final void testRemoveAllPowerUps() {
-		fail("Not yet implemented");
 	}
 
 }
