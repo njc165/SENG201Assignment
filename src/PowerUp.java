@@ -18,6 +18,12 @@ public class PowerUp {
 	 */
 	private String description;
 	
+	/**
+	 * A constructor for PowerUp.
+	 * @param type The type of power up
+	 * @param cost The cost of the power up
+	 * @param description A string description of the power up.
+	 */
 	public PowerUp(PowerUpType type, int cost, String description) {
 		this.type = type;
 		this.cost = cost;
