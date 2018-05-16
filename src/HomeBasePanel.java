@@ -301,13 +301,13 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		mapPanel.add(mapSquaresPanel);
 		mapSquaresPanel.setLayout(new GridLayout(3, 3, 10, 10));
 		
-		mapSquaresPanel.add(mountainsImageLabel());
+		mapSquaresPanel.add(forestImageLabel());
 		
 		lblNorth = new JLabel("");
 		lblNorth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblNorth);
 		
-		mapSquaresPanel.add(mountainsImageLabel());
+		mapSquaresPanel.add(forestImageLabel());
 		
 		lblWest = new JLabel("");
 		lblWest.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
@@ -321,23 +321,23 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblEast.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblEast);
 		
-		mapSquaresPanel.add(mountainsImageLabel());
+		mapSquaresPanel.add(forestImageLabel());
 		
 		lblSouth = new JLabel("");
 		lblSouth.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.UNDISCOVERED_SECTOR_IMAGE_FILEPATH)));
 		mapSquaresPanel.add(lblSouth);
 		
-		mapSquaresPanel.add(mountainsImageLabel());
+		mapSquaresPanel.add(forestImageLabel());
 	}
 	
 	/**
 	 * Creates and returns a new JLabel with the mountains image as its
 	 * icon.
 	 */
-	private JLabel mountainsImageLabel() {
-		JLabel lblMountainsImage = new JLabel("");
-		lblMountainsImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.FOREST_IMAGE_FILEPATH)));
-		return lblMountainsImage;
+	private JLabel forestImageLabel() {
+		JLabel lblForestImage = new JLabel("");
+		lblForestImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(Image.FOREST_IMAGE_FILEPATH)));
+		return lblForestImage;
 	}
 	
 	/**
