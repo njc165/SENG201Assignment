@@ -1,37 +1,15 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 class VillainTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	void testVillain() {
 		// Create new villain, check that name is set correctly
 		Villain villain = new Villain("Name", "", 0, new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK});
-		assertEquals("Name", villain);
+		assertEquals("Name", villain.toString());
 		
 		// An exception is thrown if the constructor is given an empty gamesPlayed array
 		boolean exceptionThrown = false;
@@ -70,7 +48,7 @@ class VillainTest {
 		// Last villain is the super villain
 		assertTrue(villains.get(2) instanceof Invictus);
 		
-		// Other villains aren't supper villains
+		// Other villains aren't super villains
 		assertFalse(villains.get(0) instanceof Invictus);
 		assertFalse(villains.get(1) instanceof Invictus);
 		
@@ -112,6 +90,28 @@ class VillainTest {
 		assertTrue(villain.isDefeated());
 	}
 
+	@Test
+	final void testToString() {
+		
+		// Check that the villain's name and title are returned correctly
+		Invictus villain = new Invictus();
+		assertEquals(villain.toString(), "Invictus the Unconquered");
+		
+		John johnny = new John();
+		assertEquals(johnny.toString(), "John the Lucky");
+	}
 	
+	@Test
+	final void testRemainingTimesToDefeat() {
+		
+		// Check that a new villain has 'full health'
+		John johnny = new John();
+		assertEquals(johnny.remainingTimesToDefeat(), Villain.MAX_TIMES_DEFEATED);
+		
+		// Check that remainingTimesToDefeat returns 1 when the villain
+		// will be defeated after one more loss.
+		johnny.setTimesDefeated(Villain.MAX_TIMES_DEFEATED-1);
+		assertEquals(johnny.remainingTimesToDefeat(), 1);
+	}
 	
 }
