@@ -14,19 +14,23 @@ public class Game {
 	 * The GameEnvironment object for the current game.
 	 */
 	private GameEnvironment game;
-
-	private JFrame frame;
-	private JPanel mainPanel;
-	private CardLayout cardLayout;
 	
-	private SetUpPanel startScreenPanel;
-	private HomeBasePanel homeBasePanel;
-	private ShopPanel shopPanel;
-	private HospitalPanel hospitalPanel;
-	private PowerUpDenPanel powerUpDenPanel;
-	private VillainsLairPanel villainsLairPanel;	
-	private VictoryPanel victoryPanel;
-	private DefeatPanel defeatPanel;
+	/**
+	 * The frame of the main game window.
+	 */
+	private JFrame frame;
+	
+	/**
+	 * The main panel in the game window.
+	 * Fills the whole frame, and contains all the content of the game. 
+	 */
+	private JPanel mainPanel;
+	
+	/**
+	 * The CardLayout of the main panel, which contains all the sub panels
+	 * of the game.
+	 */
+	private CardLayout cardLayout;
 
 	/**
 	 * Launch the application.
@@ -74,22 +78,22 @@ public class Game {
 	}
 	
 	public void addPanels() {
-		startScreenPanel = new SetUpPanel(this);
-		mainPanel.add(startScreenPanel, SetUpPanel.SET_UP_PANEL_STRING);
+		SetUpPanel setUpPanel = new SetUpPanel(this);
+		mainPanel.add(setUpPanel, SetUpPanel.SET_UP_PANEL_STRING);
 		
-		homeBasePanel = new HomeBasePanel(this);
+		HomeBasePanel homeBasePanel = new HomeBasePanel(this);
 		mainPanel.add(homeBasePanel, HomeBasePanel.HOME_BASE_PANEL_STRING);
 		
-		shopPanel = new ShopPanel(this);
+		ShopPanel shopPanel = new ShopPanel(this);
 		mainPanel.add(shopPanel, ShopPanel.SHOP_PANEL_STRING);
 		
-		hospitalPanel = new HospitalPanel(this);
+		HospitalPanel hospitalPanel = new HospitalPanel(this);
 		mainPanel.add(hospitalPanel, HospitalPanel.HOSPITAL_PANEL_STRING);
 		
-		powerUpDenPanel = new PowerUpDenPanel(this);
+		PowerUpDenPanel powerUpDenPanel = new PowerUpDenPanel(this);
 		mainPanel.add(powerUpDenPanel, PowerUpDenPanel.POWER_UP_DEN_PANEL_STRING);
 		
-		villainsLairPanel = new VillainsLairPanel(this);
+		VillainsLairPanel villainsLairPanel = new VillainsLairPanel(this);
 		mainPanel.add(villainsLairPanel, VillainsLairPanel.VILLAINS_LAIR_PANEL_STRING);
 	}
 	
@@ -119,11 +123,11 @@ public class Game {
 	 */
 	public void endGame(boolean won) {
 		if (won) {
-			victoryPanel = new VictoryPanel(this);
+			VictoryPanel victoryPanel = new VictoryPanel(this);
 			mainPanel.add(victoryPanel, VictoryPanel.VICTORY_PANEL_STRING);
 			cardLayout.show(mainPanel, VictoryPanel.VICTORY_PANEL_STRING);
 		} else {
-			defeatPanel = new DefeatPanel(this);
+			DefeatPanel defeatPanel = new DefeatPanel(this);
 			mainPanel.add(defeatPanel, DefeatPanel.DEFEAT_PANEL_STRING);
 			cardLayout.show(mainPanel, DefeatPanel.DEFEAT_PANEL_STRING);
 		}
