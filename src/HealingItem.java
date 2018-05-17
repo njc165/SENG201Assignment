@@ -46,11 +46,11 @@ public class HealingItem {
 	
 	/**
 	 * A constructor for HealingItem.
-	 * @param name The name of the healing item.
-	 * @param description A description of what the healing item does.
-	 * @param numIncrements An integer giving the number of increments the healing item has.
-	 * @param timePerIncrement A long representing the time (in seconds) taken to apply one increment.
-	 * @param cost An integer representing the cost of the healing item.
+	 * @param name 				The name of the healing item.
+	 * @param description 		A description of the healing item.
+	 * @param numIncrements 	The number of increments the healing item restores.
+	 * @param timePerIncrement 	The time (in seconds) taken to apply one increment.
+	 * @param cost 				The cost of the healing item in the shop.
 	 */
 	public HealingItem(String name, String description, int numIncrements, long timePerIncrement, int cost) {
 		this.name = name;
@@ -58,9 +58,21 @@ public class HealingItem {
 		this.timePerIncrement = timePerIncrement;
 		this.cost = cost;
 		this.numIncrements = numIncrements;
+		
 		this.incrementsRemaining = numIncrements;
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
+	/**
+	 * A string description of the healing item to be displayed in the shop,
+	 * including its back story, the total percentage of a hero's health which it
+	 * restores, and the time taken to apply each increment.
+	 * @return	A description of the healing item to be displayed in
+	 * 			the shop.
+	 */
 	public String shopDescription() {
 		String returnString = description + "\n\n";
 		returnString += String.format("Restores %s%% of the hero's maximum health in %s%% increments.\n\n",
@@ -82,7 +94,7 @@ public class HealingItem {
 	
 	/**
 	 * Called when a hero's applied healing item is set to this healing item.
-	 * Initialises lastApplicationTime to the current system time.
+	 * Sets lastApplicationTime to the current system time.
 	 * If the hero it is applied to has the faster healing special ability,
 	 * multiplies the time per increment of the healing item by Hero.FASTER_HEALING_MULTIPLIER
 	 * @param hasFasterHealing	true if the hero it is applied to has the faster healing
@@ -96,7 +108,9 @@ public class HealingItem {
 	}
 	
 	/**
-	 * Applies an increment of the healing item.
+	 * Called when this healing item is used to increase a hero's
+	 * health. Decreases the number of increments remaining, and sets
+	 * the last application time to the current system time.
 	 */
 	public void applyIncrement() {
 		if (incrementsRemaining <= 0) {
@@ -107,7 +121,8 @@ public class HealingItem {
 	}
 	
 	/**
-	 * Returns the time in seconds remaining until the next increment.
+	 * Returns the time in seconds until the next increment should be
+	 * applied.
 	 * @return The number of seconds until the next increment.
 	 */
 	public long secondsRemaining() {
@@ -128,22 +143,6 @@ public class HealingItem {
 	 */
 	public LocalTime nextApplicationTime() {
 		return lastApplicationTime.plus(timePerIncrement, ChronoUnit.SECONDS);
-	}		
-	
-	/**
-	 * Getter method for name.
-	 * @return The value of name.
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Getter method for description.
-	 * @return The value of description.
-	 */
-	public String getDescription() {
-		return description;
 	}
 
 	/**
@@ -161,15 +160,6 @@ public class HealingItem {
 		}
 		return cost;
 	}
-
-    /**
-	 * Getter method for timePerIncrement.
-	 * Used only in testing.
-	 * @return The value of timePerIncrement.
-	 */
-	public long getTimePerIncrement() {
-		return timePerIncrement;
-	}
 	
 	/**
 	 * Getter method for incrementsRemaining.
@@ -178,16 +168,7 @@ public class HealingItem {
 	public int getIncrementsRemaining() {
 		return incrementsRemaining;
 	}
+
 	
-	/**
-	 * Getter method for numIncrements.
-	 * @return The value of numIncrements.
-	 */
-	public int getNumIncrements() {
-		return numIncrements;
-	}
-	
-	public String toString() {
-		return name;
-	}
+
 }

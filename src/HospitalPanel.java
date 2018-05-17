@@ -376,7 +376,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 				Hero hero = (Hero) selectedHeroRadioButton.getClientProperty("Hero");
 				HealingItem healingItem = (HealingItem) selectedHealingItemRadioButton.getClientProperty("HealingItem");
 				
-				HealingItem healingItemFromTeam = team().healingItemOfGivenType(healingItem.getName());
+				HealingItem healingItemFromTeam = team().healingItemOfGivenType(healingItem.toString());
 				team().getHealingItemsOwned().remove(healingItemFromTeam);
 				hero.setAppliedHealingItem(healingItemFromTeam);
 				
@@ -486,7 +486,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			healingItemPanel.add(lblHealingItemType);
 			
 			JLabel lblNumOwned = new JLabel(String.format("(%s owned)",
-									team().numHealingItemsOwned(healingItem.getName())));
+									team().numHealingItemsOwned(healingItem.toString())));
 			lblNumOwned.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNumOwned.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			lblNumOwned.setBounds(10, 106, 178, 25);
@@ -495,7 +495,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			JRadioButton radioButton = new JRadioButton("");
 			radioButton.setHorizontalAlignment(SwingConstants.CENTER);
 			radioButton.setBounds(0, 133, 198, 21);
-			radioButton.setEnabled(team().numHealingItemsOwned(healingItem.getName()) > 0);
+			radioButton.setEnabled(team().numHealingItemsOwned(healingItem.toString()) > 0);
 			radioButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					refreshApplyButton();

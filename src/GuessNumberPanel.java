@@ -77,8 +77,6 @@ public class GuessNumberPanel extends JPanel {
 		contentPanel.setLayout(null);
 		
 		showGuessScreen();
-//		showGuessAgainScreen();
-//		showResultScreen();
 	}
 	
 	
