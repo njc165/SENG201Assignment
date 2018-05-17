@@ -1,23 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.ByteArrayInputStream;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TeamTest {
 
 	@Test
-	final void testAddHeroFromInput() {		
-		
-	}
-
-	@Test
 	final void testHasMapHero() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		
 		// Empty team doesn't have map hero
 		assertFalse(team.hasMapHero());
@@ -38,7 +26,7 @@ class TeamTest {
 
 	@Test
 	final void testNumDiscountHeroes() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		
 		// Empty team doesn't have discount hero
 		assertEquals(0, team.numDiscountHeroes());
@@ -63,7 +51,7 @@ class TeamTest {
 		Apprentice apprentice = new Apprentice("Name");
 		int startHealth = apprentice.getCurrentHealth();
 		
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		team.getHeroes().add(apprentice);
 		
 		team.takeDamage(apprentice, 10);
@@ -103,7 +91,7 @@ class TeamTest {
 	@Test
 	final void testBuyPowerUp() {
 		ExtraGuess powerUp = new ExtraGuess();
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		team.setCurrentMoney(200);
 		
 		// The team has no power ups initially
@@ -139,7 +127,7 @@ class TeamTest {
 	@Test
 	final void testBuyHealingItem() {
 		AlicornDust alicornDust = new AlicornDust();
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		team.setCurrentMoney(200);
 		
 		// The team has no healing items initially
@@ -173,7 +161,7 @@ class TeamTest {
 	
 	@Test
 	final void testBuyMap() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		team.setCurrentMoney(200);
 		
 		// The team has no maps initially
@@ -206,7 +194,7 @@ class TeamTest {
 	
 	@Test
 	final void testPopPowerUpFromList() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		
 		// If the team has one power up of that type, it is removed from the list
 		// and returned
@@ -244,7 +232,7 @@ class TeamTest {
 	
 	@Test
 	final void testNumPowerUpsOwned() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		team.getPowerUpsOwned().add(new ExtraGuess());
 		team.getPowerUpsOwned().add(new MindReader());
 		team.getPowerUpsOwned().add(new TieBreaker());
@@ -258,7 +246,7 @@ class TeamTest {
 	
 	@Test
 	final void testNumHealingItemsOwned() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		team.getHealingItemsOwned().add(new AlicornDust());
 		team.getHealingItemsOwned().add(new AlicornDust());
 		team.getHealingItemsOwned().add(new HeartyMeal());
@@ -273,7 +261,7 @@ class TeamTest {
 	
 	@Test
 	final void testHealingItemOfGivenType() {
-		Team team = new Team("Team name");
+		Team team = new Team("Team name", 4);
 		AlicornDust alicornDust = new AlicornDust();
 		
 		team.getHealingItemsOwned().add(alicornDust);
@@ -300,8 +288,23 @@ class TeamTest {
 		assertTrue(team.getHealingItemsOwned().contains(alicornDust));
 	}
 		
-	
-	
-	
+	@Test
+	final void testSetNumMaps() {
+		Team team = new Team("Team name", 4);
+		
+		boolean exceptionThrown = false;
+		try {
+			team.setNumMaps(-1);
+		} catch (IllegalArgumentException e) {
+			exceptionThrown = true;
+		}
+		
+		// Check that an exception is thrown for invalid arguments.
+		assertTrue(exceptionThrown);
+		
+		// Check that setter method works correctly.
+		team.setNumMaps(16);
+		assertEquals(16, team.getNumMaps());
+	}
 	
 }

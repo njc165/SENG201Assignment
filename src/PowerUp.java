@@ -1,3 +1,9 @@
+/**
+ * PowerUp objects represent particular beneficial items
+ * that the player can receive in the game. Each object
+ * corresponds to one item. Outside of testing, PowerUp should
+ * never be instantiated directly, but rather through its children.
+ */
 public class PowerUp {
 	
 	/**
@@ -18,6 +24,12 @@ public class PowerUp {
 	 */
 	private String description;
 	
+	/**
+	 * A constructor for PowerUp.
+	 * @param type The type of power up
+	 * @param cost The cost of the power up
+	 * @param description A string description of the power up.
+	 */
 	public PowerUp(PowerUpType type, int cost, String description) {
 		this.type = type;
 		this.cost = cost;

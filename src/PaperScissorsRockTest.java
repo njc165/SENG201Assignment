@@ -1,61 +1,66 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.Arrays;
+import java.util.Random;
+
 import org.junit.jupiter.api.Test;
 
 class PaperScissorsRockTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
+	@Test
+	final void testUpdateVillainsChoice() {
+		final String[] CHOICES = {"Paper", "Scissors", "Rock"};
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
+		Hero hero = new Apprentice("Speed");
+		Villain villain = new Evan();
+		PaperScissorsRock psr = new PaperScissorsRock(hero, villain);
+		
+		// Check that the villain's choice is set to a valid value
+		psr.updateVillainsChoice();
+		assertTrue(Arrays.asList(CHOICES).contains(psr.getVillainsChoice()));
 	}
-
-	@BeforeEach
-	void setUp() throws Exception {
+	
+	@Test
+	final void testComputeOutcome() {
+		final String[] CHOICES = {"Paper", "Scissors", "Rock"};
+		Random rand = new Random();
+		
+		Hero hero = new Apprentice("Molly");
+		Villain villain = new Evan();
+		PaperScissorsRock psr = new PaperScissorsRock(hero, villain);
+		
+		// Set choices such that outcome should be draw
+		psr.updateVillainsChoice();
+		psr.setHerosChoice(psr.getVillainsChoice());
+		String outcome = psr.computeOutcome();
+		assertEquals("Draw", outcome);
+		
+		// 100 times, set choices such that outcome should not be draw
+		for (int i = 0; i < 100; i++) {
+			psr.setHerosChoice(CHOICES[rand.nextInt(3)]);
+			while (psr.getVillainsChoice() == psr.getHerosChoice()) {
+				psr.updateVillainsChoice();
+			}
+			assertNotEquals("Draw", psr.computeOutcome());
+		}
 	}
+	
+	@Test
+	final void testRevealNot() {
+		final String[] CHOICES = {"Paper", "Scissors", "Rock"};
 
-	@AfterEach
-	void tearDown() throws Exception {
+		Hero hero = new Apprentice("X");
+		Villain villain = new Evan();
+		PaperScissorsRock psr = new PaperScissorsRock(hero, villain);
+		
+		// 100 times, check that revealNot reveals a valid choice
+		// and that it is not the villain's choice
+		for (int i = 0; i < 100; i++) {
+			psr.updateVillainsChoice();
+			String not = psr.revealNot();
+			assertTrue(Arrays.asList(CHOICES).contains(not));
+			assertNotEquals(not, psr.getVillainsChoice());
+		}
 	}
-
-	// TODO redo tests
-//	@Test
-//	final void testPaperScissorsRock() {
-//		// Create paper scissors rock number game
-//		PaperScissorsRockCMD game = new PaperScissorsRockCMD(new Apprentice(""), new John());
-//		
-//		// Superclass getters and setters can be used
-//		assertEquals("Apprentice", game.getHero().getType());
-//		assertEquals("John the Lucky", game.getVillain().toString());
-//		
-//		// hasWon is initialised to false, and can be changed using setter
-//		assertFalse(game.getHasWon());
-//		game.setHasWon(true);
-//		assertTrue(game.getHasWon());	}
-//
-//	@Test
-//	final void testRemoveRelevantPowerUps() {
-//		Hero hero = new Apprentice("");
-//		PaperScissorsRockCMD game = new PaperScissorsRockCMD(hero, new John());
-//		
-//		// No effect if hero has no power-ups
-//		game.removeRelevantPowerUps();
-//		assertArrayEquals(new PowerUp[0], hero.getActivePowerUps().toArray());
-//		
-//		// Only the correct power-ups are removed
-//		hero.addPowerUp(new IncreaseRoll());
-//		hero.addPowerUp(new TieBreaker());
-//		hero.addPowerUp(new ExtraGuess());
-//		hero.addPowerUp(new MindReader());
-//		game.removeRelevantPowerUps();
-//		assertArrayEquals(new PowerUp[] {new IncreaseRoll(), new ExtraGuess()},
-//				hero.getActivePowerUps().toArray());	
-//	}
 
 }

@@ -6,96 +6,60 @@ class MiniGameTest {
 
 	@Test
 	final void testRemovePowerUps() {
-		Hero hero = new Merchant("");
-		Villain villain = new Evan();
-		DiceRolls game = new DiceRolls(hero, villain);
+
+		Hero hero = new Bulwark("Adam");
+		Villain villain = new Invictus();
+		MiniGame game = new PaperScissorsRock(hero, villain);
 		
-		// If the hero doesn't have enough power ups of the given
-		// type, and exception is thrown
-		boolean exceptionCaught = false;
-		try {
-			game.removePowerUps(PowerUpType.TIEBREAKER, 1);
-		} catch (RuntimeException e) {
-			exceptionCaught = true;
-		}
-		assertTrue(exceptionCaught);
-		
-		// If the hero has no power ups, 0 power ups can be removed
-		exceptionCaught = false;
-		try {
-			game.removePowerUps(PowerUpType.MINDREADER, 0);
-		} catch (RuntimeException e) {
-			exceptionCaught = true;
-		}
-		assertFalse(exceptionCaught);
-		
-		// If the hero has several power ups, the correct number of
-		// power ups of the correct type are removed
-		hero.addPowerUp(new IncreaseRoll());
-		hero.addPowerUp(new IncreaseRoll());
-		hero.addPowerUp(new IncreaseRoll());
-		hero.addPowerUp(new ExtraGuess());
-		hero.addPowerUp(new ExtraGuess());
 		hero.addPowerUp(new TieBreaker());
+		hero.addPowerUp(new TieBreaker());
+		hero.addPowerUp(new MindReader());
+		hero.addPowerUp(new IncreaseRoll());
+		hero.addPowerUp(new ExtraGuess());
 		
-		game.removePowerUps(PowerUpType.INCREASE_ROLL, 2);
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
-		assertEquals(2, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
-
-		game.removePowerUps(PowerUpType.EXTRA_GUESS, 2);
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
-		
+		// Check that the correct number of power-ups is removed
 		game.removePowerUps(PowerUpType.TIEBREAKER, 1);
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
+		assertEquals(1, hero.numPowerUps(PowerUpType.TIEBREAKER));
 		
+		// Check that other applied power-ups are not affected
+		game.removePowerUps(PowerUpType.TIEBREAKER, 1);
+		assertEquals(0, hero.numPowerUps(PowerUpType.TIEBREAKER));
+		assertEquals(1, hero.numPowerUps(PowerUpType.MINDREADER));
+		assertEquals(1, hero.numPowerUps(PowerUpType.INCREASE_ROLL));
+		assertEquals(1, hero.numPowerUps(PowerUpType.EXTRA_GUESS));
+		
+		// Check that an exception is thrown when too many power-ups
+		// are removed
+		boolean exceptionThrown = false;
+		try {
+			game.removePowerUps(PowerUpType.TIEBREAKER, 100);
+		} catch (RuntimeException e) {
+			exceptionThrown = true;
+		}
+		assertTrue(exceptionThrown);
 	}
-
+	
 	@Test
 	final void testRemoveAllPowerUps() {
-		Hero hero = new Explorer("");
-		Villain villain = new Bucephalus();
-		GuessNumber game = new GuessNumber(hero, villain);
+		Hero hero = new Bulwark("Eve");
+		Villain villain = new Invictus();
+		MiniGame game = new PaperScissorsRock(hero, villain);
 		
-		// All the power ups of the given type are removed from the hero,
-		// and power ups of other types are unaffected.
-		
-		hero.addPowerUp(new MindReader());
-		hero.addPowerUp(new MindReader());
-		hero.addPowerUp(new MindReader());
 		hero.addPowerUp(new TieBreaker());
 		hero.addPowerUp(new TieBreaker());
+		hero.addPowerUp(new MindReader());
+		hero.addPowerUp(new IncreaseRoll());
 		hero.addPowerUp(new ExtraGuess());
-		
-		game.removeAllPowerUps(PowerUpType.INCREASE_ROLL);
-		assertEquals(3, game.getHero().numPowerUps(PowerUpType.MINDREADER));
-		assertEquals(2, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
 
-		
-		game.removeAllPowerUps(PowerUpType.MINDREADER);
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.MINDREADER));
-		assertEquals(2, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
-		
+		// Check that all power-ups are removed
 		game.removeAllPowerUps(PowerUpType.TIEBREAKER);
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.MINDREADER));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
-		assertEquals(1, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
-
-		game.removeAllPowerUps(PowerUpType.EXTRA_GUESS);
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.MINDREADER));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.TIEBREAKER));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.EXTRA_GUESS));
-		assertEquals(0, game.getHero().numPowerUps(PowerUpType.INCREASE_ROLL));
+		assertEquals(0, hero.numPowerUps(PowerUpType.TIEBREAKER));
 		
+		// Check that other applied power-ups are not affected
+		assertEquals(1, hero.numPowerUps(PowerUpType.MINDREADER));
+		assertEquals(1, hero.numPowerUps(PowerUpType.INCREASE_ROLL));
+		assertEquals(1, hero.numPowerUps(PowerUpType.EXTRA_GUESS));
+
 	}
 
 }

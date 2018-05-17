@@ -1,27 +1,47 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
 
 class HeroTest {
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	
+	@Test
+	final void testToString() {
+		Hero hero = new Apprentice("John");
+		assertEquals("John the Apprentice", hero.toString());
 	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
+	
+	@Test
+	final void testAllHeroTypes() {
+		String[] allTypes = Hero.allHeroTypes();
+		String[] expected = {"Apprentice", "Bulwark", "Explorer", "Gambler", "Mercenary", "Merchant"};
+		
+		Collections.sort(Arrays.asList(allTypes));
+		Collections.sort(Arrays.asList(expected));
+		
+		for (int i = 0; i < allTypes.length; i++) {
+			assertEquals(allTypes[i], expected[i]);
+		}
 	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+	
+	@Test
+	final void testPowerUpTypeCounts() {
+		Hero hero = new Apprentice("Steve");
+		hero.addPowerUp(new TieBreaker());
+		hero.addPowerUp(new TieBreaker());
+		hero.addPowerUp(new MindReader());
+		hero.addPowerUp(new ExtraGuess());
+		hero.addPowerUp(new IncreaseRoll());
+		
+		// Check that powerUpTypeCounts counts correctly
+		HashMap<PowerUpType, Integer> hm = hero.powerUpTypeCounts();
+		assertEquals(new Integer(2), hm.get(PowerUpType.TIEBREAKER));
+		assertEquals(new Integer(1), hm.get(PowerUpType.MINDREADER));
+		assertEquals(new Integer(1), hm.get(PowerUpType.EXTRA_GUESS));
+		assertEquals(new Integer(1), hm.get(PowerUpType.INCREASE_ROLL));		
 	}
 
 	@Test

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Team {
 		
@@ -48,17 +47,7 @@ public class Team {
 	 * Could be any non-negative integer.
 	 */
 	private int currentMoney;
-	
-	/**
-	 * A constructor for Team, called before the game starts.
-	 * Creates an empty team, to which heroes can be added.
-	 * @param name 		The team's name.
-	 */
-	public Team(String name) {
-		this.name = name;
-		this.currentMoney = STARTING_MONEY;
-	}
-	
+		
 	/**
 	 * A constructor for team, which sets the starting number of
 	 * heroes which need to be added to the team.
