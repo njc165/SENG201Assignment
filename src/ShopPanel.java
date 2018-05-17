@@ -27,7 +27,11 @@ import java.awt.GridLayout;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
-
+/**
+ * Instances of ShopPanel are components of Game objects.
+ * They contain all components associated with the in-game
+ * shop, and are shown when the player enters the shop.
+ */
 public class ShopPanel extends JPanel implements Refreshable {
 	
 	/**
@@ -92,7 +96,10 @@ public class ShopPanel extends JPanel implements Refreshable {
 	 */
 	private JLabel lblCurrentCoinsAmount;
 	
-	
+	/**
+	 * A constructor for ShopPanel.
+	 * @param gameWindow The Game object to which this ShopPanel belongs.
+	 */
 	public ShopPanel(Game gameWindow) {
 		super();
 		this.gameWindow = gameWindow;
@@ -105,6 +112,9 @@ public class ShopPanel extends JPanel implements Refreshable {
 		addContentPanel();
 	}
 	
+	/**
+	 * Refreshes the panel by updating all dynamic components.
+	 */
 	public void refresh() {
 		
 		contentPanel.removeAll();
@@ -114,6 +124,10 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 	}
 	
+	/**
+	 * Returns the Team object associated with this panel's Game.
+	 * @return The current Team
+	 */
 	private Team team() {
 		return gameWindow.getGame().getTeam();
 	}

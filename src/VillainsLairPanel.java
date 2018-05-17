@@ -20,6 +20,11 @@ import java.awt.CardLayout;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 
+/**
+ * Instances of VillainsLairPanel are components of Game objects.
+ * They contain all components related to the Villain's Lair in the
+ * game, and are displayed when the player enters the Villain's Lair.
+ */
 public class VillainsLairPanel extends JPanel implements Refreshable {
 
 	/**
@@ -205,31 +210,6 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		contentPanel = new JPanel(null);
 		contentPanel.setBounds(10, 85, 870, 515);
 		add(contentPanel);
-		
-//		//============================================
-//		contentPanel.removeAll();
-//		
-//		JLabel lblVillainImage = new JLabel("");
-//		lblVillainImage.setBounds(714, -24, 150, 375);
-//		lblVillainImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.villainImageFilepath(villain()))));
-//		contentPanel.add(lblVillainImage);
-//		
-//		String villainFirstName = villain().toString().split(" ")[0];
-//		String villainTitle     = villain().toString().split(" ")[2];
-//		
-//		JLabel lblVillainName = new JLabel(villainFirstName);
-//		lblVillainName.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		lblVillainName.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblVillainName.setBounds(693, 362, 190, 25);
-//		contentPanel.add(lblVillainName);
-//		
-//		JLabel lblVillainTitle = new JLabel(String.format("the %s", villainTitle));
-//		lblVillainTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		lblVillainTitle.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblVillainTitle.setBounds(693, 387, 190, 25);
-//		contentPanel.add(lblVillainTitle);
-//		
-//		addSubContentPanel();
 	}
 	
 	/**
@@ -513,7 +493,6 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * Creates and returns a new mini-game panel of one of the three possible types,
 	 * depending on the games played by the current villain.
 	 */
-
 	private JPanel newMiniGamePanel() {
 		MiniGameType miniGameType = villain().getGame();
 		
@@ -533,12 +512,6 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		gameResultPanel = new JPanel();
 		gameResultPanel.setLayout(null);
 		subContentPanel.add(gameResultPanel, GAME_RESULT_PANEL_STRING);
-		
-		// for testing
-		//=============================================================
-//		gameResultPanel.add(heroImagePanel());
-//		addWonComponents();
-//		addLostComponents();
 	}
 	
 	/**

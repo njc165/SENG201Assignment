@@ -1,3 +1,9 @@
+/**
+ * Sector objects represent areas a player can visit in the game:
+ * Home Base, Hospital, Power-Up Den, Shop and Villain's Lair.
+ * Each Sector object corresponds to one of these locations,
+ * and each location is used by exactly one Sector object.
+ */
 public class Sector {
 	
 	/**
@@ -13,6 +19,10 @@ public class Sector {
 	 */
 	private boolean discovered = false;
 	
+	/**
+	 * A constructor for Sector.
+	 * @param type The type of sector to be created.
+	 */
 	public Sector(SectorType type) {
 		this.type = type;
 	}

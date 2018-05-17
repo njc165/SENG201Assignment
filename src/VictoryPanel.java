@@ -12,12 +12,28 @@ import java.time.temporal.ChronoUnit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * Instances of VictoryPanel are components of Game objects.
+ * They contain all components to be displayed at the
+ * end of a won game, and are shown when the game is won.
+ */
 public class VictoryPanel extends JPanel {
 	
+	/**
+	 * A string representation of this panel, used by the card layout in Game.
+	 */
 	public static final String VICTORY_PANEL_STRING = "Victory Panel";
 	
+	/**
+	 * The Game instance to which this panel belongs.
+	 */
 	private Game gameWindow;
 	
+	/**
+	 * A Constructor for VictoryPanel.
+	 * Adds all necessary components to summarise the game.
+	 * @param game The Game instance to which this panel belongs.
+	 */
 	public VictoryPanel(Game game) {
 		super();
 		this.gameWindow = game;
