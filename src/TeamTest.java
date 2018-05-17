@@ -2,49 +2,40 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class TeamTest {
-
+	
 	@Test
-	final void testHasMapHero() {
-		Team team = new Team("Team name", 4);
+	final void testAddHero() {
+		Team team = new Team("Team name", 3);
 		
-		// Empty team doesn't have map hero
-		assertFalse(team.hasMapHero());
+		team.addHero("Name", "Apprentice");
+		Hero hero = team.getHeroes().get(0);
+		assertEquals("Name", hero.getName());
+		assertTrue(hero instanceof Apprentice);
 		
-		// Team without Explorer doesn't have map hero
-		team.getHeroes().add(new Apprentice("Name"));
-		team.getHeroes().add(new Merchant("Name"));
-		assertFalse(team.hasMapHero());
-		
-		// Team with Explorer does have map hero
-		team.getHeroes().add(new Explorer("Name"));
-		assertTrue(team.hasMapHero());
-		
-		// Team with more than one Explorer does have map hero
-		team.getHeroes().add(new Explorer("Name"));
-		assertTrue(team.hasMapHero());
+		team.addHero("Name", "Merchant");
+		hero = team.getHeroes().get(1);
+		assertEquals("Name", hero.getName());
+		assertTrue(hero instanceof Merchant);
 	}
-
+	
 	@Test
-	final void testNumDiscountHeroes() {
-		Team team = new Team("Team name", 4);
+	final void testIsValidHeroName() {
+		Team team = new Team("", 4);
 		
-		// Empty team doesn't have discount hero
-		assertEquals(0, team.numDiscountHeroes());
+		// When the team is empty, any name is valid
+		assertTrue(team.isValidHeroName("John"));
 		
-		// Team without Merchant doesn't have discount hero
-		team.getHeroes().add(new Apprentice("Name"));
-		team.getHeroes().add(new Explorer("Name"));
-		assertEquals(0, team.numDiscountHeroes());
+		// A name which is already taken by another hero on the team
+		// is not valid.
+		team.addHero("John", "Bulwark");
+		assertFalse(team.isValidHeroName("John"));
+		assertTrue(team.isValidHeroName("Jack"));
 		
-		// Team with Merchant has one discount hero
-		team.getHeroes().add(new Merchant("Name"));
-		assertEquals(1, team.numDiscountHeroes());
-		
-		// Team with two Merchants has two discount heroes
-		team.getHeroes().add(new Merchant("Name"));
-		assertEquals(2, team.numDiscountHeroes());
+		team.addHero("Jack", "Explorer");
+		assertFalse(team.isValidHeroName("John"));
+		assertFalse(team.isValidHeroName("Jack"));
 	}
-
+	
 	@Test
 	final void testTakeDamage() {
 		// A hero's health is reduced by the right amount
@@ -85,7 +76,6 @@ class TeamTest {
 		bulwark.setCurrentHealth(10);
 		team.takeDamage(bulwark, 20);
 		assertEquals(1, team.getHeroes().size());
-		
 	}
 	
 	@Test
@@ -231,35 +221,6 @@ class TeamTest {
 	}
 	
 	@Test
-	final void testNumPowerUpsOwned() {
-		Team team = new Team("Team name", 4);
-		team.getPowerUpsOwned().add(new ExtraGuess());
-		team.getPowerUpsOwned().add(new MindReader());
-		team.getPowerUpsOwned().add(new TieBreaker());
-		team.getPowerUpsOwned().add(new MindReader());
-		
-		assertEquals(0, team.numPowerUpsOwned(PowerUpType.INCREASE_ROLL));
-		assertEquals(1, team.numPowerUpsOwned(PowerUpType.EXTRA_GUESS));
-		assertEquals(1, team.numPowerUpsOwned(PowerUpType.TIEBREAKER));
-		assertEquals(2, team.numPowerUpsOwned(PowerUpType.MINDREADER));
-	}
-	
-	@Test
-	final void testNumHealingItemsOwned() {
-		Team team = new Team("Team name", 4);
-		team.getHealingItemsOwned().add(new AlicornDust());
-		team.getHealingItemsOwned().add(new AlicornDust());
-		team.getHealingItemsOwned().add(new HeartyMeal());
-		team.getHealingItemsOwned().add(new HeartyMeal());
-		team.getHealingItemsOwned().add(new AlicornDust());
-
-		assertEquals(0, team.numHealingItemsOwned("Suspicious Tonic"));
-		assertEquals(2, team.numHealingItemsOwned("Hearty Meal"));
-		assertEquals(3, team.numHealingItemsOwned("Alicorn Dust"));
-
-	}
-	
-	@Test
 	final void testHealingItemOfGivenType() {
 		Team team = new Team("Team name", 4);
 		AlicornDust alicornDust = new AlicornDust();
@@ -286,6 +247,76 @@ class TeamTest {
 		// The team's list of owned healing items is unchanged
 		assertEquals(1, team.getHealingItemsOwned().size());
 		assertTrue(team.getHealingItemsOwned().contains(alicornDust));
+	}
+	
+	@Test
+	final void testNumPowerUpsOwned() {
+		Team team = new Team("Team name", 4);
+		team.getPowerUpsOwned().add(new ExtraGuess());
+		team.getPowerUpsOwned().add(new MindReader());
+		team.getPowerUpsOwned().add(new TieBreaker());
+		team.getPowerUpsOwned().add(new MindReader());
+		
+		assertEquals(0, team.numPowerUpsOwned(PowerUpType.INCREASE_ROLL));
+		assertEquals(1, team.numPowerUpsOwned(PowerUpType.EXTRA_GUESS));
+		assertEquals(1, team.numPowerUpsOwned(PowerUpType.TIEBREAKER));
+		assertEquals(2, team.numPowerUpsOwned(PowerUpType.MINDREADER));
+	}
+	
+	@Test
+	final void testNumHealingItemsOwned() {
+		Team team = new Team("Team name", 4);
+		team.getHealingItemsOwned().add(new AlicornDust());
+		team.getHealingItemsOwned().add(new AlicornDust());
+		team.getHealingItemsOwned().add(new HeartyMeal());
+		team.getHealingItemsOwned().add(new HeartyMeal());
+		team.getHealingItemsOwned().add(new AlicornDust());
+
+		assertEquals(0, team.numHealingItemsOwned("Suspicious Tonic"));
+		assertEquals(2, team.numHealingItemsOwned("Hearty Meal"));
+		assertEquals(3, team.numHealingItemsOwned("Alicorn Dust"));
+	}
+
+	@Test
+	final void testHasMapHero() {
+		Team team = new Team("Team name", 4);
+		
+		// Empty team doesn't have map hero
+		assertFalse(team.hasMapHero());
+		
+		// Team without Explorer doesn't have map hero
+		team.getHeroes().add(new Apprentice("Name"));
+		team.getHeroes().add(new Merchant("Name"));
+		assertFalse(team.hasMapHero());
+		
+		// Team with Explorer does have map hero
+		team.getHeroes().add(new Explorer("Name"));
+		assertTrue(team.hasMapHero());
+		
+		// Team with more than one Explorer does have map hero
+		team.getHeroes().add(new Explorer("Name"));
+		assertTrue(team.hasMapHero());
+	}
+
+	@Test
+	final void testNumDiscountHeroes() {
+		Team team = new Team("Team name", 4);
+		
+		// Empty team doesn't have discount hero
+		assertEquals(0, team.numDiscountHeroes());
+		
+		// Team without Merchant doesn't have discount hero
+		team.getHeroes().add(new Apprentice("Name"));
+		team.getHeroes().add(new Explorer("Name"));
+		assertEquals(0, team.numDiscountHeroes());
+		
+		// Team with Merchant has one discount hero
+		team.getHeroes().add(new Merchant("Name"));
+		assertEquals(1, team.numDiscountHeroes());
+		
+		// Team with two Merchants has two discount heroes
+		team.getHeroes().add(new Merchant("Name"));
+		assertEquals(2, team.numDiscountHeroes());
 	}
 		
 	@Test

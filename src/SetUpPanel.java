@@ -390,7 +390,7 @@ public class SetUpPanel extends JPanel {
 				String heroName = txtfName.getText().trim();
 				String type = (String) cmbHeroTypes.getSelectedItem();
 				
-				if (! team().isValidName(heroName)) {
+				if (! team().isValidHeroName(heroName)) {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
 				} else if (heroName.isEmpty()) {
