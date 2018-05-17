@@ -6,6 +6,7 @@ class MiniGameTest {
 
 	@Test
 	final void testRemovePowerUps() {
+
 		Hero hero = new Bulwark("Adam");
 		Villain villain = new Invictus();
 		MiniGame game = new PaperScissorsRock(hero, villain);
@@ -58,6 +59,7 @@ class MiniGameTest {
 		assertEquals(1, hero.numPowerUps(PowerUpType.MINDREADER));
 		assertEquals(1, hero.numPowerUps(PowerUpType.INCREASE_ROLL));
 		assertEquals(1, hero.numPowerUps(PowerUpType.EXTRA_GUESS));
+
 	}
 
 }

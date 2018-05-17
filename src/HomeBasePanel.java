@@ -178,14 +178,29 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	}
 	
 	/**
-	 * Takes a location, and returns a String representation of the
-	 * panel for the sector at that location in the city.
-	 * @param location	The location of interest.
-	 * @return			A String representation of the panel at the given location.
+	 * Takes a sector, and returns a String representation of the
+	 * panel for that sector of the city.
+	 * @param sector	The sector of interest.
+	 * @return			A String representation of the panel for the given sector.
 	 */
-	private String sectorPanelString(Location location) {
-		return gameWindow.getGame().currentCity().sectorAtLocation(location).getType().toString()
-				+ " Panel";
+	private String sectorPanelString(Sector sector) {
+		return sector.getType().toString() + " Panel";
+	}
+	
+	/**
+	 * Event handler called when one of the four arrow buttons on the
+	 * map is clicked.
+	 * Sets the current city's current location to the given location,
+	 * sets the new current sector discovered, and show the appropriate
+	 * panel for the new sector.
+	 * @param location	The location corresponding to the arrow button which
+	 * 					was clicked.
+	 */
+	private void arrowButtonEventHandler(Location location) {
+		City city = gameWindow.getGame().currentCity();
+		city.setCurrentLocation(location);
+		city.setCurrentSectorDiscovered();
+		gameWindow.setPanel(sectorPanelString(city.getCurrentSector()));
 	}
 	
 	/**
@@ -348,8 +363,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoWest = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.WEST, "red"))));
 		btnGoWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameWindow.getGame().currentCity().sectorAtLocation(Location.WEST).setDiscovered(true);
-				gameWindow.setPanel(sectorPanelString(Location.WEST));
+				arrowButtonEventHandler(Location.WEST);
 			}
 		});
 		btnGoWest.addMouseListener(new MouseAdapter() {
@@ -371,8 +385,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoNorth = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.NORTH, "red"))));
 		btnGoNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gameWindow.getGame().currentCity().sectorAtLocation(Location.NORTH).setDiscovered(true);
-				gameWindow.setPanel(sectorPanelString(Location.NORTH));
+				arrowButtonEventHandler(Location.NORTH);
 			}
 		});
 		btnGoNorth.addMouseListener(new MouseAdapter() {
@@ -394,8 +407,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoEast = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.EAST, "red"))));
 		btnGoEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameWindow.getGame().currentCity().sectorAtLocation(Location.EAST).setDiscovered(true);
-				gameWindow.setPanel(sectorPanelString(Location.EAST));
+				arrowButtonEventHandler(Location.EAST);
 			}
 		});
 		btnGoEast.addMouseListener(new MouseAdapter() {
@@ -417,8 +429,8 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		JButton btnGoSouth = new JButton(new ImageIcon(HomeBasePanel.class.getResource(Image.getMapArrowImage(Location.SOUTH, "red"))));
 		btnGoSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameWindow.getGame().currentCity().sectorAtLocation(Location.SOUTH).setDiscovered(true);
-				gameWindow.setPanel(sectorPanelString(Location.SOUTH));
+				arrowButtonEventHandler(Location.SOUTH);
+
 			}
 		});
 		btnGoSouth.addMouseListener(new MouseAdapter() {

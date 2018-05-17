@@ -9,43 +9,11 @@ import org.junit.jupiter.api.Test;
 
 class CityTest {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	final void testCity() {
 		// A new City can be created without any errors
 		Maverick villain = new Maverick();
 		City city = new City(villain);
-		
-		// The current location is initialised to the right location and sector
-		assertEquals(Location.CENTRE, city.getCurrentLocation());
-		assertEquals(SectorType.HOME_BASE, city.getCurrentSectorType());
 		
 		// Two consecutively created cities have different sector locations
 		// Will fail occasionally when the two cities are created identical by chance
@@ -54,6 +22,10 @@ class CityTest {
 		City city2 = new City(villain);
 		city2.setAllDiscovered();
 		assertFalse(city1.toString().equals(city2.toString()));
+		
+		// Test villain getter method
+		city = new City(new John());
+		assertTrue(city.getVillain() instanceof John);
 	}
 
 	@Test
@@ -71,29 +43,59 @@ class CityTest {
 	}
 	
 	@Test
-	final void testSetCurrentSectorDiscovered() {
-		City city = new City(new Invictus());
+	final void testSetAllDiscovered() {
+		// A new city doesn't have all sectors discovered
+		City city = new City(new Bucephalus());
 		city.setCurrentLocation(Location.NORTH);
-		SectorType sectorType = city.getCurrentSectorType();
+		assertFalse(city.getCurrentSector().getDiscovered());
 		
-		// Initially the current sector is not discovered
-		assertFalse(city.toString().contains(sectorType.toString()));
-		
-		// Current sector is set to discovered
-		city.setCurrentSectorDiscovered();
-		assertTrue(city.toString().contains(sectorType.toString()));
+		// Sectors are set to discovered.
+		city.setAllDiscovered();
+		assertTrue(city.getCurrentSector().getDiscovered());
+		city.setCurrentLocation(Location.SOUTH);
+		assertTrue(city.getCurrentSector().getDiscovered());
+		city.setCurrentLocation(Location.EAST);
+		assertTrue(city.getCurrentSector().getDiscovered());
 	}
 	
 	@Test
-	final void testGetAllDiscovered() {
-		// A new city doesn't have all sectors discovered
-		City city = new City(new Bucephalus());
-		assertFalse(city.getAllDiscovered());
+	final void testSetCurrentSectorDiscovered() {
+		City city = new City(new Invictus());
+		city.setCurrentLocation(Location.NORTH);
 		
-		// Returns true once all sectors are discovered
-		city.setAllDiscovered();
-		assertTrue(city.getAllDiscovered());
+		// Initially the current sector is not discovered
+		assertFalse(city.getCurrentSector().getDiscovered());
+		
+		// Current sector is set to discovered
+		city.setCurrentSectorDiscovered();
+		assertTrue(city.getCurrentSector().getDiscovered());
+		
+		// Other sectors are still undiscovered
+		city.setCurrentLocation(Location.SOUTH);
+		assertFalse(city.getCurrentSector().getDiscovered());
+		city.setCurrentLocation(Location.WEST);
+		assertFalse(city.getCurrentSector().getDiscovered());
 	}
+	
+	@Test
+	final void testGetCurrentSector() {
+		City city = new City(new Janken());
+		// Initially, the current sector is home base
+		assertEquals(SectorType.HOME_BASE, city.getCurrentSector().getType());
+		
+		// When the location is set to something other than center,
+		// the sector type is no longer home base.
+		city.setCurrentLocation(Location.NORTH);
+		assertNotEquals(SectorType.HOME_BASE, city.getCurrentSector().getType());
+		
+		// The sector returned is correct
+		Sector currentSector = city.sectorAtLocation(Location.NORTH);
+		assertEquals(currentSector.getType(), city.getCurrentSector().getType());
+	}
+	
+
+	
+
 }
 
 

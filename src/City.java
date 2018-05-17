@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class City {
 	
 	/**
-	 * One of the values of the Location enum, in which the home base is located by default.
+	 * One of the values of Location, in which the home base is located by default.
 	 * This is the default starting location when a new city is created, and is 
 	 * always mapped to the home base in the sectorLocations HashMap.
 	 */
@@ -19,7 +19,7 @@ public class City {
 	
 	/**
 	 * An array containing all the locations in the city except the HOME_BASE_LOCATION,
-	 * in the order in which they should be displayed to the user.
+	 * in the order in which they should be printed in the string representation of the city.
 	 */
 	private final Location[] ORDERED_LOCATIONS = {Location.NORTH,
 												  Location.EAST,
@@ -113,20 +113,6 @@ public class City {
 	}
 	
 	/**
-	 * Returns true if all the sectors in the city have been set to discovered,
-	 * false otherwise.
-	 * @return	true if all sectors are discovered, false otherwise.
-	 */
-	public boolean getAllDiscovered() {
-		boolean allDiscovered = true;
-		for (Sector sector: sectorLocations.values()) {
-			if (!sector.getDiscovered())
-				allDiscovered = false;
-		}
-		return allDiscovered;
-	}
-	
-	/**
 	 * Sets the current sector to discovered
 	 */
 	public void setCurrentSectorDiscovered() {
@@ -137,9 +123,8 @@ public class City {
 	/** Gets the current sector of the city as a value of SectorType.
 	 * @return	The current sector.
 	 */
-	public SectorType getCurrentSectorType() {
-		Sector currentSector = sectorLocations.get(currentLocation);
-		return currentSector.getType();
+	public Sector getCurrentSector() {
+		return sectorLocations.get(currentLocation);
 	}
 	
 	/**
@@ -149,22 +134,6 @@ public class City {
 	 */
 	public Sector sectorAtLocation(Location location) {
 		return sectorLocations.get(location);
-	}
-	
-	/**
-	 * Returns the number of locations in the city, not including the central location.
-	 * @return	The number of locations in the city.
-	 */
-	public int numLocations() {
-		return ORDERED_LOCATIONS.length;
-	}
-	
-	/**
-	 * Getter method for currentLocation.
-	 * @return The value of currentLocation.
-	 */
-	public Location getCurrentLocation() {
-		return currentLocation;
 	}
 	
 	/**

@@ -1,62 +1,98 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 class DiceRollsTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	@Test
+	final void testDiceRolls() {
+		// Create a new instance of Dice Rolls
+		Hero hero = new Apprentice("");
+		Villain villain = new Evan();
+		DiceRolls game = new DiceRolls(hero, villain);
+		
+		// Dice Rolls is a subclass of MiniGame
+		assertTrue(game instanceof MiniGame);
+		
+		// Hero and villain getters from MiniGame superclass work.
+		assertEquals(hero, game.getHero());
+		assertEquals(villain, game.getVillain());
+		
+		// Initially, hasWon is false
+		assertFalse(game.getHasWon());
+		
+		// hasWon can be set to true
+		game.setHasWon(true);
+		assertTrue(game.getHasWon());
+		
+		// Roll increase is set to 0 if hero has no Increase Roll
+		// power ups and no battle advantage special ability.
+		assertEquals(0, game.getRollIncrease());
+		
+		// If hero has battle advantage special ability, roll increase is
+		// set to 1.
+		hero = new Gambler("");
+		game = new DiceRolls(hero, villain);
+		assertEquals(1, game.getRollIncrease());
+		
+		// If hero has two Increase Roll power ups and has battle advantage
+		// special ability, roll increase is set to 3.
+		hero.addPowerUp(new IncreaseRoll());
+		hero.addPowerUp(new IncreaseRoll());
+		game = new DiceRolls(hero, villain);
+		assertEquals(3, game.getRollIncrease());
+		
 	}
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
+	@Test
+	final void testRoll() {
+		Hero hero = new Bulwark("");
+		Villain villain = new Maverick();
+		DiceRolls game = new DiceRolls(hero, villain);
+		
+		// Roll several times and check that hero roll and villain roll
+		// are within the correct ranges each time
+		for (int i = 0; i < 5; i++) {
+			game.roll();
+			assertTrue(game.getHeroRoll() >= 1 && game.getHeroRoll() <= 6);
+			assertTrue(game.getVillainRoll() >= 1 && game.getVillainRoll() <= 6);
+		}
+
+		
 	}
 
-	@BeforeEach
-	void setUp() throws Exception {
+	@Test
+	final void testNumIncreaseRolls() {
+		Hero hero = new Mercenary("");
+		Villain villain = new Invictus();
+		DiceRolls game = new DiceRolls(hero, villain);
+		
+		// Returns the correct number of increase rolls applied to the hero.
+		assertEquals(0, game.numIncreaseRolls());
+		
+		hero.addPowerUp(new IncreaseRoll());
+		hero.addPowerUp(new IncreaseRoll());
+		
+		assertEquals(2, game.numIncreaseRolls());
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@Test
+	final void testGetResult() {
+		Hero hero = new Mercenary("");
+		Villain villain = new Invictus();
+		DiceRolls game = new DiceRolls(hero, villain);
+		
+		// Initially, result is null
+		assertNull(game.getResult());
+		
+		// After rolling, the result is set to one of the three correct values
+		game.roll();
+		assertTrue(Arrays.asList(new String[] {"Win", "Draw", "Lose"}).contains(game.getResult()));
+		
+		// When the hero has no Tiebreaker power ups, usedTiebreaker remains false
+		assertFalse(game.getUsedTieBreaker());
 	}
-
-	// TODO redo dice rolls tests
-//	@Test
-//	final void testDiceRolls() {
-//		// Create new dice rolls game
-//		DiceRollsCMD game = new DiceRollsCMD(new Apprentice(""), new John());
-//		
-//		// Superclass getters and setters can be used
-//		assertEquals("Apprentice", game.getHero().getType());
-//		assertEquals("John the Lucky", game.getVillain().toString());
-//		
-//		// hasWon is initialised to false, and can be changed using setter
-//		assertFalse(game.getHasWon());
-//		game.setHasWon(true);
-//		assertTrue(game.getHasWon());
-//	}
-//
-//	@Test
-//	final void testRemoveRelevantPowerUps() {
-//		Hero hero = new Apprentice("");
-//		DiceRollsCMD game = new DiceRollsCMD(hero, new John());
-//		
-//		// No effect if hero has no power-ups
-//		game.removeRelevantPowerUps();
-//		assertArrayEquals(new PowerUp[0], hero.getActivePowerUps().toArray());
-//		
-//		// Only the correct power-ups are removed
-//		hero.addPowerUp(new IncreaseRoll());
-//		hero.addPowerUp(new TieBreaker());
-//		hero.addPowerUp(new ExtraGuess());
-//		hero.addPowerUp(new MindReader());
-//		game.removeRelevantPowerUps();
-//		assertArrayEquals(new PowerUp[] {new ExtraGuess(), new MindReader()},
-//				hero.getActivePowerUps().toArray());
-//	}
 
 }
