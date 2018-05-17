@@ -158,7 +158,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		lblCoinImage.setBounds(56, 47, 38, 38);
 		sidePanel.add(lblCoinImage);
 		
-		lblCurrentCoinsAmount = new JLabel("20");
+		lblCurrentCoinsAmount = new JLabel();
 		lblCurrentCoinsAmount.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCurrentCoinsAmount.setBounds(104, 47, 63, 38);
 		sidePanel.add(lblCurrentCoinsAmount);
@@ -238,9 +238,6 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 		contentPanelCardLayout = new CardLayout();
 		contentPanel.setLayout(contentPanelCardLayout);
-		
-		// remove when finished testing
-//		addSubPanels();	}
 	}
 	
 	/**
