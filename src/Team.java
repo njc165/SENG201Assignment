@@ -8,7 +8,17 @@ import java.util.ArrayList;
  * loses all of its Hero objects.
  */
 public class Team {
-		
+	
+	/**
+	 * The minimum length of a valid team name.
+	 */
+	private static final int MIN_TEAM_NAME_LENGTH = 2;
+	
+	/**
+	 * The maximum length of a valid team name.
+	 */
+	private static final int MAX_TEAM_NAME_LENGTH = 10;
+	
 	/**
 	 * The amount of money a team starts with.
 	 */
@@ -68,13 +78,13 @@ public class Team {
 	}
 	
 	/**
-	 * Checks whether the given team name is valid. A name is valid
-	 * if it is between 2 and 10 characters long.
+	 * Checks whether the given team name has a valid length.
 	 * @param name		The team name to check.
 	 * @return			true if the name is valid, false otherwise.
 	 */
 	public static boolean isValidTeamName(String name) {
-		return name.length() >= 2 && name.length() <= 10;
+		return name.length() >= Team.MIN_TEAM_NAME_LENGTH
+			&& name.length() <= Team.MAX_TEAM_NAME_LENGTH;
 	}
 	
 	/**
@@ -107,7 +117,7 @@ public class Team {
 	 * on the team.
 	 * @return	true if the name is valid, false otherwise.
 	 */
-	public boolean isValidName(String heroName) {
+	public boolean isValidHeroName(String heroName) {
 		boolean isValid  = true;
 		for (Hero hero: heroes) {
 			if (hero.getName().equals(heroName)) {
