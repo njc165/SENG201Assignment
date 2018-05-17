@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+/**
+ * Instances of Team represent teams of heroes in the game.
+ * Every Team object has a number of associated Hero objects.
+ * Every Team object is associated with exactly one Game object.
+ * A Game is considered lost when the corresponding Team object
+ * loses all of its Hero objects.
+ */
 public class Team {
 		
 	/**
@@ -295,6 +302,10 @@ public class Team {
 		return heroes;
 	}
 	
+	/**
+	 * Getter method for startNumHeroes.
+	 * @return The value of startNumHeroes.
+	 */
 	public int getStartNumHeroes() {
 		return startNumHeroes;
 	}

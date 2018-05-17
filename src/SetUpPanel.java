@@ -1,10 +1,5 @@
-import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -17,8 +12,6 @@ import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.Component;
-import java.awt.Container;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JTextPane;
@@ -27,6 +20,12 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.JSlider;
 
+/**
+ * Instances of SetUpPanel are components of Game objects.
+ * They contain all components related to setting up a game,
+ * including components to create a team, heroes, and cities.
+ * SetUpPanel objects are shown at the start of a new Game.
+ */
 public class SetUpPanel extends JPanel {
 	
 	/**
@@ -186,10 +185,6 @@ public class SetUpPanel extends JPanel {
 		
 	}
 	
-	
-	
-	
-	
 	/* 
 	 * -------------------------------------------------------------------------------------
 	 * Start Screen Panel
@@ -222,9 +217,6 @@ public class SetUpPanel extends JPanel {
 		btnExit.setBounds(346, 256, 168, 57);
 		startScreenPanel.add(btnExit);
 	}
-	
-	
-	
 	
 	/* 
 	 * -------------------------------------------------------------------------------------
@@ -309,10 +301,6 @@ public class SetUpPanel extends JPanel {
 		createTeamPanel.add(btnCreateTeamNext);
 	}
 	
-	
-	
-	
-	
 	/* 
 	 * -------------------------------------------------------------------------------------
 	 * Add Hero Panel
@@ -342,6 +330,9 @@ public class SetUpPanel extends JPanel {
 		addHeroInfoPanels();
 	}
 	
+	/**
+	 * Adds components to the input panel.
+	 */
 	private void initialiseInputPanel() {
 		inputPanel.setLayout(null);
 		
@@ -491,10 +482,6 @@ public class SetUpPanel extends JPanel {
 		lblInvalidNameErrorMessage.setText("");
 
 	}
-
-	
-	
-	
 	
 	/* 
 	 * -------------------------------------------------------------------------------------
@@ -502,6 +489,9 @@ public class SetUpPanel extends JPanel {
 	 * -------------------------------------------------------------------------------------
 	 */
 	
+	/**
+	 * Adds components to the team summary panel.
+	 */
 	private void initialiseTeamSummaryPanel() {
 		teamSummaryPanel = new JPanel();
 		contentPanel.add(teamSummaryPanel, TEAM_SUMMARY_PANEL_STRING);

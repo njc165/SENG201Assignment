@@ -1,3 +1,7 @@
+/**
+ * An enumeration containing all possible
+ * types of sectors in the game.
+ */
 public enum SectorType {
 	HOME_BASE("Home Base"),
 	SHOP("Shop"),
