@@ -211,7 +211,7 @@ public class Team {
 		HealingItem itemToReturn = null;
 		
 		for (HealingItem healingItem: healingItemsOwned) {
-			if (healingItem.getName() == name) {
+			if (healingItem.toString() == name) {
 				found = true;
 				itemToReturn = healingItem;
 			}
@@ -246,7 +246,7 @@ public class Team {
 	public int numHealingItemsOwned(String name) {
 		int count = 0;
 		for (HealingItem healingItem: healingItemsOwned) {
-			if (healingItem.getName().equals(name))
+			if (healingItem.toString().equals(name))
 				count++;
 		}
 		return count;

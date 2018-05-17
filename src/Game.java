@@ -109,6 +109,8 @@ public class Game {
 		((Refreshable) visiblePanel()).refresh();
 		
 		if (visiblePanel() instanceof HomeBasePanel) {
+			game.currentCity().setCurrentLocation(Location.CENTRE);
+			
 			String randomEventText = game.randomEvent();
 			if (randomEventText != null) {
 				JOptionPane.showMessageDialog(frame, randomEventText);

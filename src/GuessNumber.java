@@ -9,7 +9,8 @@ public class GuessNumber extends MiniGame {
 	public static final int MAX_NUMBER = 10;
 
 	/**
-	 * The default number of guesses received by the hero (without power-ups or special abilities).
+	 * The default number of guesses received by the hero
+	 * (without power-ups or special abilities).
 	 */
 	private final int DEFAULT_GUESSES = 2;
 	
@@ -44,11 +45,13 @@ public class GuessNumber extends MiniGame {
 	
 
 	public void guess(int guess) {
+		if (guessesLeft <= 0)
+			throw new RuntimeException("No guesses left.");
+		
 		this.guess = guess;
 		
 		if (guess == numberToGuess) {
 			setHasWon(true);
-			removeAllPowerUps(PowerUpType.EXTRA_GUESS);
 			
 		} else {
 			guessesLeft--;

@@ -76,7 +76,7 @@ public class Image {
 	 */
 	public static String healingItemImageFilepath(HealingItem healingItem, int size) {		
 		return String.format("/img/%s_%sx%s.png",
-				healingItem.getName().toLowerCase().replaceAll(" ", "_"),
+				healingItem.toString().toLowerCase().replaceAll(" ", "_"),
 				size, size);
 	}
 	

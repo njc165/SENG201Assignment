@@ -77,9 +77,15 @@ public class GameEnvironment {
 	 * 							through to complete the game.
 	 */
 	public GameEnvironment(String teamName, int numberOfHeroes, int numberOfCities) {
+		if (numberOfHeroes < 1)
+			throw new RuntimeException("Number of heroes must be at least 1.");
+		
+		if (numberOfCities < 1)
+			throw new RuntimeException("Number of cities must be at least 1.");
+		
+		startTime = LocalTime.now();
 		this.team = new Team(teamName, numberOfHeroes);
 		this.numberOfCities = numberOfCities;
-		startTime = LocalTime.now();
 		initialiseCities();
 	}
 

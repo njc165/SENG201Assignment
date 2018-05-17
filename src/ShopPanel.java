@@ -317,7 +317,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 			inventoryPanel.add(lblHealingItemIcon);
 			
 			JLabel lblHealingItemNumOwned = new JLabel(String.format("(%s)  %s",
-														team().numHealingItemsOwned(healingItem.getName()),
+														team().numHealingItemsOwned(healingItem.toString()),
 														healingItem));
 			lblHealingItemNumOwned.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblHealingItemNumOwned.setBounds(387, yCoord, 187, 38);
@@ -508,7 +508,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		lblHealingItemImage.setBounds(68, 50, 150, 150);
 		healingItemInfoPanel.add(lblHealingItemImage);
 				
-		JLabel lblType = new JLabel(healingItem.getName());
+		JLabel lblType = new JLabel(healingItem.toString());
 		lblType.setHorizontalAlignment(SwingConstants.CENTER);
 		lblType.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblType.setBounds(234, 50, 330, 37);
