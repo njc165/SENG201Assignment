@@ -1,3 +1,7 @@
+/**
+ * The Location enumerable contains information about
+ * the locations in which Sectors could be located.
+ */
 public enum Location {
 	CENTRE("Centre"),
 	NORTH("North"),

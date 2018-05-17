@@ -1,3 +1,9 @@
+/**
+ * Mercenary objects represent heros who deal
+ * double damage to villains. Each object represents
+ * one hero. Mercenary objects should only be created
+ * during game set up.
+ */
 public class Mercenary extends Hero {
 	
 	/**

@@ -1,46 +1,34 @@
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.BorderLayout;
 import javax.swing.JRadioButton;
-import javax.swing.JProgressBar;
 import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Instances of PowerUpDenPanel are components of Game objects.
+ * They contain all components related to the in-game power up den, 
+ * and are displayed when the player enters the power up den.
+ */
 public class PowerUpDenPanel extends JPanel implements Refreshable {
 	
+	/**
+	 * A string representation of this panel, used by the card layout in Game.
+	 */
 	public static final String POWER_UP_DEN_PANEL_STRING = "Power-up Den Panel";
 	
 	/**
@@ -86,6 +74,9 @@ public class PowerUpDenPanel extends JPanel implements Refreshable {
 		addContentPanel();
 	}
 	
+	/**
+	 * Refreshes this panel by updating dynamic components.
+	 */
 	public void refresh() {
 		refreshContentPanel();
 		repaint();

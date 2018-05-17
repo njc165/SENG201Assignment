@@ -1,3 +1,8 @@
+/**
+ * Janken objects represent a type of villain that the
+ * player could encounter in the game. At most one city
+ * should use Janken to avoid duplicate encounters.
+ */
 public class Janken extends Villain {
 	
 	/**

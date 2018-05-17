@@ -1,3 +1,8 @@
+/**
+ * The MiniGameType enumerable contains information regarding all
+ * types of minigame the player could be required to play to defeat
+ * villains.
+ */
 public enum MiniGameType {
 	PAPER_SCISSORS_ROCK("Paper Scissors Rock"),
 	DICE_ROLLS("Dice Rolls"),

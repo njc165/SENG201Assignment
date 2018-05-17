@@ -1,3 +1,10 @@
+/**
+ * Maverick objects represent a type of villain
+ * the player can encounter in the game.
+ * Each Game object should use at most one
+ * Maverick object, to avoid duplicate encounters in
+ * the game.
+ */
 public class Maverick extends Villain {
 	
 	/**

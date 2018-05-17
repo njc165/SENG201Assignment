@@ -1,3 +1,8 @@
+/**
+ * MindReader instances represent a specific power-up type (Mindreader)
+ * in the game. A new instance should be created whenever the team
+ * receives a new Mindreader power-up.
+ */
 public class MindReader extends PowerUp {
 	
 	/**
@@ -17,7 +22,9 @@ public class MindReader extends PowerUp {
 											+ " Applying multiple Mindreader power ups to a single hero will have no extra effect."
 											+ "\n\nMindreader power ups have no effect when applied to a Gambler."
 											+ "\n\nOne Mindreader power up will be consumed each time it is used.";
-	
+	/**
+	 * A constructor for MindReader.
+	 */
 	public MindReader() {
 		super(TYPE, COST, DESCRIPTION);
 	}
