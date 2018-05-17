@@ -1,37 +1,22 @@
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-
 import java.awt.Font;
-import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Component;
-import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
-import javax.swing.JTextArea;
-import javax.swing.JRadioButton;
 
-
+/**
+ * Instances of PaperScissorsRockPanel are components of
+ * VillainsLairPanel objects. They contain all components
+ * related to the paper scissors rock minigame that
+ * players play to defeat villains.
+ */
 public class PaperScissorsRockPanel extends JPanel {
 
 	/**
@@ -442,6 +427,11 @@ public class PaperScissorsRockPanel extends JPanel {
 		endGamePanel.add(btnContinue);
 	}
 	
+	/**
+	 * Passes the result of this minigame back to the VillainsLairPanel,
+	 * which in turn displays a summary depending on if the player
+	 * won or lost.
+	 */
 	private void endGame() {
 		villainsLairPanel.miniGameFinished(minigame.getHasWon());
 	}

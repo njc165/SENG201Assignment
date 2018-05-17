@@ -1,3 +1,7 @@
+/**
+ * Merchant objects represent heros who receive
+ * store discounts. Each object represents one hero.
+ */
 public class Merchant extends Hero {
 	
 	/**

@@ -1,3 +1,8 @@
+/**
+ * John objects represent a type of villain that the player
+ * could encounter in the game. At most one city should use
+ * John in order to avoid duplicate encounters.
+ */
 public class John extends Villain {
 	
 	/**
