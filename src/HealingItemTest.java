@@ -121,8 +121,7 @@ class HealingItemTest {
 		
 		// If numDiscountHeroes is greater than 1, the discounts stack
 		expectedCost = (int) (100 * Hero.STORE_DISCOUNT_MULTIPLIER * Hero.STORE_DISCOUNT_MULTIPLIER);
-		assertEquals(expectedCost, item.getCost(2));
-		
+		assertEquals(expectedCost, item.getCost(2));	
 	}
 	
 	

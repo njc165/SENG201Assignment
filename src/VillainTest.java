@@ -22,22 +22,6 @@ class VillainTest {
 	}
 	
 	@Test
-	final void testGetGame() {
-		// If villain only plays one game, test that getGame() returns this game.
-		MiniGameType[] games = new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK};
-		Villain villain1 = new Villain("", "", 0, games);
-		assertEquals(MiniGameType.PAPER_SCISSORS_ROCK, villain1.getGame());
-		
-		// If villain plays several games, test that getGame() returns one of these games.
-		games = new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK, MiniGameType.GUESS_NUMBER, MiniGameType.DICE_ROLLS};
-		Villain villain2 = new Villain("", "", 0, games);
-		assertTrue(Arrays.asList(games).contains(villain2.getGame()));
-		
-		// gamesPlayed can't be empty, as this throws an exception in the
-		// Villain constructor.
-	}
-	
-	@Test
 	final void testRandomisedVillains() {
 		int numVillains = 3;
 		ArrayList<Villain> villains = Villain.randomisedVillains(numVillains);
@@ -74,6 +58,46 @@ class VillainTest {
 	}
 	
 	@Test
+	final void testToString() {
+		
+		// Check that the villain's name and title are returned correctly
+		Invictus villain = new Invictus();
+		assertEquals(villain.toString(), "Invictus the Unconquered");
+		
+		John johnny = new John();
+		assertEquals(johnny.toString(), "John the Lucky");
+	}
+	
+	@Test
+	final void testGetGame() {
+		// If villain only plays one game, test that getGame() returns this game.
+		MiniGameType[] games = new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK};
+		Villain villain1 = new Villain("", "", 0, games);
+		assertEquals(MiniGameType.PAPER_SCISSORS_ROCK, villain1.getGame());
+		
+		// If villain plays several games, test that getGame() returns one of these games.
+		games = new MiniGameType[]{MiniGameType.PAPER_SCISSORS_ROCK, MiniGameType.GUESS_NUMBER, MiniGameType.DICE_ROLLS};
+		Villain villain2 = new Villain("", "", 0, games);
+		assertTrue(Arrays.asList(games).contains(villain2.getGame()));
+		
+		// gamesPlayed can't be empty, as this throws an exception in the
+		// Villain constructor.
+	}
+	
+	@Test
+	final void testRemainingTimesToDefeat() {
+		
+		// Check that a new villain has 'full health'
+		John johnny = new John();
+		assertEquals(johnny.remainingTimesToDefeat(), Villain.MAX_TIMES_DEFEATED);
+		
+		// Check that remainingTimesToDefeat returns 1 when the villain
+		// will be defeated after one more loss.
+		johnny.setTimesDefeated(Villain.MAX_TIMES_DEFEATED-1);
+		assertEquals(johnny.remainingTimesToDefeat(), 1);
+	}
+	
+	@Test
 	final void testSetTimesDefeated() {
 		Bucephalus villain = new Bucephalus();
 		
@@ -88,30 +112,6 @@ class VillainTest {
 		villain.setTimesDefeated(10);
 		assertEquals(10, villain.getTimesDefeated());
 		assertTrue(villain.isDefeated());
-	}
-
-	@Test
-	final void testToString() {
-		
-		// Check that the villain's name and title are returned correctly
-		Invictus villain = new Invictus();
-		assertEquals(villain.toString(), "Invictus the Unconquered");
-		
-		John johnny = new John();
-		assertEquals(johnny.toString(), "John the Lucky");
-	}
-	
-	@Test
-	final void testRemainingTimesToDefeat() {
-		
-		// Check that a new villain has 'full health'
-		John johnny = new John();
-		assertEquals(johnny.remainingTimesToDefeat(), Villain.MAX_TIMES_DEFEATED);
-		
-		// Check that remainingTimesToDefeat returns 1 when the villain
-		// will be defeated after one more loss.
-		johnny.setTimesDefeated(Villain.MAX_TIMES_DEFEATED-1);
-		assertEquals(johnny.remainingTimesToDefeat(), 1);
 	}
 	
 }

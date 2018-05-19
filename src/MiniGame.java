@@ -44,7 +44,7 @@ public abstract class MiniGame {
 	public void removePowerUps(PowerUpType type, int numToRemove) {
 		ArrayList<PowerUp> newActivePowerUps = new ArrayList<PowerUp>();
 		
-		for (PowerUp powerUp: hero.getActivePowerUps()) {
+		for (PowerUp powerUp: hero.getAppliedPowerUps()) {
 			if (powerUp.getType() == type && numToRemove > 0) {
 				numToRemove--;
 			} else {
@@ -56,7 +56,7 @@ public abstract class MiniGame {
 			throw new RuntimeException("The hero does not have that many power ups of the given type");									
 		}
 
-		hero.setActivePowerUps(newActivePowerUps);
+		hero.setAppliedPowerUps(newActivePowerUps);
 	}
 	
 	/**
@@ -67,13 +67,13 @@ public abstract class MiniGame {
 	public void removeAllPowerUps(PowerUpType type) {
 		ArrayList<PowerUp> newActivePowerUps = new ArrayList<PowerUp>();
 		
-		for (PowerUp powerUp: hero.getActivePowerUps()) {
+		for (PowerUp powerUp: hero.getAppliedPowerUps()) {
 			if (! (powerUp.getType() == type)) {
 				newActivePowerUps.add(powerUp);
 			}
 		}
 		
-		hero.setActivePowerUps(newActivePowerUps);
+		hero.setAppliedPowerUps(newActivePowerUps);
 	}
 
 	/**

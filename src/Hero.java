@@ -63,7 +63,8 @@ public class Hero {
 	private int maxHealth;
 	
 	/**
-	 * The current health of the hero. Initialised to maxHealth when the hero is constructed.
+	 * The current health of the hero.
+	 * Initialised to maxHealth when the hero is constructed.
 	 * The value can range from 0 to maxHealth.
 	 * If currentHealth reaches 0, the hero is dead and cannot recover.
 	 */
@@ -103,7 +104,7 @@ public class Hero {
 	 * A list of the power-ups which are currently applied to the hero, initialised empty.
 	 * Each hero can have an unlimited number of power-ups of each type at any time.
 	 */
-	private ArrayList<PowerUp> activePowerUps = new ArrayList<PowerUp>();
+	private ArrayList<PowerUp> appliedPowerUps = new ArrayList<PowerUp>();
 	
 	/**
 	 * The healing item currently applied to the hero. Set to null if there is no
@@ -134,6 +135,7 @@ public class Hero {
 	/**
 	 * Returns an array containing a String representation of the type
 	 * of each Hero subclass.
+	 * Used by the combo box which asks the user to select a hero type.
 	 * @return	A String array of the types of all Hero subclasses.
 	 */
 	public static String[] allHeroTypes() {
@@ -204,7 +206,7 @@ public class Hero {
 	 */
 	public int numPowerUps(PowerUpType powerUpType) {
 		int count = 0;
-		for (PowerUp powerUp: activePowerUps) {
+		for (PowerUp powerUp: appliedPowerUps) {
 			if (powerUp.getType() == powerUpType)
 				count++;
 		}
@@ -216,7 +218,7 @@ public class Hero {
 	 * @param powerUp	The power-up to be added.
 	 */
 	public void addPowerUp(PowerUp powerUp) {
-		activePowerUps.add(powerUp);
+		appliedPowerUps.add(powerUp);
 	}
 
 	/**
@@ -376,16 +378,16 @@ public class Hero {
 	 * Getter method for activePowerUps.
 	 * @return The value of activePowerUps.
 	 */
-	public ArrayList<PowerUp> getActivePowerUps() {
-		return activePowerUps;
+	public ArrayList<PowerUp> getAppliedPowerUps() {
+		return appliedPowerUps;
 	}
 
 	/**
 	 * Setter method for activePowerUps.
 	 * @param activePowerUps The new value of activePowerUps to set.
 	 */
-	public void setActivePowerUps(ArrayList<PowerUp> activePowerUps) {
-		this.activePowerUps = activePowerUps;
+	public void setAppliedPowerUps(ArrayList<PowerUp> activePowerUps) {
+		this.appliedPowerUps = activePowerUps;
 	}
 
 	/**

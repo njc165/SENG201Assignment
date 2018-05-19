@@ -354,7 +354,7 @@ public class SetUpPanel extends JPanel {
 		inputPanel.add(txtfName);
 		
 		lblInvalidNameErrorMessage = new JLabel("");
-		lblInvalidNameErrorMessage.setBounds(30, 142, 250, 14);
+		lblInvalidNameErrorMessage.setBounds(30, 142, 270, 14);
 		inputPanel.add(lblInvalidNameErrorMessage);
 		
 		JLabel lblSelectHeroType = new JLabel("Select a hero type:");
@@ -384,8 +384,8 @@ public class SetUpPanel extends JPanel {
 				if (! team().isValidHeroName(heroName)) {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
-				} else if (heroName.isEmpty()) {
-					lblInvalidNameErrorMessage.setText("Invalid name.");
+				} else if (heroName.length() < 1 || heroName.length() > 7) {
+					lblInvalidNameErrorMessage.setText("Name must be between 1 and 7 characters.");
 									
 				} else {
 					team().addHero(heroName, type);
@@ -430,6 +430,7 @@ public class SetUpPanel extends JPanel {
 		JLabel lblHeroImage = new JLabel("");
 		lblHeroImage.setIcon(new ImageIcon(SetUpPanel.class.getResource(
 				  				Image.heroImageFilepath(hero, 200, 200))));
+		lblHeroImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblHeroImage.setBounds(10, 11, 200, 200);
 		infoPanel.add(lblHeroImage);
 		

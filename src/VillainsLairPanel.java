@@ -146,6 +146,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		
 		addTitlePanel();
 		addContentPanel();
+		
 	}
 	
 	/**
@@ -257,6 +258,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		subContentPanelCardLayout.show(subContentPanel, START_ENCOUNTER_PANEL_STRING);
 		
 		contentPanel.add(subContentPanel);
+		
 	}
 	
 	/**
@@ -362,33 +364,39 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			heroPanel.setLayout(null);
 			
 			JLabel heroImage = new JLabel();
-			heroImage.setBounds(35, 10, 150, 150);
+			heroImage.setBounds(27, 10, 150, 150);
 			heroImage.setIcon(new ImageIcon(VillainsLairPanel.class.getResource(Image.heroImageFilepath(hero, 150, 150))));
 			heroImage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroPanel.add(heroImage);
 			
-			JLabel heroName = new JLabel(String.format("%s the %s", hero.getName(), hero.getType()));
-			heroName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			heroName.setHorizontalAlignment(SwingConstants.CENTER);
-			heroName.setBounds(8, 171, 204, 27);
-			heroPanel.add(heroName);
+			JLabel lblHeroName = new JLabel(hero.getName());
+			lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroName.setBounds(6, 164, 186, 25);
+			heroPanel.add(lblHeroName);
+			
+			JLabel lblHeroType = new JLabel(String.format("the %s", hero.getType()));
+			lblHeroType.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroType.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblHeroType.setBounds(8, 186, 186, 25);
+			heroPanel.add(lblHeroType);
 			
 			JLabel lblHealth = new JLabel("Health:");
 			lblHealth.setHorizontalAlignment(SwingConstants.LEFT);
 			lblHealth.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblHealth.setBounds(18, 209, 56, 27);
+			lblHealth.setBounds(18, 219, 56, 27);
 			heroPanel.add(lblHealth);
 			
 			JLabel lblHealthAmount = new JLabel();
 			lblHealthAmount.setHorizontalAlignment(SwingConstants.LEFT);
 			lblHealthAmount.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			lblHealthAmount.setBounds(84, 209, 71, 27);
+			lblHealthAmount.setBounds(84, 219, 71, 27);
 			lblHealthAmount.setText(String.format("%d/%d", hero.getCurrentHealth(), hero.getMaxHealth()));
 			heroPanel.add(lblHealthAmount);
 			
 			JLabel lblSpecialAbility = new JLabel("Special Ability:");
 			lblSpecialAbility.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblSpecialAbility.setBounds(18, 242, 107, 27);
+			lblSpecialAbility.setBounds(18, 247, 107, 27);
 			heroPanel.add(lblSpecialAbility);
 			
 			JTextPane txtSpecialAbility = new JTextPane();
@@ -396,12 +404,12 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 			txtSpecialAbility.setText(hero.getSpecialAbility());
 			txtSpecialAbility.setBackground(UIManager.getColor("contentPanel.background"));
 			txtSpecialAbility.setEditable(false);
-			txtSpecialAbility.setBounds(28, 270, 160, 45);
+			txtSpecialAbility.setBounds(28, 275, 160, 45);
 			heroPanel.add(txtSpecialAbility);
 			
 			JRadioButton radioButton = new JRadioButton("");
 			radioButton.setHorizontalAlignment(SwingConstants.CENTER);
-			radioButton.setBounds(6, 322, 206, 45);
+			radioButton.setBounds(6, 334, 192, 33);
 			radioButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					refreshGoButton();
@@ -483,7 +491,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		JLabel lblHeroType = new JLabel(String.format("the %s", currentHero.getType()));
 		lblHeroType.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHeroType.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblHeroType.setBounds(5, 385, 150, 25);
+		lblHeroType.setBounds(10, 385, 150, 25);
 		heroImagePanel.add(lblHeroType);
 		
 		return heroImagePanel;
