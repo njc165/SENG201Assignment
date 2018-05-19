@@ -53,7 +53,8 @@ public class Image {
 	 * Takes a hero instance, and returns the file path for the portrait
 	 * image of the given size for this hero type.
 	 * @param hero		The hero whose image file path should be returned.
-	 * @param size 		The size of the image to be returned.
+	 * @param width     The width of the returned image.
+	 * @param height    The height of the returned image.
 	 * @return			The file path of the portrait image of this hero.
 	 */
 	public static String heroImageFilepath(Hero hero, int width, int height) {

@@ -57,6 +57,7 @@ public class City {
 	/**
 	 * Creates a new city with the given villain, the currentLocation set to CENTRE
 	 * and the other locations in the sectorLocations HashMap randomised.
+	 * @param villain The villain belonging to this city
 	 */
 	public City(Villain villain) {
 		currentLocation = HOME_BASE_LOCATION;

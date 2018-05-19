@@ -74,7 +74,8 @@ public class GameEnvironment {
 	 * Creates a team with the given team name, and sets startNumHeroes of
 	 * team to the given number of heroes, but doesn't add any heroes to the team.
 	 * Initialises the list of cities and sets currentCityIndex to 0.
-	 * @param team				The team of heroes playing the game.
+	 * @param teamName			The name of the team to be created.
+	 * @param numberOfHeroes    The number of heroes to be added to the team.
 	 * @param numberOfCities	The number of cities the team needs to play
 	 * 							through to complete the game.
 	 */
@@ -121,7 +122,7 @@ public class GameEnvironment {
 	/**
 	 * Increments the currentCityIndex, and sets all sectors in the new city
 	 * to discovered if the team has a hero with the map specialAbility.
-	 * Throws a RuntimeException if currentCityIndex >= numerOfCities.
+	 * Throws a RuntimeException if currentCityIndex exceeds numerOfCities.
 	 */
 	public void nextCity() {
 		if (currentCityIndex < numberOfCities - 1) {

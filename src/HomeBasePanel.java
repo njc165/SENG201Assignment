@@ -340,6 +340,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	/**
 	 * Creates and returns a new JLabel with the forest image as its
 	 * icon.
+	 * @return A label containing the forest image.
 	 */
 	private JLabel forestImageLabel() {
 		JLabel lblForestImage = new JLabel("");
