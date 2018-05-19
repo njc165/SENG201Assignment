@@ -100,6 +100,7 @@ public class PaperScissorsRock extends MiniGame {
 	
 	/**
 	 * Returns one of the choices that the villain did not make.
+	 * @return A string reprenting a choice the villain did not make.
 	 */
 	public String revealNot() {
 		String[] choices = CHOICES.clone();

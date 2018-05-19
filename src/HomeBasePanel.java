@@ -1,13 +1,7 @@
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,22 +10,20 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Window;
 import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
+/**
+ * Instances of HomeBasePanel are components of Game objects.
+ * They contain all components related the the Home Base location
+ * in the game, and are shown when the player enters the Home Base.
+ */
 public class HomeBasePanel extends JPanel implements Refreshable {
 	
 	/**
@@ -348,6 +340,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	/**
 	 * Creates and returns a new JLabel with the forest image as its
 	 * icon.
+	 * @return A label containing the forest image.
 	 */
 	private JLabel forestImageLabel() {
 		JLabel lblForestImage = new JLabel("");

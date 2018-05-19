@@ -12,12 +12,28 @@ import java.time.temporal.ChronoUnit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * Instances of DefeatPanel are components of Game objects.
+ * They contain all components to be displayed at the end
+ * of a lost game, and are shown when the game is lost.
+ */
 public class DefeatPanel extends JPanel {
 	
+	/**
+	 * A string representation of this panel, used by the
+	 * card layout in Game.
+	 */
 	public static final String DEFEAT_PANEL_STRING = "Defeat Panel";
 	
+	/**
+	 * The Game object to which this panel belongs.
+	 */
 	private Game gameWindow;
 	
+	/**
+	 * A constructor for DefeatPanel.
+	 * @param game The game object to which this panel belongs.
+	 */
 	public DefeatPanel(Game game) {
 		super();
 		this.gameWindow = game;

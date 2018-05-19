@@ -1,3 +1,8 @@
+/**
+ * Instances of Evan represent a type of Villain the player
+ * could battle in the game. Each Game should use at most one
+ * Evan villain to avoid duplicate encounters.
+ */
 public class Evan extends Villain {
 	
 	/**

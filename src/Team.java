@@ -80,7 +80,7 @@ public class Team {
 	/**
 	 * Creates a new hero with the given name of the given type,
 	 * and adds it to the team's list of heroes.
-	 * @param name	The name of the new hero.
+	 * @param heroName	The name of the new hero.
 	 * @param type	The type of the new hero.
 	 */
 	public void addHero(String heroName, String type) {
@@ -105,6 +105,7 @@ public class Team {
 	 * Checks whether the given heroName is valid.
 	 * A name is valid if it has not already been assigned to another hero
 	 * on the team.
+	 * @param heroName   The name to be checked
 	 * @return	true if the name is valid, false otherwise.
 	 */
 	public boolean isUniqueHeroName(String heroName) {
@@ -186,6 +187,7 @@ public class Team {
 	 * list of owned powerUps, removing it from the list.
 	 * If the team doesn't own any power ups of that type, throws a RuntimeException.
 	 * @param powerUpType	The type of the power up to be removed from the list.
+	 * @return A PowerUp object of the given type.
 	 */
 	public PowerUp popPowerUpFromList(PowerUpType powerUpType) {
 		boolean found = false;

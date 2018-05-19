@@ -1,3 +1,9 @@
+/**
+ * Instances of Apprentice represent a type of Hero that
+ * can be played in the game. Each pbject represents one Hero.
+ * Apprentice heroes use healing items twice as quickly as other
+ * heroes.
+ */
 public class Apprentice extends Hero {
 	
 	/**

@@ -3,6 +3,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * City objects represent in-game cities that must be cleared
+ * of villains to win the game. Each city has exactly one
+ * villain associated with it, which must be defeated before
+ * moving on to the next city. The final city in the game contains
+ * the super villain; defeating the super villain is required to win
+ * the game. Each city also has five different sectors that the player
+ * can visit. The Home Base sector is always in the middle of the city,
+ * while the other four sectors are randomised in the cardinal directions.
+ */
 public class City {
 	
 	/**
@@ -47,6 +57,7 @@ public class City {
 	/**
 	 * Creates a new city with the given villain, the currentLocation set to CENTRE
 	 * and the other locations in the sectorLocations HashMap randomised.
+	 * @param villain The villain belonging to this city
 	 */
 	public City(Villain villain) {
 		currentLocation = HOME_BASE_LOCATION;
@@ -151,7 +162,5 @@ public class City {
 	public Villain getVillain() {
 		return villain;
 	}
-
-
 	
 }

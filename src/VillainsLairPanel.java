@@ -153,7 +153,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	 * Called by a mini game panel class when the game has finished.
 	 * Takes the result of the game, and processes it appropriately,
 	 * showing the game result panel.
-	 * @param hasWon
+	 * @param hasWon A boolean representation of the state of the minigame.
 	 */
 	public void miniGameFinished(boolean hasWon) {
 		wonLastMinigame = hasWon;
@@ -471,6 +471,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	/**
 	 * Returns a panel showing the hero's image, name and type,
 	 * to displayed during and after the battle.
+	 * @return A panel showing the hero's image, name and type.
 	 */
 	private JPanel heroImagePanel() {
 		JPanel heroImagePanel = new JPanel();
@@ -500,6 +501,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 	/**
 	 * Creates and returns a new mini-game panel of one of the three possible types,
 	 * depending on the games played by the current villain.
+	 * @return A JPanel containing minigame components.
 	 */
 	private JPanel newMiniGamePanel() {
 		MiniGameType miniGameType = villain().getGame();

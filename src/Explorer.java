@@ -1,3 +1,8 @@
+/**
+ * Explorer objects represent a type of Hero that can be
+ * played in the game. Explorer heroes reveal the locations
+ * of all sectors when they enter a new city.
+ */
 public class Explorer extends Hero {
 	
 	/**
