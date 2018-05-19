@@ -1,3 +1,9 @@
+/**
+ * Instances of IncreaseRoll represent a type of power-up
+ * in the game. Each object represents one power-up. A new
+ * object should be created whenever the team obtains a new
+ * Increase Roll powerup.
+ */
 public class IncreaseRoll extends PowerUp {
 	
 	/**
@@ -16,6 +22,9 @@ public class IncreaseRoll extends PowerUp {
 	private final static String DESCRIPTION = "When playing Dice Rolls, each Increase Roll power up applied to a hero will increase their roll by one."
 											+ "\n\nAll Increase Roll power ups applied to the hero will be consumed at the end of a game of Dice Rolls.";
 	
+	/**
+	 * A constructor for IncreaseRoll.
+	 */
 	public IncreaseRoll() {
 		super(TYPE, COST, DESCRIPTION);
 	}

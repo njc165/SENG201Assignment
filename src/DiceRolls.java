@@ -1,5 +1,10 @@
 import java.util.Random;
 
+/**
+ * Instances of DiceRolls represent a type of minigame
+ * the player could play to battle villains. Instances are
+ * created when a villain choses to play Dice Rolls.
+ */
 public class DiceRolls extends MiniGame {
 
 	/**

@@ -1,5 +1,10 @@
 import java.util.Random;
 
+/**
+ * Instances of GuessNumber represent a type of minigame
+ * the player plays against villains. Instances are
+ * created when a villain choses to play Guess the Number.
+ */
 public class GuessNumber extends MiniGame {
 	
 	/**
@@ -44,6 +49,12 @@ public class GuessNumber extends MiniGame {
 	}
 	
 
+	/**
+	 * Takes a player's guess and sets the minigame as won
+	 * if the guess matches the villain's number. Otherwise,
+	 * decrements the number of guesses the player has remaining.
+	 * @param guess The player's guess.
+	 */
 	public void guess(int guess) {
 		if (guessesLeft <= 0)
 			throw new RuntimeException("No guesses left.");

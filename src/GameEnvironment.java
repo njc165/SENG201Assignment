@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * GameEnvironment objects are used by Game objects to play
+ * through the game. These objects control all logic related
+ * to the game.
+ */
 public class GameEnvironment {
 	
 	/**

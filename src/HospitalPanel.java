@@ -1,14 +1,9 @@
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -23,17 +18,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
+/**
+ * Instances of HospitalPanel are components of Game objects. They
+ * contain all components related to the Hospital location in-game,
+ * and are displayed when the player enters the Hospital.
+ */
 public class HospitalPanel extends JPanel implements Refreshable {
 
 	/**

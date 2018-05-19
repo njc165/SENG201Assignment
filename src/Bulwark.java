@@ -1,3 +1,8 @@
+/**
+ * Instances of Bulwark represent a type of Hero that
+ * can be played in the game. Bulwark heroes take reduced damage
+ * when they lose a battle.
+ */
 public class Bulwark extends Hero {
 	
 	/**

@@ -1,3 +1,8 @@
+/**
+ * The Image class contains static methods for retrieving filepaths to
+ * any and all image assets used in the game. This class cannot be
+ * instantiated.
+ */
 public class Image {
 	
 	/**
@@ -35,10 +40,13 @@ public class Image {
 	public static final String PSR_UNDECIDED_FILEPATH = "/img/PSR_undecided.png";
 	
 	/**
-	 * The file path for the image used ihe victory screen.
+	 * The file path for the image used in the victory screen.
 	 */
 	public static final String FIREWORKS_IMAGE_FILEPATH = "/img/fireworks.png";
 	
+	/**
+	 * The file path for the image used in the defeat screen.
+	 */
 	public static final String GRAVESTONE_IMAGE_FILEPATH = "/img/gravestone.png";
 	
 	/**
