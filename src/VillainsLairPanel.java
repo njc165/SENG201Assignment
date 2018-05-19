@@ -665,7 +665,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 		lblDamageTaken.setBounds(190, 195, 470, 31);
 		gameResultPanel.add(lblDamageTaken);
 				
-		if (! team().getHeroes().contains(currentHero)) {
+		if (!team().getHeroes().contains(currentHero)) {
 			JLabel lblHeroDied = new JLabel();
 			lblHeroDied.setText(String.format("%s has fallen in battle!", currentHero.getName()));
 			lblHeroDied.setHorizontalAlignment(SwingConstants.CENTER);
@@ -704,8 +704,7 @@ public class VillainsLairPanel extends JPanel implements Refreshable {
 					gameWindow.endGame(false);
 				}
 			});
-		}
-		else {
+		} else {
 			btnContinue.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					refreshSelectHeroPanel();

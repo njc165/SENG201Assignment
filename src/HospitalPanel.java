@@ -323,15 +323,15 @@ public class HospitalPanel extends JPanel implements Refreshable {
 				JTextPane txtpnStatusDescription = new JTextPane();
 				txtpnStatusDescription.setBackground(UIManager.getColor("Panel.background"));
 				txtpnStatusDescription.setText(String.format("Remaining health to restore:\r\n"
-						+ "%s%%\r\n\r\n"
+						+ "    %s%%\r\n\r\n"
 						+ "Time until next 25%% increment in health:\r\n"
-						+ "%s seconds.\r\n",
+						+ "    %s seconds.\r\n",
 						(int) (incrementsRemaining * HealingItem.INCREMENT_SIZE * 100),
 						healingItem.secondsRemaining()));
 				txtpnStatusDescription.setBounds(20, 350, 175, 104);
 				heroPanel.add(txtpnStatusDescription);
-			}
-			else {
+				
+			} else {
 				JLabel lblNoItem = new JLabel("No applied Healing Item");
 				lblNoItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				lblNoItem.setBounds(20, 282, 158, 38);

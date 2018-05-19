@@ -27,7 +27,7 @@ import javax.swing.JSlider;
  * SetUpPanel objects are shown at the start of a new Game.
  */
 public class SetUpPanel extends JPanel {
-	
+
 	/**
 	 * A string representation of this panel, used by the CardLayout in Game.
 	 */
@@ -98,16 +98,53 @@ public class SetUpPanel extends JPanel {
 	 */
 	private JPanel teamSummaryPanel;
 	
-	// Add Hero panel components
+	/**
+	 * A label instructing the user to create a hero.
+	 * Changes depending on how many heroes have been added
+	 * already, eg "Create Hero 2:".
+	 */
 	private JLabel lblCreateHero;
+	
+	/**
+	 * A panel containing information about each hero subclass,
+	 * stored in a card layout.
+	 */
 	private JPanel heroInfoPanel;
+	
+	/**
+	 * A CardLayout containing an information panel for each hero
+	 * subclass. The panel shown depends on which hero type is selected
+	 * in the combo box.
+	 */
 	private CardLayout heroInfoPanelCardLayout;
+	
+	/**
+	 * The panel containing components to ask the user to enter a
+	 * hero name and select a hero type.
+	 */
 	private JPanel inputPanel;
+	
+	/**
+	 * The error message displayed if the hero name entered is invalid.
+	 * Text is set to empty when the panel is refreshed, and changed to
+	 * the appropriate error message depending on the hero name entered.
+	 */
 	private JLabel lblInvalidNameErrorMessage;
+	
+	/**
+	 * The text field where the user enters the name of a hero.
+	 */
 	private JTextField txtfName;
 
-	// Team Summary panel components
+	/**
+	 * A panel showing a summary of each hero on the team once all the
+	 * heroes have been created.
+	 */
 	private JPanel heroSummariesPanel;
+	
+	/**
+	 * A label showing the team name on the team summary panel.
+	 */
 	private JLabel lblTeamName;	
 	
 	/**
@@ -286,8 +323,12 @@ public class SetUpPanel extends JPanel {
 				int numHeroes = sliderNumHeroes.getValue();
 				int numCities = sliderNumCities.getValue();
 				
-				if (! Team.isValidTeamName(teamName)) {
-					lblTeamNameErrorMessage.setText("Team name must be between 2 and 10 characters long.");
+				if (teamName.length() < Team.MIN_TEAM_NAME_LENGTH
+						|| teamName.length() > Team.MAX_TEAM_NAME_LENGTH) {
+					lblTeamNameErrorMessage.setText(String.format(
+							"Team name must be between %s and %s characters long.",
+							Team.MIN_TEAM_NAME_LENGTH,
+							Team.MAX_TEAM_NAME_LENGTH));
 
 				} else {
 					gameWindow.setGame(new GameEnvironment(teamName, numHeroes, numCities));
@@ -381,11 +422,15 @@ public class SetUpPanel extends JPanel {
 				String heroName = txtfName.getText().trim();
 				String type = (String) cmbHeroTypes.getSelectedItem();
 				
-				if (! team().isValidHeroName(heroName)) {
+				if (!team().isUniqueHeroName(heroName)) {
 					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
 					
-				} else if (heroName.length() < 1 || heroName.length() > 7) {
-					lblInvalidNameErrorMessage.setText("Name must be between 1 and 7 characters.");
+				} else if (heroName.length() < Hero.MIN_HERO_NAME_LENGTH
+						|| heroName.length() > Hero.MAX_HERO_NAME_LENGTH) {
+					lblInvalidNameErrorMessage.setText(String.format(
+							"Name must be between %s and %s characters.",
+							Hero.MIN_HERO_NAME_LENGTH,
+							Hero.MAX_HERO_NAME_LENGTH));
 									
 				} else {
 					team().addHero(heroName, type);

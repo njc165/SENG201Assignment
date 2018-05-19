@@ -261,10 +261,10 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		btnUseMap.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnUseMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (team().getNumMaps() <= 0)
+				if (team().getNumMapsOwned() <= 0)
 					throw new RuntimeException("Team doesn't own any maps. Use map button should be disabled.");
 				
-				team().setNumMaps(team().getNumMaps() - 1);
+				team().setNumMapsOwned(team().getNumMapsOwned() - 1);
 				gameWindow.getGame().currentCity().setAllDiscovered();
 				refresh();
 				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
@@ -469,8 +469,8 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		lblCurrentCity.setText(String.format("City %s",
 				gameWindow.getGame().getCurrentCityIndex() + 1));
 		
-		lblMapsOwned.setText(String.format("Owned: %d", team().getNumMaps()));
-		btnUseMap.setEnabled(team().getNumMaps() > 0);
+		lblMapsOwned.setText(String.format("Owned: %d", team().getNumMapsOwned()));
+		btnUseMap.setEnabled(team().getNumMapsOwned() > 0);
 	}
 	
 	/**
@@ -587,6 +587,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 				JLabel lblHealingItemImage = new JLabel("");
 				lblHealingItemImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
 						Image.healingItemImageFilepath(hero.getAppliedHealingItem(), 25))));
+				lblHealingItemImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 				lblHealingItemImage.setBounds(20, 370, 25, 25);
 				heroPanel.add(lblHealingItemImage);
 				
@@ -619,6 +620,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 					lblPowerUpImage.setToolTipText(powerUpType.toString());
 					lblPowerUpImage.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
 							Image.powerUpImageFilepath(powerUpType, 25))));
+					lblPowerUpImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 					lblPowerUpImage.setBounds(xCoord, 441, 25, 25);
 					heroPanel.add(lblPowerUpImage);
 					

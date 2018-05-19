@@ -4,7 +4,7 @@
  * one healing item, and a new object should be created every time
  * a Team receives a new healing item.
  */
-public class SuspiciousTonic extends HealingItem{
+public class SuspiciousTonic extends HealingItem {
 	
 	/**
 	 * A string representation of the name of SuspiciousTonic.

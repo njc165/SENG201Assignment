@@ -4,6 +4,16 @@ import java.util.HashMap;
 public class Hero {
 	
 	/**
+	 * The minimum length a valid hero name can have.
+	 */
+	public static final int MIN_HERO_NAME_LENGTH = 2;
+	
+	/**
+	 * The maximum length a valid hero name can have.
+	 */
+	public static final int MAX_HERO_NAME_LENGTH = 7;
+	
+	/**
 	 * An array of instances of each Hero subclass.
 	 */
 	public static final Hero[] ALL_HEROES = {new Apprentice(""),
@@ -180,8 +190,8 @@ public class Hero {
 	public void heal() {
 		if (appliedHealingItem != null) {
 			if (appliedHealingItem.readyToIncrement()) {
-				int newHealth = (int) (currentHealth +
-										maxHealth * HealingItem.INCREMENT_SIZE);
+				int newHealth = (int) (currentHealth
+										+ maxHealth * HealingItem.INCREMENT_SIZE);
 				currentHealth = Integer.min(maxHealth, newHealth);
 				
 				if (appliedHealingItem.getIncrementsRemaining() <= 0) {

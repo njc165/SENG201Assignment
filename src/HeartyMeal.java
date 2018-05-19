@@ -1,5 +1,5 @@
 
-public class HeartyMeal extends HealingItem{
+public class HeartyMeal extends HealingItem {
 	
 	/**
 	 * A string representation of the name of HeartyMeal.
