@@ -39,6 +39,7 @@ public class Game {
 
 	/**
 	 * Launch the application.
+	 * @param args Command-line arguments.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

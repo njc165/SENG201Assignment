@@ -91,7 +91,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 	
 	/**
 	 * A constructor for the HospitalPanel class.
-	 * @param game
+	 * @param game The Game object to which this panel belongs.
 	 */
 	public HospitalPanel(Game game) {
 		super();
@@ -107,7 +107,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 
 	/**
 	 * Provides access to the team associated with the current Game.
-	 * @return
+	 * @return The team associated with this panel's Game.
 	 */
 	private Team team() {
 		return gameWindow.getGame().getTeam();
