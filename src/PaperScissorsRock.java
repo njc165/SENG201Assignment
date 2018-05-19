@@ -65,33 +65,33 @@ public class PaperScissorsRock extends MiniGame {
 		if (herosChoice == "Paper") {
 			if (villainsChoice == "Paper") {
 				return "Draw";
-			}
-			else if (villainsChoice == "Scissors") {
+				
+			} else if (villainsChoice == "Scissors") {
 				return "Loss";
-			}
-			else {
+				
+			} else {
 				return "Win";
 			}
-		}
-		else if (herosChoice == "Scissors") {
+			
+		} else if (herosChoice == "Scissors") {
 			if (villainsChoice == "Paper") {
 				return "Win";
-			}
-			else if (villainsChoice == "Scissors") {
+				
+			} else if (villainsChoice == "Scissors") {
 				return "Draw";
-			}
-			else {
+				
+			} else {
 				return "Loss";
 			}
-		}
-		else {
+			
+		} else {
 			if (villainsChoice == "Paper") {
 				return "Loss";
-			}
-			else if (villainsChoice == "Scissors") {
+				
+			} else if (villainsChoice == "Scissors") {
 				return "Win";
-			}
-			else {
+				
+			} else {
 				return "Draw";
 			}
 		}

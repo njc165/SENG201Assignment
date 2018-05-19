@@ -157,8 +157,7 @@ public class PaperScissorsRockPanel extends JPanel {
 		String sense;		
 		if (minigame.getHero().getHasBattleAdvantage()) {
 			sense = "gambler's wisdom";
-		}
-		else {
+		} else {
 			sense = "Mindreader power-up";
 		}
 		
@@ -354,12 +353,12 @@ public class PaperScissorsRockPanel extends JPanel {
 				outcome = "Win";
 				refreshEndGamePanel(outcome, true);
 				interactivePanelCardLayout.show(interactivePanel, END_GAME_PANEL_STRING);
-			}
-			else {
+				
+			} else {
 				interactivePanelCardLayout.show(interactivePanel, DRAW_PANEL_STRING);
 			}
-		}
-		else {
+			
+		} else {
 			refreshEndGamePanel(outcome, false);
 			interactivePanelCardLayout.show(interactivePanel, END_GAME_PANEL_STRING);
 		}
@@ -391,8 +390,7 @@ public class PaperScissorsRockPanel extends JPanel {
 		if (outcome == "Win") {
 			minigame.setHasWon(true);
 			result = "VICTORY";
-		}
-		else {
+		} else {
 			result = "DEFEAT";
 		}
 		lblResult.setText(result);

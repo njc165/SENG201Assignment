@@ -10,9 +10,9 @@ public class Map {
 	/**
 	 * A string description of the map item.
 	 */
-	private static final String DESCRIPTION = "Can be used in the home base to reveal the location of each sector in the city.\n\n"
-			+ "The local public library has put out a notice asking for the return of several missing maps and atlases. "
-			+ "The shopkeeper assures you that this isn't one of them.";
+	private static final String DESCRIPTION = "The local public library has put out a notice asking for the return of several missing maps and atlases."
+			+ " The shopkeeper assures you that this isn't one of them."
+			+ "\n\nCan be used in the home base to reveal the location of each sector in the city.";
 	
 	/**
 	 * The cost, in in-game currency, of one map item.

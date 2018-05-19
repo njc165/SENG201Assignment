@@ -44,7 +44,7 @@ class VillainTest {
 		boolean exceptionThrown = false;
 		try {
 			villains = Villain.randomisedVillains(numVillains);
-		} catch (IllegalArgumentException iae){
+		} catch (IllegalArgumentException iae) {
 			exceptionThrown = true;
 		}
 		
@@ -93,7 +93,7 @@ class VillainTest {
 		
 		// Check that remainingTimesToDefeat returns 1 when the villain
 		// will be defeated after one more loss.
-		johnny.setTimesDefeated(Villain.MAX_TIMES_DEFEATED-1);
+		johnny.setTimesDefeated(Villain.MAX_TIMES_DEFEATED - 1);
 		assertEquals(johnny.remainingTimesToDefeat(), 1);
 	}
 	

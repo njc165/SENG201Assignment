@@ -23,17 +23,17 @@ class TeamTest {
 		Team team = new Team("", 4);
 		
 		// When the team is empty, any name is valid
-		assertTrue(team.isValidHeroName("John"));
+		assertTrue(team.isUniqueHeroName("John"));
 		
 		// A name which is already taken by another hero on the team
 		// is not valid.
 		team.addHero("John", "Bulwark");
-		assertFalse(team.isValidHeroName("John"));
-		assertTrue(team.isValidHeroName("Jack"));
+		assertFalse(team.isUniqueHeroName("John"));
+		assertTrue(team.isUniqueHeroName("Jack"));
 		
 		team.addHero("Jack", "Explorer");
-		assertFalse(team.isValidHeroName("John"));
-		assertFalse(team.isValidHeroName("Jack"));
+		assertFalse(team.isUniqueHeroName("John"));
+		assertFalse(team.isUniqueHeroName("Jack"));
 	}
 	
 	@Test
@@ -155,13 +155,13 @@ class TeamTest {
 		team.setCurrentMoney(200);
 		
 		// The team has no maps initially
-		assertEquals(0, team.getNumMaps());
+		assertEquals(0, team.getNumMapsOwned());
 		
 		// Buying a map increases the teams number of maps owned and decreases the
 		// team's current money
 		team.buyMap();
 		assertEquals(200 - Map.getCost(0), team.getCurrentMoney());
-		assertEquals(1, team.getNumMaps());
+		assertEquals(1, team.getNumMapsOwned());
 		
 		// If a team doesn't have enough money to buy a map,
 		// a NotEnoughMoneyException is thrown
@@ -179,7 +179,7 @@ class TeamTest {
 		team.setCurrentMoney(Map.getCost(0));
 		team.buyMap();
 		assertEquals(0, team.getCurrentMoney());
-		assertEquals(2, team.getNumMaps());		
+		assertEquals(2, team.getNumMapsOwned());		
 	}
 	
 	@Test
@@ -325,7 +325,7 @@ class TeamTest {
 		
 		boolean exceptionThrown = false;
 		try {
-			team.setNumMaps(-1);
+			team.setNumMapsOwned(-1);
 		} catch (IllegalArgumentException e) {
 			exceptionThrown = true;
 		}
@@ -334,8 +334,8 @@ class TeamTest {
 		assertTrue(exceptionThrown);
 		
 		// Check that setter method works correctly.
-		team.setNumMaps(16);
-		assertEquals(16, team.getNumMaps());
+		team.setNumMapsOwned(16);
+		assertEquals(16, team.getNumMapsOwned());
 	}
 	
 }

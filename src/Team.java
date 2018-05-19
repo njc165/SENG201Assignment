@@ -12,12 +12,12 @@ public class Team {
 	/**
 	 * The minimum length of a valid team name.
 	 */
-	private static final int MIN_TEAM_NAME_LENGTH = 2;
+	public static final int MIN_TEAM_NAME_LENGTH = 2;
 	
 	/**
 	 * The maximum length of a valid team name.
 	 */
-	private static final int MAX_TEAM_NAME_LENGTH = 10;
+	public static final int MAX_TEAM_NAME_LENGTH = 10;
 	
 	/**
 	 * The amount of money a team starts with.
@@ -57,7 +57,7 @@ public class Team {
 	 * Can be any non-negative integer.
 	 * Having an Explorer on the team does not affect this value.
 	 */
-	private int numMaps;
+	private int numMapsOwned;
 	
 	/**
 	 * An integer representing the amount of money the team currently has.
@@ -75,16 +75,6 @@ public class Team {
 		this.name = name;
 		this.startNumHeroes = startNumHeroes;
 		this.currentMoney = STARTING_MONEY;
-	}
-	
-	/**
-	 * Checks whether the given team name has a valid length.
-	 * @param name		The team name to check.
-	 * @return			true if the name is valid, false otherwise.
-	 */
-	public static boolean isValidTeamName(String name) {
-		return name.length() >= Team.MIN_TEAM_NAME_LENGTH
-			&& name.length() <= Team.MAX_TEAM_NAME_LENGTH;
 	}
 	
 	/**
@@ -118,7 +108,7 @@ public class Team {
 	 * @param heroName   The name to be checked
 	 * @return	true if the name is valid, false otherwise.
 	 */
-	public boolean isValidHeroName(String heroName) {
+	public boolean isUniqueHeroName(String heroName) {
 		boolean isValid  = true;
 		for (Hero hero: heroes) {
 			if (hero.getName().equals(heroName)) {
@@ -188,7 +178,7 @@ public class Team {
 			throw new NotEnoughMoneyException("Not enough money to buy a map");
 		} else {
 			currentMoney -= Map.getCost(numDiscountHeroes());
-			numMaps++;
+			numMapsOwned++;
 		}
 	}
 	
@@ -326,19 +316,19 @@ public class Team {
 	 * Getter method for numMaps.
 	 * @return The value of numMaps.
 	 */
-	public int getNumMaps() {
-		return numMaps;
+	public int getNumMapsOwned() {
+		return numMapsOwned;
 	}
 
 	/**
 	 * Setter method for numMaps.
 	 * @param numMaps The new value of numMaps to set.
 	 */
-	public void setNumMaps(int numMaps) {
+	public void setNumMapsOwned(int numMaps) {
 		if (numMaps < 0) {
 			throw new IllegalArgumentException("The number of maps can't be negative.");
 		}
-		this.numMaps = numMaps;
+		this.numMapsOwned = numMaps;
 	}
 
 	/**

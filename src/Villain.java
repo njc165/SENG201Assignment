@@ -189,8 +189,7 @@ public class Villain {
 		timesDefeated = newTimes;
 		if (timesDefeated >= MAX_TIMES_DEFEATED) {
 			this.isDefeated = true;
-		}
-		else {
+		} else {
 			this.isDefeated = false;
 		}
 	}

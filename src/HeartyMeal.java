@@ -5,7 +5,7 @@
  * the team obtains a Hearty Meal item, and deleted when
  * it has been incremented the maximum number of times.
  */
-public class HeartyMeal extends HealingItem{
+public class HeartyMeal extends HealingItem {
 	
 	/**
 	 * A string representation of the name of HeartyMeal.

@@ -68,7 +68,7 @@ public abstract class MiniGame {
 		ArrayList<PowerUp> newActivePowerUps = new ArrayList<PowerUp>();
 		
 		for (PowerUp powerUp: hero.getAppliedPowerUps()) {
-			if (! (powerUp.getType() == type)) {
+			if (!(powerUp.getType() == type)) {
 				newActivePowerUps.add(powerUp);
 			}
 		}

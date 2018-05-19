@@ -1,3 +1,4 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -19,11 +20,13 @@ public class Util {
 	 */
 	public static Object instantiate(Class<?> className) {
 		Object newInstance = null;
-		try {
-			newInstance = className.getConstructor().newInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			try {
+				newInstance = className.getConstructor().newInstance();
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+			}
+
 		return newInstance;
 	}
 	

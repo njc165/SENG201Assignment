@@ -187,7 +187,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		btnInventory.setBounds(10, 126, 195, 30);
 		sidePanel.add(btnInventory);
 		
-		JButton btnViewPowerUps = new JButton("View Power Ups");
+		JButton btnViewPowerUps = new JButton("Power Ups");
 		btnViewPowerUps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contentPanelCardLayout.show(contentPanel, POWER_UP_MENU_STRING);
@@ -197,7 +197,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		btnViewPowerUps.setBounds(10, 207, 195, 30);
 		sidePanel.add(btnViewPowerUps);
 		
-		JButton btnViewHealingItems = new JButton("View Healing Items");
+		JButton btnViewHealingItems = new JButton("Healing Items");
 		btnViewHealingItems.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contentPanelCardLayout.show(contentPanel, HEALING_ITEM_MENU_STRING);
@@ -207,7 +207,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		btnViewHealingItems.setBounds(10, 248, 195, 30);
 		sidePanel.add(btnViewHealingItems);
 		
-		JButton btnViewMaps = new JButton("View Maps");
+		JButton btnViewMaps = new JButton("Maps");
 		btnViewMaps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contentPanelCardLayout.show(contentPanel, MAP_PANEL_STRING);
@@ -302,7 +302,8 @@ public class ShopPanel extends JPanel implements Refreshable {
 			JLabel lblPowerUpIcon = new JLabel("");
 			lblPowerUpIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblPowerUpIcon.setIcon(new ImageIcon(ShopPanel.class.getResource(
-										Image.powerUpImageFilepath(powerUp.getType(), 38))));			
+										Image.powerUpImageFilepath(powerUp.getType(), 38))));	
+			lblPowerUpIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lblPowerUpIcon.setBounds(56, yCoord, 38, 38);
 			inventoryPanel.add(lblPowerUpIcon);
 			
@@ -327,6 +328,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 			lblHealingItemIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			lblHealingItemIcon.setIcon(new ImageIcon(ShopPanel.class.getResource(
 										Image.healingItemImageFilepath(healingItem, 38))));
+			lblHealingItemIcon.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lblHealingItemIcon.setBounds(339, yCoord, 38, 38);
 			inventoryPanel.add(lblHealingItemIcon);
 			
@@ -353,7 +355,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		inventoryPanel.add(lblMapIcon);
 		
 		JLabel lblMapNumOwned = new JLabel(String.format("(%s)  Map",
-														 team().getNumMaps()));
+														 team().getNumMapsOwned()));
 		lblMapNumOwned.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblMapNumOwned.setBounds(104, 404, 187, 38);
 		inventoryPanel.add(lblMapNumOwned);
@@ -378,6 +380,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 			JLabel lblPowerUpImage = new JLabel("");
 			lblPowerUpImage.setIcon(new ImageIcon(ShopPanel.class.getResource(
 					Image.powerUpImageFilepath(powerUp.getType(), 150))));	
+			lblPowerUpImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lblPowerUpImage.setBounds(83, 33, 150, 150);
 			powerUpPanel.add(lblPowerUpImage);
 			
@@ -414,6 +417,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 			JLabel lblHealingItemImage = new JLabel("");
 			lblHealingItemImage.setIcon(new ImageIcon(ShopPanel.class.getResource(
 					Image.healingItemImageFilepath(healingItem, 150))));
+			lblHealingItemImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lblHealingItemImage.setBounds(83, 33, 150, 150);
 			healingItemPanel.add(lblHealingItemImage);
 			
@@ -448,6 +452,7 @@ public class ShopPanel extends JPanel implements Refreshable {
 		JLabel lblPowerUpImage = new JLabel("");
 		lblPowerUpImage.setIcon(new ImageIcon(ShopPanel.class.getResource(
 				Image.powerUpImageFilepath(powerUp.getType(), 150))));
+		lblPowerUpImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblPowerUpImage.setBounds(68, 50, 150, 150);
 		powerUpInfoPanel.add(lblPowerUpImage);
 				
@@ -518,7 +523,8 @@ public class ShopPanel extends JPanel implements Refreshable {
 		
 		JLabel lblHealingItemImage = new JLabel("");
 		lblHealingItemImage.setIcon(new ImageIcon(ShopPanel.class.getResource(
-				Image.healingItemImageFilepath(healingItem, 150))));		
+				Image.healingItemImageFilepath(healingItem, 150))));
+		lblHealingItemImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblHealingItemImage.setBounds(68, 50, 150, 150);
 		healingItemInfoPanel.add(lblHealingItemImage);
 				
