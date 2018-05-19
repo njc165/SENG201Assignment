@@ -1,3 +1,9 @@
+/**
+ * Instances of Bucephalus represent a type of Villain that the
+ * player can battle in the game. Each Game object should use
+ * at most one Bucephalus object, to avoid duplicate encounters
+ * in the game.
+ */
 public class Bucephalus extends Villain {
 	
 	/**

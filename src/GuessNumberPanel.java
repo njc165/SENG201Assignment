@@ -1,39 +1,28 @@
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Font;
-import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
-import javax.swing.JTextArea;
-import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import java.awt.SystemColor;
 
-
+/**
+ * Instances of GuessNumberPanel are components of
+ * VillainsLairPanel objects. They contain all
+ * components related to the Guess the Number minigame,
+ * and are shown when a villain choses to play Guess
+ * the Number.
+ */
 public class GuessNumberPanel extends JPanel {
 
 	/**

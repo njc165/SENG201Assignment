@@ -1,3 +1,8 @@
+/**
+ * Instances of Gambler represent a type of hero that can
+ * be played in the game. Gambler heroes have advantages
+ * in battles.
+ */
 public class Gambler extends Hero {
 	
 	/**
@@ -8,7 +13,7 @@ public class Gambler extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = "Advantages in villain battles.";
+	private static final String SPECIAL_ABILITY = "Advantages in battles.";
 	
 	/**
 	 * An extended string description of the hero.

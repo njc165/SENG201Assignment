@@ -3,13 +3,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.BorderLayout;
 
+/**
+ * Game objects represent entire playthroughs of the game. In any
+ * playthrough of the game, exacty one Game object should be
+ * created. They contain all components related to the game.
+ */
 public class Game {
 	
 	/**
@@ -81,6 +84,9 @@ public class Game {
 		cardLayout.show(mainPanel, SetUpPanel.SET_UP_PANEL_STRING);
 	}
 	
+	/**
+	 * Add all major subpanels to the main panel.
+	 */
 	public void addPanels() {
 		SetUpPanel setUpPanel = new SetUpPanel(this);
 		mainPanel.add(setUpPanel, SetUpPanel.SET_UP_PANEL_STRING);
