@@ -527,21 +527,27 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			statusPanel.add(heroPanel);
 			
 			JLabel lblHeroPortrait = new JLabel("");
-			lblHeroPortrait.setBounds(30, 24, 150, 150);
+			lblHeroPortrait.setBorder(new LineBorder(new Color(0, 0, 0)));
+			lblHeroPortrait.setBounds(30, 13, 150, 150);
 			lblHeroPortrait.setIcon(new ImageIcon(HomeBasePanel.class.getResource(
 										Image.heroImageFilepath(hero, 150, 150))));
 			heroPanel.add(lblHeroPortrait);
-
-			JLabel lblHeroName = new JLabel(String.format("%s the %s", hero.getName(),
-																	   hero.getType()));
-			lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			
+			JLabel lblHeroName = new JLabel(hero.getName());
 			lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHeroName.setBounds(10, 185, 199, 32);
+			lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblHeroName.setBounds(10, 172, 190, 25);
 			heroPanel.add(lblHeroName);
+
+			JLabel lblHeroType = new JLabel(String.format("the %s", hero.getType()));
+			lblHeroType.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblHeroType.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroType.setBounds(10, 195, 190, 25);
+			heroPanel.add(lblHeroType);
 			
 			JLabel lblSpecialAbility = new JLabel("Special Ability:");
 			lblSpecialAbility.setHorizontalAlignment(SwingConstants.LEFT);
-			lblSpecialAbility.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblSpecialAbility.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblSpecialAbility.setBounds(10, 228, 190, 24);
 			heroPanel.add(lblSpecialAbility);
 			
@@ -554,7 +560,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			
 			JLabel lblCurrentHealth = new JLabel("Current health:");
 			lblCurrentHealth.setHorizontalAlignment(SwingConstants.LEFT);
-			lblCurrentHealth.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblCurrentHealth.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblCurrentHealth.setBounds(10, 300, 110, 24);
 			heroPanel.add(lblCurrentHealth);
 
@@ -565,7 +571,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			heroPanel.add(lblTheHealth);
 						
 			JLabel lblAppliedHealingItem = new JLabel("Applied Healing Item:");
-			lblAppliedHealingItem.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblAppliedHealingItem.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblAppliedHealingItem.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAppliedHealingItem.setBounds(10, 335, 190, 24);
 			heroPanel.add(lblAppliedHealingItem);
@@ -592,7 +598,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 			}
 
 			JLabel lblAppliedPowerUps = new JLabel("Applied Power Ups:");
-			lblAppliedPowerUps.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblAppliedPowerUps.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			lblAppliedPowerUps.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAppliedPowerUps.setBounds(10, 406, 190, 24);
 			heroPanel.add(lblAppliedPowerUps);
@@ -630,5 +636,4 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 		}
 		
 	}	
-	
 }

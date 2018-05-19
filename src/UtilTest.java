@@ -26,17 +26,17 @@ class UtilTest {
 
 	@Test
 	final void testSelectedButton() {
-		ButtonGroup bg = new ButtonGroup();
+		ButtonGroup buttonGroup = new ButtonGroup();
 		
 		JRadioButton b1 = new JRadioButton();
 		JRadioButton b2 = new JRadioButton();
 		
-		bg.add(b1);
-		bg.add(b2);
+		buttonGroup.add(b1);
+		buttonGroup.add(b2);
 		
 		// Check that selectedButton returns b1 as expected
 		b1.setSelected(true);
-		assertEquals(Util.selectedButton(bg), b1);
+		assertEquals(Util.selectedButton(buttonGroup), b1);
 		
 		/* Check that when a new button is selected, b1
 		* becomes unselected and selectedButton returns
@@ -44,7 +44,7 @@ class UtilTest {
 		*/
 		b2.setSelected(true);
 		assertNotEquals(b1.isSelected(), true);
-		assertEquals(Util.selectedButton(bg), b2);
+		assertEquals(Util.selectedButton(buttonGroup), b2);
 	}
 	
 	

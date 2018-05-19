@@ -8,11 +8,6 @@
 public class Map {
 	
 	/**
-	 * A string representation of the name of the map.
-	 */
-	private static final String NAME = "Map";
-	
-	/**
 	 * A string description of the map item.
 	 */
 	private static final String DESCRIPTION = "Can be used in the home base to reveal the location of each sector in the city.\n\n"
@@ -31,7 +26,6 @@ public class Map {
 	public static String getDescription() {
 		return DESCRIPTION;
 	}
-
 
 	/**
 	 * Getter method for cost.

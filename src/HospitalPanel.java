@@ -252,11 +252,10 @@ public class HospitalPanel extends JPanel implements Refreshable {
 		statusPanel.add(btnRefresh);
 		
 		JPanel heroStatusPanel = new JPanel(new GridLayout(0, 3, 0, 0));
-		heroStatusPanel.setBounds(0, 0, 632, 460);		
+		heroStatusPanel.setBounds(0, 0, 632, 465);		
 		statusPanel.add(heroStatusPanel);
 		
-		for (Hero hero : team().getHeroes()) {
-			
+		for (Hero hero : team().getHeroes()) {			
 			HealingItem healingItem = hero.getAppliedHealingItem();
 			
 			JPanel heroPanel = new JPanel();
@@ -270,21 +269,27 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			lblImage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			heroPanel.add(lblImage);
 			
-			JLabel lblName = new JLabel(String.format("%s the %s", hero.getName(), hero.getType()));
-			lblName.setHorizontalAlignment(SwingConstants.CENTER);
-			lblName.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblName.setBounds(10, 161, 190, 34);
-			heroPanel.add(lblName);
+			JLabel lblHeroName = new JLabel(hero.getName());
+			lblHeroName.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblHeroName.setBounds(10, 168, 190, 25);
+			heroPanel.add(lblHeroName);
+			
+			JLabel lblHeroType = new JLabel(String.format("the %s", hero.getType()));
+			lblHeroType.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeroType.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblHeroType.setBounds(10, 189, 190, 25);
+			heroPanel.add(lblHeroType);
 			
 			JLabel lblHealth = new JLabel("Health:");
 			lblHealth.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblHealth.setBounds(10, 209, 54, 22);
+			lblHealth.setBounds(10, 225, 54, 22);
 			heroPanel.add(lblHealth);
 			
 			JLabel lblHealthValue = new JLabel(String.format("%d/%d",
 												hero.getCurrentHealth(),
 												hero.getMaxHealth()));
-			lblHealthValue.setBounds(65, 208, 104, 25);
+			lblHealthValue.setBounds(65, 224, 104, 25);
 			heroPanel.add(lblHealthValue);
 			lblHealthValue.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblHealthValue.setHorizontalAlignment(SwingConstants.LEFT);
@@ -292,21 +297,21 @@ public class HospitalPanel extends JPanel implements Refreshable {
 			JLabel lblAppliedItem = new JLabel("Applied healing item:");
 			lblAppliedItem.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAppliedItem.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblAppliedItem.setBounds(10, 250, 168, 22);
+			lblAppliedItem.setBounds(10, 255, 168, 22);
 			heroPanel.add(lblAppliedItem);
 			
 			if (healingItem != null) {
 				int incrementsRemaining = healingItem.getIncrementsRemaining();
 				
 				JLabel lblHealingItemIcon = new JLabel("");
-				lblHealingItemIcon.setBounds(26, 277, 38, 38);
+				lblHealingItemIcon.setBounds(26, 282, 38, 38);
 				heroPanel.add(lblHealingItemIcon);
 				lblHealingItemIcon.setIcon(new ImageIcon(HospitalPanel.class.getResource(
 						Image.healingItemImageFilepath(healingItem, 38))));
 				
 				JLabel lblAppliedItemName = new JLabel(healingItem.toString());
 				lblAppliedItemName.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				lblAppliedItemName.setBounds(74, 277, 126, 38);
+				lblAppliedItemName.setBounds(74, 282, 126, 38);
 				heroPanel.add(lblAppliedItemName);
 				
 				JLabel lblHealingItemStatus = new JLabel("Healing item status:");
@@ -315,19 +320,21 @@ public class HospitalPanel extends JPanel implements Refreshable {
 				lblHealingItemStatus.setBounds(10, 326, 168, 22);
 				heroPanel.add(lblHealingItemStatus);
 				
-				JTextPane txtpnOfHealth = new JTextPane();
-				txtpnOfHealth.setBackground(UIManager.getColor("Panel.background"));
-				txtpnOfHealth.setText(String.format("Remaining health to restore:\r\n    %s%%\r\n\r\n"
-						+ "Time until next 25%% increment in health:\r\n    %s seconds.\r\n",
+				JTextPane txtpnStatusDescription = new JTextPane();
+				txtpnStatusDescription.setBackground(UIManager.getColor("Panel.background"));
+				txtpnStatusDescription.setText(String.format("Remaining health to restore:\r\n"
+						+ "%s%%\r\n\r\n"
+						+ "Time until next 25%% increment in health:\r\n"
+						+ "%s seconds.\r\n",
 						(int) (incrementsRemaining * HealingItem.INCREMENT_SIZE * 100),
 						healingItem.secondsRemaining()));
-				txtpnOfHealth.setBounds(20, 350, 175, 102);
-				heroPanel.add(txtpnOfHealth);
+				txtpnStatusDescription.setBounds(20, 350, 175, 104);
+				heroPanel.add(txtpnStatusDescription);
 			}
 			else {
 				JLabel lblNoItem = new JLabel("No applied Healing Item");
 				lblNoItem.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				lblNoItem.setBounds(20, 277, 158, 38);
+				lblNoItem.setBounds(20, 282, 158, 38);
 				heroPanel.add(lblNoItem);
 			}
 		}
