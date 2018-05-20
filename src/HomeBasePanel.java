@@ -41,13 +41,6 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 * main content panel.
 	 */
 	private static final String STATUS_PANEL_STRING = "Status Panel";
-
-	/**
-	 * An array of the cardinal directions as Locations.
-	 * Used to update images on the map when appropriate.
-	 */
-	private final Location[] LOCATIONS = {Location.NORTH, Location.EAST,
-										  Location.SOUTH, Location.WEST};
 	
 	/**
 	 * The main game that this panel is a part of. Used by event handlers
@@ -472,7 +465,7 @@ public class HomeBasePanel extends JPanel implements Refreshable {
 	 */
 	private void refreshMapPanel() {
 		
-		for (Location location : LOCATIONS) {
+		for (Location location : City.ORDERED_LOCATIONS) {
 			JLabel targetLabel = getLabelAtLocation(location);
 			Sector sectorAtLocation = gameWindow.getGame().currentCity().sectorAtLocation(location);
 			

@@ -72,7 +72,6 @@ public class ShopPanel extends JPanel implements Refreshable {
 	 */
 	private Game gameWindow;
 
-
 	/**
 	 * The main content panel in the ShopPanel. Has a CardLayout to contain
 	 * a panel for each shop item, and an inventory panel.
