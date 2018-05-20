@@ -25,7 +25,9 @@ public class Maverick extends Villain {
 	/**
 	 * Array of games the villain could choose to play.
 	 */
-	private static final MiniGameType[] GAMES_PLAYED = {MiniGameType.PAPER_SCISSORS_ROCK, MiniGameType.GUESS_NUMBER, MiniGameType.DICE_ROLLS};
+	private static final MiniGameType[] GAMES_PLAYED = {MiniGameType.PAPER_SCISSORS_ROCK,
+														MiniGameType.GUESS_NUMBER,
+														MiniGameType.DICE_ROLLS};
 	
 	/**
 	 * A constructor for Maverick.

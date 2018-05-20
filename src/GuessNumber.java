@@ -2,8 +2,9 @@ import java.util.Random;
 
 /**
  * Instances of GuessNumber represent a type of minigame
- * the player plays against villains. Instances are
- * created when a villain choses to play Guess the Number.
+ * that the player used to battle villains. An instance of
+ * GuessNumber is created each time a villain chooses to play
+ * Guess the Number.
  */
 public class GuessNumber extends MiniGame {
 	

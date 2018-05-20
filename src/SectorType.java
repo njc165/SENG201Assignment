@@ -1,6 +1,6 @@
 /**
- * An enumeration containing all possible
- * types of sectors in the game.
+ * An enumeration containing a value for each type of sector
+ * which occurs in a city.
  */
 public enum SectorType {
 	HOME_BASE("Home Base"),

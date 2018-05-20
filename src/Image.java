@@ -1,7 +1,6 @@
 /**
- * The Image class contains static methods for retrieving filepaths to
- * any and all image assets used in the game. This class cannot be
- * instantiated.
+ * The Image class contains static methods for retrieving file paths to
+ * the images used in the game. This class should not be instantiated.
  */
 public class Image {
 	

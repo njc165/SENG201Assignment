@@ -21,9 +21,10 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 
 /**
- * Instances of VillainsLairPanel are components of Game objects.
- * They contain all components related to the Villain's Lair in the
- * game, and are displayed when the player enters the Villain's Lair.
+ * A VillainsLairPanel is a panel contained in the main CardLayout
+ * of the Game window. A VillainsLairPanel contains all the components
+ * related to the Villain's Lair in the game, and is displayed whenever
+ * the player enters the Villain's Lair.
  */
 public class VillainsLairPanel extends JPanel implements Refreshable {
 

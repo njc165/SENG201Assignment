@@ -1,8 +1,8 @@
 /**
- * SuspiciousTonic objects inherit from HealingItem and represent
- * specific healing items in the game. Each object corresponds to
- * one healing item, and a new object should be created every time
- * a Team receives a new healing item.
+ * SuspiciousTonic represent a specific type of healing
+ * item in the game. Each object corresponds to one healing item,
+ * and a new object should be every time a Team obtains a
+ * new healing item.
  */
 public class SuspiciousTonic extends HealingItem {
 	

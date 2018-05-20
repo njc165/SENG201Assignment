@@ -17,10 +17,10 @@ import javax.swing.JSlider;
 import java.awt.SystemColor;
 
 /**
- * Instances of GuessNumberPanel are components of
- * VillainsLairPanel objects. They contain all
+ * An instance of GuessNumberPanel is a components of a
+ * VillainsLairPanel. A GuessNumberPanel contains all the
  * components related to the Guess the Number minigame,
- * and are shown when a villain choses to play Guess
+ * and is shown when a villain ch0oses to play Guess
  * the Number.
  */
 public class GuessNumberPanel extends JPanel {

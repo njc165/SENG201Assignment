@@ -1,6 +1,7 @@
 /**
- * Merchant objects represent heros who receive
- * store discounts. Each object represents one hero.
+ * A Merchant is a type of hero which can be played in the
+ * game. Each Merchant object represents one hero. A team
+ * containing Merchants will receive a discount at the shop.
  */
 public class Merchant extends Hero {
 	

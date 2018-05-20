@@ -3,7 +3,7 @@
  * that the player can obtain in the game. Each object
  * represents one healing item. A new instance should be created
  * whenever the team obtains an Alicorn Dust item, and deleted
- * when all of its increments have been applied.
+ * when all of its increments have been applied to a hero.
  */
 public class AlicornDust extends HealingItem {
 	

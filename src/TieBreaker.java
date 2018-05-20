@@ -1,8 +1,8 @@
-
 /**
- * TieBreaker instances represent a specific power-up type (Tiebreaker)
+ * TieBreaker instances represent a specific type of power-up
  * in the game. A new instance should be created whenever the team
- * receives a new Tiebreaker power-up.
+ * obtains a new Tiebreaker power-up, and destroyed when the
+ * power-up is used by a hero is a villain battle.
  */
 public class TieBreaker extends PowerUp {
 	

@@ -1,8 +1,8 @@
 /**
  * PowerUp objects represent particular beneficial items
- * that the player can receive in the game. Each object
+ * that the player can obtain in the game. Each object
  * corresponds to one item. Outside of testing, PowerUp should
- * never be instantiated directly, but rather through its children.
+ * never be instantiated directly, but rather through its subclasses.
  */
 public class PowerUp {
 	

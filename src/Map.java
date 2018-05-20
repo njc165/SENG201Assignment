@@ -1,9 +1,9 @@
 /**
- * Map objects represent map items that the player
- * can purchase in the in-game store. A new object is
- * created whenever the player receives a map item.
- * Each object represents one map item and is deleted
- * when that map is consumed by the player.
+ * The Map class contains static attributes and methods
+ * representing a map object in the game. This information
+ * is displayed to the user in the shop. Map should never be
+ * instantiated, as the number of maps owned by a team is stored
+ * as a counter, not as individual map objects. 
  */
 public class Map {
 	

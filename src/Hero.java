@@ -3,8 +3,8 @@ import java.util.HashMap;
 
 /**
  * Instances of Hero represent heroes on a team. Each Hero object
- * represents one hero in the game. Instances of Hero should only
- * be created via its children.
+ * represents one hero in the game. Hero should not be instantiated
+ * directly, but rather through its subclasses.
  */
 public class Hero {
 	

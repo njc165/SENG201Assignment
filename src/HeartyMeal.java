@@ -2,8 +2,8 @@
  * Instances of HeartyMeal represent a type of healing item
  * the player can obtain in the game. Each object represents
  * one healing item. A new object should be created when
- * the team obtains a Hearty Meal item, and deleted when
- * it has been incremented the maximum number of times.
+ * the team obtains a Hearty Meal item, and destroyed once all
+ * its increments have been applied to a hero.
  */
 public class HeartyMeal extends HealingItem {
 	

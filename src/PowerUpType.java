@@ -1,6 +1,7 @@
 /**
- * The PowerUpType enumberable holds all types of power ups
- * a player can obtain in the game.
+ * The PowerUpType enumerable contains a value for each
+ * power up in the game. Each subclass of PowerUp has an
+ * associated PowerUpType.
  */
 public enum PowerUpType {
 	

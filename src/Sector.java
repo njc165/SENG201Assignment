@@ -1,8 +1,8 @@
 /**
- * Sector objects represent areas a player can visit in the game:
- * Home Base, Hospital, Power-Up Den, Shop and Villain's Lair.
- * Each Sector object corresponds to one of these locations,
- * and each location is used by exactly one Sector object.
+ * A Sector object represents one area which the player can
+ * visit in a city. Each Sector object is associated with a
+ * SectorType, and a city should contain one Sector of each
+ * type.
  */
 public class Sector {
 	

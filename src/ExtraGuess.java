@@ -1,5 +1,5 @@
 /**
- * ExtraGuess objects represent a type of poer-up the player
+ * ExtraGuess objects represent a type of power-up the player
  * could obtain in the game. A new instance should be created
  * whenever the team obtains a new Extra Guess power-up.
  */

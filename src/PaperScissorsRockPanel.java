@@ -12,10 +12,9 @@ import java.awt.CardLayout;
 import javax.swing.border.LineBorder;
 
 /**
- * Instances of PaperScissorsRockPanel are components of
- * VillainsLairPanel objects. They contain all components
- * related to the paper scissors rock minigame that
- * players play to defeat villains.
+ * An instance of PaperScissorsRockPanel is a component of
+ * VillainsLairPanel. It contains all the components
+ * related to the paper scissors rock minigame.
  */
 public class PaperScissorsRockPanel extends JPanel {
 
