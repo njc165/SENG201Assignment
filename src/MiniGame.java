@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * class contains methods which are used by all three of its
  * subclasses.
  */
-public abstract class MiniGame {
+public class MiniGame {
 	
 	/**
 	 * The hero playing the game.
