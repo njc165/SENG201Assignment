@@ -1,9 +1,8 @@
 /**
- * Invictus objects represent the super villain final
- * boss in the game. The last city of the game should
- * always have Invictus as its villain, and no other cities
- * should use Invictus. The game is considered won when this
- * villain is defeated.
+ * An Invictus object represents the super villain in the game.
+ * The last city of the game should  always contain Invictus as 
+ * its villain, and no other cities should contain Invictus.
+ * The game is considered won when this villain is defeated.
  */
 public class Invictus extends Villain {
 	
@@ -25,7 +24,9 @@ public class Invictus extends Villain {
 	/**
 	 * Array of games the villain could choose to play.
 	 */
-	private static final MiniGameType[] GAMES_PLAYED = {MiniGameType.PAPER_SCISSORS_ROCK, MiniGameType.GUESS_NUMBER, MiniGameType.DICE_ROLLS};
+	private static final MiniGameType[] GAMES_PLAYED = {MiniGameType.PAPER_SCISSORS_ROCK,
+														MiniGameType.GUESS_NUMBER,
+														MiniGameType.DICE_ROLLS};
 	
 	/**
 	 * A constructor for Invictus.

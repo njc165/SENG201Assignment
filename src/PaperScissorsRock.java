@@ -3,9 +3,9 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
- * Instances of PaperScissorsRock represent a minigame that
- * the player plays against villains. Each object represents
- * one minigame. Instances are created when a villain chooses
+ * An instance of PaperScissorsRock represents a minigame that
+ * the player can play against a villain. Each object represents
+ * one minigame. An instance is created a villain chooses
  * to play Paper Scissors Rock.
  */
 public class PaperScissorsRock extends MiniGame {

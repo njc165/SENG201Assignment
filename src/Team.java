@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 /**
  * Instances of Team represent teams of heroes in the game.
- * Every Team object has a number of associated Hero objects.
- * Every Team object is associated with exactly one Game object.
- * A Game is considered lost when the corresponding Team object
- * loses all of its Hero objects.
+ * Every Team object contains a number of associated Hero objects.
+ * Each instance of GameEnvironment has an associated Team object.
+ * A game is considered lost when the corresponding Team object
+ * loses all of its heroes.
  */
 public class Team {
 	

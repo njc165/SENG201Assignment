@@ -1,7 +1,7 @@
 /**
  * Instances of Bulwark represent a type of Hero that
- * can be played in the game. Bulwark heroes take reduced damage
- * when they lose a battle.
+ * can be played in the game. Bulwark heroes take reduced
+ * damage when they lose a battle.
  */
 public class Bulwark extends Hero {
 	
@@ -13,17 +13,19 @@ public class Bulwark extends Hero {
 	/**
 	 * A brief string description of the hero's special ability.
 	 */
-	private static final String SPECIAL_ABILITY = String.format("Takes %s%% less damage.",
-																(int) (100 - (Hero.DAMAGE_REDUCTION_MULTIPLIER * 100)));
+	private static final String SPECIAL_ABILITY = String.format(
+			"Takes %s%% less damage.",
+			(int) (100 - (Hero.DAMAGE_REDUCTION_MULTIPLIER * 100)));
 	
 	/**
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = String.format("Bulwarks are infamous masochists. It's really quite concerning."
-														  + " However, they provide useful protection against the wrath of evil villains."
-														  + "\n\nWhen a Bulwark loses a game, they take %s%% less damage.\n",
-														(int) (100 - (Hero.DAMAGE_REDUCTION_MULTIPLIER * 100)));
+	private static final String DESCRIPTION = String.format(
+			"Bulwarks are infamous masochists. It's really quite concerning."
+			+ " However, they provide useful protection against the wrath of evil villains."
+			+ "\n\nWhen a Bulwark loses a game, they take %s%% less damage.\n",
+			(int) (100 - (Hero.DAMAGE_REDUCTION_MULTIPLIER * 100)));
 	
 	/**
 	 * The maximum health the hero can have.

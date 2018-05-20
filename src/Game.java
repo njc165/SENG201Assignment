@@ -9,9 +9,9 @@ import java.awt.Component;
 import java.awt.BorderLayout;
 
 /**
- * Game objects represent entire playthroughs of the game. In any
- * playthrough of the game, exacty one Game object should be
- * created. They contain all components related to the game.
+ * A Game object is an application window containing
+ * all the components for a single game. A new Game object
+ * is created each time the game is run.
  */
 public class Game {
 	
@@ -59,9 +59,7 @@ public class Game {
 	 */
 	public Game() {
 		
-		MyFont.registerAll();
-//		UIManager.put("Panel.background", new Color(0, 0, 0));
-		
+		MyFont.registerAll();		
 		
 		initialize();
 	}

@@ -1,6 +1,7 @@
 /**
- * The Location enumerable contains information about
- * the locations in which Sectors could be located.
+ * The Location enumerable contains one value for each
+ * location in a city. A city object should associate each
+ * of these location with a particular sector.
  */
 public enum Location {
 	CENTRE("Centre"),

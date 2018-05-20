@@ -13,9 +13,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
- * Instances of DefeatPanel are components of Game objects.
- * They contain all components to be displayed at the end
- * of a lost game, and are shown when the game is lost.
+ * Instances of DefeatPanel are components of a Game window.
+ * A DefeatPanel is displayed at the end of a lost game, showing
+ * how long the game was played for.
  */
 public class DefeatPanel extends JPanel {
 	

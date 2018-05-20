@@ -13,9 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
- * Instances of VictoryPanel are components of Game objects.
- * They contain all components to be displayed at the
- * end of a won game, and are shown when the game is won.
+ * A VictoryPanel is shown in the CardLayout of the Game
+ * window when a game is won.
  */
 public class VictoryPanel extends JPanel {
 	

@@ -1,6 +1,6 @@
 /**
- * The MiniGameType enumerable contains information regarding all
- * types of minigame the player could be required to play to defeat
+ * The MiniGameType enumerable contains a value for each
+ * type of minigame the player could be required to play to defeat
  * villains.
  */
 public enum MiniGameType {

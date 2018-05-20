@@ -1,8 +1,7 @@
 /**
  * Instances of Apprentice represent a type of Hero that
- * can be played in the game. Each pbject represents one Hero.
- * Apprentice heroes use healing items twice as quickly as other
- * heroes.
+ * can be played in the game. Each object represents one Hero.
+ * Healing items heal Apprentices twice a fast as other heroes.
  */
 public class Apprentice extends Hero {
 	
@@ -20,10 +19,11 @@ public class Apprentice extends Hero {
 	 * An extended string description of the hero.
 	 * This description is shown to the player when selecting heroes for their team.
 	 */
-	private static final String DESCRIPTION = String.format("Being the slow learners that they are, Apprentices make a lot of mistakes and often injure themselves."
-														  + " Over time, they have become proficient at applying medication."
-														  + "\n\nHealing items applied to an Apprentice will be applied %s%% faster.\n",
-																(int) ((1 - Hero.FASTER_HEALING_MULTIPLIER) * 100));
+	private static final String DESCRIPTION = String.format(
+			"Being the slow learners that they are, Apprentices make a lot of mistakes and often injure themselves."
+			+ " Over time, they have become proficient at applying medication."
+			+ "\n\nHealing items applied to an Apprentice will be applied %s%% faster.\n",
+			(int) ((1 - Hero.FASTER_HEALING_MULTIPLIER) * 100));
 	
 	/**
 	 * The maximum health the hero can have.

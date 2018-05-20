@@ -21,10 +21,11 @@ import java.awt.BorderLayout;
 import javax.swing.JSlider;
 
 /**
- * Instances of SetUpPanel are components of Game objects.
- * They contain all components related to setting up a game,
- * including components to create a team, heroes, and cities.
- * SetUpPanel objects are shown at the start of a new Game.
+ * A SetUpPanel is a panel contained in the main CardLayout of
+ * the Game window. A SetUpPanel contains all components related to
+ * setting up a game, including creating a team, adding heroes, and
+ * choosing the number of cities to play. A SetUpPanel is shown
+ * whenever a new Game window is created.
  */
 public class SetUpPanel extends JPanel {
 

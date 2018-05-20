@@ -28,9 +28,10 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
 /**
- * Instances of ShopPanel are components of Game objects.
- * They contain all components associated with the in-game
- * shop, and are shown when the player enters the shop.
+ * A ShopPanel is a panel contained in the main CardLayout
+ * of the Game window. A ShopPanel contains all the components
+ * associated with the in-game shop, and is shown when the
+ * player enters the shop.
  */
 public class ShopPanel extends JPanel implements Refreshable {
 	

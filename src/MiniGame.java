@@ -4,7 +4,9 @@ import java.util.ArrayList;
  * Instances of MiniGame represent games that the player
  * can play to defeat villains. Each instance represents
  * one minigame. This class should never be instantiated
- * directly, but rather through its children.
+ * directly, but rather through its subclasses. The MiniGame
+ * class contains methods which are used by all three of its
+ * subclasses.
  */
 public abstract class MiniGame {
 	

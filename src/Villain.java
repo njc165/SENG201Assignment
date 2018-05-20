@@ -5,12 +5,11 @@ import java.util.Random;
 
 /**
  * Instances of the Villain class represent opponents the
- * player will face in the game. Each instance of Villain
- * should have a unique name.
+ * player will face in the game.
  * 
- * Outside of testing, Villain objects should never be created
- * directly. Instead, create instances of Villain children.
- * Each child class of Villain should be instantiated at most
+ * Outside of testing, the Villain class should not be instantiated
+ * directly, but rather through its subclasses.
+ * Each subclass of Villain should be instantiated at most
  * once to avoid duplicate encounters in the game.
  */
 public class Villain {

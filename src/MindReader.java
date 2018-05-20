@@ -1,7 +1,8 @@
 /**
- * MindReader instances represent a specific power-up type (Mindreader)
+ * MindReader instances represent a type of power-up
  * in the game. A new instance should be created whenever the team
- * receives a new Mindreader power-up.
+ * obtains a new Mindreader power-up, and destroyed once the
+ * power-up is used by a hero in a villain battle.
  */
 public class MindReader extends PowerUp {
 	

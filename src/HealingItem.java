@@ -3,9 +3,9 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * Instances of HealingItem represent healing items that
- * the player could obtain in the game. Outside of testing,
+ * the player can obtain in the game. Outside of testing,
  * this class should never be instantiated directly,
- * but rather through its children.
+ * but rather through one of its subclasses.
  */
 public class HealingItem {
 	
