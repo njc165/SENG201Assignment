@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * Instances of Hero represent heroes on a team. Each Hero object
  * represents one hero in the game. Hero should not be instantiated

@@ -25,17 +25,6 @@ public class Team {
 	private final int STARTING_MONEY = 50;
 	
 	/**
-	 * An ArrayList of power-ups currently owned and not applied,
-	 * initialised to empty.
-	 */
-	private ArrayList<PowerUp> powerUpsOwned = new ArrayList<PowerUp>();
-	
-	/**
-	 * An ArrayList of healing items currently owned and not applied.
-	 */
-	private ArrayList<HealingItem> healingItemsOwned = new ArrayList<HealingItem>();
-	
-	/**
 	 * All heroes currently on the team.
 	 * This ArrayList is populated when a Team is created and depopulated as heroes die.
 	 * The game is lost when this ArrayList becomes empty.
@@ -51,6 +40,17 @@ public class Team {
 	 * A String representing the name of the team.
 	 */
 	private String name;
+	
+	/**
+	 * An ArrayList of power-ups currently owned and not applied,
+	 * initialised to empty.
+	 */
+	private ArrayList<PowerUp> powerUpsOwned = new ArrayList<PowerUp>();
+	
+	/**
+	 * An ArrayList of healing items currently owned and not applied.
+	 */
+	private ArrayList<HealingItem> healingItemsOwned = new ArrayList<HealingItem>();
 		
 	/**
 	 * An integer representing the number of maps the team owns.

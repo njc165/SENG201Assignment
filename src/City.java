@@ -131,7 +131,8 @@ public class City {
 		currentSector.setDiscovered(true);
 	}
 
-	/** Gets the current sector of the city as a value of SectorType.
+	/**
+	 * Gets the current sector of the city as a value of SectorType.
 	 * @return	The current sector.
 	 */
 	public Sector getCurrentSector() {
