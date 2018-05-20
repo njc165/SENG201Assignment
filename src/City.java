@@ -16,6 +16,15 @@ import java.util.HashMap;
 public class City {
 	
 	/**
+	 * An array containing all the locations in the city except the HOME_BASE_LOCATION,
+	 * in the order in which they should be printed in the string representation of the city.
+	 */
+	public static final Location[] ORDERED_LOCATIONS = {Location.NORTH,
+														Location.EAST,
+														Location.SOUTH,
+														Location.WEST};
+	
+	/**
 	 * One of the values of Location, in which the home base is located by default.
 	 * This is the default starting location when a new city is created, and is 
 	 * always mapped to the home base in the sectorLocations HashMap.
@@ -26,15 +35,6 @@ public class City {
 	 * A SectorType object representing the home base sector type.
 	 */
 	private final SectorType HOME_BASE_SECTOR_TYPE = SectorType.HOME_BASE;
-	
-	/**
-	 * An array containing all the locations in the city except the HOME_BASE_LOCATION,
-	 * in the order in which they should be printed in the string representation of the city.
-	 */
-	private final Location[] ORDERED_LOCATIONS = {Location.NORTH,
-												  Location.EAST,
-												  Location.SOUTH,
-												  Location.WEST};
 
 	/**
 	 * The current location of the team as a Location object.
