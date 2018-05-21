@@ -59,7 +59,7 @@ public class Game {
 	 */
 	public Game() {
 		
-		MyFont.registerAll();		
+		Util.registerAllFonts();		
 		
 		initialize();
 	}

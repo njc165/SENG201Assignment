@@ -1,3 +1,8 @@
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
@@ -44,6 +49,29 @@ public class Util {
 			}
 		}
 		return selectedButton;
+	}
+	
+	/**
+	 * Registers all imported fonts used in the game.
+	 * This allows fonts to be consistently displayed across
+	 * Operating Systems.
+	 */
+	public static void registerAllFonts() {
+		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		
+		InputStream is = Util.class.getResourceAsStream("/font/ringbearer.ttf");
+		try {
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
+			is = Util.class.getResourceAsStream("/font/rock.ttf");
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
+			is = Util.class.getResourceAsStream("/font/tahoma.ttf");
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
+			
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

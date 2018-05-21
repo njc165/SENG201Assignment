@@ -144,7 +144,7 @@ public class Team {
 	 */
 	public void buyPowerUp(PowerUp powerUp) {
 		if (powerUp.getCost(numDiscountHeroes()) > currentMoney) {
-			throw new NotEnoughMoneyException("Not enough money to buy that power up");
+			throw new RuntimeException("Not enough money to buy that power up");
 		} else {
 			currentMoney -= powerUp.getCost(numDiscountHeroes());
 			powerUpsOwned.add(powerUp);
@@ -161,7 +161,7 @@ public class Team {
 	 */
 	public void buyHealingItem(HealingItem healingItem) {
 		if (healingItem.getCost(numDiscountHeroes()) > currentMoney) {
-			throw new NotEnoughMoneyException("Not enough money to buy that healing item");
+			throw new RuntimeException("Not enough money to buy that healing item");
 		} else {
 			currentMoney -= healingItem.getCost(numDiscountHeroes());
 			healingItemsOwned.add(healingItem);
@@ -175,7 +175,7 @@ public class Team {
 	 */
 	public void buyMap() {
 		if (Map.getCost(numDiscountHeroes()) > currentMoney) {
-			throw new NotEnoughMoneyException("Not enough money to buy a map");
+			throw new RuntimeException("Not enough money to buy a map");
 		} else {
 			currentMoney -= Map.getCost(numDiscountHeroes());
 			numMapsOwned++;
@@ -229,7 +229,7 @@ public class Team {
 		if (found) {
 			return itemToReturn;
 		} else {
-			throw new NoneOwnedException("No healing items with the given name owned.");
+			throw new RuntimeException("No healing items with the given name owned.");
 		}
 	}
 	
