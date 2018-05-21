@@ -99,7 +99,7 @@ class TeamTest {
 		boolean exceptionThrown = false;
 		try {
 			team.buyPowerUp(new TieBreaker());
-		} catch (NotEnoughMoneyException e) {
+		} catch (RuntimeException e) {
 			exceptionThrown = true;
 		}
 		assertTrue(exceptionThrown);
@@ -135,7 +135,7 @@ class TeamTest {
 		boolean exceptionThrown = false;
 		try {
 			team.buyHealingItem(new HeartyMeal());
-		} catch (NotEnoughMoneyException e) {
+		} catch (RuntimeException e) {
 			exceptionThrown = true;
 		}
 		assertTrue(exceptionThrown);
@@ -169,7 +169,7 @@ class TeamTest {
 		boolean exceptionThrown = false;
 		try {
 			team.buyMap();
-		} catch (NotEnoughMoneyException e) {
+		} catch (RuntimeException e) {
 			exceptionThrown = true;
 		}
 		assertTrue(exceptionThrown);
@@ -239,7 +239,7 @@ class TeamTest {
 		boolean exceptionThrown = false;
 		try {
 			returnedItem = team.healingItemOfGivenType("Hearty Meal");
-		} catch (NoneOwnedException e) {
+		} catch (RuntimeException e) {
 			exceptionThrown = true;
 		}
 		assertTrue(exceptionThrown);
