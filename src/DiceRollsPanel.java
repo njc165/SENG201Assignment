@@ -156,7 +156,7 @@ public class DiceRollsPanel extends JPanel {
 		JLabel lblResult = new JLabel("You have won!");
 		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblResult.setHorizontalAlignment(SwingConstants.CENTER);
-		lblResult.setBounds(10, 229, 444, 30);
+		lblResult.setBounds(10, 239, 444, 30);
 		contentPanel.add(lblResult);
 		if (diceRolls.getResult() == "Win") {
 			lblResult.setText("You have won!");
@@ -172,8 +172,8 @@ public class DiceRollsPanel extends JPanel {
 												"Your Gambler ability gives you a score of %s.",
 												diceRolls.getHeroRoll() + 1)));
 			txtpnGamblerAbility.setEditable(false);
-			txtpnGamblerAbility.setBackground(SystemColor.menu);
-			txtpnGamblerAbility.setBounds(10, 158, 250, 20);
+			txtpnGamblerAbility.setBackground(UIManager.getColor("Panel.background"));
+			txtpnGamblerAbility.setBounds(10, 158, 250, 30);
 			contentPanel.add(txtpnGamblerAbility);
 		}
 
@@ -182,7 +182,7 @@ public class DiceRollsPanel extends JPanel {
 			lblIncreaseRollImage.setBorder(new LineBorder(new Color(0, 0, 0)));
 			lblIncreaseRollImage.setIcon(new ImageIcon(DiceRollsPanel.class.getResource(
 											Image.powerUpImageFilepath(PowerUpType.INCREASE_ROLL, 25))));
-			lblIncreaseRollImage.setBounds(10, 188, 25, 25);
+			lblIncreaseRollImage.setBounds(10, 202, 25, 25);
 			contentPanel.add(lblIncreaseRollImage);
 			
 			String template = "";
@@ -196,7 +196,7 @@ public class DiceRollsPanel extends JPanel {
 			txtpnIncreaseRoll.setEditable(false);
 			txtpnIncreaseRoll.setBackground(UIManager.getColor("Panel.background"));
 			txtpnIncreaseRoll.setText(String.format(template, diceRolls.getHeroRoll() + diceRolls.getRollIncrease()));
-			txtpnIncreaseRoll.setBounds(45, 185, 187, 35);
+			txtpnIncreaseRoll.setBounds(45, 195, 187, 35);
 			contentPanel.add(txtpnIncreaseRoll);
 		}
 		

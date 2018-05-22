@@ -24,7 +24,7 @@ public class SuspiciousTonic extends HealingItem {
 	/**
 	 * The time in seconds per application of a SuspiciousTonic item.
 	 */
-	private static final long TIME_PER_INCREMENT = 300;
+	private static final long TIME_PER_INCREMENT = 100;
 	
 	/**
 	 * The cost of a SuspiciousTonic item, for the store.

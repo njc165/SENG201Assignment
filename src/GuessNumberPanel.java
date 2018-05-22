@@ -120,8 +120,8 @@ public class GuessNumberPanel extends JPanel {
 			JTextPane txtpnGambler = new JTextPane();
 			txtpnGambler.setText("Your Gambler special ability gives you 1 extra guess.");
 			txtpnGambler.setEditable(false);
-			txtpnGambler.setBackground(SystemColor.menu);
-			txtpnGambler.setBounds(56, 98, 310, 25);
+			txtpnGambler.setBackground(UIManager.getColor("Panel.background"));
+			txtpnGambler.setBounds(56, 81, 305, 34);
 			contentPanel.add(txtpnGambler);
 		}
 		
