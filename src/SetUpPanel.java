@@ -280,7 +280,7 @@ public class SetUpPanel extends JPanel {
 		txtfTeamName.setColumns(10);
 		
 		JLabel lblTeamNameErrorMessage = new JLabel("");
-		lblTeamNameErrorMessage.setBounds(447, 113, 403, 14);
+		lblTeamNameErrorMessage.setBounds(447, 113, 403, 15);
 		createTeamPanel.add(lblTeamNameErrorMessage);
 		
 		JLabel lblChooseNumHeroes = new JLabel("How many heroes would you like on your team?");
@@ -429,7 +429,7 @@ public class SetUpPanel extends JPanel {
 				} else if (heroName.length() < Hero.MIN_HERO_NAME_LENGTH
 						|| heroName.length() > Hero.MAX_HERO_NAME_LENGTH) {
 					lblInvalidNameErrorMessage.setText(String.format(
-							"Name must be between %s and %s characters.",
+							"Required: %s-%s characters.",
 							Hero.MIN_HERO_NAME_LENGTH,
 							Hero.MAX_HERO_NAME_LENGTH));
 									

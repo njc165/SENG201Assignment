@@ -69,6 +69,7 @@ public class Game {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Heroes and Villains");
 		frame.setResizable(false);
 		frame.setBounds(200, 50, 900, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
