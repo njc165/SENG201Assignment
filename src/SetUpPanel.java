@@ -327,7 +327,7 @@ public class SetUpPanel extends JPanel {
 				if (teamName.length() < Team.MIN_TEAM_NAME_LENGTH
 						|| teamName.length() > Team.MAX_TEAM_NAME_LENGTH) {
 					lblTeamNameErrorMessage.setText(String.format(
-							"Team name must be between %s and %s characters long.",
+							"Must be between %s and %s characters.",
 							Team.MIN_TEAM_NAME_LENGTH,
 							Team.MAX_TEAM_NAME_LENGTH));
 
@@ -424,12 +424,12 @@ public class SetUpPanel extends JPanel {
 				String type = (String) cmbHeroTypes.getSelectedItem();
 				
 				if (!team().isUniqueHeroName(heroName)) {
-					lblInvalidNameErrorMessage.setText("That name is already taken by another hero.");
+					lblInvalidNameErrorMessage.setText("That name is already taken.");
 					
 				} else if (heroName.length() < Hero.MIN_HERO_NAME_LENGTH
 						|| heroName.length() > Hero.MAX_HERO_NAME_LENGTH) {
 					lblInvalidNameErrorMessage.setText(String.format(
-							"Required: %s-%s characters.",
+							"Must be %s to %s characters.",
 							Hero.MIN_HERO_NAME_LENGTH,
 							Hero.MAX_HERO_NAME_LENGTH));
 									

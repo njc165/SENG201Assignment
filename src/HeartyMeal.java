@@ -25,7 +25,7 @@ public class HeartyMeal extends HealingItem {
 	/**
 	 * The time in seconds per application of a HeartyMeal item.
 	 */
-	private static final long TIME_PER_INCREMENT = 180;
+	private static final long TIME_PER_INCREMENT = 60;
 	
 	/**
 	 * The cost of a HeartyMeal item, for the store.

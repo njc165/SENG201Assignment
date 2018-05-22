@@ -324,6 +324,7 @@ public class HospitalPanel extends JPanel implements Refreshable {
 						(int) (incrementsRemaining * HealingItem.INCREMENT_SIZE * 100),
 						healingItem.secondsRemaining()));
 				txtpnStatusDescription.setBounds(20, 346, 175, 114);
+				txtpnStatusDescription.setEditable(false);
 				heroPanel.add(txtpnStatusDescription);
 				
 			} else {
